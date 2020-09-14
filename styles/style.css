@@ -10,13 +10,10 @@ li {
     float: left;
 }
 
-iframe {
-    border: 0px solid black;
-    width: 100%;
-}
 
 li a,
 .dropbtn {
+    background-color: #333;
     display: inline-block;
     color: white;
     text-align: center;
@@ -24,41 +21,46 @@ li a,
     text-decoration: none;
 }
 
-li a:hover,
-.dropdown:hover .dropbtn {
-    background-color: black;
-}
-
-li.dropdown {
-    display: inline-block;
-}
-
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-    background-color: #111;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #333;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.topnav .search-container {
+.topNavigationBar .search-container {
     float: right;
 }
 
-.topnav input[type=text] {
+.topNavigationBar input[type=text] {
     padding: 6px;
     margin-top: 8px;
     font-size: 17px;
     border: none;
 }
 
-.topnav .search-container button {
+.topNavigationBar .search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.SystemContentView .systems-content-view button {
+    padding: 6px 10px;
+    margin-bottom: 8px;
+    background: #ddd;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.SystemContentView .system-overview-buttons button {
+
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.topNavigationBar .search-container button {
     float: right;
     padding: 6px 10px;
     margin-top: 8px;
@@ -69,25 +71,11 @@ li a:hover {
     cursor: pointer;
 }
 
-.topnav .search-container button:hover {
+.topNavigationBar .search-container button:hover {
     background: #ccc;
 }
 
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
 
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 
 table {
     font-family: arial, sans-serif;
@@ -105,4 +93,3 @@ th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
-
