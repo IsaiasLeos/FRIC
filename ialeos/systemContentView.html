@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../styles/style.css">
     <title>F.R.I.C.</title>
 </head>
@@ -13,7 +12,7 @@
     <header>
         <nav>
             <ul>
-                <div class="topnav">
+                <div class="topNavigationBar">
                     <li><a href="#">Event</a></li>
                     <li><a href="ialeos/systemContentView.html">System Content</a></li>
                     <li><a href="#">Tasks</a></li>
@@ -34,8 +33,15 @@
         </nav>
     </header>
 
-    <div id="systemOverviewTable">
+
+    <div class="SystemContentView">
         <h2>System Overview Table</h2>
+        <div class="systems-content-view">
+            <button type="Archive"><i class="fa fa-archive"></i></button>
+            <button type="Save"><i class="fa fa-save"></i></button>
+            <button type="Cancel"><i class="fa fa-close"></i></button>
+        </div>
+
         <table>
             <tr>
                 <th>System</th>
@@ -68,10 +74,51 @@
                 <td></td>
             </tr>
         </table>
+        <div class="system-overview-buttons">
+            <button type="Add"><i class="fa fa-plus"></i></button>
+        </div>
     </div>
-    <div id="systemDetailedTable">
+    <div class="systemDetailedTable" id="systemDetailedTable">
+        <h2>System Detailed View</h2>
+        <i class="fas fa-info"></i>
+        <h3>System Detailed View</h3>
+        <div class="systemDetailedTextLabels">
+            <form action="">
+                <label for="systemName">System Information</label>
+                <input type="text" id="systemName" name="systemName"><br><br>
 
-    </div>
+                <label for="systemDescription">System Description</label>
+                <input type="text" id="systemDescription" name="systemDescription"><br><br>
+
+                <label for="systemLocation">System Location</label>
+                <input type="text" id="systemLocation" name="systemLocation"><br><br>
+
+                <label for="systemRouter">System Router</label>
+                <input type="text" id="systemRouter" name="systemRouter"><br><br>
+
+                <label for="systemSwitch">System Switch</label>
+                <input type="text" id="systemSwitch" name="systemSwitch"><br><br>
+
+                <label for="systemRooom">System Room</label>
+                <input type="text" id="systemRooom" name="systemRooom"><br><br>
+
+                <label for="testPlan">Test Plan</label>
+                <input type="text" id="testPlan" name="testPlan"><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+
+
+        </div>
+
+
+        <button class="dropbtn">Confidentiality</button>
+
+        <button class="dropbtn">Integrity</button>
+
+        <button class="dropbtn">Availability</button>
+
+
 
 </body>
 
