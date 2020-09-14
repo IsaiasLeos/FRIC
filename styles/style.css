@@ -89,10 +89,6 @@ li a:hover {
     display: block;
 }
 
-.table2 {
-    float: right;
-}
-
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -109,3 +105,4 @@ th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>F.R.I.C.</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <div class="topnav">
+                    <li><a href="#">Event</a></li>
+                    <li><a href="ialeos/systemContentView.html">System Content</a></li>
+                    <li><a href="#">Tasks</a></li>
+                    <li><a href="#">Subtasks</a></li>
+                    <li><a href="#">Finding</a></li>
+                    <li><a href="#">Archive</a></li>
+                    <li><a href="#">Configuration</a></li>
+                    <li><a href="#">Setup</a></li>
+                    <li><a href="#">Help</a></li>
+                    <div class="search-container">
+                        <form action="/action_page.php">
+                            <input type="text" placeholder="Search.." name="search">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Analyst Progress Summary View</h1>
+
+    <div class="flex-container">
+        <div id="piechart" class="flex-child right">
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', {
+                    'packages': ['corechart']
+                });
+                google.charts.setOnLoadCallback(drawChart);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Chart', ''],
+                        ['Task', 5],
+                        ['Subtask', 2],
+                        ['System', 4],
+                        ['Findings', 3]
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = {
+                        'title': 'Overall Analyst Progress',
+                        'width': 550,
+                        'height': 400
+                    };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+            </script>
+        </div>
+        <div id="tableSummary" class="flex-child left">
+            <div id="systemTable">
+                <h2>System Table</h2>
+                <table>
+                    <tr>
+                        <th>System</th>
+                        <th>No. of Task</th>
+                        <th>No. Findings</th>
+                        <th>Progress</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="taskTable">
+                <h2>Task Table</h2>
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>Task</th>
+                        <th>Analyst</th>
+                        <th>Progress</th>
+                        <th>No. of Findings</th>
+                        <th>Due Date</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="subtaskTable">
+                <h2>Subtask Table</h2>
+
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>Task</th>
+                        <th>Analyst</th>
+                        <th>Progress</th>
+                        <th>No. of Findings</th>
+                        <th>Due Date</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="findingTable">
+                <h2>Finding Table</h2>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>System</th>
+                        <th>Task</th>
+                        <th>Subtask</th>
+                        <th>Subtask</th>
+                        <th>Analyst</th>
+                        <th>Status</th>
+                        <th>Classification</th>
+                        <th>Type</th>
+                        <th>Risk</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sortTable() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("findingTable");
+            switching = true;
+            /*Make a loop that will continue until
+            no switching has been done:*/
+            while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /*Loop through all table rows (except the
+                first, which contains table headers):*/
+                for (i = 1; i < (rows.length - 1); i++) {
+                    //start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+                    //check if the two rows should switch place:
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    /*If a switch has been marked, make the switch
+                    and mark that a switch has been done:*/
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>
