@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../code/styles.css">
+    <title>F.R.I.C.</title>
+</head>
+
+<body>
+
+    <a href="#" onclick="show('notify1')">"Notifcation"</a>
+    <div class="notification" id="notify1">
+        <h1> Notification</h1>
+        <body>
+            <div class="form">
+                <label>Task Title</label>
+                <input type="text" name="tTitle">
+        
+                <label>Task Due Date</label>
+                <input type="text" name="tDate">
+
+                <label>Subtask Title</label>
+                <input type="text" name="sTitle">
+
+                <label>Subtask Due Date</label>
+                <input type="text" name="sDate">
+            </div>
+            <div class="ext" id="ex">
+                <a href="#" onclick="hide('notify1')"> Ok!</a>
+            </div>
+        </body>
+    </div>
+
+
+    <script>
+        $ = function (id) { return document.getElementById(id);
+        };
+
+        var show = function (id) {$(id).style.display = "block";
+        };
+
+        var hide = function (id) {$(id).style.display = "none";
+        };
+    </script>
+
+</body>
+</html>
