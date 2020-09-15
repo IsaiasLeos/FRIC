@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Tasks</title>
+</head>
+<body>
+    <header>
+        <nav class="topNavigationBarLook">
+            <ul>
+                <div class="topNavigationBar">
+                    <li><a href="#">Event</a></li>
+                    <li><a href="#">System Content</a></li>
+                    <li><a href="#">Tasks</a></li>
+                    <li><a href="#">Subtasks</a></li>
+                    <li><a href="#">Finding</a></li>
+                    <li><a href="#">Archive</a></li>
+                    <li><a href="#">Configuration</a></li>
+                    <li><a href="#">Setup</a></li>
+                    <li><a href="#">Help</a></li>
+                    <div class="search-container">
+                        <form action="/action_page.php">
+                            <input type="text" placeholder="Search.." name="search">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="task-overview">
+            <h2>Task Overview Table</h2>
+            <div class="buttons">
+                <input type="button" name="" id="" value="Archive">
+                <input type="button" name="" id="" value="Demote">
+                <input type="button" name="" id="" value="Save">
+                <input type="button" name="" id="" value="Cancel">
+            </div>
+            <table>
+                <tr>
+                    <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></th>
+                    <th>Title </th> <!--Do not forget to put arrow next to title -->
+                    <th>System</th><!--Do not forget to put arrow next to title -->
+                    <th>Analyst</th>
+                    <th>Priority</th><!--Do not forget to put arrow next to title -->
+                    <th>Progress</th><!--Do not forget to put arrow next to title -->
+                    <th>No. of Subtasks</th>
+                    <th>No. of Findings</th><!--Do not forget to put arrow next to title -->
+                    <th>Due Date</th><!--Do not forget to put arrow next to title -->
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task1" name="task1" value="1"></td>
+                    <td class="column2"></td>
+                    <td class="column3"></td>
+                    <td class="column4"></td>
+                    <td class="column5"></td>
+                    <td class="column6"></td>
+                    <td class="column7"></td>
+                    <td class="column8"></td>
+                    <td class="column9"></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task2" name="task2" value="2"></td>
+                    <td class="column2"></td>
+                    <td class="column3"></td>
+                    <td class="column4"></td>
+                    <td class="column5"></td>
+                    <td class="column6"></td>
+                    <td class="column7"></td>
+                    <td class="column8"></td>
+                    <td class="column9"></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task3" name="task3" value="3"></td>
+                    <td class="column2"></td>
+                    <td class="column3"></td>
+                    <td class="column4"></td>
+                    <td class="column5"></td>
+                    <td class="column6"></td>
+                    <td class="column7"></td>
+                    <td class="column8"></td>
+                    <td class="column9"></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task4" name="task4" value="4"></td>
+                    <td class="column2"></td>
+                    <td class="column3"></td>
+                    <td class="column4"></td>
+                    <td class="column5"></td>
+                    <td class="column6"></td>
+                    <td class="column7"></td>
+                    <td class="column8"></td>
+                    <td class="column9"></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task5" name="task5" value="5"></td>
+                    <td class="column2"></td>
+                    <td class="column3"></td>
+                    <td class="column4"></td>
+                    <td class="column5"></td>
+                    <td class="column6"></td>
+                    <td class="column7"></td>
+                    <td class="column8"></td>
+                    <td class="column9"></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task6" name="task1" value="6"></td>
+                    <td class="column2"></td>
+                    <td class="column3"></td>
+                    <td class="column4"></td>
+                    <td class="column5"></td>
+                    <td class="column6"></td>
+                    <td class="column7"></td>
+                    <td class="column8"></td>
+                    <td class="column9"></td>
+                </tr>
+            </table>
+            <button type="add"><i class="fa fa-plus"></i></button>
+        </section>
+        <section id="task-detailedview">
+            <h2>Task Detailed view</h2>
+            <div>
+                <button type="help"><i class="fas fa-question"></i></button>
+                <label for="taskTitle">Title</label><input type="text" name="Title" id="task-title">
+                <label for="taskDescription">Description</label><input type="text" name="" id="">
+                <label for="taskSystem">System</label><input type="text" name="" id="">
+                <label for="taskPriority">Priority</label><input type="text" name="" id="">
+                <label for="taskProgress">Progress</label><input type="text" name="" id="">
+                <label for="taskDuedate">Due Date</label><input type="text" name="" id="">
+                <label for="taskAnalyst">Analyst</label><input type="text" name="" id="">
+                <label for="taskCollaborators">Collaborator(s)</label><input type="text" name="" id="">
+                <label for="relatedTask">Related Task</label><input type="text" name="" id="">
+                <label for="taskAttachments">Attachments</label><input type="text" name="" id="">
+            </div>
+        </section>
+        <div class="clear"></div>
+    </main>
+    
+</body>
+</html>
