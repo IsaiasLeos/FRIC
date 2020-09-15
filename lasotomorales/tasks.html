@@ -126,15 +126,64 @@
             <div>
                 <button type="help"><i class="fas fa-question"></i></button>
                 <label for="taskTitle">Title</label><input type="text" name="Title" id="task-title">
-                <label for="taskDescription">Description</label><input type="text" name="" id="">
-                <label for="taskSystem">System</label><input type="text" name="" id="">
-                <label for="taskPriority">Priority</label><input type="text" name="" id="">
-                <label for="taskProgress">Progress</label><input type="text" name="" id="">
+                <label for="taskDescription">Description</label><input type="text" name="Description" id="description">
+                <label for="taskSystem">System</label>
+                <select name="System" id="system-dropdown">
+                    <option value="default" selected="selected"></option>
+                    <option value="System1">System 1</option>
+                    <option value="System2">System 2</option>
+                    <option value="System3">System 3</option>
+                    <option value="System4">System 4</option>
+                </select>
+                <label for="taskPriority">Priority</label>
+                <select name="priority" id="priority-dropdown">
+                    <option value="default" selected="selected"></option>
+                    <option value="#">#</option>
+                    <option value="#">#</option>
+                    <option value="#">#</option>
+                    <option value="#">Analyst 4</option>
+                </select>
+                <label for="taskProgress">Progress</label>
+                <select name="progress" id="progress-dropdown">
+                    <option value="default" selected="selected"></option>
+                    <option value="#">#</option>
+                    <option value="#">#</option>
+                    <option value="#">#</option>
+                    <option value="#">#</option>
+                </select>
                 <label for="taskDuedate">Due Date</label><input type="text" name="" id="">
-                <label for="taskAnalyst">Analyst</label><input type="text" name="" id="">
-                <label for="taskCollaborators">Collaborator(s)</label><input type="text" name="" id="">
+                <label for="taskAnalysts">Analyst(s)</label>
+                <select name="analyst" id="analyst-dropdown">
+                    <option value="default" selected="selected"></option>
+                    <option value="analyst1">Analyst 1</option>
+                    <option value="analyst2">Analyst 2</option>
+                    <option value="analyst3">Analyst 3</option>
+                    <option value="analyst4">Analyst 4</option>
+                </select>
+                <label for="taskCollaborators">Collaborator(s)</label>
+                <select name="collaborator" id="collaborator-dropdown">
+                    <option value="default" selected="selected"></option>
+                    <option value="collaborator1">Collaborator 1</option>
+                    <option value="collaborator2">Collaborator 2</option>
+                    <option value="collaborator3">Collaborator 3</option>
+                    <option value="collaborator4">Collaborator 4</option>
+                </select>
                 <label for="relatedTask">Related Task</label><input type="text" name="" id="">
-                <label for="taskAttachments">Attachments</label><input type="text" name="" id="">
+                <select name="collaborator" id="collaborator-dropdown">
+                    <option value="default" selected="selected"></option>
+                    <option value="relatedTask1">Task 1</option>
+                    <option value="relatedTask2">Task 2</option>
+                    <option value="relatedTask3">Task 3</option>
+                    <option value="relatedTask4">Task 4</option>
+                </select>
+                <label for="taskAttachments">Attachments</label>
+                <select name="collaborator" id="collaborator-dropdown">
+                    <option value="default" selected="selected"></option>
+                    <option value="relatedTask1">Task 1</option>
+                    <option value="relatedTask2">Task 2</option>
+                    <option value="relatedTask3">Task 3</option>
+                    <option value="relatedTask4">Task 4</option>
+                </select>
             </div>
         </section>
         <div class="clear"></div>
