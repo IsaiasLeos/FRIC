@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../styles/style.css">
     <title>F.R.I.C.</title>
 </head>
 
 <body>
     <header>
-        <nav>
+        <nav class="topNavigationBarLook">
             <ul>
                 <div class="topNavigationBar">
                     <li><a href="#">Event</a></li>
@@ -32,6 +34,8 @@
             </ul>
         </nav>
     </header>
+
+
 
     <h1>Analyst Progress Summary View</h1>
 
@@ -70,6 +74,53 @@
                 }
             </script>
         </div>
+
+        <div class="relative">
+            <div class="treeview">
+                <h3>Event Tree View</h3>
+                <ul id="myUL">
+                    <li><span class="caret">Event</span>
+                        <ul class="nested">
+                            <li><span class="caret">System 1</span>
+                                <ul class="nested">
+                                    <li><span class="caret">Task 1</span>
+                                        <ul class="nested">
+                                            <li><span class="caret">Subtask 1</span>
+                                                <ul class="nested">
+                                                    <li>Finding 1</li>
+                                                    <li>Finding 2</li>
+                                                </ul>
+                                            </li>
+                                            <li>Subtask 2</li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="caret">Task 2</span>
+                                        <ul class="nested">
+                                            <li>Finding 3</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>System 2
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            var toggler = document.getElementsByClassName("caret");
+            var i;
+
+            for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("caret-down");
+                });
+            }
+        </script>
+
         <div id="tableSummary" class="flex-child left">
             <div id="systemTable">
                 <h2>System Table</h2>
