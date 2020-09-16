@@ -205,3 +205,15 @@ div.relative {
     font-size: 40px;
     margin-left: 20px;
 }
+.helpIcon{
+    align-content: flex-end;
+    width: 20px;
+    height: 20px;
+    
+}
+.helpIconSmall{
+    align-content: flex-end;
+    width: 15px;
+    height: 15px;
+    
+}
