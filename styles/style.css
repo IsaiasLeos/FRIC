@@ -1,53 +1,226 @@
-*{
+.topNavigationBarLook ul {
+    list-style-type: none;
     margin: 0;
-    padding: 0; 
-    box-sizing: border-box;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
 }
 
-nav{
-    min-height: 8vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-family: 'Do Hyeon', sans-serif;
-}
-.nav{
-    display: flex; 
-    margin-top: 20px;
-    width: 50vw;
-
+.topNavigationBar li {
+    float: left;
 }
 
-ul{
-    list-style: none;
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
 
-li a{
-    text-decoration: none;
-    color: black;  
-    text-shadow: 0 -1px 0 #000;
-    padding: 10px;
-    display: block;
-    text-align: center;
-
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-li a:hover{
-    color:white;
-    background-color:black;
-}
-
-li+ul{
+.dropdown-content {
+    display: none;
     position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
-.submenu>ul{
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.topNavigationBar li a,
+.dropbtn {
+    background-color: #333;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topNavigationBar .search-container {
+    float: right;
+}
+
+.topNavigationBar input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+}
+
+.topNavigationBar .search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.SystemContentView .systems-content-view button {
+    padding: 6px 10px;
+    margin-bottom: 8px;
+    background: #ddd;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.SystemContentView .system-overview-buttons button {
+
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.topNavigationBar .search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.topNavigationBar .search-container button:hover {
+    background: #ccc;
+}
+
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+.treeview ul,
+#myUL {
+    list-style-type: none;
+    background-color: white;
+}
+
+#myUL {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+.treeview .caret {
+    cursor: pointer;
+    user-select: none;
+}
+
+.treeview .caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.treeview .caret-down::before {
+    transform: rotate(90deg);
+}
+
+.nested {
     display: none;
 }
-.submenu:hover>ul{
-    display: block;
 
+
+.active {
+    display: block;
 }
 
 
+div.relative {
+    position: relative;
+    float: right;
+}
 
+dd {
+    margin-left: 20px;
+}
+ 
+.notification{
+    display: none;
+    position: fixed;
+    padding: 10px;
+    width: 400px;
+    left: 50%;
+    margin-left: -250px;
+    height: 200px;
+    top: 50%;
+    margin-top: -100px;
+    background: rgb(187, 178, 178);
+    z-index: 20;
+  }
 
+  #notify1 {
+    -webkit-box-shadow:  0px 0px 0px 9999px rgba(226, 214, 214, 0.5);
+    box-shadow:  0px 0px 0px 9999px rgba(226, 214, 214, 0.5);
+  }
+
+    .form {
+        margin: 0 auto; 
+        width: 290px;
+    }
+
+    .form label{
+        display: block;
+        text-align: right;
+        float: left;
+    }
+
+    .form input{
+        display: block;
+        text-align: left;
+        float: right;
+    }
+
+    .ext{
+        position: absolute;
+        right:    0;
+        bottom:   0;
+    }
