@@ -1,3 +1,9 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
 .topNavigationBarLook ul {
     list-style-type: none;
     margin: 0;

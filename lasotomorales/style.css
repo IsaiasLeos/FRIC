@@ -138,7 +138,6 @@ main{
     justify-content: center;
 }
 
-/* ------------------------------------------ */
 .task-details input{
     display: block;
     width: 300px;
@@ -179,7 +178,6 @@ input[type="button"]{
     clear: both;
 }
 
-/* ------------------------------------------ */
 #subtask-overview{
     width: 60vw;
     margin-left: 50px;
