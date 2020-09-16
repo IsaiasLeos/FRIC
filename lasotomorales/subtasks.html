@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/c57ccc7dd4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>subtasks</title>
+</head>
+<body>
+    <header>
+        <nav class="topNavigationBarLook">
+            <ul>
+                <div class="topNavigationBar">
+                    <li><a href="#">Event</a></li>
+                    <li><a href="#">System Content</a></li>
+                    <li><a href="#">subtasks</a></li>
+                    <li><a href="#">Subsubtasks</a></li>
+                    <li><a href="#">Finding</a></li>
+                    <li><a href="#">Archive</a></li>
+                    <li><a href="#">Configuration</a></li>
+                    <li><a href="#">Setup</a></li>
+                    <li><a href="#">Help</a></li>
+                    <div class="search-container">
+                        <form action="/action_page.php">
+                            <input type="text" placeholder="Search.." name="search">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="subtask-overview">
+            <h2>Subtask Overview Table</h2>
+            <div class="buttons">
+                <form action="">
+                    <input type="button" name="" id="" value="Archive">
+                    <input type="button" name="" id="" value="Promote">
+                    <input type="button" name="" id="" value="Save">
+                    <input type="button" name="" id="" value="Cancel">
+                </form>
+
+            </div>
+            <table>
+                <tr>
+                    <th><input type="checkbox" id="all-subtasks" name="all-subtasks" value="0"></th>
+                    <th>Title<i class="fas fa-arrow-down"></i> </th> 
+                    <th>Task<i class="fas fa-arrow-down"></i></th>
+                    <th>Analyst<i class="fas fa-arrow-down"></i></th>
+                    <th>Progress<i class="fas fa-arrow-down"></i></th>
+                    <th>No. of Findings<i class="fas fa-arrow-down"></i></th>
+                    <th>Due Date<i class="fas fa-arrow-down"></i></th>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask1" name="subtask1" value="1"></td>
+                    <td class="column2">Title 1</td>
+                    <td class="column3">Task 1</td>
+                    <td class="column4">Analyst 1</td>
+                    <td class="column5">Not started</td>
+                    <td class="column6">1</td>
+                    <td class="column7">25/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask2" name="subtask2" value="2"></td>
+                    <td class="column2">Title 2</td>
+                    <td class="column3">Task 2</td>
+                    <td class="column4">Analyst 2</td>
+                    <td class="column5">Complete</td>
+                    <td class="column6">1</td>
+                    <td class="column7">22/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask3" name="subtask3" value="3"></td>
+                    <td class="column2">Title 3</td>
+                    <td class="column3">Task 3</td>
+                    <td class="column4">Analyst 3</td>
+                    <td class="column5">In progress</td>
+                    <td class="column6">3</td>
+                    <td class="column7">18/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask3" name="subtask3" value="3"></td>
+                    <td class="column2">Title 4</td>
+                    <td class="column3">Task 4</td>
+                    <td class="column4">Analyst 4</td>
+                    <td class="column5">transfered</td>
+                    <td class="column6">0</td>
+                    <td class="column7">21/10/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask5" name="subtask5" value="5"></td>
+                    <td class="column2">Title 5</td>
+                    <td class="column3">Task 5</td>
+                    <td class="column4">Analyst 5</td>
+                    <td class="column5">Completed</td>
+                    <td class="column6">1</td>
+                    <td class="column7">10/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask6" name="subtask1" value="6"></td>
+                    <td class="column2">Title 6</td>
+                    <td class="column3">Task 6</td>
+                    <td class="column4">Analyst 6</td>
+                    <td class="column5">Not applicable</td>
+                    <td class="column6">2</td>
+                    <td class="column7">25/10/2020</td>
+                </tr>
+            </table>
+            <button type="add"><i class="fa fa-plus"></i></button>
+        </section>
+        <section id="subtask-detailedview">
+            <div class="subtask-details">
+                <h2>Subtask Detailed View</h2>
+                <button type="button" class="help"><i class="fas fa-question"></i></button>
+                <form action="" class="form">
+                    <label for="subtaskTitle">
+                        Title:
+                        <input type="text" name="Title" id="subtask-title">
+                    </label><br>
+                    <label for="subtaskDescription">
+                        Description:
+                        <input type="text" name="Description" id="description">
+                    </label><br>
+                    <label for="subtaskProgress">
+                        Progress:
+                        <select name="progress" id="progress-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="notStarted">Not started</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="transfered">Transfered</option>
+                            <option value="inProgress">In progress</option>
+                            <option value="complete">Complete</option>
+                            <option value="notApplicable">Not applicable</option>
+                        </select>
+                    </label><br>
+                    <label for="subtaskDuedate">
+                        Due Date:
+                        <input type="date" id="due-date" name="dueDate">
+                    </label><br>
+                    <label for="subtaskAnalysts">
+                        Analyst(s):
+                        <select name="analyst" id="analyst-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="analyst1">Analyst 1</option>
+                            <option value="analyst2">Analyst 2</option>
+                            <option value="analyst3">Analyst 3</option>
+                            <option value="analyst4">Analyst 4</option>
+                        </select>
+                    </label><br>
+                    <label for="subtaskCollaborators">
+                        Collaborator(s):
+                        <select name="collaborator" id="collaborator-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="collaborator1">Collaborator 1</option>
+                            <option value="collaborator2">Collaborator 2</option>
+                            <option value="collaborator3">Collaborator 3</option>
+                            <option value="collaborator4">Collaborator 4</option>
+                        </select>
+                    </label><br>
+                    <label for="tasks">
+                        Task(s):
+                        <select name="tasks" id="task-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="task1">Task 1</option>
+                            <option value="task2">Task 2</option>
+                            <option value="task3">Task 3</option>
+                            <option value="task4">Task 4</option>
+                            <option value="task5">Task 5</option>
+                            <option value="task6">Task 6</option>
+                        </select>
+                    </label><br>
+                    <label for="subtasks">
+                        Subtask(s):
+                        <select name="subtasks" id="subtask-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="subtask1">Subtask 1</option>
+                            <option value="subtask2">Subtask 2</option>
+                            <option value="subtask3">Subtask 3</option>
+                            <option value="subtask4">Subtask 4</option>
+                            <option value="subtask5">Subtask 5</option>
+                            <option value="subtask5">Subtask 6</option>
+                        </select>
+                    </label><br>
+                    <label for="attachments">
+                        Attachments:
+                        <select name="attachments" id="attachment-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="subtaskAttachment1">Attachment 1</option>
+                            <option value="subtaskAttachment2">Attachment 2</option>
+                            <option value="subtaskAttachment3">Attachment 3</option>
+                            <option value="subtaskAttachment4">Attachment 4</option>
+                        </select>
+                    </label><br>
+                </form>
+
+            </div>
+        </section>
+        <div class="clear"></div>
+    </main>
+    
+</body>
+</html>

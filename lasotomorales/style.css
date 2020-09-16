@@ -126,16 +126,33 @@ main{
     margin-top: 30px;
 }
 #task-overview{
-    width: 50vw;
+    width: 60vw;
+    margin-left: 50px;
     float: left;
     text-align: center;
 }
 #task-detailedview{
     float: left;
-    width: 50vw;
-    text-align: center;
-
+    width: 30vw;
+    display: flex;
+    justify-content: center;
 }
+
+/* ------------------------------------------ */
+.task-details input{
+    display: block;
+    width: 300px;
+}
+.task-details select{
+    display: block;
+    width: 300px;
+}
+.task-details button[class="help"]{
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+}
+
 table{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -160,5 +177,33 @@ input[type="button"]{
 }
 .clear{
     clear: both;
+}
+
+/* ------------------------------------------ */
+#subtask-overview{
+    width: 60vw;
+    margin-left: 50px;
+    float: left;
+    text-align: center;
+}
+#subtask-detailedview{
+    float: left;
+    width: 30vw;
+    display: flex;
+    justify-content: center;
+}
+
+.subtask-details input{
+    display: block;
+    width: 300px;
+}
+.subtask-details select{
+    display: block;
+    width: 300px;
+}
+.subtask-details button[class="help"]{
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
 }
 
