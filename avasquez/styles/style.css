@@ -121,13 +121,14 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 50%;
+    width: 85%;
 }
 
 td,
 th {
     border: 1px solid #dddddd;
     text-align: left;
+    width: auto;
     padding: 8px;
 }
 
@@ -177,4 +178,15 @@ tr:nth-child(even) {
 div.relative {
     position: relative;
     float: right;
+}
+
+
+.upDown{
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+
 }
