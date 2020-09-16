@@ -4,24 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../code/styles.css">
+    <link rel="stylesheet" href="../styles/style.css">
     <title>F.R.I.C.</title>
 </head>
 
 <body>
     <header>
-        <nav>
+        <nav class="topNavigationBarLook">
             <ul>
-                <div class="topnav">
-                    <li><a href="#">Event</a></li>
-                    <li><a href="systemContentView.html">System Content</a></li>
-                    <li><a href="#">Tasks</a></li>
-                    <li><a href="#">Subtasks</a></li>
-                    <li><a href="#">Finding</a></li>
-                    <li><a href="#">Archive</a></li>
-                    <li><a href="configurationContentView.html">Configuration</a></li>
-                    <li><a href="setupContentView.html">Setup</a></li>
+                <div class="topNavigationBar">
+                    <li><a href="../aclanan/eventContentView.html">Event</a></li>
+                    <li><a href="../ialeos/systemContentView.html">System Content</a></li>
+                    <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
+                    <li><a href="">Subtasks</a></li>
+                    <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
+                    <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
+                    <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
+                    <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
                     <li><a href="#">Help</a></li>
                     <div class="search-container">
                         <form action="/action_page.php">
@@ -36,9 +37,13 @@
 
     <h2>"Finding Report Information Console (FRIC)"</h2>
 
+    <style> 
+        h2 {text-align: center;}        
+    </style>
+
     <form>
-        <label for="question"> 
-  	        "There is no exsisting event in your local system"
+        <label for="question">
+            "There is no exsisting event in your local system"
         </label><br>
         <input type="text" id="question" name="question"><br><br>
         <label for="question_two"> "Please enter your intials"</label><br>
@@ -50,17 +55,18 @@
     </dl>
 
     <form>
-	    <input type="checkbox" id="c1" name="c1" value="c1">
-  	    <label for="c1"> "Create a new event (any exsisting event will be archived)"</label><br>
-  	    <input type="checkbox" id="c2" name="c2" value="c2">
-  	    <label for="c2"> "First time sync with lead analyst."
-        <input type="text" id="c2" name="c2"><br><br>
-        </label>   
-    
+        <input type="checkbox" id="c1" name="c1" value="c1">
+        <label for="c1"> "Create a new event (any exsisting event will be archived)"</label><br>
+        <input type="checkbox" id="c2" name="c2" value="c2">
+        <label for="c2"> "First time sync with lead analyst."
+            <input type="text" id="c2" name="c2"><br><br>
+        </label>
+
     </form>
 
     <button type="Submit"> Submit </button>
     <button type="button"> Cancel </button>
 
 </body>
+
 </html>
