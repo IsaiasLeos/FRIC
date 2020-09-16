@@ -121,7 +121,7 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 85%;
+    width: 95%;
 }
 
 td,
@@ -187,6 +187,21 @@ div.relative {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    
 
+}
+
+.test{
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 15px;
+    
+}
+.reportButtons{
+
+    display:flex ;
+    position: center;
+    text-align: left;
+    font-size: 40px;
+    margin-left: 20px;
 }
