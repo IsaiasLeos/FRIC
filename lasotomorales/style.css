@@ -153,14 +153,33 @@ main{
     border-radius: 100px;
 }
 
-table{
+/* table{
     margin-top: 10px;
     margin-bottom: 10px;
     border-collapse: collapse;
     width: 100%;
     empty-cells: show;
+} */
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
 }
-table, th, tr, td {
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+/* table, th, tr, td {
     border: 2px solid black;
     
 }
@@ -174,7 +193,7 @@ table, th, tr, td {
 }
 input[type="button"]{
     margin-left: 5px;
-}
+} */
 .clear{
     clear: both;
 }
