@@ -168,7 +168,6 @@ tr:nth-child(even) {
     display: none;
 }
 
-
 .active {
     display: block;
 }
