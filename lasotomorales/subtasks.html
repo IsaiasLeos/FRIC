@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/c57ccc7dd4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <title>Tasks</title>
+    <title>subtasks</title>
 </head>
 <body>
     <header>
@@ -15,8 +15,8 @@
                 <div class="topNavigationBar">
                     <li><a href="#">Event</a></li>
                     <li><a href="#">System Content</a></li>
-                    <li><a href="#">Tasks</a></li>
-                    <li><a href="#">Subtasks</a></li>
+                    <li><a href="#">subtasks</a></li>
+                    <li><a href="#">Subsubtasks</a></li>
                     <li><a href="#">Finding</a></li>
                     <li><a href="#">Archive</a></li>
                     <li><a href="#">Configuration</a></li>
@@ -33,131 +33,98 @@
         </nav>
     </header>
     <main>
-        <section id="task-overview">
-            <h2>Task Overview Table</h2>
+        <section id="subtask-overview">
+            <h2>Subtask Overview Table</h2>
             <div class="buttons">
                 <form action="">
                     <input type="button" name="" id="" value="Archive">
-                    <input type="button" name="" id="" value="Demote">
+                    <input type="button" name="" id="" value="Promote">
                     <input type="button" name="" id="" value="Save">
                     <input type="button" name="" id="" value="Cancel">
                 </form>
+
             </div>
             <table>
                 <tr>
-                    <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></th>
+                    <th><input type="checkbox" id="all-subtasks" name="all-subtasks" value="0"></th>
                     <th>Title </th> <!--Do not forget to put arrow next to title -->
-                    <th>System</th><!--Do not forget to put arrow next to title -->
+                    <th>Task</th><!--Do not forget to put arrow next to title -->
                     <th>Analyst</th>
-                    <th>Priority</th><!--Do not forget to put arrow next to title -->
                     <th>Progress</th><!--Do not forget to put arrow next to title -->
-                    <th>No. of Subtasks</th>
                     <th>No. of Findings</th><!--Do not forget to put arrow next to title -->
                     <th>Due Date</th><!--Do not forget to put arrow next to title -->
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task1" name="task1" value="1"></td>
+                    <td class="column1"><input type="checkbox" id="subtask1" name="subtask1" value="1"></td>
                     <td class="column2"></td>
                     <td class="column3"></td>
                     <td class="column4"></td>
                     <td class="column5"></td>
                     <td class="column6"></td>
                     <td class="column7"></td>
-                    <td class="column8"></td>
-                    <td class="column9"></td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task2" name="task2" value="2"></td>
+                    <td class="column1"><input type="checkbox" id="subtask2" name="subtask2" value="2"></td>
                     <td class="column2"></td>
                     <td class="column3"></td>
                     <td class="column4"></td>
                     <td class="column5"></td>
                     <td class="column6"></td>
                     <td class="column7"></td>
-                    <td class="column8"></td>
-                    <td class="column9"></td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task3" name="task3" value="3"></td>
+                    <td class="column1"><input type="checkbox" id="subtask3" name="subtask3" value="3"></td>
                     <td class="column2"></td>
                     <td class="column3"></td>
                     <td class="column4"></td>
                     <td class="column5"></td>
                     <td class="column6"></td>
                     <td class="column7"></td>
-                    <td class="column8"></td>
-                    <td class="column9"></td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task4" name="task4" value="4"></td>
+                    <td class="column1"><input type="checkbox" id="subtask4" name="subtask4" value="4"></td>
                     <td class="column2"></td>
                     <td class="column3"></td>
                     <td class="column4"></td>
                     <td class="column5"></td>
                     <td class="column6"></td>
                     <td class="column7"></td>
-                    <td class="column8"></td>
-                    <td class="column9"></td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task5" name="task5" value="5"></td>
+                    <td class="column1"><input type="checkbox" id="subtask5" name="subtask5" value="5"></td>
                     <td class="column2"></td>
                     <td class="column3"></td>
                     <td class="column4"></td>
                     <td class="column5"></td>
                     <td class="column6"></td>
                     <td class="column7"></td>
-                    <td class="column8"></td>
-                    <td class="column9"></td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task6" name="task1" value="6"></td>
+                    <td class="column1"><input type="checkbox" id="subtask6" name="subtask1" value="6"></td>
                     <td class="column2"></td>
                     <td class="column3"></td>
                     <td class="column4"></td>
                     <td class="column5"></td>
                     <td class="column6"></td>
                     <td class="column7"></td>
-                    <td class="column8"></td>
-                    <td class="column9"></td>
                 </tr>
             </table>
             <button type="add"><i class="fa fa-plus"></i></button>
         </section>
-        <section id="task-detailedview">
-            <div class="task-details">
-                <h2>Task Detailed View</h2>
+        <section id="subtask-detailedview">
+            <div class="subtask-details">
+                <h2>Subtask Detailed View</h2>
                 <button type="button" class="help"><i class="fas fa-question"></i></button>
                 <form action="" class="form">
-                    <label for="taskTitle">
+                    <label for="subtaskTitle">
                         Title:
-                        <input type="text" name="Title" id="task-title">
+                        <input type="text" name="Title" id="subtask-title">
                     </label><br>
-                    <label for="taskDescription">
+                    <label for="subtaskDescription">
                         Description:
                         <input type="text" name="Description" id="description">
                     </label><br>
-                    <label for="taskSystem">
-                        System:
-                        <select name="System" id="system-dropdown">
-                            <option value="default" selected="selected"></option>
-                            <option value="System1">System 1</option>
-                            <option value="System2">System 2</option>
-                            <option value="System3">System 3</option>
-                            <option value="System4">System 4</option>
-                        </select>
-                    </label><br>
-                    <label for="taskPriority">
-                        Priority:
-                        <select name="priority" id="priority-dropdown">
-                            <option value="default" selected="selected"></option>
-                            <option value="#">#</option>
-                            <option value="#">#</option>
-                            <option value="#">#</option>
-                            <option value="#">#</option>
-                        </select>
-                    </label><br>
-                    <label for="taskProgress">
+                    <label for="subtaskProgress">
                         Progress:
                         <select name="progress" id="progress-dropdown">
                             <option value="default" selected="selected"></option>
@@ -167,11 +134,11 @@
                             <option value="#">#</option>
                         </select>
                     </label><br>
-                    <label for="taskDueDate">
+                    <label for="subtaskDuedate">
                         Due Date:
                         <input type="date" id="due-date" name="dueDate">
                     </label><br>
-                    <label for="taskAnalysts">
+                    <label for="subtaskAnalysts">
                         Analyst(s):
                         <select name="analyst" id="analyst-dropdown">
                             <option value="default" selected="selected"></option>
@@ -181,7 +148,7 @@
                             <option value="analyst4">Analyst 4</option>
                         </select>
                     </label><br>
-                    <label for="taskCollaborators">
+                    <label for="subtaskCollaborators">
                         Collaborator(s):
                         <select name="collaborator" id="collaborator-dropdown">
                             <option value="default" selected="selected"></option>
@@ -191,25 +158,34 @@
                             <option value="collaborator4">#</option>
                         </select>
                     </label><br>
-
-                    <label for="relatedTask">
-                        Related Task:
-                        <select name="relatedTasks" id="relatedtask-dropdown">
+                    <label for="tasks">
+                        Task(s):
+                        <select name="tasks" id="task-dropdown">
                             <option value="default" selected="selected"></option>
-                            <option value="relatedTask1">#</option>
-                            <option value="relatedTask2">#</option>
-                            <option value="relatedTask3">#</option>
-                            <option value="relatedTask4">#</option>
+                            <option value="task1">#</option>
+                            <option value="task2">#</option>
+                            <option value="task3">#</option>
+                            <option value="task4">#</option>
+                        </select>
+                    </label><br>
+                    <label for="subtasks">
+                        Subtask(s):
+                        <select name="subtasks" id="subtask-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="subtask1">#</option>
+                            <option value="subtask2">#</option>
+                            <option value="subtask3">#</option>
+                            <option value="subtask4">#</option>
                         </select>
                     </label><br>
                     <label for="attachments">
                         Attachments:
-                        <select name="attachments" id="attatchment-dropdown">
+                        <select name="attachments" id="attachment-dropdown">
                             <option value="default" selected="selected"></option>
-                            <option value="taskAttachment1">#</option>
-                            <option value="taskAttachment2">#</option>
-                            <option value="taskAttachment3">#</option>
-                            <option value="taskAttachment4">#</option>
+                            <option value="subtaskAttachment1">#</option>
+                            <option value="subtaskAttachment2">#</option>
+                            <option value="subtaskAttachment3">#</option>
+                            <option value="subtaskAttachment4">#</option>
                         </select>
                     </label><br>
                 </form>
