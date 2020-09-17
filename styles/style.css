@@ -258,3 +258,101 @@ div.relative {
     height: 15px;
 
 }
+
+/* ------------------------------------------ */
+
+.main-task{
+    margin-top: 5px;
+}
+.main-task table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.main-subtask table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.main-subtask{
+    margin-top: 5px;
+}
+#task-overview{
+    width: 60vw;
+    margin-left: 50px;
+    float: left;
+    text-align: center;
+}
+#task-detailedview{
+    float: left;
+    width: 30vw;
+    display: flex;
+    justify-content: center;
+}
+
+.task-details input{
+    display: block;
+    width: 300px;
+}
+.task-details select{
+    display: block;
+    width: 300px;
+}
+.task-details button[class="help"]{
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+}
+
+#subtask-overview{
+    width: 60vw;
+    margin-left: 50px;
+    float: left;
+    text-align: center;
+}
+#subtask-detailedview{
+    float: left;
+    width: 30vw;
+    display: flex;
+    justify-content: center;
+}
+
+.subtask-details input{
+    display: block;
+    width: 300px;
+}
+.subtask-details select{
+    display: block;
+    width: 300px;
+}
+.help-button{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    border-radius: 100px;
+}
+.help-button img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top:-10px;
+}
+
+.add-button{
+    border-radius: 50%;
+}
+.sort-button{
+    width: 10px;
+    height: 20px;
+    position: relative;
+}
+.sort-button img{
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -10px;
+    margin-left: -10px ;
+}
