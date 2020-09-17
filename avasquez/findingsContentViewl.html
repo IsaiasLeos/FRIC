@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="styles\style.css">
+        <title>F.R.I.C</title>
+
+
+    </head>
+
+
+
+    <body>
+        <header>
+            <nav class="topNavigationBarLook">
+                <ul>
+                    <div class="topNavigationBar">
+                        <li><a href="#">Event</a></li>
+                        <li><a href="systemContentView.html">System Content</a></li>
+                        <li><a href="#">Tasks</a></li>
+                        <li><a href="#">Subtasks</a></li>
+                        <li><a href="#">Finding</a></li>
+                        <li><a href="#">Archive</a></li>
+                        <li><a href="#">Configuration</a></li>
+                        <li><a href="#">Setup</a></li>
+                        <li><a href="#">Help</a></li>
+                        <div class="search-container">
+                            <form action="/action_page.php">
+                                <input type="text" placeholder="Search.." name="search">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </ul>
+            </nav>
+
+            <h1>Findings Content</h1>
+
+        </header>
+
+
+        <h2>Findings Overview</h2>
+
+
+        <h3>Findings Overview Table</h3>
+        <div id = FindingsOverviewTable>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Title <input type="image" src="UpDwn.png"  class="upDown" value="Title" onclick="DoSomething()"/></th>
+                    <th>System <input type="image" src="UpDwn.png"  class="upDown" onclick="DoSomething()"/></th>
+                    <th>Task <input type="image" src="UpDwn.png"  class="upDown" onclick="DoSomething()"/></th>
+                    <th>Subtask <input type="image" src="UpDwn.png"  class="upDown" onclick="DoSomething()"/></th>
+                    <th>Analyst <input type="image" src="UpDwn.png"  class="upDown" onclick="DoSomething()"/></th>
+                    <th>Status <input type="image" src="UpDwn.png"  class="upDown" onclick="DoSomething()"/></th>
+                    <th>Classification <input type="image" src="UpDwn.png"  class="upDown" onclick="DoSomething()"/></th>
+                    <th>Type <input type="image" src="UpDwn.png"  class="upDown" onclick="DoSomething()"/></th>
+                    <th>Risk <input type="image" src="UpDwn.png"  class="upDown" onclick="DoSomething()"/></th>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+
+        </div>
+        <br>
+        
+       
+        <div id="buttonSet" class="reportButtons">
+            <input type="image" src="add.png" class="test"> 
+        
+            <button>ERB Report</button>
+             &nbsp;
+            <button>Risk Matrix</button>
+            &nbsp;
+            <button>Final Report</button>
+
+            
+        </div>
+    
+        <span><h3>Findings Detailed View <input type="image" src="help.png" class="helpIcon" ></h3></span>
+        
+
+        <div id= findingInformation>
+            <h4>Finding Information <input type="image" src="help.png" class="helpIconSmall" ></h4>
+
+            <label for="ID">ID:</label><br>
+            <input type="text" id="ID" name="ID" value="" >
+
+            <br>
+
+            <label for="HostName">Host Name:</label><br>
+            <input type="text" id="HostName" name="HostName" value=""><br>
+
+            <label for="IP-Port">IP Port:</label><br>
+            <input type="text" id="IP-Port" name="IP-Port" value=""><br>
+
+            <label for="Description">Description:</label><br>
+            <input type="text" id="Description" name="Description" class= "longTextBox" value=""><br>
+                
+            <label for="LongDescription">Long Description:</label><br>
+            <textarea name="LongDescription" id="LongDescription" cols="60" rows="10"></textarea>
+
+            <br>
+            <br>
+
+            <div class="dropdown">
+                <button class="dropbtn">Status</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Type</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Classification</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <input type="image" src="fileIcon.png"  class="helpIcon" onclick="DoSomething()"/>
+            <label for="fileName">Evidence:</label><br>
+            <input type="text" id="fileName" name="fileName" value="" ><br>
+
+            <br>
+            
+
+            <div class="dropdown">
+                <button class="dropbtn">System</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+            
+
+            <div class="dropdown">
+                <button class="dropbtn">Task</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            
+            
+
+            <div class="dropdown">
+                <button class="dropbtn">System</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+        
+            <br>
+            <br>
+
+            <div class="dropdown">
+                <button class="dropbtn">Related Finding(s)</button>
+                <div class="dropdown-content">
+                    <a href="#">Finding 1</a>
+                    <a href="#">Finding 2</a>
+                    <a href="#">Finding 3</a>
+                </div>
+            </div>
+
+        
+
+
+        </div>
+        
+
+        <div id = findingImpact>
+            <h3>Finding Impact <input type="image" src="help.png" class="helpIconSmall" ></h3>
+
+            <div class="dropdown">
+                <button class="dropbtn">Confidentiality</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Integrity</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Availability</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div id = analystInformation>
+            <h3>Analyst Information <input type="image" src="help.png" class="helpIconSmall" ></h3>
+
+
+            <!--TODO-->
+
+
+
+        </div>
+
+        <div id="Mitigation">
+            <h3>Mitigation <input type="image" src="help.png" class="helpIconSmall" ></h3>
+
+            <label for="Description">Brief Description:</label><br>
+            <input type="text" id="Description" name="Description" class= "longTextBox" value=""><br>
+                
+            <label for="LongDescription">Long Description:</label><br>
+            <textarea name="LongDescription" id="LongDescription" cols="60" rows="10"></textarea>
+
+        </div>
+
+        <div id="Threat">
+            <h3>Threat Relevence <input type="image" src="help.png" class="helpIconSmall" ></h3>
+
+            <div class="dropdown">
+                <button class="dropbtn">Relevance</button>
+                <div class="dropdown-content">
+                    <a href="#">Finding 1</a>
+                    <a href="#">Finding 2</a>
+                    <a href="#">Finding 3</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div id=" Countermeasure">
+            <h3>Countermeasure <input type="image" src="help.png" class="helpIconSmall" ></h3>
+
+            <div class="dropdown">
+                <button class="dropbtn">Effectiveness Rating</button>
+                <div class="dropdown-content">
+                    <a href="#">Finding 1</a>
+                    <a href="#">Finding 2</a>
+                    <a href="#">Finding 3</a>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="Impact">
+            <h3>Impact <input type="image" src="help.png" class="helpIconSmall" ></h3>
+
+            <label for="Description">Impact Description:</label><br>
+            <input type="text" id="Description" name="Description" class= "longTextBox" value=""><br><br>
+                
+
+            <div class="dropdown">
+                <button class="dropbtn">Impact Level</button>
+                <div class="dropdown-content">
+                    <a href="#">Finding 1</a>
+                    <a href="#">Finding 2</a>
+                    <a href="#">Finding 3</a>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="Severity">
+            <h3>Severity <input type="image" src="help.png" class="helpIconSmall" ></h3>
+
+            <label for="Description">Severity Category Score</label><br>
+            <input type="text" id="Description" name="Description" class= "longTextBox" value=""><br><br>
+
+            <label for="Description">Vulnerability Severity</label><br>
+            <input type="text" id="Description" name="Description" class= "longTextBox" value=""><br><br>
+
+            <label for="Description">Quantitative Vulnerability Severity</label><br>
+            <input type="text" id="Description" name="Description" class= "longTextBox" value=""><br><br>
+
+
+        </div>
+
+
+        <div id="Risk">
+            <h3>Risk <input type="image" src="help.png" class="helpIconSmall" ></h3>
+
+            <label for="Description">Risk:</label><br>
+            <input type="text" id="Description" name="Description" class= "longTextBox" value=""><br>
+
+            <label for="Description">Likelihood:</label><br>
+            <input type="text" id="Description" name="Description" class= "longTextBox" value=""><br>
+
+
+        </div>
+
+
+
+        <div id="findingSystemLevelImpact">
+            <h4>Finding System Level Impact <input type="image" src="help.png" class="helpIconSmall" ></h4>
+
+
+
+
+        </div>
+
+
+
+
+        <button>Save</button>
+       
+        <button>Delete</button>
+        
+        <Button>Cancel</Button>
+        
+    </body>
+
+
+
+</html>

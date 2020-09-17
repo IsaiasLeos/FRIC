@@ -11,6 +11,7 @@
 }
 
 .dropbtn {
+    background-color: #4CAF50;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -48,7 +49,7 @@
 }
 
 .dropdown:hover .dropbtn {
-    background-color: #000;
+    background-color: #3e8e41;
 }
 
 .topNavigationBar li a,
@@ -63,7 +64,6 @@
 
 .topNavigationBar .search-container {
     float: right;
-    margin-right: 6px;
 }
 
 .topNavigationBar input[type=text] {
@@ -121,13 +121,14 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 50%;
+    width: 95%;
 }
 
 td,
 th {
     border: 1px solid #dddddd;
     text-align: left;
+    width: auto;
     padding: 8px;
 }
 
@@ -179,113 +180,40 @@ div.relative {
     float: right;
 }
 
-dd {
+
+.upDown{
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.test{
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 15px;
+    
+}
+.reportButtons{
+
+    display:flex ;
+    position: center;
+    text-align: left;
+    font-size: 40px;
     margin-left: 20px;
 }
-
-
-.topNavigationBar .search-container button:hover {
-    background: #ccc;
+.helpIcon{
+    align-content: flex-end;
+    width: 20px;
+    height: 20px;
+    
 }
- 
-.notification{
-    display: none;
-    position: fixed;
-    padding: 10px;
-    width: 400px;
-    left: 50%;
-    margin-left: -250px;
-    height: 200px;
-    top: 50%;
-    margin-top: -100px;
-    background: rgb(187, 178, 178);
-    z-index: 20;
-  }
-
-  #notify1 {
-    -webkit-box-shadow:  0px 0px 0px 9999px rgba(226, 214, 214, 0.5);
-    box-shadow:  0px 0px 0px 9999px rgba(226, 214, 214, 0.5);
-  }
-
-    .form {
-        margin: 0 auto; 
-        width: 290px;
-    }
-
-    .form label{
-        display: block;
-        text-align: right;
-        float: left;
-    }
-
-    .form input{
-        display: block;
-        text-align: left;
-        float: right;
-    }
-
-    .ext{
-        position: absolute;
-        right:    0;
-        bottom:   0;
-    }
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 50%;
-}
-
-td,
-th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-
-.treeview ul,
-#myUL {
-    list-style-type: none;
-    background-color: white;
-}
-
-#myUL {
-    margin: 0;
-    padding: 0;
-    background-color: white;
-}
-
-.treeview .caret {
-    cursor: pointer;
-    user-select: none;
-}
-
-.treeview .caret::before {
-    content: "\25B6";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
-}
-
-.treeview .caret-down::before {
-    transform: rotate(90deg);
-}
-
-.nested {
-    display: none;
-}
-
-
-.active {
-    display: block;
-}
-
-
-div.relative {
-    position: relative;
-    float: right;
+.helpIconSmall{
+    align-content: flex-end;
+    width: 15px;
+    height: 15px;
+    
 }

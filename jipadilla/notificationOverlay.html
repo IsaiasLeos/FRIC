@@ -13,12 +13,10 @@
     <a href="#" onclick="show('notify1')">"Notifcation"</a>
     <div class="notification" id="notify1">
         <h1> Notification</h1>
-
         <body>
             <div class="form">
                 <label>Task Title</label>
                 <input type="text" name="tTitle" value="Task1">
-
                 <label>Task Due Date</label>
                 <input type="text" name="tDate" value="11/11/2020">
 
@@ -36,19 +34,15 @@
 
 
     <script>
-        $ = function (id) {
-            return document.getElementById(id);
+        $ = function (id) { return document.getElementById(id);
         };
 
-        var show = function (id) {
-            $(id).style.display = "block";
+        var show = function (id) {$(id).style.display = "block";
         };
 
-        var hide = function (id) {
-            $(id).style.display = "none";
+        var hide = function (id) {$(id).style.display = "none";
         };
     </script>
 
 </body>
-
 </html>
