@@ -10,44 +10,86 @@
 
 
     <head>
-        <title>FRIC</title>
-        <h1>Archive Content</h1>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="styles\style.css">
+        <title>F.R.I.C</title>
 
-    <body>
-        <header>
-            <nav class="topNavigationBarLook">
-                <ul>
-                    <div class="topNavigationBar">
-                        <li><a href="../aclanan/eventContentView.html">Event</a></li>
-                        <li><a href="../ialeos/systemContentView.html">System Content</a></li>
-                        <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
-                        <li><a href="../lasotomorales/subtasks.html">Subtasks</a></li>
-                        <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
-                        <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
-                        <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
-                        <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
-                        <li><a href="#">Help</a></li>
-                        <div class="search-container">
-                            <form action="#">
-                                <input type="text" placeholder="Search.." name="search">
-                            </form>
-                        </div>
+
+    </head>
+
+<body>
+    <header>
+        <nav class="topNavigationBarLook">
+            <ul>
+                <div class="topNavigationBar">
+                    <li><a href="../aclanan/eventContentView.html">Event</a></li>
+                    <li><a href="../ialeos/systemContentView.html">System Content</a></li>
+                    <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
+                    <li><a href="../lasotomorales/subtasks.html">Subtasks</a></li>
+                    <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
+                    <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
+                    <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
+                    <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
+                    <li><a href="#">Help</a></li>
+                    <div class="search-container">
+                        <form action="#">
+                            <input type="text" placeholder="Search.." name="search">
+                        </form>
                     </div>
-                </ul>
-            </nav>
+                </div>
+            </ul>
+        </nav>
 
-            <h1>Archived Content</h1>
+        <h1>Archived Content</h1>
 
-        </header>
+    </header>
 
-        <!--Task Table-->
-        <h3>Tasks Overview</title>
+    <!--Task Table-->
+    <h3>Tasks Overview</title>
 
-            <div id=taskTable>
+        <div id=taskTable>
+
+            <table>
+                <tr>
+                    <th>Title </th>
+                    <th>Task</th>
+                    <th>Analyst</th>
+                    <th>Progress</th>
+                    <th>No. of Findings</th>
+                    <th>Due Date</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <button type="button">Restore</button>
+        </div>
+        <!--Subtask Table-->
+        <h3>Subtasks Overview</title>
+
+            <div id="subtaskTable">
+                <!--<h2>Subtask Table</h2>-->
 
                 <table>
                     <tr>
-                        <th>Title </th>
+                        <th>Title</th>
                         <th>Task</th>
                         <th>Analyst</th>
                         <th>Progress</th>
@@ -73,145 +115,111 @@
                 </table>
                 <button type="button">Restore</button>
             </div>
-            <!--Subtask Table-->
-            <h3>Subtasks Overview</title>
-
-                <div id="subtaskTable">
-                    <!--<h2>Subtask Table</h2>-->
-
-                    <table>
-                        <tr>
-                            <th>Title</th>
-                            <th>Task</th>
-                            <th>Analyst</th>
-                            <th>Progress</th>
-                            <th>No. of Findings</th>
-                            <th>Due Date</th>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
-                    <button type="button">Restore</button>
-                </div>
 
 
-                <!--Findings Table-->
-                <h3>Findings Overview</h3>
-                <div id="findingTable">
-                    <!--<h2>Finding Table</h2>-->
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>System</th>
-                            <th>Task</th>
-                            <th>Subtask</th>
-                            <th>Subtask</th>
-                            <th>Analyst</th>
-                            <th>Status</th>
-                            <th>Classification</th>
-                            <th>Type</th>
-                            <th>Risk</th>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
-                    <button type="button">Restore</button>
-                </div>
-
-                <!--Systems Table-->
-                <h3>Archived Systems</h3>
-                <div id="systemTable">
-                    <!-- <h2>System Table</h2>-->
-                    <table>
-                        <tr>
-                            <th>System</th>
-                            <th>No. of Task</th>
-                            <th>No. Findings</th>
-                            <th>Progress</th>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
-                    <button type="button">Restore</button>
-                </div>
-
-
+            <!--Findings Table-->
+            <h3>Findings Overview</h3>
+            <div id="findingTable">
+                <!--<h2>Finding Table</h2>-->
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>System</th>
+                        <th>Task</th>
+                        <th>Subtask</th>
+                        <th>Subtask</th>
+                        <th>Analyst</th>
+                        <th>Status</th>
+                        <th>Classification</th>
+                        <th>Type</th>
+                        <th>Risk</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </table>
+                <button type="button">Restore</button>
+            </div>
 
-    </body>
+            <!--Systems Table-->
+            <h3>Archived Systems</h3>
+            <div id="systemTable">
+                <!-- <h2>System Table</h2>-->
+                <table>
+                    <tr>
+                        <th>System</th>
+                        <th>No. of Task</th>
+                        <th>No. Findings</th>
+                        <th>Progress</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <button type="button">Restore</button>
+            </div>
+
+
+            </table>
+
+</body>
 
 </html>
