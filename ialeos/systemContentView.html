@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>F.R.I.C.</title>
+</head>
+
+<body>
+    <header>
+        <nav class="topNavigationBarLook">
+            <ul>
+                <div class="topNavigationBar">
+                    <li><a href="../aclanan/eventContentView.html">Event</a></li>
+                    <li><a href="../ialeos/systemContentView.html">System Content</a></li>
+                    <li><a href="../ialeos/analystProgressSummaryView.html">Analyst Progress Summary Content View</a>
+                    </li>
+                    <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
+                    <li><a href="../lasotomorales/subtasks.html">Subtasks</a></li>
+                    <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
+                    <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
+                    <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
+                    <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
+                    <li><a href="#">Help</a></li>
+                    <div class="search-container">
+                        <form action="#">
+                            <input type="text" placeholder="Search.." name="search">
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="relative">
+        <div class="treeview">
+            <h3>Event Tree View</h3>
+            <ul id="myUL">
+                <li><span class="caret">Event</span>
+                    <ul class="nested">
+                        <li><span class="caret">System 1</span>
+                            <ul class="nested">
+                                <li><span class="caret">Task 1</span>
+                                    <ul class="nested">
+                                        <li><span class="caret">Subtask 1</span>
+                                            <ul class="nested">
+                                                <li>Finding 1</li>
+                                                <li>Finding 2</li>
+                                            </ul>
+                                        </li>
+                                        <li>Subtask 2</li>
+                                    </ul>
+                                </li>
+                                <li><span class="caret">Task 2</span>
+                                    <ul class="nested">
+                                        <li>Finding 3</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>System 2
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var toggler = document.getElementsByClassName("caret");
+        var i;
+
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function () {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+            });
+        }
+    </script>
+
+
+    <div class="SystemContentView">
+        <div id="systemTable">
+            <h2>System Table</h2>
+
+            <table>
+                <tr>
+                    <th>Select</th>
+                    <th>System
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>No. of Task
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>No. Findings
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Progress
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="systemDetailedTable" id="systemDetailedTable">
+        <h2>System Detailed View</h2>
+        <h3>System Information</h3>
+        <div class="systemDetailedTextLabels">
+            <form action="">
+                <label for="systemName">System Information</label>
+                <input type="text" id="systemName" name="systemName"><br><br>
+
+                <label for="systemDescription">System Description</label>
+                <input type="text" id="systemDescription" name="systemDescription"><br><br>
+
+                <label for="systemLocation">System Location</label>
+                <input type="text" id="systemLocation" name="systemLocation"><br><br>
+
+                <label for="systemRouter">System Router</label>
+                <input type="text" id="systemRouter" name="systemRouter"><br><br>
+
+                <label for="systemSwitch">System Switch</label>
+                <input type="text" id="systemSwitch" name="systemSwitch"><br><br>
+
+                <label for="systemRooom">System Room</label>
+                <input type="text" id="systemRooom" name="systemRooom"><br><br>
+
+                <label for="testPlan">Test Plan</label>
+                <input type="text" id="testPlan" name="testPlan"><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+            <h3>System Categorization</h3>
+            <div class="dropdown">
+                <button class="dropbtn">Confidentiality</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Integrity</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Availability</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
+        </div>
+</body>
+
+</html>

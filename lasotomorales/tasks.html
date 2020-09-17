@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Task</title>
+
+</head>
+
+<body>
+    <header>
+        <nav class="topNavigationBarLook">
+            <ul>
+                <div class="topNavigationBar">
+                    <li><a href="../aclanan/eventContentView.html">Event</a></li>
+                    <li><a href="../ialeos/systemContentView.html">System Content</a></li>
+                    <li><a href="../ialeos/analystProgressSummaryView.html">Analyst Progress Summary Content View</a>
+                    </li>
+                    <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
+                    <li><a href="../lasotomorales/subtasks.html">Subtasks</a></li>
+                    <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
+                    <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
+                    <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
+                    <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
+                    <li><a href="#">Help</a></li>
+                    <div class="search-container">
+                        <form action="#">
+                            <input type="text" placeholder="Search.." name="search">
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main class="main-task">
+        <section id="task-overview">
+            <h2>Task Overview Table</h2>
+            <div class="buttons">
+                <form action="">
+                    <input type="button" name="" id="" value="Archive">
+                    <input type="button" name="" id="" value="Demote">
+                    <input type="button" name="" id="" value="Save">
+                    <input type="button" name="" id="" value="Cancel">
+                </form>
+            </div>
+            <table>
+                <tr>
+                    <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></th>
+                    <th>Title<button type="image" class="sort-button"><img width="20px" src="../assets/updownarrow.png"
+                                alt="Sort Title" class></button> </th>
+                    <th>System<button type="image" class="sort-button"><img width="20px" src="../assets/updownarrow.png"
+                                alt="Sort System"></button> </th>
+                    <th>Analyst<button type="image" class="sort-button"><img width="20px"
+                                src="../assets/updownarrow.png" alt="SortAnalyst"></button> </th>
+                    <th>Priority<button type="image" class="sort-button"><img width="20px"
+                                src="../assets/updownarrow.png" alt="Sort priority"></button> </th>
+                    <th>Progress<button type="image" class="sort-button"><img width="20px"
+                                src="../assets/updownarrow.png" alt="Sort Progress"></button> </th>
+                    <th>No. of Subtasks<button type="image" class="sort-button"><img width="20px"
+                                src="../assets/updownarrow.png" alt="Sort number of subtask"></button> </th>
+                    <th>No. of Findings<button type="image" class="sort-button"><img width="20px"
+                                src="../assets/updownarrow.png" alt="Sort number of Findings"></button> </th>
+                    <th>Due Date<button type="image" class="sort-button"><img width="20px"
+                                src="../assets/updownarrow.png" alt="Sort due dates"></button> </th>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task1" name="task1" value="1"></td>
+                    <td class="column2">Title 1</td>
+                    <td class="column3">System 1</td>
+                    <td class="column4">Analyst 1</td>
+                    <td class="column5">Low</td>
+                    <td class="column6">Not started</td>
+                    <td class="column7">1</td>
+                    <td class="column8">2</td>
+                    <td class="column9">30/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task2" name="task2" value="2"></td>
+                    <td class="column2">Title 2</td>
+                    <td class="column3">System 2</td>
+                    <td class="column4">Analyst 2</td>
+                    <td class="column5">Medium</td>
+                    <td class="column6">Assigned</td>
+                    <td class="column7">2</td>
+                    <td class="column8">4</td>
+                    <td class="column9">27/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task3" name="task3" value="3"></td>
+                    <td class="column2">Title 3</td>
+                    <td class="column3">System 3</td>
+                    <td class="column4">Analyst 3</td>
+                    <td class="column5">High</td>
+                    <td class="column6">In progress</td>
+                    <td class="column7">2</td>
+                    <td class="column8">3</td>
+                    <td class="column9">23/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task4" name="task4" value="4"></td>
+                    <td class="column2">Title 4</td>
+                    <td class="column3">System 4</td>
+                    <td class="column4">Analyst 4</td>
+                    <td class="column5">Low</td>
+                    <td class="column6">Transfered</td>
+                    <td class="column7">2</td>
+                    <td class="column8">3</td>
+                    <td class="column9">26/10/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task5" name="task5" value="5"></td>
+                    <td class="column2">Title 5</td>
+                    <td class="column3">System 5</td>
+                    <td class="column4">Analyst 5</td>
+                    <td class="column5">Low</td>
+                    <td class="column6">Complete</td>
+                    <td class="column7">3</td>
+                    <td class="column8">3</td>
+                    <td class="column9">15/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="task6" name="task1" value="6"></td>
+                    <td class="column2">Title 6</td>
+                    <td class="column3">System 6</td>
+                    <td class="column4">Analyst 6</td>
+                    <td class="column5">Low</td>
+                    <td class="column6">Not applicable</td>
+                    <td class="column7">1</td>
+                    <td class="column8">4</td>
+                    <td class="column9">30/10/2020</td>
+                </tr>
+            </table>
+            <button type="image" class="add-button"><img width="30" src="../assets/add.png" alt="Add task"></button>
+        </section>
+        <section id="task-detailedview">
+            <div class="task-details">
+                <h2>Task Detailed View</h2>
+                <button type="image" class="help-button"><img width="20px" src="../assets/help.png" alt="Help"></button>
+                <form action="" class="form">
+                    <label for="taskTitle">
+                        Title:
+                        <input type="text" name="Title" id="task-title">
+                    </label><br>
+                    <label for="taskDescription">
+                        Description:
+                        <input type="text" name="Description" id="description">
+                    </label><br>
+                    <label for="taskSystem">
+                        System:
+                        <select name="System" id="system-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="System1">System 1</option>
+                            <option value="System2">System 2</option>
+                            <option value="System3">System 3</option>
+                            <option value="System4">System 4</option>
+                        </select>
+                    </label><br>
+                    <label for="taskPriority">
+                        Priority:
+                        <select name="priority" id="priority-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">Hight</option>
+                        </select>
+                    </label><br>
+                    <label for="taskProgress">
+                        Progress:
+                        <select name="progress" id="progress-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="notStarted">Not started</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="transfered">Transfered</option>
+                            <option value="inProgress">In progress</option>
+                            <option value="complete">Complete</option>
+                            <option value="notApplicable">Not applicable</option>
+                        </select>
+                    </label><br>
+                    <label for="taskDueDate">
+                        Due Date:
+                        <input type="date" id="due-date" name="dueDate">
+                    </label><br>
+                    <label for="taskAnalysts">
+                        Analyst(s):
+                        <select name="analyst" id="analyst-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="analyst1">Analyst 1</option>
+                            <option value="analyst2">Analyst 2</option>
+                            <option value="analyst3">Analyst 3</option>
+                            <option value="analyst4">Analyst 4</option>
+                        </select>
+                    </label><br>
+                    <label for="taskCollaborators">
+                        Collaborator(s):
+                        <select name="collaborator" id="collaborator-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="collaborator1">Collaborator 1</option>
+                            <option value="collaborator2">Collaborator 2</option>
+                            <option value="collaborator3">Collaborator 3</option>
+                            <option value="collaborator4">Collaborator 4</option>
+                        </select>
+                    </label><br>
+
+                    <label for="relatedTask">
+                        Related Task:
+                        <select name="relatedTasks" id="relatedtask-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="relatedTask1">Task 1</option>
+                            <option value="relatedTask2">Task 2</option>
+                            <option value="relatedTask3">Task 3</option>
+                            <option value="relatedTask4">Task 4</option>
+                        </select>
+                    </label><br>
+                    <label for="attachments">
+                        Attachments:
+                        <select name="attachments" id="attatchment-dropdown">
+                            <option value="default" selected="selected"></option>
+                            <option value="Attachment1">Attachment 1</option>
+                            <option value="Attachment2">Attachment 2</option>
+                            <option value="Attachment3">Attachment 3</option>
+                            <option value="Attachment4">Attachment 4</option>
+                        </select>
+                    </label><br>
+                </form>
+
+            </div>
+        </section>
+        <div class="clear"></div>
+    </main>
+
+</body>
+
+</html>

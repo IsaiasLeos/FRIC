@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>F.R.I.C.</title>
+</head>
+
+<body>
+    <header>
+        <nav class="topNavigationBarLook">
+            <ul>
+                <div class="topNavigationBar">
+                    <li><a href="../aclanan/eventContentView.html">Event</a></li>
+                    <li><a href="../ialeos/systemContentView.html">System Content</a></li>
+                    <li><a href="../ialeos/analystProgressSummaryView.html">Analyst Progress Summary Content View</a>
+                    </li>
+                    <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
+                    <li><a href="../lasotomorales/subtasks.html">Subtasks</a></li>
+                    <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
+                    <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
+                    <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
+                    <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
+                    <li><a href="#">Help</a></li>
+                    <div class="search-container">
+
+                        <form action="#">
+                            <input type="text" placeholder="Search.." name="search">
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>configuration Content View</h1>
+
+    <div id="configuration_table">
+        <h2>Finding Type Table</h2>
+        <table>
+            <tr>
+                <th>Credentials Complexity</th>
+                <th>Manufacturer Default Creds</th>
+                <th>Lack of Authentication</th>
+                <th>Plain Text Protocols</th>
+                <th>Plain Text Web Login</th>
+
+                <th>Encryption</th>
+                <th>Authentication Bypass</th>
+                <th>Port Security</th>
+                <th>Access Control</th>
+                <th>Least Privilege</th>
+
+                <th>Privilege Escalation</th>
+                <th>Missing Patches</th>
+                <th>Physical Security</th>
+                <th>Information Disclosure</th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> Low </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+
+            </tr>
+
+        </table>
+    </div>
+
+    <div id="posture_table">
+        <h2>Posture Table</h2>
+        <table>
+            <tr>
+                <th>Insider</th>
+                <th>Insider-nearsider</th>
+                <th>Outsider</th>
+                <th>Nearsider</th>
+                <th>Nearsider_outsider</th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="threat_table">
+        <h2>Threat level Table</h2>
+        <table>
+            <tr>
+                <th> Confirmed </th>
+                <th> Expected </th>
+                <th> Anticipated </th>
+                <th> Predicted </th>
+                <th> Possible </th>
+
+            </tr>
+            <tr>
+                <td> Alpha1 </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="impact_table">
+        <h2>Impact level Table</h2>
+        <table>
+            <tr>
+                <th> VH </th>
+                <th> H </th>
+                <th> M </th>
+                <th> L </th>
+                <th> VL </th>
+                <th> Information </th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="find_classification_table">
+        <h2>Finding Classification Table</h2>
+        <table>
+            <tr>
+                <th> Vulnerability </th>
+                <th> Information </th>
+            </tr>
+            <tr>
+                <td> Alpha1 </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="countermeasure_table">
+        <h2> Countermeasure Table </h2>
+        <table>
+            <tr>
+                <th> Very High </th>
+                <th> High </th>
+                <th> Moderate </th>
+                <th> Low </th>
+                <th> Very Low </th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="event_classifcation_table">
+        <h2>Event Classification Table</h2>
+        <table>
+            <tr>
+                <th> Top Secret </th>
+                <th> Secret </th>
+                <th> Confidential </th>
+                <th> Classified </th>
+                <th> Unclassified </th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Question as to which level it's referring too -->
+    <!-- If its not those three then Low,Medium,High,X -->
+    <div id="level_table">
+        <h2>Level Table</h2>
+        <table>
+            <tr>
+                <th> Confidentiality Finding Impact On System </th>
+                <th> Integrity Finding Impact On System </th>
+                <th> Availability Finding Impact On System</th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="event_type_table">
+        <h2>Event type Table</h2>
+        <table>
+            <tr>
+                <th> Co-operative Vulnerability Penetration Assessment (CVPA) </th>
+                <th> Co-operative Vulnerability Investigation (CVI) </th>
+                <th> Verification Of Fixes (VOF) </th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="finding_impact_table">
+        <h2>Finding Impact Table</h2>
+        <table>
+            <tr>
+                <th> Confidentiality </th>
+                <th> Integrity </th>
+                <th> Availability </th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="severity_code_table">
+        <h2>Severity Category Code Table</h2>
+        <table>
+            <tr>
+                <th> I </th>
+                <th> II </th>
+                <th> III </th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="progress_table">
+        <h2>Progress Table</h2>
+        <table>
+            <tr>
+                <th> Not Started </th>
+                <th> Assigned </th>
+                <th> Transferred </th>
+                <th> In Progress </th>
+                <th> Complete </th>
+                <th> Not Applicable </th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> Alpha1 </td>
+                <td> - </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <!-- What is this -->
+    <div id="event_rule_table">
+        <h2>Event Rules Table</h2>
+        <table>
+            <tr>
+                <th> blank </th>
+                <th> blank </th>
+                <th> blank </th>
+            </tr>
+            <tr>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="report_table">
+        <h2>Report Template Table</h2>
+        <table>
+            <tr>
+                <th> Risk Matrix </th>
+                <th> ERB Report </th>
+                <th> Final Technical Report </th>
+            </tr>
+            <tr>
+                <td> Alpha1 </td>
+                <td> - </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="notification_table">
+        <h2>Notification Table</h2>
+        <table>
+            <tr>
+                <th> Duration </th>
+                <th> Frequency </th>
+            </tr>
+            <tr>
+                <td> 2 weeks </td>
+                <td> - </td>
+
+            </tr>
+        </table>
+    </div>
+
+</body>
+
+</html>
