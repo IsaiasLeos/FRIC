@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>F.R.I.C.</title>
+</head>
+
+<body>
+    <header>
+        <nav class="topNavigationBarLook">
+            <ul>
+                <div class="topNavigationBar">
+                    <li><a href="../aclanan/eventContentView.html">Event</a></li>
+                    <li><a href="../ialeos/systemContentView.html">System Content</a></li>
+                    <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
+                    <li><a href="../lasotomorales/subtasks.html">Subtasks</a></li>
+                    <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
+                    <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
+                    <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
+                    <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
+                    <li><a href="">Help</a></li>
+                    <div class="search-container">
+                        <form action="#">
+                            <input type="text" placeholder="Search.." name="search">
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="relative">
+        <div class="treeview">
+            <h3>Event Tree View</h3>
+            <ul id="myUL">
+                <li><span class="caret">Event</span>
+                    <ul class="nested">
+                        <li><span class="caret">System 1</span>
+                            <ul class="nested">
+                                <li><span class="caret">Task 1</span>
+                                    <ul class="nested">
+                                        <li><span class="caret">Subtask 1</span>
+                                            <ul class="nested">
+                                                <li>Finding 1</li>
+                                                <li>Finding 2</li>
+                                            </ul>
+                                        </li>
+                                        <li>Subtask 2</li>
+                                    </ul>
+                                </li>
+                                <li><span class="caret">Task 2</span>
+                                    <ul class="nested">
+                                        <li>Finding 3</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>System 2
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var toggler = document.getElementsByClassName("caret");
+        var i;
+
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function () {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+            });
+        }
+    </script>
+</body>
+
+</html>
