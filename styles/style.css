@@ -110,7 +110,7 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 50%;
+    width: 95%;
 }
 
 td,
@@ -166,4 +166,44 @@ tr:nth-child(even) {
 div.relative {
     position: relative;
     float: right;
+}
+
+.upDown {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.test {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 15px;
+
+}
+
+.reportButtons {
+
+    display: flex;
+    position: center;
+    text-align: left;
+    font-size: 40px;
+    margin-left: 20px;
+}
+
+.helpIcon {
+    align-content: flex-end;
+    width: 20px;
+    height: 20px;
+
+}
+
+.helpIconSmall {
+    align-content: flex-end;
+    width: 15px;
+    height: 15px;
+
 }

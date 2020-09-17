@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>F.R.I.C</title>
+</head>
+
+<body>
+    <header>
+        <nav class="topNavigationBarLook">
+            <ul>
+                <div class="topNavigationBar">
+                    <li><a href="../aclanan/eventContentView.html">Event</a></li>
+                    <li><a href="../ialeos/systemContentView.html">System Content</a></li>
+                    <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
+                    <li><a href="../lasotomorales/subtasks.html">Subtasks</a></li>
+                    <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
+                    <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
+                    <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
+                    <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
+                    <li><a href="#">Help</a></li>
+                    <div class="search-container">
+                        <form action="#">
+                            <input type="text" placeholder="Search.." name="search">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+
+        <h1>Findings Content</h1>
+
+    </header>
+
+
+    <h2>Findings Overview</h2>
+
+
+    <h3>Findings Overview Table</h3>
+    <div id=FindingsOverviewTable>
+        <table>
+            <tr>
+                <th>Select</th>
+                <th>ID
+                    <input type="image" src="../assets/updownarrow.png" class="upDown" value="Title"
+                        onclick="DoSomething()" />
+                </th>
+                <th>Title <input type="image" src="../assets/updownarrow.png" class="upDown" value="Title"
+                        onclick="DoSomething()" />
+                </th>
+                <th>System <input type="image" src="../assets/updownarrow.png" class="upDown" onclick="DoSomething()" />
+                </th>
+                <th>Task <input type="image" src="../assets/updownarrow.png" class="upDown" onclick="DoSomething()" />
+                </th>
+                <th>Subtask <input type="image" src="../assets/updownarrow.png" class="upDown"
+                        onclick="DoSomething()" /></th>
+                <th>Analyst <input type="image" src="../assets/updownarrow.png" class="upDown"
+                        onclick="DoSomething()" /></th>
+                <th>Status <input type="image" src="../assets/updownarrow.png" class="upDown" onclick="DoSomething()" />
+                </th>
+                <th>Classification <input type="image" src="../assets/updownarrow.png" class="upDown"
+                        onclick="DoSomething()" /></th>
+                <th>Type <input type="image" src="../assets/updownarrow.png" class="upDown" onclick="DoSomething()" />
+                </th>
+                <th>Risk <input type="image" src="../assets/updownarrow.png" class="upDown" onclick="DoSomething()" /></th>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <div id="buttonSet" class="reportButtons">
+        <input type="image" src="../assets/add.png" class="test">
+
+        <button>ERB Report</button>
+        &nbsp;
+        <button>Risk Matrix</button>
+        &nbsp;
+        <button>Final Report</button>
+    </div>
+
+    <span>
+        <h3>Findings Detailed View <input type="image" src="../assets/help.png" class="helpIcon"></h3>
+    </span>
+    <div id=findingInformation>
+        <h4>Finding Information <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+    </div>
+    <div id=findingImpact>
+        <h4>Finding Impact <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+
+    </div>
+    <div id=analystInformation>
+        <h4>Analyst Information <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+    </div>
+    <div id="Mitigation">
+        <h4>Mitigation <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+    </div>
+    <div id="Threat">
+        <h4>Threat Relevence <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+    </div>
+    <div id=" Countermeasure">
+        <h4>Countermeasure <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+    </div>
+    <div id="Impact">
+        <h4>Impact <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+    </div>
+    <div id="Severity">
+        <h4>Severity <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+    </div>
+    <div id="Risk">
+        <h4>Risk <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+    </div>
+    <div id="findingSystemLevelImpact">
+        <h4>Finding System Level Impact <input type="image" src="../assets/help.png" class="helpIconSmall"></h4>
+    </div>
+    <button>Save</button>
+    <button>Delete</button>
+    <Button>Cancel</Button>
+</body>
+
+</html>
