@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>F.R.I.C.</title>
+</head>
+
+<body>
+    <header>
+        <nav class="topNavigationBarLook">
+            <ul>
+                <div class="topNavigationBar">
+                    <li><a href="../aclanan/eventContentView.html">Event</a></li>
+                    <li><a href="../ialeos/systemContentView.html">System Content</a></li>
+                    <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
+                    <li><a href="../lasotomorales/subtasks.html">Subtasks</a></li>
+                    <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
+                    <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
+                    <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
+                    <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
+                    <li><a href="#">Help</a></li>
+                    <div class="search-container">
+                        <form action="#">
+                            <input type="text" placeholder="Search.." name="search">
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <div class="relative">
+        <div class="treeview">
+            <h3>Event Tree View</h3>
+            <ul id="myUL">
+                <li><span class="caret">Event</span>
+                    <ul class="nested">
+                        <li><span class="caret">System 1</span>
+                            <ul class="nested">
+                                <li><span class="caret">Task 1</span>
+                                    <ul class="nested">
+                                        <li><span class="caret">Subtask 1</span>
+                                            <ul class="nested">
+                                                <li>Finding 1</li>
+                                                <li>Finding 2</li>
+                                            </ul>
+                                        </li>
+                                        <li>Subtask 2</li>
+                                    </ul>
+                                </li>
+                                <li><span class="caret">Task 2</span>
+                                    <ul class="nested">
+                                        <li>Finding 3</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>System 2
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <h1>Analyst Progress Summary View</h1>
+    <script>
+        var toggler = document.getElementsByClassName("caret");
+        var i;
+
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function () {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+            });
+        }
+    </script>
+
+    <div id="tableSummary" class="flex-child left">
+        <div id="systemTable">
+            <h2>System Table</h2>
+
+            <table>
+                <tr>
+                    <th>Select</th>
+                    <th>System
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>No. of Task
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>No. Findings
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Progress
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="taskTable">
+            <h2>Task Table</h2>
+            <table>
+                <tr>
+                    <th>Select
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Title
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>System
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Analyst
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Priority
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Progress
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>No. of Findings
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>No. of Subtasks
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Due Date
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td class="column2">Title 1</td>
+                    <td class="column3">System 1</td>
+                    <td class="column4">Analyst 1</td>
+                    <td class="column5">Low</td>
+                    <td class="column6">Not started</td>
+                    <td class="column7">1</td>
+                    <td class="column8">2</td>
+                    <td class="column9">30/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td class="column2">Title 2</td>
+                    <td class="column3">System 2</td>
+                    <td class="column4">Analyst 2</td>
+                    <td class="column5">Medium</td>
+                    <td class="column6">Assigned</td>
+                    <td class="column7">2</td>
+                    <td class="column8">4</td>
+                    <td class="column9">27/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td class="column2">Title 3</td>
+                    <td class="column3">System 3</td>
+                    <td class="column4">Analyst 3</td>
+                    <td class="column5">High</td>
+                    <td class="column6">In progress</td>
+                    <td class="column7">2</td>
+                    <td class="column8">3</td>
+                    <td class="column9">23/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td class="column2">Title 5</td>
+                    <td class="column3">System 5</td>
+                    <td class="column4">Analyst 5</td>
+                    <td class="column5">Low</td>
+                    <td class="column6">Complete</td>
+                    <td class="column7">3</td>
+                    <td class="column8">3</td>
+                    <td class="column9">15/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td class="column2">Title 6</td>
+                    <td class="column3">System 6</td>
+                    <td class="column4">Analyst 6</td>
+                    <td class="column5">Low</td>
+                    <td class="column6">Not applicable</td>
+                    <td class="column7">1</td>
+                    <td class="column8">4</td>
+                    <td class="column9">30/10/2020</td>
+                </tr>
+            </table>
+        </div>
+        <div id="subtaskTable">
+            <h2>Subtask Table</h2>
+
+            <table>
+                <tr>
+                    <th>Select
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Title
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Task
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Analyst
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Progress
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>No. of Findings
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                    <th>Due Date
+                        <input type="image" src="../assets/updownarrow.png" />
+                    </th>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask1" name="subtask1" value="1"></td>
+                    <td class="column2">Title 1</td>
+                    <td class="column3">Task 1</td>
+                    <td class="column4">Analyst 1</td>
+                    <td class="column5">Not started</td>
+                    <td class="column6">1</td>
+                    <td class="column7">25/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask2" name="subtask2" value="2"></td>
+                    <td class="column2">Title 2</td>
+                    <td class="column3">Task 2</td>
+                    <td class="column4">Analyst 2</td>
+                    <td class="column5">Complete</td>
+                    <td class="column6">1</td>
+                    <td class="column7">22/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask3" name="subtask3" value="3"></td>
+                    <td class="column2">Title 3</td>
+                    <td class="column3">Task 3</td>
+                    <td class="column4">Analyst 3</td>
+                    <td class="column5">In progress</td>
+                    <td class="column6">3</td>
+                    <td class="column7">18/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask3" name="subtask3" value="3"></td>
+                    <td class="column2">Title 4</td>
+                    <td class="column3">Task 4</td>
+                    <td class="column4">Analyst 4</td>
+                    <td class="column5">transfered</td>
+                    <td class="column6">0</td>
+                    <td class="column7">21/10/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask5" name="subtask5" value="5"></td>
+                    <td class="column2">Title 5</td>
+                    <td class="column3">Task 5</td>
+                    <td class="column4">Analyst 5</td>
+                    <td class="column5">Completed</td>
+                    <td class="column6">1</td>
+                    <td class="column7">10/09/2020</td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="subtask6" name="subtask1" value="6"></td>
+                    <td class="column2">Title 6</td>
+                    <td class="column3">Task 6</td>
+                    <td class="column4">Analyst 6</td>
+                    <td class="column5">Not applicable</td>
+                    <td class="column6">2</td>
+                    <td class="column7">25/10/2020</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="findingTable">
+            <h2>Finding Table</h2>
+            <table>
+                <tr>
+                    <th>Select<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>ID<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>Title<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>System<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>Task<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>Subtask<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>Subtask<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>Analyst<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>Status<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>Classification<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>Type<input type="image" src="../assets/updownarrow.png" /></th>
+                    <th>Risk<input type="image" src="../assets/updownarrow.png" /></th>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="column1"><input type="checkbox" id="" name="" value="1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function sortTable() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("findingTable");
+            switching = true;
+            /*Make a loop that will continue until
+            no switching has been done:*/
+            while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /*Loop through all table rows (except the
+                first, which contains table headers):*/
+                for (i = 1; i < (rows.length - 1); i++) {
+                    //start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+                    //check if the two rows should switch place:
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    /*If a switch has been marked, make the switch
+                    and mark that a switch has been done:*/
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
