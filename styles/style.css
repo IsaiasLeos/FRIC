@@ -73,16 +73,6 @@
     border: none;
 }
 
-.topNavigationBar .search-container button {
-    float: right;
-    padding: 6px 10px;
-    margin-top: 8px;
-    margin-right: 16px;
-    background: #ddd;
-    font-size: 17px;
-    cursor: pointer;
-}
-
 .SystemContentView .systems-content-view button {
     padding: 6px 10px;
     margin-bottom: 8px;
@@ -112,40 +102,10 @@
     cursor: pointer;
 }
 
-.topNavigationBar .search-container button:hover {
-    background: #ccc;
-}
-
-
-
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 50%;
-}
-
-td,
-th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-
-.treeview ul,
-#myUL {
-    list-style-type: none;
-    background-color: white;
-}
-
-#myUL {
-    margin: 0;
-    padding: 0;
-    background-color: white;
+    width: 95%;
 }
 
 .treeview .caret {
@@ -173,12 +133,6 @@ tr:nth-child(even) {
     display: block;
 }
 
-
-div.relative {
-    position: relative;
-    float: right;
-}
-
 dd {
     margin-left: 20px;
 }
@@ -187,8 +141,8 @@ dd {
 .topNavigationBar .search-container button:hover {
     background: #ccc;
 }
- 
-.notification{
+
+.notification {
     display: none;
     position: fixed;
     padding: 10px;
@@ -200,39 +154,34 @@ dd {
     margin-top: -100px;
     background: rgb(187, 178, 178);
     z-index: 20;
-  }
+}
 
-  #notify1 {
-    -webkit-box-shadow:  0px 0px 0px 9999px rgba(226, 214, 214, 0.5);
-    box-shadow:  0px 0px 0px 9999px rgba(226, 214, 214, 0.5);
-  }
+#notify1 {
+    -webkit-box-shadow: 0px 0px 0px 9999px rgba(226, 214, 214, 0.5);
+    box-shadow: 0px 0px 0px 9999px rgba(226, 214, 214, 0.5);
+}
 
-    .form {
-        margin: 0 auto; 
-        width: 290px;
-    }
+.form {
+    margin: 0 auto;
+    width: 290px;
+}
 
-    .form label{
-        display: block;
-        text-align: right;
-        float: left;
-    }
+.form label {
+    display: block;
+    text-align: right;
+    float: left;
+}
 
-    .form input{
-        display: block;
-        text-align: left;
-        float: right;
-    }
+.form input {
+    display: block;
+    text-align: left;
+    float: right;
+}
 
-    .ext{
-        position: absolute;
-        right:    0;
-        bottom:   0;
-    }
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 50%;
+.ext {
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 td,
@@ -259,33 +208,53 @@ tr:nth-child(even) {
     background-color: white;
 }
 
-.treeview .caret {
-    cursor: pointer;
-    user-select: none;
-}
-
-.treeview .caret::before {
-    content: "\25B6";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
-}
-
-.treeview .caret-down::before {
-    transform: rotate(90deg);
-}
-
 .nested {
     display: none;
 }
 
 
-.active {
-    display: block;
-}
-
 
 div.relative {
     position: relative;
     float: right;
+}
+
+.upDown {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.test {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 15px;
+
+}
+
+.reportButtons {
+
+    display: flex;
+    position: center;
+    text-align: left;
+    font-size: 40px;
+    margin-left: 20px;
+}
+
+.helpIcon {
+    align-content: flex-end;
+    width: 20px;
+    height: 20px;
+
+}
+
+.helpIconSmall {
+    align-content: flex-end;
+    width: 15px;
+    height: 15px;
+
 }
