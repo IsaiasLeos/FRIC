@@ -10,6 +10,76 @@
       border: 1px solid black;
       border-collapse: collapse;
     }
+
+    
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,39 +113,41 @@
   </header>
 
   <h2>Event Basic Information</h2>
-  <h3>Event Name</h3>
-  <p>Event description</p>
-  <input type=" image" src="../assets/help.png" />
+  <input type="image" src="../assets/help.png" />
+  <h3>Event X</h3>
+  <p>Event X is an event held at Y, tested by Z</p>
+  
                 <p></p>
 
-                <label for="eventType">Choose an Event Type:</label>
+                <label for="eventType">Event Type:</label>
                 <select name="eventType" id="types">
                   <option value="a">Type 1</option>
                   <option value="b">Type 2</option>
                   <option value="c">Type 3</option>
                   <option value="d">Type 4</option>
                 </select>
-                <p>Event Version</p>
-                <p>Assessment Date</p>
-                <p>Organization Name</p>
+                <p>Event Version: 1.1.1</p>
+                <p>Assessment Date:09/17/2020</p>
+                <p>Organization Name: CCDC DAC</p>
                 <p>Securtiy Classification Title Guide</p>
-                <label for="eventClass">Choose an Event Class:</label>
+                <label for="eventClass">Event Classification:</label>
                 <select name="eventClass" id="classes">
                   <option value="a">Class 1</option>
                   <option value="b">Class 2</option>
                   <option value="c">Class 3</option>
                   <option value="d">Class 4</option>
                 </select>
-                <p>Declassification Date</p>
-                <p>Customer Name</p>
-                <p>Customer Name</p>
+                <p>Declassification Date: 07/12/2020</p>
+                <p>Customer Name: UTEP</p>
+                
 
 
-                <h3>Event Team Information</h3>
-                <input type="image" src="../assets/add.png" />
+                <h2>Event Team Information</h2>
+                
                 <p>Lead Analysts</p>
-
+                <input type="image" src="../assets/add.png" onclick="openForm()"/>
                 <p></p>
+                
                 <table style="width:100%">
                   <tr>
                     <th></th>
@@ -83,52 +155,170 @@
                   </tr>
                   <tr>
                     <td><input type="checkbox" id="cb1" value="event" /></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>AC</td>
+                    <td><label for="eventType"></label>
+                      <select name="eventType" id="types">
+                        <option value="a">Remove</option>
+                        <option value="b">Edit</option>
+                        <option value="c">Sync</option>
+                      </select></td>
+                    
                   </tr>
                   <tr>
                     <td><input type="checkbox" id="cb1" value="event" /></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>LS</td>
+                    <td><label for="eventType"></label>
+                      <select name="eventType" id="types">
+                        <option value="a">Remove</option>
+                        <option value="b">Edit</option>
+                        <option value="c">Sync</option>
+                      </select></td>
+                    
                   </tr>
                   <tr>
                     <td><input type="checkbox" id="cb1" value="event" /></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>JP</td>
+                    <td><label for="eventType"></label>
+                      <select name="eventType" id="types">
+                        <option value="a">Remove</option>
+                        <option value="b">Edit</option>
+                        <option value="c">Sync</option>
+                      </select></td>
+      
                   </tr>
                 </table>
 
 
-                <label for="eventType">Choose an Event Type:</label>
-                <select name="eventType" id="types">
-                  <option value="a">Type 1</option>
-                  <option value="b">Type 2</option>
-                  <option value="c">Type 3</option>
-                  <option value="d">Type 4</option>
-                </select>
-                <p>Event Version</p>
-                <p>Assessment Date</p>
-                <p>Organization Name</p>
-                <p>Securtiy Classification Title Guide</p>
-                <label for="eventClass">Choose an Event Class:</label>
-                <select name="eventClass" id="classes">
-                  <option value="a">Class 1</option>
-                  <option value="b">Class 2</option>
-                  <option value="c">Class 3</option>
-                  <option value="d">Class 4</option>
-                </select>
-                <p>Declassification Date</p>
-                <p>Customer Name</p>
-                <p>Customer Name</p>
+                <p>Analysts</p>
+                <input type="image" src="../assets/add.png" onclick="openForm()"/>
+                <p></p>
+                
+                <table style="width:100%">
+                  <tr>
+                    <th></th>
+                    <th>Analysts</th>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" id="cb1" value="event" /></td>
+                    <td>IL</td>
+                    <td><label for="eventType"></label>
+                      <select name="eventType" id="types">
+                        <option value="a">Remove</option>
+                        <option value="b">Edit</option>
+                        <option value="c">Sync</option>
+                      </select></td>
+                    
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" id="cb1" value="event" /></td>
+                    <td>AV</td>
+                    <td><label for="eventType"></label>
+                      <select name="eventType" id="types">
+                        <option value="a">Remove</option>
+                        <option value="b">Edit</option>
+                        <option value="c">Sync</option>
+                      </select></td>
+                    
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" id="cb1" value="event" /></td>
+                    <td>JP</td>
+                    <td><label for="eventType"></label>
+                      <select name="eventType" id="types">
+                        <option value="a">Remove</option>
+                        <option value="b">Edit</option>
+                        <option value="c">Sync</option>
+                      </select></td>
+      
+                  </tr>
+                </table>
+
+
+                <div class="form-popup" id="myForm">
+                  <form action="" class="form-container">
+                    <h1>Add/Edit</h1>
+                
+                    <label for="email"><b>First Name:</b></label>
+                    <input type="text" placeholder="" name="fname" required>
+                
+                    <label for="psw"><b>Last Name:</b></label>
+                    <input type="text" placeholder="" name="lname" required>
+
+                    <label for="email"><b>Initial:</b></label>
+                    <input type="text" placeholder="" name="initial" required>
+                
+                    <label for="psw"><b>Title:</b></label>
+                    <input type="text" placeholder="" name="title" required>
+                    
+                
+                    <button type="submit" class="btn">Submit</button>
+                    <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+                  </form>
+                </div>
+
+                <div >
+                  <form >
+                    <h1>Sync</h1>
+                
+                    <label for="email"><b>From:</b></label>
+                    <select name="eventType" id="types">
+                      <option value="a">AC</option>
+                      <option value="b">LS</option>
+                      <option value="c">JP</option>
+                    </select>
+                
+                    <table style="width:100%">
+                      <tr>
+                        <th>Delete</th>
+                        <th>Analysts</th>
+                        <th>IP Address</th>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                        <td>IL</td>
+                        <td>127.0.0.0</td>
+                        
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                        <td>AV</td>
+                        <td>127.0.0.1</td>
+                        
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                        <td>JP</td>
+                        <td>127.0.0.2</td>
+          
+                      </tr>
+                    </table>
+                    
+                
+                    <button type="submit" class="btn">Sync</button>
+                    <button type="submit" class="btn cancel" onclick="closeSyncForm()">Close</button>
+                  </form>
+                </div>
 
 
 
 </body>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+function openSyncForm() {
+  document.getElementById("mySyncForm").style.display = "block";
+}
+
+function closeSyncForm() {
+  document.getElementById("mySyncForm").style.display = "none";
+}
+
+</script>
 
 </html>
