@@ -108,30 +108,6 @@ table {
     width: 95%;
 }
 
-.treeview .caret {
-    cursor: pointer;
-    user-select: none;
-}
-
-.treeview .caret::before {
-    content: "\25B6";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
-}
-
-.treeview .caret-down::before {
-    transform: rotate(90deg);
-}
-
-.nested {
-    display: none;
-}
-
-
-.active {
-    display: block;
-}
 
 dd {
     margin-left: 20px;
@@ -195,25 +171,6 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
-
-.treeview ul,
-#myUL {
-    list-style-type: none;
-    background-color: white;
-}
-
-#myUL {
-    margin: 0;
-    padding: 0;
-    background-color: white;
-}
-
-.nested {
-    display: none;
-}
-
-
-
 div.relative {
     position: relative;
     float: right;
@@ -259,100 +216,152 @@ div.relative {
 
 }
 
-/* ------------------------------------------ */
-
-.main-task{
+.main-task {
     margin-top: 5px;
 }
+
 .main-task table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
+
 .main-subtask table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
 
-.main-subtask{
+.main-subtask {
     margin-top: 5px;
 }
-#task-overview{
+
+#task-overview {
     width: 60vw;
     margin-left: 50px;
     float: left;
     text-align: center;
 }
-#task-detailedview{
+
+#task-detailedview {
     float: left;
     width: 30vw;
     display: flex;
     justify-content: center;
 }
 
-.task-details input{
+.task-details input {
     display: block;
     width: 300px;
 }
-.task-details select{
+
+.task-details select {
     display: block;
     width: 300px;
 }
-.task-details button[class="help"]{
+
+.task-details button[class="help"] {
     width: 20px;
     height: 20px;
     border-radius: 100px;
 }
 
-#subtask-overview{
+#subtask-overview {
     width: 60vw;
     margin-left: 50px;
     float: left;
     text-align: center;
 }
-#subtask-detailedview{
+
+#subtask-detailedview {
     float: left;
     width: 30vw;
     display: flex;
     justify-content: center;
 }
 
-.subtask-details input{
+.subtask-details input {
     display: block;
     width: 300px;
 }
-.subtask-details select{
+
+.subtask-details select {
     display: block;
     width: 300px;
 }
-.help-button{
+
+.help-button {
     width: 20px;
     height: 20px;
     position: relative;
     border-radius: 100px;
 }
-.help-button img{
+
+.help-button img {
     position: absolute;
     top: 50%;
     left: 50%;
     margin-left: -10px;
-    margin-top:-10px;
+    margin-top: -10px;
 }
 
-.add-button{
+.add-button {
     border-radius: 50%;
 }
-.sort-button{
+
+.sort-button {
     width: 10px;
     height: 20px;
     position: relative;
 }
-.sort-button img{
+
+.sort-button img {
     margin: 0 auto;
     position: absolute;
     left: 50%;
     top: 50%;
     margin-top: -10px;
-    margin-left: -10px ;
+    margin-left: -10px;
+}
+
+ul,
+#myUL {
+    list-style-type: none;
+}
+
+#myUL {
+    margin: 0;
+    padding: 0;
+}
+
+.caret {
+    cursor: pointer;
+    -webkit-user-select: none;
+    /* Safari 3.1+ */
+    -moz-user-select: none;
+    /* Firefox 2+ */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+}
+
+.caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.caret-down::before {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.nested {
+    display: none;
+}
+
+.active {
+    display: block;
 }
