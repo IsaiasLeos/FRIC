@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles/style.css">
     <title>Task</title>
 
 </head>
@@ -33,7 +33,7 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main class="main-task">
         <section id="task-overview">
             <h2>Task Overview Table</h2>
             <div class="buttons">
@@ -47,14 +47,14 @@
             <table>
                 <tr>
                     <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></th>
-                    <th>Title<i class="fas fa-arrow-down"></i></th>
-                    <th>System<i class="fas fa-arrow-down"></i></th>
-                    <th>Analyst<i class="fas fa-arrow-down"></i></th>
-                    <th>Priority<i class="fas fa-arrow-down"></i></th>
-                    <th>Progress<i class="fas fa-arrow-down"></i></th>
-                    <th>No. of Subtasks<i class="fas fa-arrow-down"></i></th>
-                    <th>No. of Findings<i class="fas fa-arrow-down"></i></th>
-                    <th>Due Date<i class="fas fa-arrow-down"></i></th>
+                    <th>Title<button type="image" class="sort-button"><img  width="20px" src="../assets/updownarrow.png" alt="Sort Title" class></button> </th>
+                    <th>System<button type="image" class="sort-button"><img width="20px" src="../assets/updownarrow.png" alt="Sort System"></button> </th>
+                    <th>Analyst<button type="image" class="sort-button"><img  width="20px" src="../assets/updownarrow.png" alt="SortAnalyst"></button> </th>
+                    <th>Priority<button type="image" class="sort-button"><img width="20px" src="../assets/updownarrow.png" alt="Sort priority"></button> </th>
+                    <th>Progress<button type="image" class="sort-button"><img width="20px" src="../assets/updownarrow.png" alt="Sort Progress"></button> </th>
+                    <th>No. of Subtasks<button type="image" class="sort-button"><img width="20px" src="../assets/updownarrow.png" alt="Sort number of subtask"></button> </th>
+                    <th>No. of Findings<button type="image" class="sort-button"><img  width="20px" src="../assets/updownarrow.png" alt="Sort number of Findings"></button> </th>
+                    <th>Due Date<button type="image" class="sort-button"><img width="20px" src="../assets/updownarrow.png" alt="Sort due dates"></button> </th>
                 </tr>
                 <tr>
                     <td class="column1"><input type="checkbox" id="task1" name="task1" value="1"></td>
@@ -123,12 +123,12 @@
                     <td class="column9">30/10/2020</td>
                 </tr>
             </table>
-            <button type="add"><i class="fa fa-plus"></i></button>
+            <button type="image" class="add-button"><img width="30" src="../assets/add.png" alt="Add task"></button>
         </section>
         <section id="task-detailedview">
             <div class="task-details">
                 <h2>Task Detailed View</h2>
-                <button type="button" class="help"><i class="fas fa-question"></i></button>
+                <button type="image" class="help-button"><img width="20px" src="../assets/help.png" alt="Help"></button>
                 <form action="" class="form">
                     <label for="taskTitle">
                         Title:
