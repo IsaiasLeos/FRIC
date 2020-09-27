@@ -7,6 +7,10 @@ import eventContentView from './eventcontentview/eventContentView';
 import eventDetailedView from './eventcontentview/eventDetailedView';
 import analystSummaryView from './analystsummaryview/analystSummaryView';
 import systemContentView from './systemcontentview/systemContentView';
+import findingContentView from './findingscontentview/findingContentView';
+import subtaskContentView from './subtaskContentView/subtaskContentView';
+import archiveContentView from './archivecontentview/archiveContentView';
+import configurationContentView from './configurationcontentview/configurationContentView';
 
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
@@ -21,6 +25,10 @@ ReactDOM.render(
     <Route exact path="/EventDetailed" component={eventDetailedView} />
     <Route exact path="/AnalystSummary" component={analystSummaryView} />
     <Route exact path="/SystemView" component={systemContentView} />
+    <Route exact path="/Findings" component={findingContentView} />
+    <Route exact path="/Subtask" component={subtaskContentView} />
+    <Route exact path="/Archive" component={archiveContentView} />
+    <Route exact path="/Configuration" component={configurationContentView} />
   </Router>,
   document.getElementById('root')
 

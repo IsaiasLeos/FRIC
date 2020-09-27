@@ -57,7 +57,7 @@ class systemContentView extends React.Component {
                                 <td>Best Buy</td>
                                 <td>10</td>
                                 <td>20</td>
-                                <td>Completeed</td>
+                                <td>Completed</td>
                             </tr>
                         </Table>
                     </div>
