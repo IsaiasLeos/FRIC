@@ -2,71 +2,95 @@
 <html lang="en-US">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../styles/style.css">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <title>F.R.I.C.</title>
 </head>
 
 <body>
     <header>
-        <nav class="topNavigationBarLook">
-            <ul>
-                <div class="topNavigationBar">
-                    <li><a href="../aclanan/eventContentView.html">Event</a></li>
-                    <li><a href="../ialeos/systemContentView.html">System Content</a></li>
-
-                    <li><a href="../lasotomorales/tasks.html">Tasks</a></li>
-                    <li><a href="../lasotomorales/subtasks.html">Subtasks</a></li>
-                    <li><a href="../avasquez/findingsContentViewl.html">Finding</a></li>
-                    <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
-                    <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
-                    <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
-                    <li><a href="#">Help</a></li>
-                    <div class="search-container">
-                        <form action="#">
-                            <input type="text" placeholder="Search.." name="search">
-                        </form>
-                    </div>
-                </div>
-            </ul>
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">FRIC</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
+                aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExample02">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../aclanan/eventContentView.html">Home <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../ialeos/systemContentView.html">System Content <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../avasquez/findingsContentViewl.html">Findings <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../lasotomorales/tasks.html">Task <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../lasotomorales/subtasks.html">Subtask <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../avasquez/archiveContentView.html">Archive <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../jipadilla/configurationContentView.html">Configuration <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../jipadilla/setupContentView.html">Setup <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Help <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-md-0">
+                    <input class="form-control" type="text" placeholder="Search">
+                </form>
+            </div>
         </nav>
+
+        <h3>Event Tree View</h3>
+        <ul id="myUL">
+            <li><span class="caret">Event</span>
+                <ul class="nested">
+                    <li><span class="caret">System 1</span>
+                        <ul class="nested">
+                            <li><span class="caret">Task 1</span>
+                                <ul class="nested">
+                                    <li><span class="caret">Subtask 1</span>
+                                        <ul class="nested">
+                                            <li>Finding 1</li>
+                                            <li>Finding 2</li>
+                                        </ul>
+                                    </li>
+                                    <li>Subtask 2</li>
+                                </ul>
+                            </li>
+                            <li><span class="caret">Task 2</span>
+                                <ul class="nested">
+                                    <li>Finding 3</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>System 2
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </header>
-    <div class="relative">
-        <div class="treeview">
-            <h3>Event Tree View</h3>
-            <ul id="myUL">
-                <li><span class="caret">Event</span>
-                    <ul class="nested">
-                        <li><span class="caret">System 1</span>
-                            <ul class="nested">
-                                <li><span class="caret">Task 1</span>
-                                    <ul class="nested">
-                                        <li><span class="caret">Subtask 1</span>
-                                            <ul class="nested">
-                                                <li>Finding 1</li>
-                                                <li>Finding 2</li>
-                                            </ul>
-                                        </li>
-                                        <li>Subtask 2</li>
-                                    </ul>
-                                </li>
-                                <li><span class="caret">Task 2</span>
-                                    <ul class="nested">
-                                        <li>Finding 3</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>System 2
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+
     <h1>Analyst Progress Summary View</h1>
     <script>
         var toggler = document.getElementsByClassName("caret");
