@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-class taskContentView extends React.Component {
+class archiveContentView extends React.Component {
     render() {
         return (
             <body>
@@ -10,4 +10,4 @@ class taskContentView extends React.Component {
     }
 }
 
-export default taskContentView;
+export default archiveContentView;
