@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import eventContentView from './eventcontentview/eventContentView';
 import eventDetailedView from './eventcontentview/eventDetailedView';
+import taskContentView from './taskcontentview/taskContentView.js';
 
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ ReactDOM.render(
    </Route>
     <Route exact path="/Event" component={eventContentView} />
     <Route exact path="/EventDetailed" component={eventDetailedView} />
+    <Route exact path="/Task" component={taskContentView} />
   </Router>,
   document.getElementById('root')
 
