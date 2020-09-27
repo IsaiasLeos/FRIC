@@ -5,6 +5,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import eventContentView from './eventcontentview/eventContentView';
 import eventDetailedView from './eventcontentview/eventDetailedView';
+import analystSummaryView from './analystsummaryview/analystSummaryView';
+import systemContentView from './systemcontentview/systemContentView';
 
 import taskContentView from './taskcontentview/taskContentView.js';
 
