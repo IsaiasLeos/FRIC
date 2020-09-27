@@ -1,7 +1,7 @@
 import * as React from 'react'
 import '../generalView/style.css'
 import '../assets/css/bootstrap.css'
-
+import { Link } from 'react-router-dom'
 
 class generalView extends React.Component {
     render() {
@@ -15,11 +15,10 @@ class generalView extends React.Component {
                     </button>
                     <div class="collapse navbar-collapse" id="navbarsExample02">
                         <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                                <a class="nav-link" href="">Event <span
-                                    class="sr-only">(current)</span></a>
+                            <li class="nav-item active">
+                                <Link to="/Event" >Event </Link>
                             </li>
-                        <li class="nav-item active">
+                            <li class="nav-item active">
                                 <a class="nav-link" href="">System Content <span
                                     class="sr-only">(current)</span></a>
                             </li>
