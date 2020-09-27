@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import GeneralView from '../generalView/generalView';
-import EventDetailedView from '../eventcontentview/eventDetailedView'
 import '../assets/css/bootstrap.css'
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
