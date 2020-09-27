@@ -19,8 +19,7 @@ class generalView extends React.Component {
                                 <Link to="/Event" >Event </Link>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">System Content <span
-                                    class="sr-only">(current)</span></a>
+                            <Link to="/SystemView" >System Content </Link>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="">Findings <span

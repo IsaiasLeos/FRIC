@@ -5,6 +5,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import eventContentView from './eventcontentview/eventContentView';
 import eventDetailedView from './eventcontentview/eventDetailedView';
+import analystSummaryView from './analystsummaryview/analystSummaryView';
+import systemContentView from './systemcontentview/systemContentView';
 
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
@@ -17,6 +19,8 @@ ReactDOM.render(
    </Route>
     <Route exact path="/Event" component={eventContentView} />
     <Route exact path="/EventDetailed" component={eventDetailedView} />
+    <Route exact path="/AnalystSummary" component={analystSummaryView} />
+    <Route exact path="/SystemView" component={systemContentView} />
   </Router>,
   document.getElementById('root')
 
