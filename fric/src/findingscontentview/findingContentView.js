@@ -3,7 +3,7 @@ import GeneralView from '../generalView/generalView';
 
 import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
-import GeneralView from '../generalView/generalView'
+
 import SortImage from '../assets/updownarrow.png'
 
 import {useEffect, useSState, useRef} from 'react';
@@ -153,11 +153,6 @@ class findingContentView extends React.Component {
                     }
                 </div>
 
-                
-
-    
-                <GeneralView/>
-                <body></body>
 
             </div>
         );

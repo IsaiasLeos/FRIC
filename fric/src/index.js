@@ -10,18 +10,11 @@ import systemContentView from './systemcontentview/systemContentView';
 import findingContentView from './findingscontentview/findingContentView';
 import subtaskContentView from './subtaskContentView/subtaskContentView';
 import archiveContentView from './archivecontentview/archiveContentView';
-<<<<<<< HEAD
-import configurationContentView from './configurationcontentview/configurationContentView';
-
-import taskContentView from './taskcontentview/taskContentView.js';
-
-=======
 import setupContentView from './setupContentView/setupContentView';
 
 import taskContentView from './taskcontentview/taskContentView.js';
 
 
->>>>>>> origin/aclanan
 
 
 import { Route, BrowserRouter as Router } from 'react-router-dom';
@@ -48,16 +41,11 @@ ReactDOM.render(
     <Route exact path="/Setup" component={setupContentView} />
 
     <Route exact path="/AnalystSummary" component={analystSummaryView} />
-<<<<<<< HEAD
     <Route exact path="/SystemView" component={systemContentView} />
     <Route exact path="/Findings" component={findingContentView} />
     <Route exact path="/Subtask" component={subtaskContentView} />
     <Route exact path="/Archive" component={archiveContentView} />
-    <Route exact path="/Configuration" component={configurationContentView} />
-=======
     
-
->>>>>>> origin/aclanan
   </Router>,
   document.getElementById('root')
 
