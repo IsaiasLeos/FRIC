@@ -24,7 +24,7 @@ class findingContentView extends React.Component {
     }
 
     render() {
-        const [modalIsOpen, setModalIsOpen] = useState(false)
+
         return (
 
             <div>
@@ -142,29 +142,11 @@ class findingContentView extends React.Component {
                     {this.state.showPopup ?
                         <Popup
                             text='Detailed View'
-
-
-
                             closePopup={this.togglePopup.bind(this)}
                         />
                         : null
                     }
                 </div>
-
-                <div class="testModal">
-
-                    <button onClick={() => setModalIsOpen(true)}>Open Modal</button>
-                    <Modal isOpen={modalIsOpen}>
-                        <h2>Testing Testing</h2>
-                        <p>This is P</p>
-
-                    </Modal>
-
-
-
-                </div>
-
-
             </div>
         );
     }

@@ -27,7 +27,7 @@ class generalView extends React.Component {
                                 {/* <Link to="/SystemView" >System Content </Link> */}
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="/Finding">Findings</a>
+                                <a class="nav-link" href="/Findings">Findings</a>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="/Task">Task</a>
@@ -40,13 +40,13 @@ class generalView extends React.Component {
                                 <a class="nav-link " href="/Archive">Archive</a>
                             </li>
                             <li class="nav-item active">
-                                <Link to="/ConfigView" > Configuration </Link>
+                            <a class="nav-link" href="/Config">Config</a>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="/Setup">Setup</a>
                             </li>
                             <li class="nav-item active">
-                                <Link to="/help" >Help </Link>
+                            <a class="nav-link" href="/Help">Help</a>
                             </li>
                         </ul>
                         <form class="form-inline my-2 my-md-0">

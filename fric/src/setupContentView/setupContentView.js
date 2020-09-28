@@ -10,7 +10,7 @@ class setupContentView extends React.Component {
                 <GeneralView />
 
                 <div class="SetUpView">
-                    <h1 style={{ textAlign: "center" }}>Finding Report Information Console (FRIC)</h1>
+                    <h1 style={{ textAlign: "center" }}>Finding and Report Information Console (FRIC)</h1>
                 </div>
 
                 <div class="form-popup" id="myForm">
