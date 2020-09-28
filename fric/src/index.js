@@ -9,11 +9,9 @@ import analystSummaryView from './analystsummaryview/analystSummaryView';
 import systemContentView from './systemcontentview/systemContentView';
 
 import taskContentView from './taskcontentview/taskContentView.js';
-
-import analystSummaryView from './analystsummaryview/analystSummaryView';
-import systemContentView from './systemcontentview/systemContentView';
-
-
+import configurationContentView from './configurationContentView/configurationContentView.js';
+import setupContentView from './setupContentView/setupContentView.js';
+import helpView from './helpView/helpView.js';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
@@ -30,6 +28,11 @@ ReactDOM.render(
 
     <Route exact path="/AnalystSummary" component={analystSummaryView} />
     <Route exact path="/SystemView" component={systemContentView} />
+    <Route exact path="/ConfigView" component={configurationContentView} />
+    <Route exact path="/SetupView" component={setupContentView} />
+    <Route exact path="/help" component={helpView} />
+    
+
 
   </Router>,
   document.getElementById('root')
