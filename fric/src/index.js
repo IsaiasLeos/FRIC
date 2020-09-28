@@ -9,9 +9,10 @@ import analystSummaryView from './analystsummaryview/analystSummaryView';
 import systemContentView from './systemcontentview/systemContentView';
 
 import taskContentView from './taskcontentview/taskContentView.js';
+import taskDetailedView from './taskcontentview/taskDetailedView.js'
+import subtaskContentView from './subtaskContentView/subtaskContentView.js'
+import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'
 
-import analystSummaryView from './analystsummaryview/analystSummaryView';
-import systemContentView from './systemcontentview/systemContentView';
 
 
 import { Route, BrowserRouter as Router } from 'react-router-dom';
@@ -22,14 +23,20 @@ ReactDOM.render(
       <React.StrictMode>
         <App />
       </React.StrictMode>,
-   </Route>
+    </Route>
     <Route exact path="/Event" component={eventContentView} />
-    <Route exact path="/EventDetailed" component={eventDetailedView} />
+    <Route exact path="/EventDetailed" componsent={eventDetailedView} />
 
     <Route exact path="/Task" component={taskContentView} />
+    <Route exact path="/TaskDetails" component={taskDetailedView} />
+    
+    <Route exact path="/Subtask" component={subtaskContentView} />
+    <Route exact path="/SubtaskDetails" component={subtaskDetailedView} />
+    
 
     <Route exact path="/AnalystSummary" component={analystSummaryView} />
     <Route exact path="/SystemView" component={systemContentView} />
+    
 
   </Router>,
   document.getElementById('root')

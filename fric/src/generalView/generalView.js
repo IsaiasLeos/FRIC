@@ -29,8 +29,7 @@ class generalView extends React.Component {
                                 <Link to="/Task" >Task </Link>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Subtask <span
-                                    class="sr-only">(current)</span></a>
+                                <Link to="/Subtask" >Subtask </Link>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="">Archive <span
