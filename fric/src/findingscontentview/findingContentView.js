@@ -1,4 +1,5 @@
 import * as React from 'react'
+import GeneralView from '../generalView/generalView';
 
 import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
@@ -155,6 +156,9 @@ class findingContentView extends React.Component {
                 
 
     
+                <GeneralView/>
+                <body></body>
+
             </div>
         );
     }
