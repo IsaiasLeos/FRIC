@@ -11,7 +11,7 @@ class eventContentView extends React.Component {
     render() {
         return (
             <div>
-                <GeneralView />
+                <GeneralView/>
                 <body>
                     <input type="image" src={AddImage} />
                     <button type="button">Delete</button>

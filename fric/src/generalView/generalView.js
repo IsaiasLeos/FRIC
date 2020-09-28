@@ -24,28 +24,24 @@ class generalView extends React.Component {
                             {/* <Link to="/SystemView" >System Content </Link> */}
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Findings <span
-                                    class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/Finding">Findings</a>
                             </li>
                             <li class="nav-item active">
                                 <a class = "nav-link" href = "/Task">Task</a>
                                 {/* <Link to="/Task" >Task </Link> */}
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Subtask <span
-                                    class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/Subtask">Subtask</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Archive <span
-                                    class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/Archive">Archive</a>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="">Configuration <span
                                     class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Setup <span
-                                    class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/Setup">Setup</a>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="">Help <span class="sr-only">(current)</span></a>
