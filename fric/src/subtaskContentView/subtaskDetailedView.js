@@ -90,6 +90,12 @@ class subtaskDetailedView extends React.Component {
                                 <option value="subtaskAttachment4">Attachment 4</option>
                             </select>
                         </label><br />
+                        <div class="buttons">
+                            <form action="">
+                                <input type="submit" name="" id="" value="Accept" />
+                                <input type="button" name="" id="" value="Cancel" />
+                            </form>
+                        </div> 
                     </form>
                     
                 </div>

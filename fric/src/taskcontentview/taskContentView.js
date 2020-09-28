@@ -11,6 +11,12 @@ class taskContentView extends React.Component {
             <div>
                 <GeneralView />
                 <h2>Task Overview Table</h2>
+                <div class="buttons">
+                    <form action="">
+                        <input type="button" name="" id="" value="Archive" />
+                        <input type="button" name="" id="" value="Demote" />
+                    </form>
+                </div>
                 <Table>
                 <tr>
                     <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></input></th>

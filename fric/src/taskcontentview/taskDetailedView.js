@@ -92,7 +92,13 @@ class taskDetailedView extends React.Component {
                                 <option value="Attachment3">Attachment 3</option>
                                 <option value="Attachment4">Attachment 4</option>
                             </select>
-                        </label><br/> 
+                        </label><br/>
+                        <div class="buttons">
+                            <form action="">
+                                <input type="submit" name="" id="" value="Accept" />
+                                <input type="button" name="" id="" value="Cancel" />
+                            </form>
+                        </div> 
                     </form>
                 </div>
 

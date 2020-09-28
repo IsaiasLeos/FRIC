@@ -11,6 +11,12 @@ class subtaskContentView extends React.Component {
             <div>
                 <GeneralView />
                 <h2>Subtask Overview Table</h2>
+                <div class="buttons">
+                    <form action="">
+                        <input type="button" name="" id="" value="Archive" />
+                        <input type="button" name="" id="" value="Promote" />
+                    </form>
+                </div>
                 <Table>
                 <tr>
                     <th><input type="checkbox" id="all-subtasks" name="all-subtasks" value="0"></input></th>
