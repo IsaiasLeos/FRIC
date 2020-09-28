@@ -16,16 +16,19 @@ class generalView extends React.Component {
                     <div class="collapse navbar-collapse" id="navbarsExample02">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <Link to="/Event" >Event </Link>
+                                <a class = "nav-link " href = "/Event">Event</a>
+                                {/* <Link to="/Event" >Event </Link> */}
                             </li>
                             <li class="nav-item active">
-                                <Link to="/SystemView" >System Content </Link>
+                                <a class = "nav-link" href = "/SystemView">System</a>
+                            {/* <Link to="/SystemView" >System Content </Link> */}
                             </li>
                             <li class="nav-item active">
                                 <Link to="/Findings" >Finding Content </Link>
                             </li>
                             <li class="nav-item active">
-                                <Link to="/Task" >Task </Link>
+                                <a class = "nav-link" href = "/Task">Task</a>
+                                {/* <Link to="/Task" >Task </Link> */}
                             </li>
                             <li class="nav-item active">
                                 <Link to="/Subtask" >Subtask </Link>
