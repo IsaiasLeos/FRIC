@@ -1,13 +1,19 @@
 import * as React from 'react'
+import {useState}  from "react";
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import HelpImage from '../assets/help.png'
 import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
 import GeneralView from '../generalView/generalView';
+import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom'
-class taskContentView extends React.Component {
-    render() {
-        return (
+
+function TaskContentView(){
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    return(
             <div>
                 <GeneralView />
                 <h2>Task Overview Table</h2>
@@ -32,7 +38,7 @@ class taskContentView extends React.Component {
                 </tr>
                 <tr>
                     <td class="column1"><input type="checkbox" id="task1" name="task1" value="1" /></td>
-                    <td class="column2"><Link to="/TaskDetails" >Title 1</Link></td>
+                    <td class="column2"><Button variant="outline-dark" onClick={handleShow}>Title 1</Button></td>
                     <td class="column3">System 1</td>
                     <td class="column4">Analyst 1</td>
                     <td class="column5">Low</td>
@@ -97,12 +103,25 @@ class taskContentView extends React.Component {
                     <td class="column9">30/10/2020</td>
                 </tr>
                 </Table>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Submit
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
                 <input type="image" src={AddImage} onclick="openForm()" />
                 
             </div>
-
-        );
-    }
+    );
 }
 
-export default taskContentView;
+export default TaskContentView;
