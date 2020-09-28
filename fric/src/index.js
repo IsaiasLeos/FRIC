@@ -11,13 +11,7 @@ import findingContentView from './findingscontentview/findingContentView';
 import subtaskContentView from './subtaskContentView/subtaskContentView';
 import archiveContentView from './archivecontentview/archiveContentView';
 import configurationContentView from './configurationcontentview/configurationContentView';
-
 import taskContentView from './taskcontentview/taskContentView.js';
-
-import analystSummaryView from './analystsummaryview/analystSummaryView';
-import systemContentView from './systemcontentview/systemContentView';
-
-
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
@@ -29,9 +23,7 @@ ReactDOM.render(
    </Route>
     <Route exact path="/Event" component={eventContentView} />
     <Route exact path="/EventDetailed" component={eventDetailedView} />
-
     <Route exact path="/Task" component={taskContentView} />
-
     <Route exact path="/AnalystSummary" component={analystSummaryView} />
     <Route exact path="/SystemView" component={systemContentView} />
     <Route exact path="/Findings" component={findingContentView} />
