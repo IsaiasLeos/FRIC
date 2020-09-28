@@ -2,8 +2,11 @@ import * as React from 'react'
 import '../generalView/style.css'
 import '../assets/css/bootstrap.css'
 import { Link } from 'react-router-dom'
+import {Component} from 'react';
+import Popup from './Popup.js'
 
 class generalView extends React.Component {
+    
     render() {
         return (
             <div>
@@ -51,6 +54,8 @@ class generalView extends React.Component {
                         </form>
                     </div>
                 </nav>
+
+
             </div>
         );
     }
