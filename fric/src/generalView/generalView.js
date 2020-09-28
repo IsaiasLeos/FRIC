@@ -19,11 +19,10 @@ class generalView extends React.Component {
                                 <Link to="/Event" >Event </Link>
                             </li>
                             <li class="nav-item active">
-                            <Link to="/SystemView" >System Content </Link>
+                                <Link to="/SystemView" >System Content </Link>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Findings <span
-                                    class="sr-only">(current)</span></a>
+                                <Link to="/Findings" >Finding Content </Link>
                             </li>
                             <li class="nav-item active">
                                 <Link to="/Task" >Task </Link>
@@ -33,8 +32,7 @@ class generalView extends React.Component {
                                     class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Archive <span
-                                    class="sr-only">(current)</span></a>
+                            <Link to="/Archive" >Archive</Link>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="">Configuration <span
