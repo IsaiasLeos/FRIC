@@ -22,13 +22,16 @@
                     <li><a href="../avasquez/archiveContentView.html">Archive</a></li>
                     <li><a href="../jipadilla/configurationContentView.html">Configuration</a></li>
                     <li><a href="../jipadilla/setupContentView.html">Setup</a></li>
-                    <li><a href="#">Help</a></li>
+                    <li><a href="../jipadilla/notificationOverlay.html">Notification</a></li>
+                    <li><a href="../jipadilla/helpView.html">Help</a></li>
+
                     <div class="search-container">
                         <form action="#">
                             <input type="text" placeholder="Search.." name="search">
 
                         </form>
                     </div>
+
                 </div>
             </ul>
         </nav>
@@ -51,20 +54,24 @@
         <input type="text" id="question_two" name="question_two">
     </form>
 
-    <dl>
-        <dd> "Please select an option"</dd>
-    </dl>
+    <div class="dropdown">
+        <button class="dropbtn">"Please select an option"</button>
+        <div class="dropdown-content">
+            <a>
+                <input type="checkbox" id="c1" name="c1" value="c1">
+                <label for="c1"> "Create a new event (any exsisting event will be archived)"</label>
+            </a>
+            <a>
+                <input type="checkbox" id="c2" name="c2" value="c2">
+                <label for="c2"> "First time sync with lead analyst."
+                <input type="text" id="c2" name="c2"></label>
 
-    <form>
-        <input type="checkbox" id="c1" name="c1" value="c1">
-        <label for="c1"> "Create a new event (any exsisting event will be archived)"</label><br>
-        <input type="checkbox" id="c2" name="c2" value="c2">
-        <label for="c2"> "First time sync with lead analyst."
-            <input type="text" id="c2" name="c2"><br><br>
-        </label>
-
-    </form>
-
+            </a>
+        
+        </div>
+    </div>
+    
+    <br>
     <button type="Submit"> Submit </button>
     <button type="button"> Cancel </button>
 

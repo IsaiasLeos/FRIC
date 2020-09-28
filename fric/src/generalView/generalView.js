@@ -40,14 +40,13 @@ class generalView extends React.Component {
                                 <a class="nav-link " href="/Archive">Archive</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Configuration <span
-                                    class="sr-only">(current)</span></a>
+                                <Link to="/ConfigView" > Configuration </Link>
                             </li>
                             <li class="nav-item active">
                                 <a class="nav-link" href="/Setup">Setup</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Help <span class="sr-only">(current)</span></a>
+                                <Link to="/help" >Help </Link>
                             </li>
                         </ul>
                         <form class="form-inline my-2 my-md-0">

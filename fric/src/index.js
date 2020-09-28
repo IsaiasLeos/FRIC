@@ -14,7 +14,9 @@ import configurationContentView from './configurationcontentview/configurationCo
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'
-
+import configurationContentView from './configurationContentView/configurationContentView.js';
+import setupContentView from './setupContentView/setupContentView.js';
+import helpView from './helpView/helpView.js';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
@@ -35,7 +37,9 @@ ReactDOM.render(
     <Route exact path="/SystemDetailed" component={systemContentView} />
     <Route exact path="/Findings" component={findingContentView} />
     <Route exact path="/Archive" component={archiveContentView} />
-    <Route exact path="/Configuration" component={configurationContentView} />
+    <Route exact path="/Config" component={configurationContentView} />
+    <Route exact path="/Setup" component={setupContentView} />
+    <Route exact path="/Help" component={helpView} />
   </Router>,
   document.getElementById('root')
 
