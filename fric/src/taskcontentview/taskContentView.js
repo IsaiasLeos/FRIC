@@ -4,11 +4,19 @@ import SortImage from '../assets/updownarrow.png'
 import HelpImage from '../assets/help.png'
 import Table from 'react-bootstrap/Table'
 import GeneralView from '../generalView/generalView';
+import { Link } from 'react-router-dom'
 class taskContentView extends React.Component {
     render() {
         return (
             <div>
                 <GeneralView />
+                <h2>Task Overview Table</h2>
+                <div class="buttons">
+                    <form action="">
+                        <input type="button" name="" id="" value="Archive" />
+                        <input type="button" name="" id="" value="Demote" />
+                    </form>
+                </div>
                 <Table>
                 <tr>
                     <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></input></th>
@@ -23,8 +31,8 @@ class taskContentView extends React.Component {
                     <th>Due Date<input type="image" src={SortImage} class="sort-button" /></th>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task1" name="task1" value="1"></input></td>
-                    <td class="column2">Title 1</td>
+                    <td class="column1"><input type="checkbox" id="task1" name="task1" value="1" /></td>
+                    <td class="column2"><Link to="/TaskDetails" >Title 1</Link></td>
                     <td class="column3">System 1</td>
                     <td class="column4">Analyst 1</td>
                     <td class="column5">Low</td>
@@ -34,8 +42,8 @@ class taskContentView extends React.Component {
                     <td class="column9">30/09/2020</td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task2" name="task2" value="2"></input></td>
-                    <td class="column2">Title 2</td>
+                    <td class="column1"><input type="checkbox" id="task2" name="task2" value="2" /></td>
+                    <td class="column2"><Link to="/TaskDetails" >Title 2</Link></td>
                     <td class="column3">System 2</td>
                     <td class="column4">Analyst 2</td>
                     <td class="column5">Medium</td>
@@ -45,8 +53,8 @@ class taskContentView extends React.Component {
                     <td class="column9">27/09/2020</td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task3" name="task3" value="3"></input></td>
-                    <td class="column2">Title 3</td>
+                    <td class="column1"><input type="checkbox" id="task3" name="task3" value="3" /></td>
+                    <td class="column2"><Link to="/TaskDetails" >Title 3</Link></td>
                     <td class="column3">System 3</td>
                     <td class="column4">Analyst 3</td>
                     <td class="column5">High</td>
@@ -56,8 +64,8 @@ class taskContentView extends React.Component {
                     <td class="column9">23/09/2020</td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task4" name="task4" value="4"></input></td>
-                    <td class="column2">Title 4</td>
+                    <td class="column1"><input type="checkbox" id="task4" name="task4" value="4" /></td>
+                    <td class="column2"><Link to="/TaskDetails" >Title 4</Link></td>
                     <td class="column3">System 4</td>
                     <td class="column4">Analyst 4</td>
                     <td class="column5">Low</td>
@@ -67,8 +75,8 @@ class taskContentView extends React.Component {
                     <td class="column9">26/10/2020</td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task5" name="task5" value="5"></input></td>
-                    <td class="column2">Title 5</td>
+                    <td class="column1"><input type="checkbox" id="task5" name="task5" value="5" /></td>
+                    <td class="column2"><Link to="/TaskDetails" >Title 5</Link></td>
                     <td class="column3">System 5</td>
                     <td class="column4">Analyst 5</td>
                     <td class="column5">Low</td>
@@ -78,8 +86,8 @@ class taskContentView extends React.Component {
                     <td class="column9">15/09/2020</td>
                 </tr>
                 <tr>
-                    <td class="column1"><input type="checkbox" id="task6" name="task1" value="6"></input></td>
-                    <td class="column2">Title 6</td>
+                    <td class="column1"><input type="checkbox" id="task6" name="task1" value="6" /></td>
+                    <td class="column2"><Link to="/TaskDetails" >Title 6</Link></td>
                     <td class="column3">System 6</td>
                     <td class="column4">Analyst 6</td>
                     <td class="column5">Low</td>
@@ -89,6 +97,8 @@ class taskContentView extends React.Component {
                     <td class="column9">30/10/2020</td>
                 </tr>
                 </Table>
+                <input type="image" src={AddImage} onclick="openForm()" />
+                
             </div>
 
         );

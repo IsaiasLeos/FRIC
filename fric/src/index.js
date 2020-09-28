@@ -12,6 +12,11 @@ import subtaskContentView from './subtaskContentView/subtaskContentView';
 import archiveContentView from './archivecontentview/archiveContentView';
 import configurationContentView from './configurationcontentview/configurationContentView';
 import taskContentView from './taskcontentview/taskContentView.js';
+import taskDetailedView from './taskcontentview/taskDetailedView.js'
+import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'
+
+
+
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
@@ -20,16 +25,20 @@ ReactDOM.render(
       <React.StrictMode>
         <App />
       </React.StrictMode>,
-   </Route>
+    </Route>
     <Route exact path="/Event" component={eventContentView} />
-    <Route exact path="/EventDetailed" component={eventDetailedView} />
+    <Route exact path="/EventDetailed" componsent={eventDetailedView} />
     <Route exact path="/Task" component={taskContentView} />
+    <Route exact path="/TaskDetails" component={taskDetailedView} />
+    <Route exact path="/Subtask" component={subtaskContentView} />
+    <Route exact path="/SubtaskDetails" component={subtaskDetailedView} />
     <Route exact path="/AnalystSummary" component={analystSummaryView} />
     <Route exact path="/SystemView" component={systemContentView} />
+    <Route exact path="/SystemDetailed" component={systemContentView} />
     <Route exact path="/Findings" component={findingContentView} />
-    <Route exact path="/Subtask" component={subtaskContentView} />
     <Route exact path="/Archive" component={archiveContentView} />
     <Route exact path="/Configuration" component={configurationContentView} />
+
   </Router>,
   document.getElementById('root')
 
