@@ -73,6 +73,7 @@ class archiveContentView extends React.Component {
                                 <td>Alex Vasquez</td>
                             </tr>
                         </Table>
+                        <button type="button">Restore</button>
                     </div>
 
 
@@ -136,6 +137,7 @@ class archiveContentView extends React.Component {
                                 <td>Alex Vasquez</td>
                             </tr>
                         </Table>
+                        <button type="button">Restore</button>
                     </div>
 
                     <div id = "findingTable">
@@ -230,6 +232,7 @@ class archiveContentView extends React.Component {
                             </tr>
 
                         </Table>
+                        <button type="button">Restore</button>
 
                     </div> 
 
@@ -281,6 +284,7 @@ class archiveContentView extends React.Component {
                                 
                             </tr>
                         </Table>
+                        <button type="button">Restore</button>
                     </div>
 
                 </div>
