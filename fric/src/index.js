@@ -15,8 +15,6 @@ import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'
 
-
-
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
@@ -38,7 +36,6 @@ ReactDOM.render(
     <Route exact path="/Findings" component={findingContentView} />
     <Route exact path="/Archive" component={archiveContentView} />
     <Route exact path="/Configuration" component={configurationContentView} />
-
   </Router>,
   document.getElementById('root')
 

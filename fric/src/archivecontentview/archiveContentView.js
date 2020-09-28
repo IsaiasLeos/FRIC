@@ -3,7 +3,6 @@ import GeneralView from '../generalView/generalView';
 
 import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
-import GeneralView from '../generalView/generalView'
 import SortImage from '../assets/updownarrow.png'
 
 class archiveContentView extends React.Component {

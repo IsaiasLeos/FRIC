@@ -3,17 +3,29 @@ import GeneralView from '../generalView/generalView';
 
 import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
-import GeneralView from '../generalView/generalView'
+
 import SortImage from '../assets/updownarrow.png'
 
 import { useEffect, useSState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react'
 
-import Portal from './portal'
+import { Component } from 'react';
+import Popup from '../generalView/Popup'
 
 
 class findingContentView extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { showPopup: false };
+    }
+
+    togglePopup() {
+        this.setState({
+            showPopup: !this.state.showPopup
+        });
+    }
 
     render() {
         return (
@@ -127,19 +139,24 @@ class findingContentView extends React.Component {
 
                 <br></br>
 
+                <div class="findingDetailedView">
+                    <button onClick={this.togglePopup.bind(this)}>Create Finding</button>
+                    {this.state.showPopup ?
+                        <Popup
+                            text='Detailed View'
 
 
+
+                            closePopup={this.togglePopup.bind(this)}
+                        />
+                        : null
+                    }
+                </div>
 
 
             </div>
         );
     }
 }
-
-class findingDetailedView extends React.Component {
-
-}
-
-
 
 export default findingContentView;
