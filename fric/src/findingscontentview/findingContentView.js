@@ -7,15 +7,17 @@ import '../assets/css/bootstrap.css'
 import SortImage from '../assets/updownarrow.png'
 
 import {useEffect, useSState, useRef} from 'react';
-import Modal from 'react-bootstrap/Modal' ;
+import Modal from 'react-dom' ;
 import { useState } from 'react'
 
 import {Component} from 'react';
 import Popup from '../generalView/Popup'
 
 
-class findingContentView extends React.Component {
 
+
+class findingContentView extends React.Component {
+    
     constructor(props){
         super(props);
         this.state = { showPopup: false };
@@ -26,13 +28,21 @@ class findingContentView extends React.Component {
            showPopup: !this.state.showPopup
          });
        }
+
+       
+
+
       
     render() {
+        const [modalIsOpen, setModalIsOpen] = useState(false)
         return (
+            
             <div>
+                
                 <GeneralView />
                 
                 <div class = "FindingContentView">
+                
                     <div id = "findingTable">
                         <h2>Findings Table</h2>
 
@@ -151,6 +161,19 @@ class findingContentView extends React.Component {
                         />
                         : null
                     }
+                </div>
+
+                <div class= "testModal">
+                    
+                    <button onClick={() => setModalIsOpen(true)}>Open Modal</button>
+                    <Modal isOpen={modalIsOpen}>
+                    <h2>Testing Testing</h2>
+                    <p>This is P</p>
+
+                    </Modal>
+                    
+
+
                 </div>
 
 
