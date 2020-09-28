@@ -5,7 +5,15 @@ import '../assets/css/bootstrap.css'
 import GeneralView from '../generalView/generalView'
 import SortImage from '../assets/updownarrow.png'
 
+import {useEffect, useSState, useRef} from 'react';
+import Modal from 'react-bootstrap/Modal' ;
+import { useState } from 'react'
+
+import Portal from './portal'
+
+
 class findingContentView extends React.Component {
+    
     render() {
         return (
             <div>
@@ -106,10 +114,31 @@ class findingContentView extends React.Component {
 
                 </div>
 
+                
+                <div id="buttonSet" class="reportButtons">
+
+                    <button>Generate ERB Report</button>
+                    &nbsp;
+                    <button>Generate Risk Matrix</button>
+                    &nbsp;
+                    <button>Generate Final Report</button>
+                </div>
+                
+                <br></br>
+
+                
+                
+
+    
             </div>
         );
     }
 }
+
+class findingDetailedView extends React.Component{
+    
+}
+
 
 
 export default findingContentView;
