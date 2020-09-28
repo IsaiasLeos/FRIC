@@ -2,8 +2,11 @@ import * as React from 'react'
 import '../generalView/style.css'
 import '../assets/css/bootstrap.css'
 import { Link } from 'react-router-dom'
+import {Component} from 'react';
+import Popup from './Popup.js'
 
 class generalView extends React.Component {
+    
     render() {
         return (
             <div>
@@ -16,34 +19,34 @@ class generalView extends React.Component {
                     <div class="collapse navbar-collapse" id="navbarsExample02">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <Link to="/Event" >Event </Link>
+                                <a class="nav-link " href="/Event">Event</a>
+                                {/* <Link to="/Event" >Event </Link> */}
                             </li>
                             <li class="nav-item active">
-                            <Link to="/SystemView" >System Content </Link>
+                                <a class="nav-link" href="/SystemView">System</a>
+                                {/* <Link to="/SystemView" >System Content </Link> */}
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Findings <span
-                                    class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/Findings">Findings</a>
                             </li>
                             <li class="nav-item active">
-                                <Link to="/Task" >Task </Link>
+                                <a class="nav-link" href="/Task">Task</a>
+                                {/* <Link to="/Task" >Task </Link> */}
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Subtask <span
-                                    class="sr-only">(current)</span></a>
+                                <a class="nav-link " href="/Subtask">Subtask</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="">Archive <span
-                                    class="sr-only">(current)</span></a>
+                                <a class="nav-link " href="/Archive">Archive</a>
                             </li>
                             <li class="nav-item active">
-                                <Link to="/ConfigView" > Configuration </Link>
+                            <a class="nav-link" href="/Config">Config</a>
                             </li>
                             <li class="nav-item active">
-                                <Link to="/SetupView" >SetupView </Link>
+                                <a class="nav-link" href="/Setup">Setup</a>
                             </li>
                             <li class="nav-item active">
-                                <Link to="/help" >Help </Link>
+                            <a class="nav-link" href="/Help">Help</a>
                             </li>
                         </ul>
                         <form class="form-inline my-2 my-md-0">
@@ -51,6 +54,8 @@ class generalView extends React.Component {
                         </form>
                     </div>
                 </nav>
+
+
             </div>
         );
     }

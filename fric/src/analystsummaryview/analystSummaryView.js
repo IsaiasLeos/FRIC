@@ -3,10 +3,12 @@ import * as React from 'react'
 import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
 import SortImage from '../assets/updownarrow.png'
+import GeneralView from '../generalView/generalView';
 class analystSummaryView extends React.Component {
     render() {
         return (
             <div>
+                <GeneralView />
                 <h1>Analyst Progress Summary View</h1>
                 <div id="tableSummary" class="flex-child left">
                     <div id="systemTable"></div>

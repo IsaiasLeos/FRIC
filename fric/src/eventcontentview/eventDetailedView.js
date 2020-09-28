@@ -88,7 +88,7 @@ class eventDetailedView extends React.Component {
 
 
                 <p>Analysts</p>
-                <input type="image" src="../assets/add.png" onclick="openForm()"></input>
+                <input type="image" src={AddImage} onclick="openForm()"></input>
                 <p></p>
 
                 <Table>
