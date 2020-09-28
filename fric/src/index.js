@@ -10,8 +10,7 @@ import systemContentView from './systemcontentview/systemContentView';
 
 import taskContentView from './taskcontentview/taskContentView.js';
 
-import analystSummaryView from './analystsummaryview/analystSummaryView';
-import systemContentView from './systemcontentview/systemContentView';
+
 
 
 import { Route, BrowserRouter as Router } from 'react-router-dom';
