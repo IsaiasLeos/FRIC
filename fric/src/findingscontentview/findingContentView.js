@@ -1,26 +1,27 @@
 import * as React from 'react'
+import GeneralView from '../generalView/generalView';
 
 import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
 import GeneralView from '../generalView/generalView'
 import SortImage from '../assets/updownarrow.png'
 
-import {useEffect, useSState, useRef} from 'react';
-import Modal from 'react-bootstrap/Modal' ;
+import { useEffect, useSState, useRef } from 'react';
+import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react'
 
 import Portal from './portal'
 
 
 class findingContentView extends React.Component {
-    
+
     render() {
         return (
             <div>
                 <GeneralView />
-                
-                <div class = "FindingContentView">
-                    <div id = "findingTable">
+
+                <div class="FindingContentView">
+                    <div id="findingTable">
                         <h2>Findings Table</h2>
 
                         <Table>
@@ -69,7 +70,7 @@ class findingContentView extends React.Component {
                                 <td>VL</td>
                             </tr>
                             <tr>
-                            <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -82,7 +83,7 @@ class findingContentView extends React.Component {
                                 <td>VL</td>
                             </tr>
                             <tr>
-                            <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -95,7 +96,7 @@ class findingContentView extends React.Component {
                                 <td>VL</td>
                             </tr>
                             <tr>
-                            <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -114,7 +115,7 @@ class findingContentView extends React.Component {
 
                 </div>
 
-                
+
                 <div id="buttonSet" class="reportButtons">
 
                     <button>Generate ERB Report</button>
@@ -123,20 +124,20 @@ class findingContentView extends React.Component {
                     &nbsp;
                     <button>Generate Final Report</button>
                 </div>
-                
+
                 <br></br>
 
-                
-                
 
-    
+
+
+
             </div>
         );
     }
 }
 
-class findingDetailedView extends React.Component{
-    
+class findingDetailedView extends React.Component {
+
 }
 
 

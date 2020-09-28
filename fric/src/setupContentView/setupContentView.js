@@ -1,11 +1,14 @@
 import * as React from 'react'
+import GeneralView from '../generalView/generalView';
 
 class setupContentView extends React.Component {
     render() {
         return (
-            <body>
+            <div>
+                <GeneralView/>
+                <body></body>
 
-            </body>
+            </div>
         );
     }
 }

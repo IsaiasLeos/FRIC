@@ -1,4 +1,5 @@
 import * as React from 'react'
+import GeneralView from '../generalView/generalView';
 
 import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
@@ -10,10 +11,10 @@ class archiveContentView extends React.Component {
         return (
             <div>
                 <GeneralView />
-                
-                <div class = "ArchiveContentView">
 
-                    <div id = "taskTable">
+                <div class="ArchiveContentView">
+
+                    <div id="taskTable">
                         <h2>Archived Tasks</h2>
 
                         <Table>
@@ -45,7 +46,7 @@ class archiveContentView extends React.Component {
                                 <td>Task 1 and Task 2</td>
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
-                               
+
                             </tr>
                             <tr>
                                 <td>234</td>
@@ -55,14 +56,14 @@ class archiveContentView extends React.Component {
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
                             </tr>
-                            <tr>                         
+                            <tr>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
                                 <td>Task 1 and Task 2</td>
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
-                
+
                             </tr>
                             <tr>
                                 <td>234</td>
@@ -77,7 +78,7 @@ class archiveContentView extends React.Component {
                     </div>
 
 
-                    <div id = "subtaskTable">
+                    <div id="subtaskTable">
                         <h2>Archived Subasks</h2>
 
                         <Table>
@@ -109,7 +110,7 @@ class archiveContentView extends React.Component {
                                 <td>Task 1 and Task 2</td>
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
-                               
+
                             </tr>
                             <tr>
                                 <td>234</td>
@@ -119,14 +120,14 @@ class archiveContentView extends React.Component {
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
                             </tr>
-                            <tr>                         
+                            <tr>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
                                 <td>Task 1 and Task 2</td>
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
-                
+
                             </tr>
                             <tr>
                                 <td>234</td>
@@ -140,12 +141,12 @@ class archiveContentView extends React.Component {
                         <button type="button">Restore</button>
                     </div>
 
-                    <div id = "findingTable">
+                    <div id="findingTable">
                         <h2>Archived Findings</h2>
 
                         <Table>
                             <tr>
-                                
+
                                 <th>ID
                         <input type="image" src={SortImage} />
                                 </th>
@@ -179,7 +180,7 @@ class archiveContentView extends React.Component {
                             </tr>
 
                             <tr>
-                               
+
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -192,7 +193,7 @@ class archiveContentView extends React.Component {
                                 <td>VL</td>
                             </tr>
                             <tr>
-                            
+
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -205,7 +206,7 @@ class archiveContentView extends React.Component {
                                 <td>VL</td>
                             </tr>
                             <tr>
-                            
+
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -218,7 +219,7 @@ class archiveContentView extends React.Component {
                                 <td>VL</td>
                             </tr>
                             <tr>
-                            
+
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -234,9 +235,9 @@ class archiveContentView extends React.Component {
                         </Table>
                         <button type="button">Restore</button>
 
-                    </div> 
+                    </div>
 
-                    <div id = "systemsTable">
+                    <div id="systemsTable">
                         <h2>Archived Systems</h2>
 
                         <Table>
@@ -253,7 +254,7 @@ class archiveContentView extends React.Component {
                                 <th>Progress
                         <input type="image" src={SortImage} />
                                 </th>
-                                
+
                             </tr>
 
                             <tr>
@@ -261,7 +262,7 @@ class archiveContentView extends React.Component {
                                 <td>Title 1</td>
                                 <td>System W</td>
                                 <td>Task 1 and Task 2</td>
-                                
+
                             </tr>
                             <tr>
                                 <td>234</td>
@@ -269,19 +270,19 @@ class archiveContentView extends React.Component {
                                 <td>System W</td>
                                 <td>Task 1 and Task 2</td>
                             </tr>
-                            <tr>                         
+                            <tr>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
-                                <td>Task 1 and Task 2</td>   
-                
+                                <td>Task 1 and Task 2</td>
+
                             </tr>
                             <tr>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
                                 <td>Task 1 and Task 2</td>
-                                
+
                             </tr>
                         </Table>
                         <button type="button">Restore</button>
@@ -289,7 +290,7 @@ class archiveContentView extends React.Component {
 
                 </div>
 
-            </div>            
+            </div>
         );
     }
 }
