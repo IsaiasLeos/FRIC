@@ -5,6 +5,7 @@ import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import GeneralView from '../generalView/generalView';
 import SubtaskDetailedView from './subtaskDetailedView';
 import './subtaskView.css';
@@ -17,21 +18,21 @@ function SubtaskContentView(){
         <div>
             <GeneralView />
             <h3>Subtask Overview Table</h3>
-            <div className="buttons">
-                <Button variant="dark">Archive</Button>
+            <ButtonGroup>
+            <Button variant="dark">Archive</Button>
                 <Button variant="dark">Promote</Button>
-                <input type="image" src={AddImage} onClick={handleShow} />
-            </div>
+                <input type="image" src={AddImage} onClick={handleShow} alt="Add subtask button"/>
+            </ButtonGroup>
             <Table  striped bordered hover>
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="all-subtasks" name="all-subtasks" value="0"></input></th>
-                        <th>Title<input type="image" src={SortImage} className="sort-button" /></th>
-                        <th>Task<input type="image" src={SortImage} className="sort-button" /></th>
-                        <th>Analyst<input type="image" src={SortImage} className="sort-button" /></th>
-                        <th>Progress<input type="image" src={SortImage} className="sort-button" /></th>
-                        <th>No. of Findings<input type="image" src={SortImage} className="sort-button" /></th>
-                        <th>Due Date<input type="image" src={SortImage} className="sort-button" /></th>
+                        <th>Title<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                        <th>Task<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                        <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                        <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                        <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                        <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,7 +92,7 @@ function SubtaskContentView(){
                     </tr>
                 </tbody>
             </Table>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} dialogClassName="subtask-modal">
                     <Modal.Header closeButton>
                     <Modal.Title>
                         Subtask Detailed View
