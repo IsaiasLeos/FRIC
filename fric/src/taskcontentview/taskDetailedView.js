@@ -35,21 +35,21 @@ class taskDetailedView extends React.Component {
         ];
         return (
             <div>
-                <div class="task-details">
+                <div className="task-details">
                     <input type="image" src={HelpImage} />
-                    <form action="" class="task-form">
-                        <div class="left">
+                    <form action="" className="task-form">
+                        <div className="left">
                             <label for="taskTitle">
                                 Title:<br/>
-                                <input type="text" name="Title" id="task-title" class="task-data" />
+                                <input type="text" name="Title" id="task-title" className="task-data" />
                             </label><br />
                             <label for="taskDescription">
                                 Description:<br/>
-                                <input type="text" name="Description" id="description" class="task-data" />
+                                <input type="text" name="Description" id="description" className="task-data" />
                             </label><br/>
                             <label for="taskSystem">
                                 System:<br/>
-                                <select name="System" id="system-dropdown" class="task-data">
+                                <select name="System" id="system-dropdown" className="task-data">
                                     <option value="default" selected="selected"></option>
                                     <option value="System1">System 1</option>
                                     <option value="System2">System 2</option>
@@ -59,7 +59,7 @@ class taskDetailedView extends React.Component {
                             </label><br/>
                             <label for="taskPriority">
                                 Priority:<br/>
-                                <select name="priority" id="priority-dropdown" class="task-data">
+                                <select name="priority" id="priority-dropdown" className="task-data">
                                     <option value="default" selected="selected"></option>
                                     <option value="Low">Low</option>
                                     <option value="Medium">Medium</option>
@@ -68,7 +68,7 @@ class taskDetailedView extends React.Component {
                             </label><br/>
                             <label for="taskProgress">
                                 Progress:<br/>
-                                <select name="progress" id="progress-dropdown" class="task-data">
+                                <select name="progress" id="progress-dropdown" className="task-data">
                                     <option value="default" selected="selected"></option>
                                     <option value="notStarted">Not started</option>
                                     <option value="assigned">Assigned</option>
@@ -79,26 +79,26 @@ class taskDetailedView extends React.Component {
                                 </select>
                             </label><br/>
                         </div>
-                        <div class="right">
+                        <div className="right">
                             <label for="taskDueDate">
                                 Due Date:<br/>
-                                <input type="date" id="due-date" name="dueDate" class="task-data" />
+                                <input type="date" id="due-date" name="dueDate" />
                             </label><br/>
                             <label for="taskAnalysts">
                                 Analyst(s):<br/>
-                                <ReactMultiSelectCheckboxes options={analysts} class="subtask-data"/>
+                                <ReactMultiSelectCheckboxes options={analysts} />
                             </label><br/>
                             <label for="taskCollaborators">
                                 Collaborator(s):<br/>
-                                <ReactMultiSelectCheckboxes options={collaborators} class="subtask-data"/>
+                                <ReactMultiSelectCheckboxes options={collaborators} />
                             </label><br/>
                             <label for="relatedTask">
                                 Related Task:<br/>
-                                <ReactMultiSelectCheckboxes options={tasks} class="subtask-data"/>
+                                <ReactMultiSelectCheckboxes options={tasks} />
                             </label><br/>
                             <label for="attachments">
                                 Attachments:<br/>
-                                <ReactMultiSelectCheckboxes options={attachments} class="subtask-data"/>
+                                <ReactMultiSelectCheckboxes options={attachments} />
                             </label><br/>
                         </div>
                     </form>

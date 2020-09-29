@@ -44,19 +44,19 @@ class subtaskDetailedView extends React.Component {
             <div>
                 <div>
                     <input type="image" src={HelpImage} />
-                    <form action="" class="form">
-                        <div class="left">
+                    <form action="" className="form">
+                        <div className="left">
                             <label for="subtaskTitle">
                                 Title:<br/>
-                                <input type="text" name="Title" id="subtask-title" class="subtask-data"/>
+                                <input type="text" name="Title" id="subtask-title" className="subtask-data"/>
                             </label><br/>
                             <label for="subtaskDescription">
                                 Description:<br/>
-                                <input type="text" name="Description" id="description" class="subtask-data"/>
+                                <input type="text" name="Description" id="description" className="subtask-data"/>
                             </label><br/>
                             <label for="subtaskProgress">
                                 Progress:<br/>
-                                <select name="progress" id="progress-dropdown" class="subtask-data">
+                                <select name="progress" id="progress-dropdown" className="subtask-data">
                                     <option value="default" selected="selected"></option>
                                     <option value="notStarted">Not started</option>
                                     <option value="assigned">Assigned</option>
@@ -68,29 +68,29 @@ class subtaskDetailedView extends React.Component {
                             </label><br/>
                             <label for="subtaskDuedate">
                                 Due Date:<br/>
-                                <input type="date" id="due-date" name="dueDate" class="subtask-data"/>
+                                <input type="date" id="due-date" name="dueDate" className="subtask-data"/>
                             </label><br/>
                         </div>
-                        <div class="right">
+                        <div className="right">
                             <label for="subtaskAnalysts">
                                 Analyst(s):<br/>
-                                <ReactMultiSelectCheckboxes options={analysts} class="subtask-data"/>
+                                <ReactMultiSelectCheckboxes options={analysts} />
                             </label>
                             <label for="subtaskCollaborators">
                                 Collaborator(s):<br/>
-                                <ReactMultiSelectCheckboxes options={collaborators} class="subtask-data"/>
+                                <ReactMultiSelectCheckboxes options={collaborators} />
                             </label><br/>
                             <label for="tasks">
                                 Related task(s):<br/>
-                                <ReactMultiSelectCheckboxes options={tasks} class="subtask-data"/>
+                                <ReactMultiSelectCheckboxes options={tasks} />
                             </label><br/>
                             <label for="subtasks">
                                 Subtask(s):<br/>
-                                <ReactMultiSelectCheckboxes options={subtasks} class="subtask-data"/>
+                                <ReactMultiSelectCheckboxes options={subtasks} />
                             </label><br/>
                             <label for="attachments">
                                 Attachments:<br/>
-                                <ReactMultiSelectCheckboxes options={attachments} class="subtask-data"/>
+                                <ReactMultiSelectCheckboxes options={attachments} />
                             </label><br/>
                         </div>
                     </form>
