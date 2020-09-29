@@ -126,7 +126,7 @@ class configurationContentView extends React.Component {
                     <br/><br/>
                     <h3> Impact Table </h3>
                     <Table bordered hover striped >
-                        <thead>
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Very High </th>
                                 <th> High </th>
