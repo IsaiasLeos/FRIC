@@ -17,12 +17,12 @@ class archiveContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead>
                                 <tr>
-                                    <th scope = "col">Title<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Task<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Analyst<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Progress<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">No. of Findings<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Due Date<input type="image" src={SortImage} /></th>
+                                    <th scope = "col">Title<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Task<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Analyst<input type="image" src={SortImage} alt = "sort button" /></th>
+                                    <th scope = "col">Progress<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">No. of Findings<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Due Date<input type="image" src={SortImage} alt = "sort button"/></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,12 +74,12 @@ class archiveContentView extends React.Component {
                         <Table bordered hover striped>
                             <thead>
                                 <tr>
-                                    <th scope = "col">Title<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Task<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Analyst<input type="image" src={SortImage} /></th>
-                                    <th scope = "col"> Progress<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">No. of Findings<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Due Date<input type="image" src={SortImage} /></th>
+                                    <th scope = "col">Title<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Task<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Analyst<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col"> Progress<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">No. of Findings<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Due Date<input type="image" src={SortImage} alt = "sort button"/></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -128,16 +128,16 @@ class archiveContentView extends React.Component {
                         <Table bordered hover striped>
                             <thead>
                                 <tr>
-                                    <th scope = "col">ID<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Title<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">System<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Task<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Subtask<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Analyst<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Status<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Classification<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Type<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Risk<input type="image" src={SortImage} /></th>
+                                    <th scope = "col">ID<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Title<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">System<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Task<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Subtask<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Analyst<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Status<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Classification<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Type<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Risk<input type="image" src={SortImage} alt = "sort button"/></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -202,10 +202,10 @@ class archiveContentView extends React.Component {
                         <Table bordered hover striped>
                             <thead>
                                 <tr>
-                                    <th scope = "col">System<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">No. of Tasks<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">No. of Findings<input type="image" src={SortImage} /></th>
-                                    <th scope = "col">Progress<input type="image" src={SortImage} /></th>
+                                    <th scope = "col">System<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">No. of Tasks<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">No. of Findings<input type="image" src={SortImage} alt = "sort button"/></th>
+                                    <th scope = "col">Progress<input type="image" src={SortImage} alt = "sort button"/></th>
                                 </tr>
                             </thead>
                             <tbody>
