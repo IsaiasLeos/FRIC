@@ -1912,6 +1912,11 @@ pre code {
   border-color: #454d55;
 }
 
+.table .thead-grey th {
+  color: #fff;
+  background-color: var(--gray);
+  border-color: #454d55;
+}
 .table .thead-light th {
   color: #495057;
   background-color: #e9ecef;
@@ -6014,7 +6019,7 @@ a.close.disabled {
   display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: 100%;
+  width: 200%;
   pointer-events: auto;
   background-color: #fff;
   background-clip: padding-box;
