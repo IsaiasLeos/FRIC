@@ -366,12 +366,7 @@ class configurationContentView extends React.Component {
                             </tr>
                         </tbody>
                     </Table>
-                </div>
-
-
-
-                
-
+                </div>   
             </div>
         );
         
