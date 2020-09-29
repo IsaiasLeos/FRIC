@@ -37,21 +37,37 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            </tr>  
+                                <td>System "a"</td>
+                                <td>System "a"</td>
+                                <td>System "a"</td>
+                                <td>System "a"</td>
+                                <td>System "b"</td>
+                                <td>System "b"</td>
+                                <td>System "a"</td>
+                                <td>System "c"</td>
+                                <td>System "d"</td>
+                                <td>System "c"</td>
+                                <td> - </td>
+                                <td> System "a"</td>
+                                <td> System "e"</td>
+                                <td> System "b"</td>
+                            </tr> 
+                            <tr>
+                                <td>System "b"</td>
+                                <td>System "b"</td>
+                                <td>System "b"</td>
+                                <td>System "c"</td>
+                                <td>System "d"</td>
+                                <td>System "d"</td>
+                                <td>System "c"</td>
+                                <td>System "a"</td>
+                                <td>System "b"</td>
+                                <td>System "b"</td>
+                                <td>System "c"</td>
+                                <td>System "b"</td>
+                                <td>System "a"</td>
+                                <td>System "d"</td>
+                            </tr> 
                         </tbody>
                     </Table>
                 </div>
@@ -71,11 +87,11 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td> System "a" </td>
+                                <td> System "b" </td>
+                                <td> System "c" </td>
+                                <td> System "d" </td>
+                                <td> System "e" </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -96,11 +112,11 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td> System "a"</td>
+                                <td> System "b"</td>
+                                <td> System "c"</td>
+                                <td> System "d" </td>
+                                <td> System "e" </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -117,15 +133,17 @@ class configurationContentView extends React.Component {
                                 <th> Moderate </th>
                                 <th> Low </th>
                                 <th> Very Low </th>
+                                <th> Informational </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td> System "a" </td>
+                                <td> System "b" </td>
+                                <td> System "c"</td>
+                                <td> System "d" </td>
+                                <td> - </td>
+                                <td> System "e"</td>
                             </tr>
                         </tbody>
                     </Table>
@@ -143,8 +161,20 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td> System "a"</td>
+                                <td> System "e"</td>
+                            </tr>
+                            <tr>
+                                <td> System "b"</td>
+                                <td> - </td>
+                            </tr>
+                            <tr>
+                                <td> System "c"</td>
+                                <td> - </td>
+                            </tr>
+                            <tr>
+                                <td> System "d"</td>
+                                <td> - </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -165,11 +195,11 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td> System "a"</td>
+                                <td> System "b"</td>
+                                <td> System "c"</td>
+                                <td> System "d" </td>
+                                <td> System "e" </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -190,11 +220,11 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td> System "a"</td>
+                                <td> System "b"</td>
+                                <td> System "c"</td>
+                                <td> System "d" </td>
+                                <td> System "e" </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -213,9 +243,14 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td> System "a"</td>
+                                <td> System "b" </td>
+                                <td> System "e" </td>
+                            </tr>
+                            <tr>
+                                <td> System "c"</td>
+                                <td> System "d" </td>
+                                <td> - </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -234,9 +269,14 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>System "a"</td>
+                                <td>System "b"</td>
+                                <td>System "c</td>
+                            </tr>
+                            <tr>
+                                <td> - </td>
+                                <td>System "d"</td>
+                                <td>System "e" </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -255,9 +295,14 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>System "a"</td>
+                                <td>System "b"</td>
+                                <td>System "e"</td>
+                            </tr>
+                            <tr>
+                                <td>System "c"</td>
+                                <td>System "d"</td>
+                                <td> - </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -276,9 +321,9 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>System "c"</td>
+                                <td>System "b"</td>
+                                <td>System "a"</td>
                             </tr>
                         </tbody>
                     </Table>
@@ -300,12 +345,12 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td> System "f"</td>
+                                <td> System "a"</td>
+                                <td> System "b"</td>
+                                <td> System "c"</td>
+                                <td> System "d"</td>
+                                <td> - </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -322,7 +367,7 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td> The system alpha...</td>
+                                <td> The systems in the event "a" will be completed ...</td>
                             </tr>
                         </tbody>
                     </Table>
@@ -341,9 +386,14 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td> System "a" </td>
+                                <td> System "b"</td>
+                                <td> System "c"</td>
+                            </tr>
+                            <tr>
+                                <td> System "d" </td>
+                                <td> System "e"</td>
+                                <td> - </td>
                             </tr>
                         </tbody>
                     </Table>
@@ -361,8 +411,12 @@ class configurationContentView extends React.Component {
                         </thead>
                         <tbody>
                             <tr>
-                                <td> 2 weeks</td>
-                                <td> 10 hr</td>
+                                <td> System "a" 2 weeks</td>
+                                <td> System "a" 10 hr</td>
+                            </tr>
+                            <tr>
+                                <td> System "b" 1 weeks</td>
+                                <td> System "b" 5 hr</td>
                             </tr>
                         </tbody>
                     </Table>
