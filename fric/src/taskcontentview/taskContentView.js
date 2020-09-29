@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal'
+import TaskDetailView from './taskDetailedView';
 import { Link } from 'react-router-dom'
 
 function TaskContentView(){
@@ -49,7 +50,7 @@ function TaskContentView(){
                 </tr>
                 <tr>
                     <td class="column1"><input type="checkbox" id="task2" name="task2" value="2" /></td>
-                    <td class="column2"><Link to="/TaskDetails" >Title 2</Link></td>
+                    <td class="column2"><Button variant="outline-dark" onClick={handleShow}>Title 2</Button></td>
                     <td class="column3">System 2</td>
                     <td class="column4">Analyst 2</td>
                     <td class="column5">Medium</td>
@@ -60,7 +61,7 @@ function TaskContentView(){
                 </tr>
                 <tr>
                     <td class="column1"><input type="checkbox" id="task3" name="task3" value="3" /></td>
-                    <td class="column2"><Link to="/TaskDetails" >Title 3</Link></td>
+                    <td class="column2"><Button variant="outline-dark" onClick={handleShow}>Title 3</Button></td>
                     <td class="column3">System 3</td>
                     <td class="column4">Analyst 3</td>
                     <td class="column5">High</td>
@@ -71,7 +72,7 @@ function TaskContentView(){
                 </tr>
                 <tr>
                     <td class="column1"><input type="checkbox" id="task4" name="task4" value="4" /></td>
-                    <td class="column2"><Link to="/TaskDetails" >Title 4</Link></td>
+                    <td class="column2"><Button variant="outline-dark" onClick={handleShow}>Title 4</Button></td>
                     <td class="column3">System 4</td>
                     <td class="column4">Analyst 4</td>
                     <td class="column5">Low</td>
@@ -82,7 +83,7 @@ function TaskContentView(){
                 </tr>
                 <tr>
                     <td class="column1"><input type="checkbox" id="task5" name="task5" value="5" /></td>
-                    <td class="column2"><Link to="/TaskDetails" >Title 5</Link></td>
+                    <td class="column2"><Button variant="outline-dark" onClick={handleShow}>Title 5</Button></td>
                     <td class="column3">System 5</td>
                     <td class="column4">Analyst 5</td>
                     <td class="column5">Low</td>
@@ -93,7 +94,7 @@ function TaskContentView(){
                 </tr>
                 <tr>
                     <td class="column1"><input type="checkbox" id="task6" name="task1" value="6" /></td>
-                    <td class="column2"><Link to="/TaskDetails" >Title 6</Link></td>
+                    <td class="column2"><Button variant="outline-dark" onClick={handleShow}>Title 6</Button></td>
                     <td class="column3">System 6</td>
                     <td class="column4">Analyst 6</td>
                     <td class="column5">Low</td>
@@ -105,9 +106,12 @@ function TaskContentView(){
                 </Table>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title></Modal.Title>
+                    <Modal.Title>
+                        Task Detailed View
+                    </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                        <TaskDetailView />
                     </Modal.Body>
                     <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
