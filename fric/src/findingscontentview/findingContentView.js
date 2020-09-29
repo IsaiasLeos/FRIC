@@ -17,41 +17,28 @@ function TaskContentView(){
     return(
             <div>
                 <GeneralView />
-                <h2>Findings Overview Table</h2>
-                <Table>
-                <tr>
-                                <th>Select</th>
-                                <th>ID
-                        <input type="image" src={SortImage} />
-                                </th>
-                                <th>Title
-                        <input type="image" src={SortImage} />
-                                </th>
-                                <th>System
-                        <input type="image" src={SortImage} />
-                                </th>
-                                <th>Task
-                        <input type="image" src={SortImage} />
-                                </th>
-                                <th>Subtask
-                        <input type="image" src={SortImage} />
-                                </th>
-                                <th>Analyst
-                        <input type="image" src={SortImage} />
-                                </th>
-                                <th>Classification
-                        <input type="image" src={SortImage} />
-                                </th>
-                                <th>Type
-                        <input type="image" src={SortImage} />
-                                </th>
-                                <th>Risk
-                        <input type="image" src={SortImage} />
-                                </th>
-                            </tr>
 
+                <br></br>
+                <h2>Findings Overview Table</h2>
+                    <Table bordered hover striped>
+                        <thead class = "thead-grey">
                             <tr>
-                                <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <th>Select</th>
+                                <th>ID<input type="image" src={SortImage} alt = "sort button"/></th>
+                                <th>Title<input type="image" src={SortImage} alt = "sort button"/></th>
+                                <th>System<input type="image" src={SortImage} alt = "sort button"/></th>
+                                <th>Task<input type="image" src={SortImage} alt = "sort button"/></th>
+                                <th>Subtask<input type="image" src={SortImage} alt = "sort button"/></th>
+                                <th>Analyst<input type="image" src={SortImage} alt = "sort button"/></th>
+                                <th>Status<input type="image" src={SortImage} alt = "sort button"/></th>
+                                <th>Classification<input type="image" src={SortImage} alt = "sort button"/></th>
+                                <th>Type<input type="image" src={SortImage} alt = "sort button"/></th>
+                                <th>Risk<input type="image" src={SortImage} alt = "sort button"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="Finding1"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -64,7 +51,7 @@ function TaskContentView(){
                                 <td>VL</td>
                             </tr>
                             <tr>
-                                <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td className="Finding2"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -77,7 +64,7 @@ function TaskContentView(){
                                 <td>VL</td>
                             </tr>
                             <tr>
-                                <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -90,7 +77,7 @@ function TaskContentView(){
                                 <td>VL</td>
                             </tr>
                             <tr>
-                                <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td className="Finding4"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
@@ -102,24 +89,27 @@ function TaskContentView(){
                                 <td>Physical Security</td>
                                 <td>VL</td>
                             </tr>
+                        </tbody>
+                    
                 </Table>
 
-                <div id="buttonSet" class="reportButtons">
-
-                    <button>Generate ERB Report</button>
+                
+                    <Button variant = "outline-dark">Generate ERB Report</Button>
                     &nbsp;
-                    <button>Generate Risk Matrix</button>
+                    <Button variant = "outline-dark">Generate Risk Matrix</Button>
                     &nbsp;
-                    <button>Generate Final Report</button>
-                </div>
+                    <Button variant = "outline-dark">Generate Final Report</Button>
+                
 
+                <br></br>
                 <br></br>
 
                 <Button variant="outline-dark" onClick={handleShow}>Create Finding</Button>
+
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                     <Modal.Title>
-                        Finding Information
+                        Finding Detailed View
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
