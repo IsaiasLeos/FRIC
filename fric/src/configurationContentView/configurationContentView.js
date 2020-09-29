@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Table from 'react-bootstrap/Table'
 import GeneralView from '../generalView/generalView';
-
+import '../assets/css/bootstrap.css'
 class configurationContentView extends React.Component { 
     render() {
         return (
@@ -14,8 +14,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Finding Type Table </h3>
-                    <Table bordered striped responsive>
-                        <thead>
+                    <Table bordered hover striped responsive>
+                        <thead class = "thead-grey">
                             <tr>
                                 <th>Credentials Complexity</th>
                                 <th>Manufacturer Default Creds</th>
@@ -75,8 +75,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Posture Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th>Insider</th>
                                 <th>Insider-nearsider</th>
@@ -100,8 +100,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Threat Level Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                             <th> Confirmed </th>
                             <th> Expected </th>
@@ -125,7 +125,7 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Impact Table </h3>
-                    <Table bordered striped >
+                    <Table bordered hover striped >
                         <thead>
                             <tr>
                                 <th> Very High </th>
@@ -152,8 +152,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Finding Classification Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Vulnerability </th>
                                 <th> Information </th>
@@ -183,8 +183,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Countermeasure Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Very High </th>
                                 <th> High </th>
@@ -208,8 +208,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Event Classification Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Top Secret </th>
                                 <th> Secret </th>
@@ -233,8 +233,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Level Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Confidentiality Finding Impact On System </th>
                                 <th> Integrity Finding Impact On System </th>
@@ -259,8 +259,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Event Type Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Co-operative Vulnerability Penetration Assessment (CVPA) </th>
                                 <th> Co-operative Vulnerability Investigation (CVI) </th>
@@ -285,8 +285,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Finding Impact Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Confidentiality </th>
                                 <th> Integrity </th>
@@ -311,8 +311,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Severity Category Code Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> I </th>
                                 <th> II </th>
@@ -332,8 +332,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Progress Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Not Started </th>
                                 <th> Assigned </th>
@@ -359,8 +359,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Event Rules Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Rules </th>
                             </tr>
@@ -376,8 +376,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Report Template Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Risk Matrix </th>
                                 <th> ERB Report </th>
@@ -402,8 +402,8 @@ class configurationContentView extends React.Component {
                 <div>
                     <br/><br/>
                     <h3> Notification Table </h3>
-                    <Table bordered striped >
-                        <thead>
+                    <Table bordered hover striped >
+                        <thead class = "thead-grey">
                             <tr>
                                 <th> Duration </th>
                                 <th> Frequency </th> 
@@ -425,7 +425,6 @@ class configurationContentView extends React.Component {
         );
         
     }
-
 }
 
 export default configurationContentView;
