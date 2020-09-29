@@ -4,24 +4,26 @@ import "./eventTree.css";
 class eventTree extends React.Component {
     render() {
         return (
-            <div>
+            <div id="tree">
                 <ul>
-                    <li>Event
-                        <ul>
-                            <li>System 1
-                                <ul>
-                                    <li>Task
-                                        <ul>
-                                            <li>Subtask 
-                                                <ul>
+                    <li className="menu"><span a >Event</span>
+                        <ul className="submenu">
+                            <li className="menu"><span>System 1</span>
+                                <ul className="submenu">
+                                    <li className="menu"><span>Task 1</span>
+                                        <ul className="submenu">
+                                            <li className="menu"><span>Subtask</span> 
+                                                <ul className="submenu">
                                                     <li>Finding 1</li>
                                                     <li>Finding 2</li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>Task 2
-                                        <ul>Finding 3</ul>
+                                    <li className="menu"><span>Task 2</span>
+                                        <ul className="submenu">
+                                        <li>Finding 3</li>
+                                        </ul>
                                     </li>
                                     <li>Finding 4</li>
                                 </ul>
