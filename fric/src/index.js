@@ -10,7 +10,7 @@ import systemContentView from './systemcontentview/systemContentView';
 import findingContentView from './findingscontentview/findingContentView';
 import subtaskContentView from './subtaskContentView/subtaskContentView';
 import archiveContentView from './archivecontentview/archiveContentView';
-import configurationContentView from './configurationcontentview/configurationContentView';
+import configurationContentView from './configurationContentView/configurationContentView';
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'

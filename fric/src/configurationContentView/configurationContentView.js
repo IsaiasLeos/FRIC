@@ -7,7 +7,7 @@ class configurationContentView extends React.Component {
         return (
             <div>
                 <GeneralView/>
-                <div class="ConfigView">
+                <div class="ConfigureView">
                     <h1 style={{ textAlign: "center" }}>Configuration view</h1>
                 </div>
                 
