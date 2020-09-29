@@ -4,21 +4,18 @@ import GeneralView from '../generalView/generalView';
 import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
 import SortImage from '../assets/updownarrow.png'
+import Button from 'react-bootstrap/esm/Button';
 
 class archiveContentView extends React.Component {
     render() {
         return (
             <div>
                 <GeneralView />
-
-            
-                <div class="ArchiveContentView">
-
-                    <div id="archivedtaskTable">
+                    
                     <br></br>
                         <h2>Archived Tasks</h2>
-                        <table class = "table table-hover table-bordered">
-                            <thead class = "thead-grey">
+                        <Table bordered hover striped >
+                            <thead>
                                 <tr>
                                     <th scope = "col">Title<input type="image" src={SortImage} /></th>
                                     <th scope = "col">Task<input type="image" src={SortImage} /></th>
@@ -65,17 +62,17 @@ class archiveContentView extends React.Component {
                                     <td>Alex Vasquez</td>
                                 </tr>
                             </tbody>
-                        </table>
-                        <button type="button">Restore Task</button>
+                        </Table>
+
+                        <Button variant= "outline-dark">Restore Task</Button>
                         
-                    </div>
                     <br></br>
 
-                    <div id="subtaskTable">
+                    
                         <h2>Archived Subasks</h2>
 
-                        <table class = "table table-hover table-bordered">
-                            <thead class = "thead-grey">
+                        <Table bordered hover striped>
+                            <thead>
                                 <tr>
                                     <th scope = "col">Title<input type="image" src={SortImage} /></th>
                                     <th scope = "col">Task<input type="image" src={SortImage} /></th>
@@ -121,15 +118,15 @@ class archiveContentView extends React.Component {
                                     <td>Alex Vasquez</td>
                                 </tr>
                             </tbody>
-                        </table>
-                        <button type="button">Restore Subtask</button>
-                    </div>
+                        </Table>
+                        <Button variant= "outline-dark">Restore Subtask</Button>
+                    
 
-                    <div id="findingTable">
+                    
                         <h2>Archived Findings</h2>
 
-                        <table class = "table table-hover table-bordered">
-                            <thead class = "thead-grey">
+                        <Table bordered hover striped>
+                            <thead>
                                 <tr>
                                     <th scope = "col">ID<input type="image" src={SortImage} /></th>
                                     <th scope = "col">Title<input type="image" src={SortImage} /></th>
@@ -194,16 +191,16 @@ class archiveContentView extends React.Component {
                                 </tr>
                             </tbody>
 
-                        </table>
-                        <button type="button">Restore Finding</button>
+                        </Table>
+                        <Button variant= "outline-dark">Restore Finding</Button>
 
-                    </div>
+                    
 
-                    <div id="systemsTable">
+                    
                         <h2>Archived Systems</h2>
 
-                        <table class = "table table-hover table-bordered">
-                            <thead class = "thead-grey">
+                        <Table bordered hover striped>
+                            <thead>
                                 <tr>
                                     <th scope = "col">System<input type="image" src={SortImage} /></th>
                                     <th scope = "col">No. of Tasks<input type="image" src={SortImage} /></th>
@@ -240,12 +237,8 @@ class archiveContentView extends React.Component {
 
                                 </tr>
                             </tbody>
-                        </table>
-                        <button type="button">Restore System</button>
-                    </div>
-
-                </div>
-
+                        </Table>
+                        <Button variant = "outline-dark">Restore System</Button>
             </div>
         );
     }
