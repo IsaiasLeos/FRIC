@@ -21,7 +21,7 @@ function TaskContentView(){
                 <br></br>
                 <h2>Findings Overview Table</h2>
                     <Table bordered hover striped>
-                        <thead dark>
+                        <thead class = "thead-grey">
                             <tr>
                                 <th>Select</th>
                                 <th>ID<input type="image" src={SortImage} alt = "sort button"/></th>

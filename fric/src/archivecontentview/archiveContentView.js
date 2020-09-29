@@ -15,7 +15,7 @@ class archiveContentView extends React.Component {
                     <br></br>
                         <h2>Archived Tasks</h2>
                         <Table bordered hover striped >
-                            <thead>
+                            <thead class = "thead-grey">
                                 <tr>
                                     <th scope = "col">Title<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">Task<input type="image" src={SortImage} alt = "sort button"/></th>
@@ -72,7 +72,7 @@ class archiveContentView extends React.Component {
                         <h2>Archived Subasks</h2>
 
                         <Table bordered hover striped>
-                            <thead>
+                            <thead class = "thead-grey">
                                 <tr>
                                     <th scope = "col">Title<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">Task<input type="image" src={SortImage} alt = "sort button"/></th>
@@ -126,7 +126,7 @@ class archiveContentView extends React.Component {
                         <h2>Archived Findings</h2>
 
                         <Table bordered hover striped>
-                            <thead>
+                            <thead class = "thead-grey">
                                 <tr>
                                     <th scope = "col">ID<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">Title<input type="image" src={SortImage} alt = "sort button"/></th>
@@ -200,7 +200,7 @@ class archiveContentView extends React.Component {
                         <h2>Archived Systems</h2>
 
                         <Table bordered hover striped>
-                            <thead>
+                            <thead class = "thead-grey">
                                 <tr>
                                     <th scope = "col">System<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">No. of Tasks<input type="image" src={SortImage} alt = "sort button"/></th>
