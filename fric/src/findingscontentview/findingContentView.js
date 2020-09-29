@@ -109,7 +109,7 @@ function TaskContentView(){
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                     <Modal.Title>
-                        Finding Information
+                        Finding Detailed View
                     </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
