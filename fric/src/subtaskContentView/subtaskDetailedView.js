@@ -1,14 +1,10 @@
 import * as React from 'react'
 import HelpImage from '../assets/help.png'
-import GeneralView from '../generalView/generalView';
-
 
 class subtaskDetailedView extends React.Component {
     render() {
         return (
             <div>
-                
-                <GeneralView />
                 <div>
                     <h2>Subtask Detailed View</h2>
                     <input type="image" src={HelpImage} class="sort-button" />
