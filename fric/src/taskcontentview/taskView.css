@@ -1,0 +1,21 @@
+.buttons{
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 0px;
+}
+
+.right, .left{
+    float: left;
+}
+.right label, .left label{
+    width:100%;
+}
+.left{
+    margin-right: 30px;
+}
+
+.task-data{
+    width: 100%;
+    height: 30px;
+}

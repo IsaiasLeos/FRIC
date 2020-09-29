@@ -7,24 +7,24 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal'
-import TaskDetailView from './taskDetailedView';
+import TaskDetailedView from './taskDetailedView';
 import { Link } from 'react-router-dom'
+import './taskView.css'
 
 function TaskContentView(){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return(
-            <div>
-                <GeneralView />
-                <h2>Task Overview Table</h2>
-                <div class="buttons">
-                    <form action="">
-                        <input type="button" name="" id="" value="Archive" />
-                        <input type="button" name="" id="" value="Demote" />
-                    </form>
-                </div>
-                <Table>
+        <div>
+            <GeneralView />
+            <h3>Task Overview Table</h3>
+            <div class="buttons">
+                    <Button variant="dark">Archive</Button>
+                    <Button variant="dark">Demote</Button>
+                    <input type="image" src={AddImage} onClick={handleShow} />
+            </div>
+            <Table>
                 <tr>
                     <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></input></th>
                     
@@ -103,28 +103,26 @@ function TaskContentView(){
                     <td class="column8">4</td>
                     <td class="column9">30/10/2020</td>
                 </tr>
-                </Table>
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
+            </Table>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
                     <Modal.Title>
                         Task Detailed View
                     </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <TaskDetailView />
-                    </Modal.Body>
-                    <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
+                </Modal.Header>
+                <Modal.Body>
+                    <TaskDetailedView />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleClose}>
+                        Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="outline-dark" onClick={handleClose}>
                         Submit
                     </Button>
-                    </Modal.Footer>
-                </Modal>
-                <input type="image" src={AddImage} onclick="openForm()" />
-                
-            </div>
+                </Modal.Footer>
+            </Modal>
+        </div>
     );
 }
 
