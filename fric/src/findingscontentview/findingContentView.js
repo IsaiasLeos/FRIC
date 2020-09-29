@@ -1,41 +1,25 @@
 import * as React from 'react'
-import GeneralView from '../generalView/generalView';
-
-import Table from 'react-bootstrap/Table'
-import '../assets/css/bootstrap.css'
+import {useState}  from "react";
+import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
-import { useEffect, useSState, useRef } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react'
-import { Component } from 'react';
-import Popup from '../generalView/Popup'
+import HelpImage from '../assets/help.png'
+import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
+import GeneralView from '../generalView/generalView';
+import Modal from 'react-bootstrap/Modal'
+import FindingDetailedView from './findingDetailedView';
+import { Link } from 'react-router-dom'
 
-class findingContentView extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = { showPopup: false };
-    }
-
-    togglePopup() {
-        this.setState({
-            showPopup: !this.state.showPopup
-        });
-    }
-
-    render() {
-
-        return (
-
+function TaskContentView(){
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    return(
             <div>
-
                 <GeneralView />
-                <div class="FindingContentView">
-                    <div id="findingTable">
-                        <h2>Findings Table</h2>
-
-                        <Table>
-                            <tr>
+                <h2>Findings Overview Table</h2>
+                <Table>
+                <tr>
                                 <th>Select</th>
                                 <th>ID
                         <input type="image" src={SortImage} />
@@ -118,13 +102,7 @@ class findingContentView extends React.Component {
                                 <td>Physical Security</td>
                                 <td>VL</td>
                             </tr>
-
-                        </Table>
-
-                    </div>
-
-                </div>
-
+                </Table>
 
                 <div id="buttonSet" class="reportButtons">
 
@@ -137,19 +115,32 @@ class findingContentView extends React.Component {
 
                 <br></br>
 
-                <div class="findingDetailedView">
-                    <button onClick={this.togglePopup.bind(this)}>Create Finding</button>
-                    {this.state.showPopup ?
-                        <Popup
-                            text='Detailed View'
-                            closePopup={this.togglePopup.bind(this)}
-                        />
-                        : null
-                    }
-                </div>
+                <Button variant="outline-dark" onClick={handleShow}>Create Finding</Button>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>
+                        Finding Information
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <FindingDetailedView />
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Save
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Delete
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                
             </div>
-        );
-    }
+    );
 }
 
-export default findingContentView;
+export default TaskContentView;

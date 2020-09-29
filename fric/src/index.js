@@ -26,7 +26,7 @@ ReactDOM.render(
       </React.StrictMode>,
     </Route>
     <Route exact path="/Event" component={eventContentView} />
-    <Route exact path="/EventDetailed" componsent={eventDetailedView} />
+    <Route exact path="/EventDetailed" component={eventDetailedView} />
     <Route exact path="/Task" component={taskContentView} />
     <Route exact path="/TaskDetails" component={taskDetailedView} />
     <Route exact path="/Subtask" component={subtaskContentView} />
