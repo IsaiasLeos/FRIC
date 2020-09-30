@@ -16,7 +16,6 @@ function SystemContentView() {
         <div >
             <GeneralView />
             <div className="main">
-                <br></br>
                 <div className="SystemContentView">
                     <div id="systemTable">
                         <div className="title-buttons">
