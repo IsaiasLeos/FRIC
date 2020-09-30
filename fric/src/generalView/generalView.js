@@ -55,6 +55,7 @@ class generalView extends React.Component {
                 </nav>
 
 
+                
             </div>
         );
     }

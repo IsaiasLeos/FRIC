@@ -1,124 +1,300 @@
 import * as React from 'react'
-
+import { useState } from "react";
 import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
+import './systemView.css'
 import SortImage from '../assets/updownarrow.png'
 import GeneralView from '../generalView/generalView'
-
+import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-class systemContentView extends React.Component {
-    render() {
-        return (
-            <div>
-                <GeneralView />
-                <br></br>
-                <div class="SystemContentView">
-                    <div id="systemTable">
+import SystemDetailedView from './systemDetailedView'
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+function SystemContentView() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    return (
+        <div>
+            <GeneralView />
+            <br></br>
+            <div className="SystemContentView">
+                <div id="systemTable">
+                    <div className="title-buttons">
                         <h2>System Overview Table</h2>
-                        <Table bordered hover striped>
-                            <thead class="thead-grey">
-                                <tr>
-                                    <th>Select</th>
-                                    <th>System
+                        <ButtonGroup dialogClassName="title-system-buttons">
+                            <Button variant="dark">Archive</Button>
+                            <Button variant="dark">Save</Button>
+                            <Button variant="dark">Cancel</Button>
+                            
+                        </ButtonGroup>
+
+                    </div>
+
+
+                    <Table bordered hover striped>
+                        <thead className="thead-grey">
+                            <tr>
+                                <th>Select</th>
+                                <th>System
                         <input type="image" src={SortImage} />
-                                    </th>
-                                    <th>No. of Task
+                                </th>
+                                <th>No. of Task
                         <input type="image" src={SortImage} />
-                                    </th>
-                                    <th>No. Findings
+                                </th>
+                                <th>No. Findings
                         <input type="image" src={SortImage} />
-                                    </th>
-                                    <th>Progress
+                                </th>
+                                <th>Progress
                         <input type="image" src={SortImage} />
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
-                                    <td>Wells Fargo ATM</td>
-                                    <td>4</td>
-                                    <td>8</td>
-                                    <td>Assigned</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
-                                    <td>Walmart Cashier Machine</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>Assigned</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
-                                    <td>UTEP CS Computers</td>
-                                    <td>2</td>
-                                    <td>0</td>
-                                    <td>Not Started</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"></input></td>
-                                    <td>Best Buy</td>
-                                    <td>10</td>
-                                    <td>20</td>
-                                    <td>Completed</td>
-                                </tr>
-                            </thead>
-                        </Table>
-                        <Button variant="outline-dark">Archive</Button>
-                        <Button variant="outline-dark">Save</Button>
-                        <Button variant="outline-dark">Cancel</Button>
-                    </div>
-                </div>
-                <div class="systemDetailedTable" id="systemDetailedTable">
-                    <h2>System Detailed View</h2>
-                    <h3>System Information</h3>
-                    <div class="input-group mb-3">
-                        <form action="">
-                            <input type="text" class="form-control browser-default mr-3" placeholder="System Information" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
-                            &nbsp;
-                            <textarea type="text" class="form-control mr-3" placeholder="System Description" aria-label="System Description" aria-describedby="basic-addon2"></textarea>
-                            &nbsp;
-                            <input type="text" class="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
-                            &nbsp;
-                            <input type="text" class="form-control mr-3" placeholder="System Router" aria-label="System Router" aria-describedby="basic-addon2"></input>
-                            &nbsp;
-                            <input type="text" class="form-control mr-3" placeholder="System Switch" aria-label="System Switch" aria-describedby="basic-addon2"></input>
-                            &nbsp;
-                            <input type="text" class="form-control mr-3" placeholder="System Room" aria-label="System Room" aria-describedby="basic-addon2"></input>
-                            &nbsp;
-                            <input type="text" class="form-control mr-3" placeholder="Test Plan" aria-label="Test Plan" aria-describedby="basic-addon2"></input>
-                            &nbsp;
-                        </form>
-                    </div>
-                    <h3>System Categorization</h3>
-                    <div style={{ marginTop: "20px", width: "750px" }} class="btn-group">
-                        <select class="browser-default custom-select mr-3">
-                            <option selected>Confidentiality</option>
-                            <option >Low</option>
-                            <option >Medium</option>
-                            <option >High</option>
-                        </select>
-                    </div>
-                    <div style={{ marginTop: "20px", width: "750px" }} class="btn-group">
-                        <select class="browser-default custom-select mr-3">
-                            <option selected>Integrity</option>
-                            <option >Low</option>
-                            <option >Medium</option>
-                            <option >High</option>
-                        </select>
-                    </div>
-                    <div style={{ marginTop: "20px", width: "750px" }} class="btn-group">
-                        <select class="browser-default custom-select mr-3">
-                            <option selected>Availability</option>
-                            <option >Low</option>
-                            <option >Medium</option>
-                            <option >High</option>
-                        </select>
-                    </div>
-                    &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>                                <tr>
+                            <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                            <td><Button variant="outline-dark" onClick={handleShow}>Wells Fargo ATM</Button></td>
+                            <td>4</td>
+                            <td>8</td>
+                            <td>Assigned</td>
+                        </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Walmart Cashier Machine</Button></td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>Assigned</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>UTEP CS Computers</Button></td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>Not Started</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Best Buy</Button></td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>Completed</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    <Table bordered hover striped>
+                        <thead className="thead-grey">
+                            <tr>
+                                <th>Select</th>
+                                <th>System
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>No. of Task
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>No. Findings
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>Progress
+                        <input type="image" src={SortImage} />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>                                <tr>
+                            <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                            <td><Button variant="outline-dark" onClick={handleShow}>Wells Fargo ATM</Button></td>
+                            <td>4</td>
+                            <td>8</td>
+                            <td>Assigned</td>
+                        </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Walmart Cashier Machine</Button></td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>Assigned</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>UTEP CS Computers</Button></td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>Not Started</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Best Buy</Button></td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>Completed</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    <Table bordered hover striped>
+                        <thead className="thead-grey">
+                            <tr>
+                                <th>Select</th>
+                                <th>System
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>No. of Task
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>No. Findings
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>Progress
+                        <input type="image" src={SortImage} />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>                                <tr>
+                            <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                            <td><Button variant="outline-dark" onClick={handleShow}>Wells Fargo ATM</Button></td>
+                            <td>4</td>
+                            <td>8</td>
+                            <td>Assigned</td>
+                        </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Walmart Cashier Machine</Button></td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>Assigned</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>UTEP CS Computers</Button></td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>Not Started</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Best Buy</Button></td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>Completed</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    <Table bordered hover striped>
+                        <thead className="thead-grey">
+                            <tr>
+                                <th>Select</th>
+                                <th>System
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>No. of Task
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>No. Findings
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>Progress
+                        <input type="image" src={SortImage} />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>                                <tr>
+                            <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                            <td><Button variant="outline-dark" onClick={handleShow}>Wells Fargo ATM</Button></td>
+                            <td>4</td>
+                            <td>8</td>
+                            <td>Assigned</td>
+                        </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Walmart Cashier Machine</Button></td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>Assigned</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>UTEP CS Computers</Button></td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>Not Started</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Best Buy</Button></td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>Completed</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    <Table bordered hover striped>
+                        <thead className="thead-grey">
+                            <tr>
+                                <th>Select</th>
+                                <th>System
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>No. of Task
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>No. Findings
+                        <input type="image" src={SortImage} />
+                                </th>
+                                <th>Progress
+                        <input type="image" src={SortImage} />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>                                <tr>
+                            <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                            <td><Button variant="outline-dark" onClick={handleShow}>Wells Fargo ATM</Button></td>
+                            <td>4</td>
+                            <td>8</td>
+                            <td>Assigned</td>
+                        </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Walmart Cashier Machine</Button></td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>Assigned</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>UTEP CS Computers</Button></td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>Not Started</td>
+                            </tr>
+                            <tr>
+                                <td className="column1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Best Buy</Button></td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>Completed</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+
                 </div>
             </div>
-        );
-    }
+
+            <Modal show={show} onHide={handleClose} dialogclassNameName="task-modal">
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        System Detailed View
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <SystemDetailedView />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-dark" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="outline-dark" onClick={handleClose}>
+                        Submit
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
+    );
 }
 
-
-export default systemContentView;
+export default SystemContentView;
