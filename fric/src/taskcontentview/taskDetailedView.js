@@ -1,6 +1,5 @@
 import * as React from 'react'
 import HelpImage from '../assets/help.png'
-import GeneralView from '../generalView/generalView';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 
 class taskDetailedView extends React.Component {

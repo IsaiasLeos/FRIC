@@ -1,8 +1,10 @@
 import * as React from 'react'
-import Table from 'react-bootstrap/Table'
+import 'react-bootstrap'
 import GeneralView from '../generalView/generalView';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 
+import '../assets/css/bootstrap.css'
+import Tree from '../eventTree/eventTree';
 class setupContentView extends React.Component {
     constructor() {
         super();
@@ -69,6 +71,10 @@ class setupContentView extends React.Component {
                         
                         <input type="submit" />
                     </form>
+
+                    <div class="right-tree">
+                    <Tree />
+                  </div> 
                 
             </div>
         );

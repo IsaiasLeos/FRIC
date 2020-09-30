@@ -9,6 +9,7 @@ class findingDetailedView extends React.Component {
             <div>
                 <div>
                     <form action="" class="form">
+                        <h4>Finding Information</h4>
                         <label for="ID">
                             ID:
                             <br></br><input type="text" name="ID" id="ID" />

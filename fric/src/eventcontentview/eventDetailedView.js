@@ -1,11 +1,11 @@
 import * as React from 'react'
-import '../assets/css/bootstrap.css'
+import 'react-bootstrap'
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import HelpImage from '../assets/help.png'
 import Table from 'react-bootstrap/Table'
 import GeneralView from '../generalView/generalView';
-
+import '../assets/css/bootstrap.css'
 
 
 

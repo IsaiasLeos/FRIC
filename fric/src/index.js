@@ -16,6 +16,7 @@ import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'
 import setupContentView from './setupContentView/setupContentView.js';
 import helpView from './helpView/helpView.js';
+import eventTree from './eventTree/eventTree';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
@@ -39,6 +40,7 @@ ReactDOM.render(
     <Route exact path="/Configuration" component={configurationContentView} />
     <Route exact path="/Setup" component={setupContentView} />
     <Route exact path="/Help" component={helpView} />
+    <Route exact path="/Tree" component={eventTree} />
   </Router>,
   document.getElementById('root')
 
