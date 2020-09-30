@@ -13,9 +13,11 @@ class archiveContentView extends React.Component {
                     
                     <br></br>
                         <h2>Archived Tasks</h2>
+                        <Button variant= "dark">Restore Task</Button>
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
+                                    <th scope = "col">Select</th>
                                     <th scope = "col">Title<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">Task<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">Analyst<input type="image" src={SortImage} alt = "sort button" /></th>
@@ -26,7 +28,7 @@ class archiveContentView extends React.Component {
                             </thead>
                             <tbody>
                                 <tr>
-                                    
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -36,6 +38,7 @@ class archiveContentView extends React.Component {
 
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -44,6 +47,7 @@ class archiveContentView extends React.Component {
                                     <td>Alex Vasquez</td>
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -53,6 +57,7 @@ class archiveContentView extends React.Component {
 
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -63,16 +68,17 @@ class archiveContentView extends React.Component {
                             </tbody>
                         </Table>
 
-                        <Button variant= "outline-dark">Restore Task</Button>
+                        
                         
                     <br></br>
 
                     
                         <h2>Archived Subasks</h2>
-
+                        <Button variant= "dark">Restore Subtask</Button>
                         <Table bordered hover striped>
                             <thead class = "thead-grey">
                                 <tr>
+                                    <th scope = "col">Select</th>
                                     <th scope = "col">Title<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">Task<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">Analyst<input type="image" src={SortImage} alt = "sort button"/></th>
@@ -83,6 +89,7 @@ class archiveContentView extends React.Component {
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -92,6 +99,7 @@ class archiveContentView extends React.Component {
 
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -100,6 +108,7 @@ class archiveContentView extends React.Component {
                                     <td>Alex Vasquez</td>
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -109,6 +118,7 @@ class archiveContentView extends React.Component {
 
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -118,15 +128,16 @@ class archiveContentView extends React.Component {
                                 </tr>
                             </tbody>
                         </Table>
-                        <Button variant= "outline-dark">Restore Subtask</Button>
+                        
                     
 
                     
                         <h2>Archived Findings</h2>
-
+                        <Button variant= "dark">Restore Finding</Button>
                         <Table bordered hover striped>
                             <thead class = "thead-grey">
                                 <tr>
+                                    <th scope = "col">Select</th>                                                                                                 
                                     <th scope = "col">ID<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">Title<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">System<input type="image" src={SortImage} alt = "sort button"/></th>
@@ -141,6 +152,7 @@ class archiveContentView extends React.Component {
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -153,6 +165,7 @@ class archiveContentView extends React.Component {
                                     <td>VL</td>
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -165,6 +178,7 @@ class archiveContentView extends React.Component {
                                     <td>VL</td>
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -177,6 +191,7 @@ class archiveContentView extends React.Component {
                                     <td>VL</td>
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -191,7 +206,7 @@ class archiveContentView extends React.Component {
                             </tbody>
 
                         </Table>
-                        <Button variant= "outline-dark">Restore Finding</Button>
+                        
 
                     
 
@@ -201,6 +216,7 @@ class archiveContentView extends React.Component {
                         <Table bordered hover striped>
                             <thead class = "thead-grey">
                                 <tr>
+                                    <th scope = "col">Select</th>
                                     <th scope = "col">System<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">No. of Tasks<input type="image" src={SortImage} alt = "sort button"/></th>
                                     <th scope = "col">No. of Findings<input type="image" src={SortImage} alt = "sort button"/></th>
@@ -209,6 +225,7 @@ class archiveContentView extends React.Component {
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -216,12 +233,14 @@ class archiveContentView extends React.Component {
 
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
                                     <td>Task 1 and Task 2</td>
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>
@@ -229,6 +248,7 @@ class archiveContentView extends React.Component {
 
                                 </tr>
                                 <tr>
+                                    <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                     <td>234</td>
                                     <td>Title 1</td>
                                     <td>System W</td>

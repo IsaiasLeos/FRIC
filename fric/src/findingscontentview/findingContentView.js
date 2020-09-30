@@ -113,7 +113,7 @@ function TaskContentView(){
 
                 
 
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={show} onHide={handleClose} size = 'lg'>
                     <Modal.Header closeButton>
                     <Modal.Title>
                         Finding Detailed View
