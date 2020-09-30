@@ -11,10 +11,7 @@ description of the functionality of the Findings and Reporting Information Conso
 divides the system requirements into two parts, behavioral and non-behavioral requirements. The behavioral
 requirements describe the interaction between the system and its environment. Non-behavioral requirements
 relate to the definition of the attributes of the product as it performs its functions. This includes performance
-requirements of the product. The intended audience of the SRS is Dr. Oscar Perez, Mr. Vincent Fonseca, Ms.
-Herandy Vazquez, Ms. Theresa Provencio, Mr. Angel E. Avila, Mr. Juan Ulloa, Mr. John Rivers, Mr. Andres
-Cuevas, and the Software Engineering teams. This document serves as an agreement between both parties
-regarding the product to be developed.
+requirements of the product.
 
 ### 🏠 [Homepage](https://github.com/IsaiasLeos/FRIC)
 
