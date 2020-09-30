@@ -109,6 +109,7 @@ class findingDetailedView extends React.Component {
                         </label>
                         &nbsp;
                         &nbsp;
+                        <br></br>
                         <label for="relatedFindings">
                             Related Finding(s):
                             <br></br><select name="relatedFindings" id="relatedFindings">
@@ -117,7 +118,7 @@ class findingDetailedView extends React.Component {
                                 <option value="relatedTask2">Finding 2</option>
                                 <option value="relatedTask3">Finding 3</option>
                             </select>
-                        </label><br/>
+                        </label>
                         <h4>Finding Impact</h4>
                         <label for="Confidentiality">
                             Confidentiality:
