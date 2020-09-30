@@ -14,7 +14,7 @@
     height: 30px;
 }
 
-.restore-buttons{
+.archive-buttons{
     display: flex;
     justify-content: space-between;
 }

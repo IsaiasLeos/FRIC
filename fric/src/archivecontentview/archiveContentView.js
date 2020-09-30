@@ -6,15 +6,20 @@ import SortImage from '../assets/updownarrow.png'
 import Button from 'react-bootstrap/esm/Button';
 import '../assets/css/bootstrap.css'
 import Tree from '../eventTree/eventTree'
+
+
 class archiveContentView extends React.Component {
     render() {
         return (
             <div>
                 <GeneralView />
+                <h2>Archive Overview</h2>
+
+                
 
                 <div className="main">
-                    <h2>Archived Tasks</h2>
-                    <Button variant="dark">Restore Task</Button>
+                    <h3>Archived Tasks</h3>
+                    
                     <Table bordered hover striped >
                         <thead class="thead-grey">
                             <tr>
@@ -68,14 +73,12 @@ class archiveContentView extends React.Component {
                             </tr>
                         </tbody>
                     </Table>
-
-
+                    <Button variant="dark">Restore Task</Button>
 
                     <br></br>
+                    <br></br>
 
-
-                    <h2>Archived Subasks</h2>
-                    <Button variant="dark">Restore Subtask</Button>
+                    <h3>Archived Subasks</h3>  
                     <Table bordered hover striped>
                         <thead class="thead-grey">
                             <tr>
@@ -129,12 +132,12 @@ class archiveContentView extends React.Component {
                             </tr>
                         </tbody>
                     </Table>
+                    <Button variant="dark">Restore Subtask</Button>
 
+                    <br></br>
+                    <br></br>
 
-
-
-                    <h2>Archived Findings</h2>
-                    <Button variant="dark">Restore Finding</Button>
+                    <h3>Archived Findings</h3>
                     <Table bordered hover striped>
                         <thead class="thead-grey">
                             <tr>
@@ -207,13 +210,12 @@ class archiveContentView extends React.Component {
                         </tbody>
 
                     </Table>
+                    <Button variant="dark">Restore Finding</Button>
 
+                    <br></br>
+                    <br></br>
 
-
-
-
-                    <h2>Archived Systems</h2>
-                    <Button variant="outline-dark">Restore System</Button>
+                    <h3>Archived Systems</h3>
                     <Table bordered hover striped>
                         <thead class="thead-grey">
                             <tr>
@@ -258,12 +260,13 @@ class archiveContentView extends React.Component {
                             </tr>
                         </tbody>
                     </Table>
-                    
+                    <Button variant="dark">Restore System</Button>
                 </div>
 
                 <div class="right-tree">
                     <Tree />
                 </div>
+
             </div>
         );
     }
