@@ -1,17 +1,13 @@
-<h1 align="center">Welcome to fric 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.23.27-blue.svg?cacheSeconds=2592000" />
-  <a href="https://github.com/IsaiasLeos/FRIC/blob/master/README.md" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-</p>
+<h1 align="center">Welcome to F.R.I.C</h1>
 
-> The purpose of the Software Requirements Specification (SRS) is to give the customer a clear and precise
-description of the functionality of the Findings and Reporting Information Console (FRIC) System. The SRS
-divides the system requirements into two parts, behavioral and non-behavioral requirements. The behavioral
-requirements describe the interaction between the system and its environment. Non-behavioral requirements
-relate to the definition of the attributes of the product as it performs its functions. This includes performance
-requirements of the product.
+> The Cyber Experimentation & Analysis Division (CEAD) recognizes the complexity and the time it takes to
+manage task assignments, progress, vulnerability discovery during a cyber engagement and generate custom
+reports that presents the discovered vulnerabilities and potential issues to CEAD’s target audience. They want a
+system that would aid the management of task, collection of evidence, and report generation during a cyber
+engagement.
+The University of Texas at El Paso (UTEP) and CEAD are collaborating to develop Findings and Reporting
+Information Console (FRIC) system that will provide the ability to manage task assignment and progress, and
+facilitate the collection of evidence on existing vulnerabilities, and generation of custom reports.
 
 ### 🏠 [Homepage](https://github.com/IsaiasLeos/FRIC)
 
