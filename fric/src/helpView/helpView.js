@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table'
 import GeneralView from '../generalView/generalView';
 import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
+import Tree from '../eventTree/eventTree';
 class helpView extends React.Component {
 
     render() {
@@ -46,6 +47,7 @@ facilitate the collection of evidence on existing vulnerabilities, and generatio
                 </ul>
 
             </div>
+                
         );
     }
 }

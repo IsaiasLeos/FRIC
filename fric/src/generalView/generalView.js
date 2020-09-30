@@ -45,7 +45,7 @@ function GeneralView() {
                             <a class="nav-link " href="/Archive">Archive</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Config">Config</a>
+                            <a class="nav-link" href="/Configuration">Configuration</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Setup">Setup</a>
@@ -54,25 +54,6 @@ function GeneralView() {
                             <a class="nav-link" href="/Help">Help</a>
                         </li>
                     </ul>
-                    <Button variant="dark" onClick={handleShow}>Tree</Button>
-                    <Modal show={show} onHide={handleClose} dialogClassName="task-modal">
-                        <Modal.Header closeButton>
-                            <Modal.Title>
-                                Tree View
-                    </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Tree />
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="outline-dark" onClick={handleClose}>
-                                Cancel
-                    </Button>
-                            <Button variant="outline-dark" onClick={handleClose}>
-                                Submit
-                    </Button>
-                        </Modal.Footer>
-                    </Modal>
                     <form class="form-inline my-2 my-md-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
                     </form>

@@ -16,3 +16,14 @@ code {
   width: 900px;
   margin: 30px auto;
 }
+.main{
+  width: 80vw; 
+  margin-top: 20px;
+  float: left;
+}
+
+.right-tree{
+  margin-top: 20px;
+  float: left;
+
+}

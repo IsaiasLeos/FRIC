@@ -3,6 +3,8 @@ import {useState}  from "react";
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
+import { Link } from 'react-router-dom'
+import Tree from '../eventTree/eventTree';
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import GeneralView from '../generalView/generalView';
