@@ -9,6 +9,7 @@ import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal'
 import FindingDetailedView from './findingDetailedView';
 import { Link } from 'react-router-dom'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
 function TaskContentView(){
     const [show, setShow] = useState(false);
@@ -18,8 +19,14 @@ function TaskContentView(){
             <div>
                 <GeneralView />
 
-                <br></br>
-                <h2>Findings Overview Table</h2>
+                    <br></br>
+                    <h2>Findings Overview Table</h2>
+                    <ButtonGroup>
+                            <Button variant="dark">Save</Button>
+                            <Button variant="dark">Delete</Button>
+                            <Button variant="dark">Cancel</Button>
+                            <input type="image" src={AddImage} onClick={handleShow} />
+                    </ButtonGroup>
                     <Table bordered hover striped>
                         <thead class = "thead-grey">
                             <tr>
@@ -104,7 +111,7 @@ function TaskContentView(){
                 <br></br>
                 <br></br>
 
-                <Button variant="dark" onClick={handleShow}>Create Finding</Button>
+                
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
