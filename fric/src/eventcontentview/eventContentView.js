@@ -65,26 +65,26 @@ function EventContentView(){
                     </Table>
 
                     <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
-                    <Modal.Header closeButton>
-                    <Modal.Title>
-                        Event Detailed View
-                    </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <EventDetailedView />
-                    </Modal.Body>
-                    <Modal.Footer>
-                    <Button variant="dark" onClick={handleClose}>
-                        Save
-                    </Button>
-                    <Button variant="dark" onClick={handleClose}>
-                        Delete
-                    </Button>
-                    <Button variant="dark" onClick={handleClose}>
-                        Cancel
-                    </Button>
-                    </Modal.Footer>
-                </Modal>
+                        <Modal.Header closeButton>
+                        <Modal.Title>
+                            Event Detailed View
+                        </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <EventDetailedView />
+                        </Modal.Body>
+                        <Modal.Footer>
+                        <Button variant="dark" onClick={handleClose}>
+                            Save
+                        </Button>
+                        <Button variant="dark" onClick={handleClose}>
+                            Delete
+                        </Button>
+                        <Button variant="dark" onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        </Modal.Footer>
+                    </Modal>
 
                 </body>
             </div>

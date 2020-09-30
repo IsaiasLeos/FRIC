@@ -13,7 +13,6 @@ class eventDetailedView extends React.Component {
     render() {
         return (
             <div>
-                
                 <h3>Event Basic Information</h3>
                 <input type="image" src={HelpImage}></input>
                 <h2>Event X</h2>
@@ -220,6 +219,7 @@ class eventDetailedView extends React.Component {
                     <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
                   </form>
                 </div>
+
                 
 
             </div>
