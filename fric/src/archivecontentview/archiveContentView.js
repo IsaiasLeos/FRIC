@@ -11,9 +11,10 @@ class archiveContentView extends React.Component {
             <div>
                 <GeneralView />
                     
-                    <br></br>
+                    <br></br> 
                         <h2>Archived Tasks</h2>
                         <Button variant= "dark">Restore Task</Button>
+                        <br></br>
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
@@ -75,6 +76,7 @@ class archiveContentView extends React.Component {
                     
                         <h2>Archived Subasks</h2>
                         <Button variant= "dark">Restore Subtask</Button>
+                        <br></br>
                         <Table bordered hover striped>
                             <thead class = "thead-grey">
                                 <tr>
@@ -134,6 +136,7 @@ class archiveContentView extends React.Component {
                     
                         <h2>Archived Findings</h2>
                         <Button variant= "dark">Restore Finding</Button>
+                        <br></br>
                         <Table bordered hover striped>
                             <thead class = "thead-grey">
                                 <tr>
@@ -206,13 +209,10 @@ class archiveContentView extends React.Component {
                             </tbody>
 
                         </Table>
-                        
-
-                    
-
-                    
+                                            
                         <h2>Archived Systems</h2>
-
+                        <Button variant= "dark">Restore System</Button>
+                        <br></br>
                         <Table bordered hover striped>
                             <thead class = "thead-grey">
                                 <tr>
@@ -257,7 +257,7 @@ class archiveContentView extends React.Component {
                                 </tr>
                             </tbody>
                         </Table>
-                        <Button variant = "outline-dark">Restore System</Button>
+                        
             </div>
         );
     }
