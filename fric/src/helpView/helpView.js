@@ -1,9 +1,8 @@
 import * as React from 'react'
-import Table from 'react-bootstrap/Table'
-import GeneralView from '../generalView/generalView';
+import GeneralView from '../generalView/generalView'
 import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
-import Tree from '../eventTree/eventTree';
+
 class helpView extends React.Component {
 
     render() {
@@ -22,7 +21,7 @@ class helpView extends React.Component {
                     Information Console (FRIC) system that will provide the ability to manage task assignment and progress, and
 facilitate the collection of evidence on existing vulnerabilities, and generation of custom reports.</p>
                 </blockquote>
-                <h3 id="-homepage-https-github-com-isaiasleos-fric-">🏠 <a href="https://github.com/IsaiasLeos/FRIC">Homepage</a></h3>
+                <h3 id="-homepage-https-github-com-isaiasleos-fric-"><span role="img" aria-label="emoji">🏠</span><a href="https://github.com/IsaiasLeos/FRIC">Homepage</a></h3>
                 <h2 id="install">Install</h2>
                 <pre><code class="lang-sh">npm <span class="hljs-keyword">install</span>
                 </code></pre>
@@ -33,11 +32,13 @@ facilitate the collection of evidence on existing vulnerabilities, and generatio
                 <pre><code class="lang-sh">npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span></span>
                 </code></pre>
                 <h2 id="author">Author</h2>
-                <p>👤 <strong>Isaias Leos</strong>
-👤 <strong>Alex Vasquez</strong>
-👤 <strong>Jacob Padilla</strong>
-👤 <strong>Luis Soto</strong>
-👤 <strong>Andrew Clanan</strong></p>
+                <p>
+                    <span role="img" aria-label="emoji">👤</span><strong>Isaias Leos</strong>
+                    <span role="img" aria-label="emoji">👤</span><strong>Alex Vasquez</strong>
+                    <span role="img" aria-label="emoji">👤</span><strong>Jacob Padilla</strong>
+                    <span role="img" aria-label="emoji">👤</span><strong>Luis Soto</strong>
+                    <span role="img" aria-label="emoji">👤</span><strong>Andrew Clanan</strong>
+                </p>
                 <ul>
                     <li>Github: <a href="https://github.com/IsaiasLeos">@IsaiasLeos</a></li>
                     <li>Github: <a href="https://github.com/LXvsqz">@LXvsqz</a></li>

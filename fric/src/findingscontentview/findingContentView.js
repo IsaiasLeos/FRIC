@@ -2,13 +2,11 @@ import * as React from 'react'
 import { useState } from "react";
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
-import HelpImage from '../assets/help.png'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal'
 import FindingDetailedView from './findingDetailedView';
-import { Link } from 'react-router-dom'
 import Tree from '../eventTree/eventTree';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 
@@ -99,7 +97,7 @@ function TaskContentView() {
                     <Button variant="dark">Save</Button>
                     <Button variant="dark">Delete</Button>
                     <Button variant="dark">Cancel</Button>
-                    <input type="image" src={AddImage} onClick={handleShow} />
+                    <input type="image" src={AddImage} onClick={handleShow} alt="Add button"/>
                 </ButtonGroup>
                 <Table bordered hover striped>
                     <thead class="thead-grey">
@@ -213,6 +211,9 @@ function TaskContentView() {
                         </Modal.Footer>
                     </Modal>
                 </Table>
+            </div>
+            <div class="right-tree">
+                    <Tree />
             </div>
         </div>
     );

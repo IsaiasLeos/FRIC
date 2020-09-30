@@ -24,7 +24,7 @@ function TaskContentView(){
                     <ButtonGroup>
                         <Button variant="dark">Archive</Button>
                         <Button variant="dark">Demote</Button>
-                        <input type="image" src={AddImage} onClick={handleShow} />
+                        <input type="image" src={AddImage} onClick={handleShow} alt="add button" />
                     </ButtonGroup>
                 </div>
                 <Table striped bordered hover>

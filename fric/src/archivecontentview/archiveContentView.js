@@ -1,11 +1,10 @@
 import * as React from 'react'
-import GeneralView from '../generalView/generalView';
+import GeneralView from '../generalView/generalView'
 import Table from 'react-bootstrap/Table'
 import 'react-bootstrap'
 import SortImage from '../assets/updownarrow.png'
-import Button from 'react-bootstrap/esm/Button';
+import Button from 'react-bootstrap/esm/Button'
 import '../assets/css/bootstrap.css'
-import Tree from '../eventTree/eventTree'
 class archiveContentView extends React.Component {
     render() {
         return (
