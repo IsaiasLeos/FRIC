@@ -7,12 +7,9 @@ class configurationContentView extends React.Component {
         return (
             <div>
                 <GeneralView/>
-                <div class="ConfigureView">
-                    <h1 style={{ textAlign: "center" }}>Configuration view</h1>
-                </div>
                 
                 <div>
-                    <br/><br/>
+                    <br/>
                     <h3> Finding Type Table </h3>
                     <Table bordered hover striped responsive>
                         <thead class = "thead-grey">
