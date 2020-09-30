@@ -14,7 +14,6 @@ class systemContentView extends React.Component {
                 <br></br>
                 <div class="SystemContentView">
                     <div id="systemTable">
-                        <h1 style={{ textAlign: "center" }}>System View</h1>
                         <h2>System Overview Table</h2>
                         <Table bordered hover striped>
                             <thead class="thead-grey">
