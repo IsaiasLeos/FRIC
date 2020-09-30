@@ -157,7 +157,7 @@ class archiveContentView extends React.Component {
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
-                                <td>Task 1 and Task 2</td>
+                                <td>Task 1 </td>
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
                                 <td>Open</td>
@@ -170,7 +170,7 @@ class archiveContentView extends React.Component {
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
-                                <td>Task 1 and Task 2</td>
+                                <td>Task 1 </td>
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
                                 <td>Open</td>
@@ -183,7 +183,7 @@ class archiveContentView extends React.Component {
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
-                                <td>Task 1 and Task 2</td>
+                                <td>Task 1 </td>
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
                                 <td>Open</td>
@@ -196,7 +196,7 @@ class archiveContentView extends React.Component {
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
-                                <td>Task 1 and Task 2</td>
+                                <td>Task 1 </td>
                                 <td>N/A</td>
                                 <td>Alex Vasquez</td>
                                 <td>Open</td>
@@ -213,7 +213,7 @@ class archiveContentView extends React.Component {
 
 
                     <h2>Archived Systems</h2>
-
+                    <Button variant="outline-dark">Restore System</Button>
                     <Table bordered hover striped>
                         <thead class="thead-grey">
                             <tr>
@@ -230,7 +230,7 @@ class archiveContentView extends React.Component {
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
-                                <td>Task 1 and Task 2</td>
+                                <td>Task 1</td>
 
                             </tr>
                             <tr>
@@ -238,14 +238,14 @@ class archiveContentView extends React.Component {
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
-                                <td>Task 1 and Task 2</td>
+                                <td>Task 1</td>
                             </tr>
                             <tr>
                                 <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
-                                <td>Task 1 and Task 2</td>
+                                <td>Task 1</td>
 
                             </tr>
                             <tr>
@@ -253,12 +253,16 @@ class archiveContentView extends React.Component {
                                 <td>234</td>
                                 <td>Title 1</td>
                                 <td>System W</td>
-                                <td>Task 1 and Task 2</td>
+                                <td>Task 1</td>
 
                             </tr>
                         </tbody>
                     </Table>
-                    <Button variant="outline-dark">Restore System</Button>
+                    
+                </div>
+
+                <div class="right-tree">
+                    <Tree />
                 </div>
             </div>
         );
