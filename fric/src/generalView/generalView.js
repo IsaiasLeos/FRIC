@@ -1,6 +1,6 @@
 import * as React from 'react'
 import '../generalView/style.css'
-import '../assets/css/bootstrap.css'
+import 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Component } from 'react';
 import Popup from './Popup.js'
@@ -8,7 +8,7 @@ import { useState } from "react";
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Tree from '../eventTree/eventTree';
-
+import '../assets/css/bootstrap.css'
 function GeneralView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -78,7 +78,7 @@ function GeneralView() {
                     </form>
                 </div>
             </nav>
-            
+
         </div>
     );
 }
