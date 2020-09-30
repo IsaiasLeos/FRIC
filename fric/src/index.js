@@ -37,7 +37,7 @@ ReactDOM.render(
     <Route exact path="/SystemDetailed" component={systemContentView} />
     <Route exact path="/Findings" component={findingContentView} />
     <Route exact path="/Archive" component={archiveContentView} />
-    <Route exact path="/Config" component={configurationContentView} />
+    <Route exact path="/Configuration" component={configurationContentView} />
     <Route exact path="/Setup" component={setupContentView} />
     <Route exact path="/Help" component={helpView} />
     <Route exact path="/Tree" component={eventTree} />

@@ -10,67 +10,47 @@ class configurationContentView extends React.Component {
             <div>
                 <GeneralView/>
                 <div className="main">
+
                     <div class="ConfigureView">
                         <h1 style={{ textAlign: "center" }}>Configuration view</h1>
                     </div>
                     
                     <div>
                         <br/><br/>
-                        <h3> Finding Type Table </h3>
+                        <h3> Finding Information Table </h3>
                         <Table bordered hover striped responsive>
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th>Credentials Complexity</th>
-                                    <th>Manufacturer Default Creds</th>
-                                    <th>Lack of Authentication</th>
-                                    <th>Plain Text Protocols</th>
-                                    <th>Plain Text Web Login</th>
+                                    <th>Finding ID</th>
+                                    <th>Host Name</th>
+                                    <th>IP Port</th>
+                                    <th>Finding Description</th>
+                                    <th>Finding Status</th>
 
-                                    <th>Encryption</th>
-                                    <th>Authentication Bypass</th>
-                                    <th>Port Security</th>
-                                    <th>Access Control</th>
-                                    <th>Least Privilege</th>
+                                    <th>Finding type</th>
+                                    <th>Finding Classification</th>
+                                    <th>Association to Finding</th>
+                                    <th>Evidence</th>
+                                    <th>Archive Status</th>
 
-                                    <th>Privilege Escalation</th>
-                                    <th>Missing Patches</th>
-                                    <th>Physical Security</th>
-                                    <th>Information Disclosure</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>System "a"</td>
-                                    <td>System "a"</td>
-                                    <td>System "a"</td>
-                                    <td>System "a"</td>
-                                    <td>System "b"</td>
-                                    <td>System "b"</td>
-                                    <td>System "a"</td>
-                                    <td>System "c"</td>
-                                    <td>System "d"</td>
-                                    <td>System "c"</td>
-                                    <td> - </td>
-                                    <td> System "a"</td>
-                                    <td> System "e"</td>
-                                    <td> System "b"</td>
+                                    
+                                    <td>  1 </td>
+                                    <td> "host 1" </td>
+                                    <td> "800" </td>
+                                    <td> "The system has an issue with leaks" </td>
+                                    <td> open </td>
+                                    <td> Manufacturer default Creds </td>
+                                    <td> vulnerability </td>
+                                    <td> finding 1 is associated with finding 2</td>
+                                    <td> evidence.txt </td>
+                                    <td> N </td>
+                                    
                                 </tr> 
-                                <tr>
-                                    <td>System "b"</td>
-                                    <td>System "b"</td>
-                                    <td>System "b"</td>
-                                    <td>System "c"</td>
-                                    <td>System "d"</td>
-                                    <td>System "d"</td>
-                                    <td>System "c"</td>
-                                    <td>System "a"</td>
-                                    <td>System "b"</td>
-                                    <td>System "b"</td>
-                                    <td>System "c"</td>
-                                    <td>System "b"</td>
-                                    <td>System "a"</td>
-                                    <td>System "d"</td>
-                                </tr> 
+                                
                             </tbody>
                         </Table>
                     </div>

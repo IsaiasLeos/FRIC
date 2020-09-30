@@ -45,7 +45,7 @@ function GeneralView() {
                             <a class="nav-link " href="/Archive">Archive</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Config">Config</a>
+                            <a class="nav-link" href="/Configuration">Configuration</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Setup">Setup</a>
