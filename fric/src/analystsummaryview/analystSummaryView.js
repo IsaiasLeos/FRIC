@@ -24,7 +24,7 @@ class analystSummaryView extends React.Component {
                                     </th>
                                     <th>No. of Task
                         <input type="image" src={SortImage} ></input>
-                                    </th>
+                                    </th> 
                                     <th>No. Findings
                         <input type="image" src={SortImage} ></input>
                                     </th>

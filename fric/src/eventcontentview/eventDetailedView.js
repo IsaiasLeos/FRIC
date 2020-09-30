@@ -13,10 +13,9 @@ class eventDetailedView extends React.Component {
     render() {
         return (
             <div>
-                <GeneralView />
-                <h2>Event Basic Information</h2>
+                <h3>Event Basic Information</h3>
                 <input type="image" src={HelpImage}></input>
-                <h3>Event X</h3>
+                <h2>Event X</h2>
                 <p>Event X is an event held at Y, tested by Z</p>
 
                 <p></p>
@@ -50,7 +49,7 @@ class eventDetailedView extends React.Component {
                 <input type="image" src={AddImage} onclick="this.openForm" ></input>
                 <p></p>
 
-                <Table>
+                <Table bordered>
                     <tr>
                         <th></th>
                         <th>Analysts</th>
@@ -95,7 +94,7 @@ class eventDetailedView extends React.Component {
                 <input type="image" src={AddImage} onclick="openForm()"></input>
                 <p></p>
 
-                <Table>
+                <Table bordered>
                     <tr>
                         <th></th>
                         <th>Analysts</th>
@@ -170,7 +169,7 @@ class eventDetailedView extends React.Component {
                             <option value="c">JP</option>
                         </select>
 
-                        <Table>
+                        <Table bordered>
                             <tr>
                                 <th>Delete</th>
                                 <th>Analysts</th>
@@ -220,6 +219,7 @@ class eventDetailedView extends React.Component {
                     <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
                   </form>
                 </div>
+
                 
 
             </div>
