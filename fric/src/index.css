@@ -19,4 +19,11 @@ code {
 .main{
   width: 80vw; 
   margin-top: 20px;
+  float: left;
+}
+
+.right-tree{
+  margin-top: 20px;
+  float: left;
+
 }

@@ -2,6 +2,7 @@ import * as React from 'react'
 import 'react-bootstrap'
 import GeneralView from '../generalView/generalView';
 import '../assets/css/bootstrap.css'
+import Tree from '../eventTree/eventTree';
 class setupContentView extends React.Component {
 
     render() {
@@ -43,8 +44,9 @@ class setupContentView extends React.Component {
                         </form>
                     </div>
                 </div>
-
-                
+                <div class="right-tree">
+                    <Tree />
+                </div> 
             </div>
         );
     }

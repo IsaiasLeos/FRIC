@@ -9,6 +9,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import GeneralView from '../generalView/generalView';
 import SubtaskDetailedView from './subtaskDetailedView';
 import './subtaskView.css';
+import Tree from '../eventTree/eventTree';
 
 function SubtaskContentView(){
     const [show, setShow] = useState(false);
@@ -114,6 +115,9 @@ function SubtaskContentView(){
                         </Button>
                         </Modal.Footer>
                     </Modal>
+                </div>
+                <div class="right-tree">
+                    <Tree />
                 </div>
         </div>
         

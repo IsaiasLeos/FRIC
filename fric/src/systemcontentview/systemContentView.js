@@ -7,7 +7,8 @@ import GeneralView from '../generalView/generalView'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import SystemDetailedView from './systemDetailedView'
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Tree from '../eventTree/eventTree';
 function SystemContentView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -293,6 +294,9 @@ function SystemContentView() {
                     </Modal.Footer>
                 </Modal>
             </div>
+            <div class="right-tree">
+                    <Tree />
+                </div>
         </div>
         
     );

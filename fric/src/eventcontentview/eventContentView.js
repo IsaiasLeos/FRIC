@@ -6,6 +6,7 @@ import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
 import { Link } from 'react-router-dom'
+import Tree from '../eventTree/eventTree';
 
 class eventContentView extends React.Component {
     render() {
@@ -51,7 +52,9 @@ class eventContentView extends React.Component {
                     </body>
 
                 </div>
-
+                <div class="right-tree">
+                    <Tree />
+                </div>
             </div>
         );
     }
