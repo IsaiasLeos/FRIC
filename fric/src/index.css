@@ -16,3 +16,7 @@ code {
   width: 900px;
   margin: 30px auto;
 }
+.main{
+  width: 80vw; 
+  margin-top: 20px;
+}

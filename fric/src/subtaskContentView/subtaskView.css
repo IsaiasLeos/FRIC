@@ -21,3 +21,8 @@
 
     width: 230px;
 }
+
+.subtask-title-buttons{
+    display: flex;
+    justify-content: space-between;
+}
