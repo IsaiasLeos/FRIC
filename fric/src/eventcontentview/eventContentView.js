@@ -10,6 +10,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal'
 import EventDetailedView from './eventDetailedView';
+import './eventView.css'
 
 
 function EventContentView(){
@@ -21,74 +22,83 @@ function EventContentView(){
             <div>
                 
                 <GeneralView/>
-                <body>
-                <br></br>
-                <h2>Event Overview Table</h2>
-                    <ButtonGroup>
-                        <Button variant="dark">Save</Button>
-                        <Button variant="dark">Delete</Button>
-                        <Button variant="dark">Cancel</Button>
-                        <input type="image" src={AddImage} onClick={handleShow} />
-                    </ButtonGroup>
-                    <br></br>
-                    <Table bordered striped hover>
-                        <thead class = "thead-grey">
-                            <tr>
-                                <th>Select</th>
-                                <th>Event Name <input type="image" src={SortImage} /></th>
-                                <th>No. of Systems <input type="image" src={SortImage} /></th>
-                                <th>No. of Findings <input type="image" src={SortImage} /></th>
-                                <th>Progress <input type="image" src={SortImage} /></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="checkbox" id="cb1" value="event" /></td>
-                                <td><Button variant="outline-dark" onClick={handleShow}>Event 1</Button></td>
-                                <td>14</td>
-                                <td>30</td>
-                                <td>76%</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="cb1" value="event" /></td>
-                                <td><Button variant="outline-dark" onClick={handleShow}>Event 2</Button></td>
-                                <td>7</td>
-                                <td>18</td>
-                                <td>30%</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="cb1" value="event" /></td>
-                                <td><Button variant="outline-dark" onClick={handleShow}>Event 3</Button></td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0%</td>
-                            </tr>
-                        </tbody>
-                    </Table>
 
-                    <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
-                        <Modal.Header closeButton>
-                        <Modal.Title>
-                            Event Detailed View
-                        </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <EventDetailedView />
-                        </Modal.Body>
-                        <Modal.Footer>
-                        <Button variant="dark" onClick={handleClose}>
-                            Save
-                        </Button>
-                        <Button variant="dark" onClick={handleClose}>
-                            Delete
-                        </Button>
-                        <Button variant="dark" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                        </Modal.Footer>
-                    </Modal>
+                    <div className= 'main'>
 
-                </body>
+                            <div class="event-title-buttons">
+                            <h2>Findings Overview Table</h2>
+                                <br></br>
+                                
+                                <ButtonGroup>
+                                        <Button variant="dark">Save</Button>
+                                        <Button variant="dark">Delete</Button>
+                                        <Button variant="dark">Cancel</Button>
+                                        <input type="image" src={AddImage} onClick={handleShow} />
+                                </ButtonGroup>
+                            </div>
+                            <Table bordered striped hover>
+                                <thead class = "thead-grey">
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Event Name <input type="image" src={SortImage} /></th>
+                                        <th>No. of Systems <input type="image" src={SortImage} /></th>
+                                        <th>No. of Findings <input type="image" src={SortImage} /></th>
+                                        <th>Progress <input type="image" src={SortImage} /></th>
+                                    </tr>
+                                 </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                                        <td><Button variant="outline-dark" onClick={handleShow}>Event 1</Button></td>
+                                        <td>14</td>
+                                        <td>30</td>
+                                        <td>76%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                                        <td><Button variant="outline-dark" onClick={handleShow}>Event 2</Button></td>
+                                        <td>7</td>
+                                        <td>18</td>
+                                        <td>30%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                                        <td><Button variant="outline-dark" onClick={handleShow}>Event 3</Button></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0%</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+
+                            <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
+                                <Modal.Header closeButton>
+                                <Modal.Title>
+                                    Event Detailed View
+                                </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <EventDetailedView />
+                                </Modal.Body>
+                                <Modal.Footer>
+                                <Button variant="dark" onClick={handleClose}>
+                                    Save
+                                </Button>
+                                <Button variant="dark" onClick={handleClose}>
+                                    Delete
+                                </Button>
+                                <Button variant="dark" onClick={handleClose}>
+                                    Cancel
+                                </Button>
+                                </Modal.Footer>
+                            </Modal>
+
+                        
+                </div>
+                <div class="right-tree">
+                    <Tree />
+                </div>
+
             </div>
         );
     
