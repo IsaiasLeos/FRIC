@@ -40,7 +40,7 @@ function TaskContentView(){
                             <tr>
                                 <td className="Finding1"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
-                                <td>Title 1</td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Finding 1</Button></td>
                                 <td>System W</td>
                                 <td>Task 1 and Task 2</td>
                                 <td>N/A</td>
@@ -53,7 +53,7 @@ function TaskContentView(){
                             <tr>
                                 <td className="Finding2"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
-                                <td>Title 1</td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Finding 2</Button></td>
                                 <td>System W</td>
                                 <td>Task 1 and Task 2</td>
                                 <td>N/A</td>
@@ -66,7 +66,7 @@ function TaskContentView(){
                             <tr>
                                 <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
-                                <td>Title 1</td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Finding 3</Button></td>
                                 <td>System W</td>
                                 <td>Task 1 and Task 2</td>
                                 <td>N/A</td>
@@ -79,7 +79,7 @@ function TaskContentView(){
                             <tr>
                                 <td className="Finding4"><input type="checkbox" id="" name="" value="1"></input></td>
                                 <td>234</td>
-                                <td>Title 1</td>
+                                <td><Button variant="outline-dark" onClick={handleShow}>Finding 4</Button></td>
                                 <td>System W</td>
                                 <td>Task 1 and Task 2</td>
                                 <td>N/A</td>
@@ -94,17 +94,17 @@ function TaskContentView(){
                 </Table>
 
                 
-                    <Button variant = "outline-dark">Generate ERB Report</Button>
+                    <Button variant = "dark">Generate ERB Report</Button>
                     &nbsp;
-                    <Button variant = "outline-dark">Generate Risk Matrix</Button>
+                    <Button variant = "dark">Generate Risk Matrix</Button>
                     &nbsp;
-                    <Button variant = "outline-dark">Generate Final Report</Button>
+                    <Button variant = "dark">Generate Final Report</Button>
                 
 
                 <br></br>
                 <br></br>
 
-                <Button variant="outline-dark" onClick={handleShow}>Create Finding</Button>
+                <Button variant="dark" onClick={handleShow}>Create Finding</Button>
 
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
@@ -116,13 +116,13 @@ function TaskContentView(){
                         <FindingDetailedView />
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="dark" onClick={handleClose}>
                         Save
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="dark" onClick={handleClose}>
                         Delete
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="dark" onClick={handleClose}>
                         Cancel
                     </Button>
                     </Modal.Footer>
