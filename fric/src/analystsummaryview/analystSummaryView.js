@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
 import SortImage from '../assets/updownarrow.png'
 import GeneralView from '../generalView/generalView';
+import Tree from '../eventTree/eventTree'
 class analystSummaryView extends React.Component {
     render() {
         return (
@@ -293,7 +294,9 @@ class analystSummaryView extends React.Component {
                             <td></td>
                         </tr>
                     </Table>
-
+                </div>
+                <div class="right-tree">
+                    <Tree />
                 </div>
             </div>
         );

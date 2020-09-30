@@ -5,6 +5,7 @@ import 'react-bootstrap'
 import SortImage from '../assets/updownarrow.png'
 import Button from 'react-bootstrap/esm/Button';
 import '../assets/css/bootstrap.css'
+import Tree from '../eventTree/eventTree'
 class archiveContentView extends React.Component {
     render() {
         return (
@@ -239,6 +240,9 @@ class archiveContentView extends React.Component {
                             </Table>
                             <Button variant = "outline-dark">Restore System</Button>
 
+                    </div>
+                    <div class="right-tree">
+                        <Tree />
                     </div>
  
             </div>

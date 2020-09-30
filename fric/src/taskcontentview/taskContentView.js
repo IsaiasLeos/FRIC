@@ -9,6 +9,7 @@ import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal'
 import TaskDetailedView from './taskDetailedView';
 import './taskView.css'
+import Tree from '../eventTree/eventTree'
 
 function TaskContentView(){
     const [show, setShow] = useState(false);
@@ -127,6 +128,9 @@ function TaskContentView(){
                         </Button>
                     </Modal.Footer>
                 </Modal>
+            </div>
+            <div class="right-tree">
+                    <Tree />
             </div>
         </div>
     );

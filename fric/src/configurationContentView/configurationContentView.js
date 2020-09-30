@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table'
 import GeneralView from '../generalView/generalView';
 import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
+import Tree from '../eventTree/eventTree';
 class configurationContentView extends React.Component { 
     render() {
         return (
@@ -423,6 +424,9 @@ class configurationContentView extends React.Component {
                             </tbody>
                         </Table>
                     </div>   
+                </div>
+                <div class="right-tree">
+                    <Tree />
                 </div>
             </div>
         );
