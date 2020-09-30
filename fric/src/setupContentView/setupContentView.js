@@ -1,7 +1,7 @@
 import * as React from 'react'
-import Table from 'react-bootstrap/Table'
+import 'react-bootstrap'
 import GeneralView from '../generalView/generalView';
-
+import '../assets/css/bootstrap.css'
 class setupContentView extends React.Component {
 
     render() {

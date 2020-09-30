@@ -1,0 +1,23 @@
+.sort-button{
+    width: 20px;
+    height: 20px;
+}
+
+.right, .left{
+    float: left;
+}
+.right label, .left label{
+    width:100%;
+}
+.left{
+    margin-right: 30px;
+}
+
+.subtask-data{
+    width: 200px;
+    height: 30px;
+}
+.subtask-modal{
+
+    width: 230px;
+}

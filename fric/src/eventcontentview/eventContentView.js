@@ -1,7 +1,7 @@
 import * as React from 'react'
-
-import GeneralView from '../generalView/generalView';
 import '../assets/css/bootstrap.css'
+import GeneralView from '../generalView/generalView';
+import 'react-bootstrap'
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'

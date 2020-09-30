@@ -1,10 +1,14 @@
 import * as React from 'react'
-import '../assets/css/bootstrap.css'
+import 'react-bootstrap'
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import HelpImage from '../assets/help.png'
 import Table from 'react-bootstrap/Table'
 import GeneralView from '../generalView/generalView';
+import '../assets/css/bootstrap.css'
+
+
+
 class eventDetailedView extends React.Component {
     render() {
         return (
@@ -43,7 +47,7 @@ class eventDetailedView extends React.Component {
                 <h2>Event Team Information</h2>
 
                 <p>Lead Analysts</p>
-                <input type="image" src={AddImage} onclick="openForm()"></input>
+                <input type="image" src={AddImage} onclick="this.openForm" ></input>
                 <p></p>
 
                 <Table>
@@ -53,7 +57,7 @@ class eventDetailedView extends React.Component {
                     </tr>
                     <tr>
                         <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                        <td>AC</td>
+                        <td><a href = "/AnalystSummary">AC</a></td>
                         <td><label for="eventType"></label>
                             <select name="eventType" id="types">
                                 <option value="a">Remove</option>
@@ -133,8 +137,8 @@ class eventDetailedView extends React.Component {
                 </Table>
 
 
-                <div class="form-popup" id="myForm">
-                    <form action="" class="form-container">
+                <div id="myForm" display = "none">
+                    <form action="">
                         <h1>Add/Edit</h1>
 
                         <label for="email"><b>First Name:</b></label>
@@ -195,10 +199,35 @@ class eventDetailedView extends React.Component {
                         <button type="submit" class="btn cancel" onclick="closeSyncForm()">Close</button>
                     </form>
                 </div>
+                <div id="myForm">
+                  <form action="" >
+                    <h1>Add/Edit</h1>
+                
+                    <label for="email"><b>First Name:</b></label>
+                    <input type="text" placeholder="" name="fname" required/>
+                
+                    <label for="psw"><b>Last Name:</b></label>
+                    <input type="text" placeholder="" name="lname" required/>
+
+                    <label for="email"><b>Initial:</b></label>
+                    <input type="text" placeholder="" name="initial" required/>
+                
+                    <label for="psw"><b>Title:</b></label>
+                    <input type="text" placeholder="" name="title" required/>
+                    
+                
+                    <button type="submit" class="btn">Submit</button>
+                    <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+                  </form>
+                </div>
+                
+
             </div>
         );
     }
+    
 }
 
+  
 
 export default eventDetailedView;
