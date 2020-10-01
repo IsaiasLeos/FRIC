@@ -19,7 +19,7 @@ function SubtaskContentView(){
         <div>
             <GeneralView />
             <div className="main">
-                <div class="subtask-title-buttons">
+                <div class="title-buttons">
                     <h2>Subtask Overview Table</h2>
                     <ButtonGroup>
                     <Button variant="dark">Archive</Button>

@@ -23,7 +23,7 @@ code {
 }
 
 .right-tree{
-  border: 2px solid black;
+
   margin-top: 20px;
   float: left;
 }
@@ -31,4 +31,5 @@ code {
 .title-buttons{
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 }
