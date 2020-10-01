@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-flask-api": "cd python && venev/bin/flask run --no-debugger",
+    "start-flask-api": "cd python && source venv/bin/activate && flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
