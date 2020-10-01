@@ -19,12 +19,12 @@ function TaskContentView(){
         <div>
             <GeneralView />
             <div className="main">
-                <div class="task-title-buttons">
+                <div class="title-buttons">
                     <h2>Task Overview Table</h2>
                     <ButtonGroup>
                         <Button variant="dark">Archive</Button>
                         <Button variant="dark">Demote</Button>
-                        <input type="image" src={AddImage} onClick={handleShow} />
+                        <input type="image" src={AddImage} onClick={handleShow} alt="add button" />
                     </ButtonGroup>
                 </div>
                 <Table striped bordered hover>

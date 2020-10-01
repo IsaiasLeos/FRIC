@@ -3,11 +3,10 @@ import {useState}  from "react";
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
-import { Link } from 'react-router-dom'
-import Tree from '../eventTree/eventTree';
+import Tree from '../eventTree/eventTree'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import GeneralView from '../generalView/generalView';
+import GeneralView from '../generalView/generalView'
 import Modal from 'react-bootstrap/Modal'
 import EventDetailedView from './eventDetailedView';
 import './eventView.css'
@@ -18,9 +17,7 @@ function EventContentView(){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
         return (
-            
             <div>
-                
                 <GeneralView/>
 
                     <div className= 'main'>
@@ -98,7 +95,6 @@ function EventContentView(){
                 <div class="right-tree">
                     <Tree />
                 </div>
-
             </div>
         );
     

@@ -4,7 +4,7 @@ import GeneralView from '../generalView/generalView';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 
 import '../assets/css/bootstrap.css'
-import Tree from '../eventTree/eventTree';
+
 class setupContentView extends React.Component {
     constructor() {
         super();
@@ -57,8 +57,7 @@ class setupContentView extends React.Component {
 
                         <br/><br/>
 
-                        <label for="quest">
-	                        Please select an option:<br/>
+                        <label for="quest">Please select an option:<br/>
                             <ReactMultiSelectCheckboxes options={questions} />
                         </label>
                         
@@ -72,9 +71,6 @@ class setupContentView extends React.Component {
                         <input type="submit" />
                     </form>
 
-                    <div class="right-tree">
-                    <Tree />
-                  </div> 
                 
             </div>
         );

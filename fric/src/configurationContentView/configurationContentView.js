@@ -10,13 +10,10 @@ class configurationContentView extends React.Component {
             <div>
                 <GeneralView/>
                 <div className="main">
-
                     <div class="ConfigureView">
-                        <h1 style={{ textAlign: "center" }}>Configuration view</h1>
+                        <h2>Configuration view</h2>
                     </div>
-                    
                     <div>
-                        <br/><br/>
                         <h3> Finding Information Table </h3>
                         <Table bordered hover striped responsive>
                             <thead class = "thead-grey">

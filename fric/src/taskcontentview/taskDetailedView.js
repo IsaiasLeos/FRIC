@@ -35,7 +35,7 @@ class taskDetailedView extends React.Component {
         return (
             <div>
                 <div className="task-details">
-                    <input type="image" src={HelpImage} />
+                    <input type="image" src={HelpImage} alt="Help button" />
                     <form action="" className="task-form">
                         <div className="left">
                             <label for="taskTitle">
