@@ -44,20 +44,15 @@ class setupContentView extends React.Component {
                 <GeneralView />
 
                 <div class="SetUpView">
-                    <h1 style={{ textAlign: "center" }}>Finding and Report Information Console (FRIC)</h1>
+                    <h1 style={{ textAlign: "center" }}>Finding and Reporting Information Console (FRIC)</h1>
                 </div>
 
                     <form onSubmit={this.onSubmit} style={{textAlign:"center"}}>
                     
                         <br/><br/>
 
-                        <h6>There is no exsisting event in your local system</h6>
-                        <input type="text" placeholder="q1" ref="q1"></input>
-
-                        <br/><br/>
-
                         <h6>Please enter your intials</h6>
-                        <input type="text" placeholder="q2" ref="q2"></input>
+                        <input type="text" placeholder="AC" ref="q2"></input>
 
                         <br/><br/>
 
@@ -70,6 +65,11 @@ class setupContentView extends React.Component {
 
                         <h6>Enter the Lead IP</h6>
                         <input type="text" placeholder="if first time sync" ref="q3"></input>
+
+                        <br/><br/>
+
+                        <h6>Event name</h6>
+                        <input type="text" placeholder="if new event" ref="q1"></input>
 
                         <br/><br/>
                         
