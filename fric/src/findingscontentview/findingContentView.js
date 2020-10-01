@@ -92,13 +92,16 @@ function TaskContentView() {
                 </Table>
 
                 <br></br>
-                <h2>Findings Overview Table</h2>
-                <ButtonGroup>
-                    <Button variant="dark">Save</Button>
-                    <Button variant="dark">Delete</Button>
-                    <Button variant="dark">Cancel</Button>
-                    <input type="image" src={AddImage} onClick={handleShow} alt="Add button"/>
-                </ButtonGroup>
+                <div className="title-buttons">
+                    <h2>Findings Overview Table</h2>
+                    <ButtonGroup>
+                        <Button variant="dark">Save</Button>
+                        <Button variant="dark">Delete</Button>
+                        <Button variant="dark">Cancel</Button>
+                        <input type="image" src={AddImage} onClick={handleShow} alt="Add button"/>
+                    </ButtonGroup>
+                </div>
+
                 <Table bordered hover striped>
                     <thead class="thead-grey">
                         <tr>
@@ -169,15 +172,6 @@ function TaskContentView() {
                             <td>VL</td>
                         </tr>
                     </tbody>
-
-                    <Button variant="outline-dark">Generate ERB Report</Button>
-                        &nbsp;
-                        <Button variant="outline-dark">Generate Risk Matrix</Button>
-                        &nbsp;
-                        <Button variant="outline-dark">Generate Final Report</Button>
-
-
-
                     <Button variant="dark">Generate ERB Report</Button>
                     &nbsp;
                     <Button variant="dark">Generate Risk Matrix</Button>
