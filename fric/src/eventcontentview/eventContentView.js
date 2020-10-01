@@ -1,22 +1,51 @@
-import * as React from 'react'
-
+// import * as React from 'react';
+import React, {useState,useEffect} from 'react';
 import GeneralView from '../generalView/generalView';
-import '../assets/css/bootstrap.css'
-import AddImage from '../assets/add.png'
-import SortImage from '../assets/updownarrow.png'
-import Table from 'react-bootstrap/Table'
-import { Link } from 'react-router-dom'
+import '../assets/css/bootstrap.css';
+import AddImage from '../assets/add.png';
+import SortImage from '../assets/updownarrow.png';
+import Table from 'react-bootstrap/Table';
+import { Link } from 'react-router-dom';
 
-class eventContentView extends React.Component {
+class eventContentView extends React.Component { 
+    // constructor(){
+    //     super();
+    //     this.state = {
+    //         events: [] 
+    //     };   
+    // }
+    state = {
+        events: []
+    }
+
+    componentDidMount(){
+        fetch('/events')
+        .then(res=> res.json())
+        .then(eventList => {
+            this.setState({events : eventList});
+        });
+    }
+
+
+    
     render() {
         return (
             <div>
-                <GeneralView/>
+                <GeneralView/>        
                 <body>
                     <input type="image" src={AddImage} />
                     <button type="button">Delete</button>
                     <button type="button">Save</button>
                     <button type="button">Cancel</button>
+                    
+                    {/* <ul>
+                        {this.state.events.map((event) => (
+                            <li key={event.Title}>{event.name}</li>
+                        ))}
+                     </ul> */}
+
+
+
                     <Table>
                         <tr>
                             <th></th>
@@ -25,28 +54,21 @@ class eventContentView extends React.Component {
                             <th>No. of Findings <input type="image" src={SortImage} /></th>
                             <th>Progress <input type="image" src={SortImage} /></th>
                         </tr>
-                        <tr>
-                            <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td>
-                            <td>Event 1</td>
-                            <td>14</td>
-                            <td>30</td>
-                            <td>76%</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td>
-                            <td>Event 2</td>
-                            <td>7</td>
-                            <td>18</td>
-                            <td>30%</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td>
-                            <td>Event 3</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0%</td>
-                        </tr>
+                        <div>
+                            
+                            <tr>
+                            {this.state.events.map((event) => (
+                                <div>
+                                <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td>
+                                <td>{event.name}</td>
+                                </div>
+                            ))}
+                            </tr>
+                        </div>
+                    
+
                     </Table>
+
                 </body>
             </div>
         );
@@ -55,3 +77,5 @@ class eventContentView extends React.Component {
 
 
 export default eventContentView;
+
+
