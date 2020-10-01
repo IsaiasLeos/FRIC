@@ -23,16 +23,16 @@ function TaskContentView() {
                     <thead class="thead-grey">
                         <tr>
                             <th>Select</th>
-                            <th>ID<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Title<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>System<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Task<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Subtask<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Analyst<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Status<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Classification<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Type<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Risk<input type="image" src={SortImage} alt="sort button" /></th>
+                            <th>ID<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Task<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Status<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,16 +103,16 @@ function TaskContentView() {
                     <thead class="thead-grey">
                         <tr>
                             <th>Select</th>
-                            <th>ID<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Title<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>System<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Task<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Subtask<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Analyst<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Status<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Classification<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Type<input type="image" src={SortImage} alt="sort button" /></th>
-                            <th>Risk<input type="image" src={SortImage} alt="sort button" /></th>
+                            <th>ID<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Task<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Status<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         </tr>
                     </thead>
                     <tbody>

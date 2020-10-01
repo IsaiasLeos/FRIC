@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button'
 import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Tree from '../eventTree/eventTree'
+import AddImage from '../assets/add.png'
 function SystemContentView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -23,18 +24,17 @@ function SystemContentView() {
                             <h2>System Overview Table</h2>
                             <ButtonGroup dialogClassName="title-system-buttons">
                                 <Button variant="dark">Archive</Button>
-                                <Button variant="dark">Save</Button>
-                                <Button variant="dark">Cancel</Button>
+                                <input type="image" src={AddImage} onClick={handleShow} alt="add button" />
                             </ButtonGroup>
                         </div>
                         <Table bordered hover striped>
                             <thead className="thead-grey">
                                 <tr>
                                     <th>Select</th>
-                                    <th>System<input type="image" src={SortImage} alt="Sort Button"/></th>
-                                    <th>No. of Task<input type="image" src={SortImage} alt="Sort Button"/></th>
-                                    <th>No. Findings<input type="image" src={SortImage} alt="Sort Button" /></th>
-                                    <th>Progress<input type="image" src={SortImage} alt="Sort Button"/></th>
+                                    <th>System<input type="image" src={SortImage} alt="Sort Button" className="sort-button"/></th>
+                                    <th>No. of Task<input type="image" src={SortImage} alt="Sort Button" className="sort-button"/></th>
+                                    <th>No. Findings<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
+                                    <th>Progress<input type="image" src={SortImage} alt="Sort Button" className="sort-button"/></th>
                                 </tr>
                             </thead>
                             <tbody>                                
@@ -92,7 +92,7 @@ function SystemContentView() {
             </div>
             <div class="right-tree">
                     <Tree />
-                </div>
+            </div>
         </div>
         
     );

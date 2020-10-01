@@ -10,7 +10,6 @@ class configurationContentView extends React.Component {
             <div>
                 <GeneralView/>
                 <div className="main">
-
                     <div class="ConfigureView">
                         <h2>Configuration view</h2>
                     </div>

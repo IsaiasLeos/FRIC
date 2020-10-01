@@ -27,3 +27,8 @@ code {
   margin-top: 20px;
   float: left;
 }
+
+.title-buttons{
+  display: flex;
+  justify-content: space-between;
+}

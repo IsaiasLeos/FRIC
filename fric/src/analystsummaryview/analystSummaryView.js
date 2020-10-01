@@ -18,10 +18,10 @@ class analystSummaryView extends React.Component {
                             <thead class="thead-grey">
                                 <tr>
                                     <th>Select</th>
-                                    <th>System<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>No. of Task<input type="image" src={SortImage} alt="Sort button"/></th> 
-                                    <th>No. Findings<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>Progress<input type="image" src={SortImage} alt="Sort button"/></th>
+                                    <th>System<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>No. of Task<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th> 
+                                    <th>No. Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,15 +62,15 @@ class analystSummaryView extends React.Component {
                         <Table striped bordered hover>
                             <thead class="thead-grey">
                                 <tr>
-                                    <th>Select<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>Title<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>System<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>Analyst<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>Priority<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>Progress<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>No. of Findings<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>No. of Subtasks<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>Due Date<input type="image" src={SortImage} alt="Sort button"/></th>
+                                    <th>Select<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>Title<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>System<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>Priority<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>No. of Subtasks<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -138,13 +138,13 @@ class analystSummaryView extends React.Component {
                         <Table striped bordered hover>
                             <thead class="thead-grey">
                                 <tr>
-                                    <th>Select<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>Title<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>Task<input type="image" src={SortImage} alt="sort button" alt="Sort button"/></th>
-                                    <th>Analyst<input type="image" src={SortImage} alt="sort button" alt="Sort button"/></th>
-                                    <th>Progress<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>No. of Findings<input type="image" src={SortImage} alt="Sort button"/></th>
-                                    <th>Due Date<input type="image" src={SortImage} alt="Sort button"/></th>
+                                    <th>Select<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>Title<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>Task<input type="image" src={SortImage} className="sort-button" alt="sort button" alt="Sort button"/></th>
+                                    <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" alt="Sort button"/></th>
+                                    <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                                    <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -211,18 +211,18 @@ class analystSummaryView extends React.Component {
                         <Table striped bordered hover>
                             <thead class="thead-grey">
                                 <tr>
-                                    <th>Select<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>ID<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>Title<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>System<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>Task<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>Subtask<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>Subtask<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>Analyst<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>Status<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>Classification<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>Type<input type="image" src={SortImage} alt="sort button"/></th>
-                                    <th>Risk<input type="image" src={SortImage} alt="sort button"/></th>
+                                    <th>Select<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>ID<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>Title<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>System<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>Task<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>Status<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>Classification<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>Type<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                                    <th>Risk<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
                                 </tr>
                             </thead>
                             <tbody>

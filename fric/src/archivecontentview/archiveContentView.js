@@ -5,25 +5,27 @@ import 'react-bootstrap'
 import SortImage from '../assets/updownarrow.png'
 import Button from 'react-bootstrap/esm/Button'
 import '../assets/css/bootstrap.css'
+import Tree from '../eventTree/eventTree'
 class archiveContentView extends React.Component {
     render() {
         return (
             <div>
                 <GeneralView />
-
                 <div className="main">
-                    <h2>Archived Tasks</h2>
-                    <Button variant="dark">Restore Task</Button>
+                    <div class="title-buttons">
+                        <h2>Archived Tasks</h2>
+                        <Button variant="dark">Restore Task</Button>
+                    </div>
                     <Table bordered hover striped >
                         <thead class="thead-grey">
                             <tr>
                                 <th scope="col">Select</th>
-                                <th scope="col">Title<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Task<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Analyst<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Progress<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">No. of Findings<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Due Date<input type="image" src={SortImage} alt="sort button" /></th>
+                                <th scope="col">Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Task<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Due Date<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,19 +74,20 @@ class archiveContentView extends React.Component {
 
                     <br></br>
 
-
-                    <h2>Archived Subasks</h2>
-                    <Button variant="dark">Restore Subtask</Button>
+                    <div class="title-buttons">
+                        <h2>Archived Subasks</h2>
+                        <Button variant="dark">Restore Subtask</Button>
+                    </div>
                     <Table bordered hover striped>
                         <thead class="thead-grey">
                             <tr>
                                 <th scope="col">Select</th>
-                                <th scope="col">Title<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Task<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Analyst<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col"> Progress<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">No. of Findings<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Due Date<input type="image" src={SortImage} alt="sort button" /></th>
+                                <th scope="col">Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Task<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col"> Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Due Date<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,25 +132,25 @@ class archiveContentView extends React.Component {
                         </tbody>
                     </Table>
 
-
-
-
-                    <h2>Archived Findings</h2>
-                    <Button variant="dark">Restore Finding</Button>
+                    <div class="title-buttons">
+                        <h2>Archived Findings</h2>
+                        <Button variant="dark">Restore Finding</Button>    
+                    </div>
+                    
                     <Table bordered hover striped>
                         <thead class="thead-grey">
                             <tr>
                                 <th scope="col">Select</th>
-                                <th scope="col">ID<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Title<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">System<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Task<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Subtask<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Analyst<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Status<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Classification<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Type<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Risk<input type="image" src={SortImage} alt="sort button" /></th>
+                                <th scope="col">ID<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Task<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Status<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -208,19 +211,19 @@ class archiveContentView extends React.Component {
                     </Table>
 
 
-
-
-
-                    <h2>Archived Systems</h2>
+                    <div class="title-buttons">
+                        <h2>Archived Systems</h2>
+                        <Button variant="dark">Restore System</Button>
+                    </div>
 
                     <Table bordered hover striped>
                         <thead class="thead-grey">
                             <tr>
                                 <th scope="col">Select</th>
-                                <th scope="col">System<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">No. of Tasks<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">No. of Findings<input type="image" src={SortImage} alt="sort button" /></th>
-                                <th scope="col">Progress<input type="image" src={SortImage} alt="sort button" /></th>
+                                <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">No. of Tasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                <th scope="col">Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -257,7 +260,9 @@ class archiveContentView extends React.Component {
                             </tr>
                         </tbody>
                     </Table>
-                    <Button variant="outline-dark">Restore System</Button>
+                </div>
+                <div class="right-tree">
+                    <Tree />
                 </div>
             </div>
         );
