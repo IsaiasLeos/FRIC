@@ -1,6 +1,5 @@
 import React, {useState,useEffect}from 'react';
 import GeneralView from './generalView/generalView';
-import EventContentView from './eventcontentview/eventContentView';
 
 function App() {
   const [initialData,setInitialData] = useState([{}])

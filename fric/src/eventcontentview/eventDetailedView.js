@@ -1,11 +1,9 @@
 import * as React from 'react'
-import '../assets/css/bootstrap.css'
+import 'react-bootstrap'
 import AddImage from '../assets/add.png'
-import SortImage from '../assets/updownarrow.png'
 import HelpImage from '../assets/help.png'
 import Table from 'react-bootstrap/Table'
-import GeneralView from '../generalView/generalView';
-
+import '../assets/css/bootstrap.css'
 
 
 
@@ -13,10 +11,9 @@ class eventDetailedView extends React.Component {
     render() {
         return (
             <div>
-                <GeneralView />
-                <h2>Event Basic Information</h2>
-                <input type="image" src={HelpImage}></input>
-                <h3>Event X</h3>
+                <h3>Event Basic Information</h3>
+                <input type="image" src={HelpImage} alt="help button"/>
+                <h2>Event X</h2>
                 <p>Event X is an event held at Y, tested by Z</p>
 
                 <p></p>
@@ -47,10 +44,10 @@ class eventDetailedView extends React.Component {
                 <h2>Event Team Information</h2>
 
                 <p>Lead Analysts</p>
-                <input type="image" src={AddImage} onclick="this.openForm" ></input>
+                <input type="image" src={AddImage} onclick="this.openForm" alt="Add button" />
                 <p></p>
 
-                <Table>
+                <Table bordered>
                     <tr>
                         <th></th>
                         <th>Analysts</th>
@@ -92,10 +89,10 @@ class eventDetailedView extends React.Component {
 
 
                 <p>Analysts</p>
-                <input type="image" src={AddImage} onclick="openForm()"></input>
+                <input type="image" src={AddImage} onclick="openForm()" alt="Add button"/>
                 <p></p>
 
-                <Table>
+                <Table bordered>
                     <tr>
                         <th></th>
                         <th>Analysts</th>
@@ -170,7 +167,7 @@ class eventDetailedView extends React.Component {
                             <option value="c">JP</option>
                         </select>
 
-                        <Table>
+                        <Table bordered>
                             <tr>
                                 <th>Delete</th>
                                 <th>Analysts</th>
@@ -220,6 +217,7 @@ class eventDetailedView extends React.Component {
                     <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
                   </form>
                 </div>
+
                 
 
             </div>

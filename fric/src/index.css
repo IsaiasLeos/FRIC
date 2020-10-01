@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.modal-dialog {
+  width: 900px;
+  margin: 30px auto;
+}
+.main{
+  width: 80vw; 
+  margin-top: 20px;
+  float: left;
+}
+
+.right-tree{
+  margin-top: 20px;
+  float: left;
+}
+
+.title-buttons{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
