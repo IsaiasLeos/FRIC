@@ -25,16 +25,13 @@ class helpView extends React.Component {
                     Information Console (FRIC) system that will provide the ability to manage task assignment and progress, and
 facilitate the collection of evidence on existing vulnerabilities, and generation of custom reports.</p>
                 </blockquote>
-                <p>
+                <div align="center">
+                    <p>
                     <img alt="Bootstrap" src={BootstrapVersion} />
                     <img alt="Nodejs" src={NodejsVersion} />
                     <img alt="React" src={ReactVersion} />
                     <img alt="fric" src={FRICVersion} />
-                </p>
-
-                <h2 id="usage">Version</h2>
-                <pre><code class="lang-sh">1.23.3 <span class="hljs-keyword">run</span><span class="bash"> start</span>
-                </code></pre>
+                </p></div>
 
                 <h3 id="-homepage-https-github-com-isaiasleos-fric-"><span role="img" aria-label="emoji">🏠</span><a href="https://github.com/IsaiasLeos/FRIC">Homepage</a></h3>
                 <h2 id="install">Install</h2>
