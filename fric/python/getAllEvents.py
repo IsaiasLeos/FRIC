@@ -12,6 +12,6 @@ def events():
     events_json = []
 
     for e in mycollection.find():
-        events_json.append({"name": e['Event_name']})
+        events_json.append({"name": e['Event_name'], "num_sys": e['Num_systems'],"num_findings" : e['Num_findings'],"prog":e['Progress']})
     return jsonify(events_json)
    

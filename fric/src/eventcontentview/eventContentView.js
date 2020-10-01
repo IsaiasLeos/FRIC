@@ -8,12 +8,7 @@ import Table from 'react-bootstrap/Table';
 import { Link } from 'react-router-dom';
 
 class eventContentView extends React.Component { 
-    // constructor(){
-    //     super();
-    //     this.state = {
-    //         events: [] 
-    //     };   
-    // }
+
     state = {
         events: []
     }
@@ -61,6 +56,9 @@ class eventContentView extends React.Component {
                                 <div>
                                 <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td>
                                 <td>{event.name}</td>
+                                <td>{event.num_sys}</td>
+                                <td>{event.num_findings}</td>
+                                <td>{event.prog}</td>
                                 </div>
                             ))}
                             </tr>
