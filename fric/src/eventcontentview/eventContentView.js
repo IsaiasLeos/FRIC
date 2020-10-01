@@ -7,17 +7,6 @@
 // import Table from 'react-bootstrap/Table';
 // import { Link } from 'react-router-dom';
 
-// import * as React from 'react'
-// import {useState,useEffect}  from "react";
-// import AddImage from '../assets/add.png'
-// import SortImage from '../assets/updownarrow.png'
-// import Table from 'react-bootstrap/Table'
-// import Tree from '../eventTree/eventTree'
-// import Button from 'react-bootstrap/Button'
-// import ButtonGroup from 'react-bootstrap/ButtonGroup'
-// import GeneralView from '../generalView/generalView'
-// import Modal from 'react-bootstrap/Modal'
-// import EventDetailedView from './eventDetailedView'
 // class eventContentView extends React.Component { 
 
 //     state = {
@@ -90,6 +79,8 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import GeneralView from '../generalView/generalView'
 import Modal from 'react-bootstrap/Modal'
 import EventDetailedView from './eventDetailedView'
+import { Link } from 'react-router-dom';
+
 
 
 function EventContentView(){
@@ -99,6 +90,7 @@ function EventContentView(){
         fetch('/events').then(
         response => response.json()).then(data => setEvents(data))
     },[]);
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -124,19 +116,18 @@ function EventContentView(){
                             </tr>
                         </thead>
                         <tbody>
-                        <div>
-                            <tr>
-                                {this.state.events.map((event) => (
-                                <div>
+                                {events.map((event) => (
+                                
+                                    <tr>
                                     <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td>
                                     <td>{event.name}</td>
                                     <td>{event.num_sys}</td>
                                     <td>{event.num_findings}</td>
                                     <td>{event.prog}</td>
-                                </div>
+                                    </tr>
+                            
                                     ))}
-                            </tr>
-                        </div>
+                        
                         </tbody>
                     </Table>
 
