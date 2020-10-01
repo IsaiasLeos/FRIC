@@ -14,12 +14,4 @@ def events():
     for e in mycollection.find():
         events_json.append({"name": e['Event_name']})
     return jsonify(events_json)
-
-def addEvent():
    
-
-
-
-    
-
-
