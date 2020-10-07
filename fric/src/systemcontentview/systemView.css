@@ -5,8 +5,3 @@
 .right-input-group {
     float: left;
 }
-
-.title-buttons {
-    display: flex;
-    justify-content: space-between;
-}

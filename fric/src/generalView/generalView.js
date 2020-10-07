@@ -1,22 +1,12 @@
 import * as React from 'react'
 import '../generalView/style.css'
 import 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { Component } from 'react';
-import Popup from './Popup.js'
-import { useState } from "react";
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import Tree from '../eventTree/eventTree';
 import '../assets/css/bootstrap.css'
 function GeneralView() {
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     return (
         <div>
             <nav class="navbar navbar-expand navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">FRIC</a>
+                <a class="navbar-brand" href="/Setup">FRIC</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
                     aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

@@ -1,8 +1,4 @@
 import * as React from 'react'
-import HelpImage from '../assets/help.png'
-import FileImage from '../assets/fileIcon.png'
-import GeneralView from '../generalView/generalView';
-
 class findingDetailedView extends React.Component {
     render() {
         return (

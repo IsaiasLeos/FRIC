@@ -17,10 +17,12 @@
     "react-globally": "^1.1.0",
     "react-multiselect-checkboxes": "^0.1.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-select": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-flask-api": "cd python && source venv/bin/activate && flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -39,5 +41,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

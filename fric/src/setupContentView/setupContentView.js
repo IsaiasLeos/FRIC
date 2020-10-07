@@ -2,9 +2,9 @@ import * as React from 'react'
 import 'react-bootstrap'
 import GeneralView from '../generalView/generalView';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
-
 import '../assets/css/bootstrap.css'
 import Tree from '../eventTree/eventTree';
+import { Link } from 'react-router-dom'
 class setupContentView extends React.Component {
     constructor() {
         super();
@@ -14,6 +14,7 @@ class setupContentView extends React.Component {
       handleSubmit(e) {
         e.preventDefault();
         var self = this;
+        
         // On submit of the form, send a POST request with the data to the server.
         fetch('/users', { 
             method: 'POST',
@@ -25,9 +26,12 @@ class setupContentView extends React.Component {
           })
           .then(function(response) {
             return response.json()
-          }).then(function(body) {
+          })
+          .then(function(body) {
             console.log(body);
           });
+          
+          
       }
     
     render() {
@@ -40,7 +44,7 @@ class setupContentView extends React.Component {
                 <GeneralView />
 
                 <div class="SetUpView">
-                    <h1 style={{ textAlign: "center" }}>Finding and Report Information Console (FRIC)</h1>
+                    <h1 style={{ textAlign: "center" }}>Finding and Reporting Information Console (FRIC)</h1>
                 </div>
 
                     <form onSubmit={this.onSubmit} style={{textAlign:"center"}}>
@@ -57,8 +61,7 @@ class setupContentView extends React.Component {
 
                         <br/><br/>
 
-                        <label for="quest">
-	                        Please select an option:<br/>
+                        <label for="quest">Please select an option:<br/>
                             <ReactMultiSelectCheckboxes options={questions} />
                         </label>
                         
@@ -69,12 +72,12 @@ class setupContentView extends React.Component {
 
                         <br/><br/>
                         
-                        <input type="submit" />
+                        
+                          <Link to="/Event">
+                             <input type="submit"/>
+                          </Link>
+                        
                     </form>
-
-                    <div class="right-tree">
-                    <Tree />
-                  </div> 
                 
             </div>
         );

@@ -1,52 +1,100 @@
 import * as React from 'react'
 import 'react-bootstrap'
 import AddImage from '../assets/add.png'
-import SortImage from '../assets/updownarrow.png'
 import HelpImage from '../assets/help.png'
 import Table from 'react-bootstrap/Table'
-import GeneralView from '../generalView/generalView';
 import '../assets/css/bootstrap.css'
 
 
 
 class eventDetailedView extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            name: " ",
+            desc: "",
+            type: "",
+            vers: "",
+            assess_date: "",
+            org_name: "",
+            event_class: "",
+            declass_date: "",
+            customer_name: "",
+        };
+    }
+   onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+   }
+   onSubmit = (e) => {
+       e.preventDefault();
+       const {name, desc, type, vers,assess_date,org_name,event_class,declass_date,customer_name } = this.state;
+       fetch('/addevent',{
+           method:'POST',
+           headers: {
+               'Content-Type' : 'application/json',
+           },
+           body: JSON.stringify({name, desc, type, vers,assess_date,org_name,event_class,declass_date,customer_name }),
+       }).then(response => response.json())
+       .then(data => {
+           console.log("Success",data);
+       })
+       .catch(error => {
+           console.error('Error',error)
+       });
+  }
+
     render() {
+        const {name, desc, type, vers,assess_date,org_name,event_class,declass_date,customer_name } = this.state;
         return (
+            
             <div>
                 <h3>Event Basic Information</h3>
-                <input type="image" src={HelpImage}></input>
-                <h2>Event X</h2>
-                <p>Event X is an event held at Y, tested by Z</p>
+                <input type="image" src={HelpImage} alt="help button"/>
+                
 
-                <p></p>
-
-                <label for="eventType">Event Type:</label>
-                <select name="eventType" id="types">
+                <form onSubmit={this.onSubmit}>
+                    <label>Title</label>
+                <input type="text" name = "name" onChange={this.onChange} id="event-title" className="event-data" />
+                <br/>
+                <label>Description</label>
+                <input type="text" name = "desc" onChange={this.onChange} id="event-desc" className="event-data" />
+                <br/>
+                {/* <label for="eventType">Event Type:</label>
+                <select name="type" id="types" onChange={this.onChange}>
                     <option value="a">Type 1</option>
                     <option value="b">Type 2</option>
                     <option value="c">Type 3</option>
                     <option value="d">Type 4</option>
-                </select>
-                <p>Event Version: 1.1.1</p>
-                <p>Assessment Date:09/17/2020</p>
-                <p>Organization Name: CCDC DAC</p>
-                <p>Securtiy Classification Title Guide</p>
-                <label for="eventClass">Event Classification:</label>
-                <select name="eventClass" id="classes">
+                </select> */}
+                <br/>
+                <label>Version</label>
+                <input type="text" name = "vers" onChange={this.onChange} id="event-version" className="event-data" />
+                <br/>
+                <label>Assessment Date</label>
+                <input type="text" name = "assess_date" onChange={this.onChange} id="event-assess-date" className="event-data" />
+                <br/>
+                <label>Organization Name</label>
+                <input type="text" name = "org_name" onChange={this.onChange} id="event-org-name" className="event-data" />
+                <br/>
+                {/* <label for="eventClass">Event Classification:</label>
+                <select name="event_class" id="classes" onChange={this.onChange}>
                     <option value="a">Class 1</option>
                     <option value="b">Class 2</option>
                     <option value="c">Class 3</option>
                     <option value="d">Class 4</option>
-                </select>
-                <p>Declassification Date: 07/12/2020</p>
-                <p>Customer Name: UTEP</p>
-
-
-
-                <h2>Event Team Information</h2>
+                </select> */}
+                <br/>
+                <label>Declassification Date</label>
+                <input type="text" name = "declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" />
+                <br/>
+                <label>Customer Name</label>
+                <input type="text" name = "customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" />
+                <br/>
+                <button type="submit" class="btn">Sync</button>
+                </form>
 
                 <p>Lead Analysts</p>
-                <input type="image" src={AddImage} onclick="this.openForm" ></input>
+                <input type="image" src={AddImage} onclick="this.openForm" alt="Add button" />
                 <p></p>
 
                 <Table bordered>
@@ -91,7 +139,7 @@ class eventDetailedView extends React.Component {
 
 
                 <p>Analysts</p>
-                <input type="image" src={AddImage} onclick="openForm()"></input>
+                <input type="image" src={AddImage} onclick="openForm()" alt="Add button"/>
                 <p></p>
 
                 <Table bordered>
@@ -194,34 +242,13 @@ class eventDetailedView extends React.Component {
 
                             </tr>
                         </Table>
+   
                         <button type="submit" class="btn">Sync</button>
+
                         <button type="submit" class="btn cancel" onclick="closeSyncForm()">Close</button>
                     </form>
                 </div>
-                <div id="myForm">
-                  <form action="" >
-                    <h1>Add/Edit</h1>
                 
-                    <label for="email"><b>First Name:</b></label>
-                    <input type="text" placeholder="" name="fname" required/>
-                
-                    <label for="psw"><b>Last Name:</b></label>
-                    <input type="text" placeholder="" name="lname" required/>
-
-                    <label for="email"><b>Initial:</b></label>
-                    <input type="text" placeholder="" name="initial" required/>
-                
-                    <label for="psw"><b>Title:</b></label>
-                    <input type="text" placeholder="" name="title" required/>
-                    
-                
-                    <button type="submit" class="btn">Submit</button>
-                    <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
-                  </form>
-                </div>
-
-                
-
             </div>
         );
     }
