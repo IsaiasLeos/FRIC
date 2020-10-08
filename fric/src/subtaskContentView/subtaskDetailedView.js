@@ -43,7 +43,7 @@ class subtaskDetailedView extends React.Component {
         return (
             <div>
                 <div>
-                    <input type="image" src={HelpImage} />
+                    <input type="image" src={HelpImage} alt="Help button"/>
                     <form action="" className="form">
                         <div className="left">
                             <label for="subtaskTitle">

@@ -25,5 +25,10 @@ code {
 .right-tree{
   margin-top: 20px;
   float: left;
+}
 
+.title-buttons{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }

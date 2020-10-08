@@ -56,8 +56,7 @@ class setupContentView extends React.Component {
 
                         <br/><br/>
 
-                        <label for="quest">
-	                        Please select an option:<br/>
+                        <label for="quest">Please select an option:<br/>
                             <ReactMultiSelectCheckboxes options={questions} />
                         </label>
                         
