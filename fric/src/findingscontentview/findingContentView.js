@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState } from "react";
+import {useState}  from "react";
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
@@ -9,8 +9,10 @@ import Modal from 'react-bootstrap/Modal'
 import FindingDetailedView from './findingDetailedView';
 import Tree from '../eventTree/eventTree';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import './findingView.css'
+import Tree from '../eventTree/eventTree'
 
-function TaskContentView() {
+function TaskContentView(){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -172,43 +174,49 @@ function TaskContentView() {
                             <td>VL</td>
                         </tr>
                     </tbody>
+                </Table>
                     <Button variant="dark">Generate ERB Report</Button>
                     &nbsp;
                     <Button variant="dark">Generate Risk Matrix</Button>
                     &nbsp;
                     <Button variant="dark">Generate Final Report</Button>
 
+                    <br></br>
+                    <br></br>
 
-                    <Button variant="outline-dark" onClick={handleShow}>Create Finding</Button>
+                    
 
-
-
-                    <Modal show={show} onHide={handleClose} size='lg'>
+                    <Modal show={show} onHide={handleClose} size = 'lg'>
                         <Modal.Header closeButton>
-                            <Modal.Title>
-                                Finding Detailed View
-                    </Modal.Title>
+                        <Modal.Title>
+                            Finding Detailed View
+                        </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <FindingDetailedView />
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="dark" onClick={handleClose}>
-                                Save
-                    </Button>
-                            <Button variant="dark" onClick={handleClose}>
-                                Delete
-                    </Button>
-                            <Button variant="dark" onClick={handleClose}>
-                                Cancel
-                    </Button>
+                        <Button variant="dark" onClick={handleClose}>
+                            Save
+                        </Button>
+                        <Button variant="dark" onClick={handleClose}>
+                            Delete
+                        </Button>
+                        <Button variant="dark" onClick={handleClose}>
+                            Cancel
+                        </Button>
                         </Modal.Footer>
                     </Modal>
-                </Table>
-            </div>
+
+                
+                <div class="right-tree">
+                    <Tree />
+                </div>
+           
             <div class="right-tree">
                     <Tree />
             </div>
+        </div>
         </div>
     );
 }

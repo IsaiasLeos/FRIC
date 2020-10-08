@@ -9,12 +9,12 @@
     margin-right: 30px;
 }
 
-.finding-data{
+.event-data{
     width: 100%;
     height: 30px;
 }
 
-.finding-title-buttons{
+.event-title-buttons{
     display: flex;
     justify-content: space-between;
 }
