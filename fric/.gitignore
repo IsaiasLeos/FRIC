@@ -6,6 +6,10 @@
 .pnp.js
 /python/venv
 /python/_pycache_
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/avasquez
 
 # testing
 /coverage
@@ -24,4 +28,4 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/python/_pycache_
+/python/__pycache__/
