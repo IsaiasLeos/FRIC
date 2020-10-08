@@ -9,12 +9,12 @@
     margin-right: 30px;
 }
 
-.finding-data{
+.archive-data{
     width: 100%;
     height: 30px;
 }
 
-.finding-title-buttons{
+.archive-buttons{
     display: flex;
     justify-content: space-between;
 }
