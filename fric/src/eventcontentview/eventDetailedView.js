@@ -42,7 +42,7 @@ class eventDetailedView extends React.Component {
            console.error('Error',error)
        });
   }
-
+  
     render() {
         const {name, desc, type, vers,assess_date,org_name,event_class,declass_date,customer_name } = this.state;
         return (
@@ -53,44 +53,49 @@ class eventDetailedView extends React.Component {
                 
 
                 <form onSubmit={this.onSubmit}>
-                    <label>Title</label>
-                <input type="text" name = "name" onChange={this.onChange} id="event-title" className="event-data" />
-                <br/>
-                <label>Description</label>
-                <input type="text" name = "desc" onChange={this.onChange} id="event-desc" className="event-data" />
-                <br/>
-                {/* <label for="eventType">Event Type:</label>
-                <select name="type" id="types" onChange={this.onChange}>
-                    <option value="a">Type 1</option>
-                    <option value="b">Type 2</option>
-                    <option value="c">Type 3</option>
-                    <option value="d">Type 4</option>
-                </select> */}
-                <br/>
-                <label>Version</label>
-                <input type="text" name = "vers" onChange={this.onChange} id="event-version" className="event-data" />
-                <br/>
-                <label>Assessment Date</label>
-                <input type="text" name = "assess_date" onChange={this.onChange} id="event-assess-date" className="event-data" />
-                <br/>
-                <label>Organization Name</label>
-                <input type="text" name = "org_name" onChange={this.onChange} id="event-org-name" className="event-data" />
-                <br/>
-                {/* <label for="eventClass">Event Classification:</label>
-                <select name="event_class" id="classes" onChange={this.onChange}>
-                    <option value="a">Class 1</option>
-                    <option value="b">Class 2</option>
-                    <option value="c">Class 3</option>
-                    <option value="d">Class 4</option>
-                </select> */}
-                <br/>
-                <label>Declassification Date</label>
-                <input type="text" name = "declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" />
-                <br/>
-                <label>Customer Name</label>
-                <input type="text" name = "customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" />
-                <br/>
-                <button type="submit" class="btn">Sync</button>
+                    <label>Title</label><br></br>
+                    <input type="text" name = "name" onChange={this.onChange} id="event-title" className="event-data" /><br></br>
+                    
+
+                    <label>Description</label><br></br>
+                    <input type="text" name = "desc" onChange={this.onChange} id="event-desc" className="event-data" />
+                    <br></br>
+                    {/* <label for="eventType">Event Type:</label>
+                    <select name="type" id="types" onChange={this.onChange}>
+                        <option value="a">Type 1</option>
+                        <option value="b">Type 2</option>
+                        <option value="c">Type 3</option>
+                        <option value="d">Type 4</option>
+                    </select> */}
+                    
+                    <label>Version</label><br></br>
+                    <input type="text" name = "vers" onChange={this.onChange} id="event-version" className="event-data" />
+                    <br></br>
+
+                    <label>Assessment Date</label><br></br>
+                    <input type="text" name = "assess_date" onChange={this.onChange} id="event-assess-date" className="event-data" />
+                    <br></br>
+
+                    <label>Organization Name</label><br></br>
+                    <input type="text" name = "org_name" onChange={this.onChange} id="event-org-name" className="event-data" />
+                    <br></br>
+                    {/* <label for="eventClass">Event Classification:</label>
+                    <select name="event_class" id="classes" onChange={this.onChange}>
+                        <option value="a">Class 1</option>
+                        <option value="b">Class 2</option>
+                        <option value="c">Class 3</option>
+                        <option value="d">Class 4</option>
+                    </select> */}
+                    
+                    <label>Declassification Date</label><br></br>
+                    <input type="text" name = "declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" />
+                    <br>
+                    </br>
+                    <label>Customer Name</label><br></br>
+                    <input type="text" name = "customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" />
+                    <br>
+                    </br>
+                    <button type="submit" class="btn">Sync</button>
                 </form>
 
                 <p>Lead Analysts</p>

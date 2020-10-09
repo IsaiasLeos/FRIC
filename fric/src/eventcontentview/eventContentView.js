@@ -80,6 +80,7 @@ import GeneralView from '../generalView/generalView'
 import Modal from 'react-bootstrap/Modal'
 import EventDetailedView from './eventDetailedView'
 import { Link } from 'react-router-dom';
+import SystemContentView from '../systemcontentview/systemContentView'
 
 
 
@@ -119,10 +120,10 @@ function EventContentView(){
                                 {events.map((event) => (
                                 
                                     <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td>
-                                    <td>{event.name}</td>
-                                    <td>{event.num_sys}</td>
-                                    <td>{event.num_findings}</td>
+                                    <td><input type="checkbox" id="cb1" value="event" /> </td>
+                                    <td><Button variant="outline-dark" onClick={handleShow}>{event.name}</Button></td>
+                                    <td><Link to="/SystemView">{event.num_sys}</Link></td>
+                                    <td><Link to = '/Findings'>{event.num_findings}</Link></td>
                                     <td>{event.prog}</td>
                                     </tr>
                             
