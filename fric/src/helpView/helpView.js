@@ -40,7 +40,10 @@ facilitate the collection of evidence on existing vulnerabilities, and generatio
                 <pre><code class="lang-sh">npm <span class="hljs-keyword">install</span>
                 </code></pre>
                 <h2 id="usage">Usage</h2>
-                <pre><code class="lang-sh">npm <span class="hljs-keyword">run</span><span class="bash"> start</span>
+                <pre><code class="lang-sh">npm <span class="hljs-keyword">run </span><span class="bash">start-flask-api</span>
+                </code></pre>
+                
+                <pre><code class="lang-sh">npm <span class="hljs-keyword">run </span><span class="bash">start</span>
                 </code></pre>
                 <h2 id="run-tests">Run tests</h2>
                 <pre><code class="lang-sh">npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span></span>
