@@ -6,7 +6,10 @@
 .pnp.js
 /python/venv
 /python/_pycache_
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/avasquez
 
 # testing
 /coverage
