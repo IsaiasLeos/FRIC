@@ -12,23 +12,44 @@ class configurationContentView extends React.Component {
                 <div className="main">
                     <div class="ConfigureView">
                         <h2>Configuration view</h2>
-                    </div>
+                    </div> <br/><br/>
                     <div>
                         <h3> Finding Information Table </h3>
                         <Table bordered hover striped responsive>
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th>Finding name</th>
-                                    <th>Finding type</th>
+                                    <th> Name </th>
+                                    <th> Finding Type </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td> Finding1 </td>
                                     
-                                    <td>  Finding 1 </td>
-                                    <td> Manufacturer default Creds </td>
-                                    
-                                    
+                                    <td> 
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Credentials Complexity </option>
+                                                <option> Manufacturer Default Creds </option>
+                                                <option> Lack of Authentication </option>
+                                                <option> Plain Text Protocols </option>
+                                                <option> Plain Text Web Login </option>
+
+                                                <option> Encryption </option>
+                                                <option> Authentication Bypass </option>
+                                                <option> Port Security </option>
+                                                <option> Access Control </option>
+                                                <option> Least Privilege </option>
+                                                
+                                                <option> Privilege Escalation </option>
+                                                <option> Missing Patches </option>
+                                                <option> Physical Security </option>
+                                                <option> Information Disclosure </option>
+
+                                            </select>
+                                        </div>
+                                    </td>        
                                 </tr> 
                                 
                             </tbody>
@@ -41,14 +62,26 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th>Analyst </th>
+                                    <th> Name </th>
                                     <th>Posture type</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> analyst1 </td>
-                                    <td> Insider </td>
+                                    <td> 
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Insider </option>
+                                                <option> Insider-nearsider </option>
+                                                <option> Outsider  </option>
+                                                <option> Nearsider </option>
+                                                <option> Nearsider-outsider </option>
+
+                                            </select>
+                                        </div>
+                                    </td>
                                     
                                 </tr>
                             </tbody>
@@ -61,20 +94,26 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                <th> Confirmed </th>
-                                <th> Expected </th>
-                                <th> Anticipated </th>
-                                <th> Predicted </th>
-                                <th> Possible </th>
+                                    <th> Name </th>
+                                    <th> Threat Level Type </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> System "a"</td>
-                                    <td> System "b"</td>
-                                    <td> System "c"</td>
-                                    <td> System "d" </td>
-                                    <td> System "e" </td>
+                                    <td> 
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Confirmed </option>
+                                                <option> Expected </option>
+                                                <option> Anticipate </option>
+                                                <option> Predicted </option>
+                                                <option> Possible  </option>
+
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -86,22 +125,27 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Very High </th>
-                                    <th> High </th>
-                                    <th> Moderate </th>
-                                    <th> Low </th>
-                                    <th> Very Low </th>
-                                    <th> Informational </th>
+                                    <th> Name </th>
+                                    <th> Impact Type </th>  
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> System "a" </td>
-                                    <td> System "b" </td>
-                                    <td> System "c"</td>
-                                    <td> System "d" </td>
-                                    <td> - </td>
-                                    <td> System "e"</td>
+                                    <td> 
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Very High () </option>
+                                                <option> High () </option>
+                                                <option> Moderate () </option>
+                                                <option> Low () </option>
+                                                <option> Very Low () </option>
+                                                <option> Informational </option>
+
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -113,26 +157,23 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Vulnerability </th>
-                                    <th> Information </th>
+                                    <th> Name </th>
+                                    <th> Classification Type </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> Finding "a"</td>
-                                    <td> Finding "e"</td>
-                                </tr>
-                                <tr>
-                                    <td> Finding "b"</td>
-                                    <td> - </td>
-                                </tr>
-                                <tr>
-                                    <td> Finding "c"</td>
-                                    <td> - </td>
-                                </tr>
-                                <tr>
-                                    <td> Finding "d"</td>
-                                    <td> - </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Vulnerability </option>
+                                                <option> Informational </option>
+                
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -144,20 +185,28 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Very High </th>
-                                    <th> High </th>
-                                    <th> Moderate </th>
-                                    <th> Low </th>
-                                    <th> Very Low </th>
+                                    <th> Name </th>
+                                    <th> Countermeasure Type </th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> System "a"</td>
-                                    <td> System "b"</td>
-                                    <td> System "c"</td>
-                                    <td> System "d" </td>
-                                    <td> System "e" </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Very High </option>
+                                                <option> High </option>
+                                                <option> Moderate </option>
+                                                <option> Low </option>
+                                                <option> Very Low </option>
+
+                
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -169,20 +218,27 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Top Secret </th>
-                                    <th> Secret </th>
-                                    <th> Confidential </th>
-                                    <th> Classified </th>
-                                    <th> Unclassified </th>
+                                    <th> Name </th>
+                                    <th> Event Classification Type </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td> System "a"</td>
-                                    <td> System "b"</td>
-                                    <td> System "c"</td>
-                                    <td> System "d" </td>
-                                    <td> System "e" </td>
+                                    <td> System "a" </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Top Secret </option>
+                                                <option> Secret </option>
+                                                <option> Confidential </option>
+                                                <option> Classified </option>
+                                                <option> Unclassified </option>
+
+                
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -194,21 +250,25 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Confidentiality Finding Impact On System </th>
-                                    <th> Integrity Finding Impact On System </th>
-                                    <th> Availability Finding Impact On System</th>
+                                    <th> Name </th>
+                                    <th> Level Type </th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> System "a"</td>
-                                    <td> System "b" </td>
-                                    <td> System "e" </td>
-                                </tr>
-                                <tr>
-                                    <td> System "c"</td>
-                                    <td> System "d" </td>
-                                    <td> - </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Confidentiality Finding Impact On System </option>
+                                                <option> Integrity Finding Impact On System </option>
+                                                <option> Availability Finding Impact On System </option>
+                                      
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -220,21 +280,25 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Co-operative Vulnerability Penetration Assessment (CVPA) </th>
-                                    <th> Co-operative Vulnerability Investigation (CVI) </th>
-                                    <th> Verification Of Fixes (VOF) </th>
+                                    <th> Name </th>
+                                    <th> Event Type </th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>System "a"</td>
-                                    <td>System "b"</td>
-                                    <td>System "c</td>
-                                </tr>
-                                <tr>
-                                    <td> - </td>
-                                    <td>System "d"</td>
-                                    <td>System "e" </td>
+                                    <td> Event "a" </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Co-operative Vulnerability Penetration Assessment (CVPA) </option>
+                                                <option> Co-operative Vulnerability Investigation (CVI) </option>
+                                                <option> Verification Of Fixes (VOF) </option>
+                                      
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -246,21 +310,24 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Confidentiality </th>
-                                    <th> Integrity </th>
-                                    <th> Availability </th>
+                                    <th> Name </th>
+                                    <th> Finding Impact Type </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>System "a"</td>
-                                    <td>System "b"</td>
-                                    <td>System "e"</td>
-                                </tr>
-                                <tr>
-                                    <td>System "c"</td>
-                                    <td>System "d"</td>
-                                    <td> - </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Confidentiality </option>
+                                                <option> Integrity </option>
+                                                <option> Availability </option>
+                                      
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -272,16 +339,24 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> I </th>
-                                    <th> II </th>
-                                    <th> III </th>
+                                    <th> Name </th>
+                                    <th> Severity Code Type </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>System "c"</td>
-                                    <td>System "b"</td>
-                                    <td>System "a"</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> I </option>
+                                                <option> II </option>
+                                                <option> III </option>
+                                      
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -293,22 +368,27 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Not Started </th>
-                                    <th> Assigned </th>
-                                    <th> Transferred </th>
-                                    <th> In Progress </th>
-                                    <th> Complete </th>
-                                    <th> Not Applicable </th>
+                                    <th> Name </th>
+                                    <th> Progress Type </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> System "f"</td>
-                                    <td> System "a"</td>
-                                    <td> System "b"</td>
-                                    <td> System "c"</td>
-                                    <td> System "d"</td>
-                                    <td> - </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Not Started </option>
+                                                <option> Assigned </option>
+                                                <option> Transferred </option>
+                                                <option> In Progress </option>
+                                                <option> Complete  </option>
+                                                <option> Not Applicable </option>
+                                      
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -320,12 +400,21 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Rules </th>
+                                    <th> Name </th>
+                                    <th> Event Rules</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td> The systems in the event "a" will be completed ...</td>
+                                    <td> Event "a"</td>
+                                    <td>
+                                        <div class="ruleInformation">
+                                            <form>
+                                                <input type="text" id="EventRules" name="rule" placeholder="The rules for event a ..." />
+                                            </form>
+                                        </div>  
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -337,22 +426,27 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Risk Matrix </th>
-                                    <th> ERB Report </th>
-                                    <th> Final Technical Report </th>  
+                                    <th> Name </th>
+                                    <th> Report Type </th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> System "a" </td>
-                                    <td> System "b"</td>
-                                    <td> System "c"</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <select class="broswer-default custom-select mr-3">
+
+                                                <option> Risk Matrix </option>
+                                                <option> ERB Report </option>
+                                                <option> Final Technical Report </option>
+                                             
+                                            </select>
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td> System "d" </td>
-                                    <td> System "e"</td>
-                                    <td> - </td>
-                                </tr>
+                                
                             </tbody>
                         </Table>
                     </div>
@@ -363,18 +457,16 @@ class configurationContentView extends React.Component {
                         <Table bordered hover striped >
                             <thead class = "thead-grey">
                                 <tr>
-                                    <th> Duration </th>
-                                    <th> Frequency </th> 
+                                    <th> Name </th>
+                                    <th> Duration </th> 
+                                    <th> Frequency </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td> System "a" 2 weeks</td>
-                                    <td> System "a" 10 hr</td>
-                                </tr>
-                                <tr>
-                                    <td> System "b" 1 weeks</td>
-                                    <td> System "b" 5 hr</td>
+                                    <td> System "a" </td>
+                                    <td> 2 weeks </td>
+                                    <td> 1 alert every 5hrs </td>
                                 </tr>
                             </tbody>
                         </Table>
