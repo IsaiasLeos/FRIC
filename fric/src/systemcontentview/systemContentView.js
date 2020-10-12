@@ -86,14 +86,6 @@ function SystemContentView() {
                     <Modal.Body>
                         <SystemDetailedView />
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="outline-dark" onClick={handleClose}>
-                            Cancel
-                    </Button>
-                        <Button variant="outline-dark" onClick={handleClose}>
-                            Submit
-                    </Button>
-                    </Modal.Footer>
                 </Modal>
             </div>
             <div class="right-tree">
