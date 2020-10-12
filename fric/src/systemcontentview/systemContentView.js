@@ -44,34 +44,15 @@ function SystemContentView() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td className="column1"><input type="checkbox" id="" name="" value="1" /></td>
-                                    <td><Button variant="outline-dark" onClick={handleShow}>Wells Fargo ATM</Button></td>
-                                    <td>4</td>
-                                    <td>8</td>
-                                    <td>Assigned</td>
-                                </tr>
-                                <tr>
-                                    <td className="column1"><input type="checkbox" id="" name="" value="1" /></td>
-                                    <td><Button variant="outline-dark" onClick={handleShow}>Walmart Cashier Machine</Button></td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>Assigned</td>
-                                </tr>
-                                <tr>
-                                    <td className="column1"><input type="checkbox" id="" name="" value="1" /></td>
-                                    <td><Button variant="outline-dark" onClick={handleShow}>UTEP CS Computers</Button></td>
-                                    <td>2</td>
-                                    <td>0</td>
-                                    <td>Not Started</td>
-                                </tr>
-                                <tr>
-                                    <td className="column1"><input type="checkbox" id="" name="" value="1" /></td>
-                                    <td><Button variant="outline-dark" onClick={handleShow}>Best Buy</Button></td>
-                                    <td>10</td>
-                                    <td>20</td>
-                                    <td>Completed</td>
-                                </tr>
+                                {systems.map((event) => (
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                                        <td><Button variant="outline-dark" onClick={handleShow}>{event.sysInfo}</Button></td>
+                                        <td>{event.num_task}</td>
+                                        <td>{event.num_findings}</td>
+                                        <td>{event.prog}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </Table>
                     </div>

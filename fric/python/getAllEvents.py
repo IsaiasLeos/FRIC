@@ -34,7 +34,7 @@ def systems():
     system_json = []
 
     for e in mycollection.find():
-        system_json.append({"sysInfo": e['System_Info'], "Num_systems": e['num_task'],"Num_findings" : e['num_findings'],"prog":e['Progress']})
+        system_json.append({"sysInfo": e['System_Info'], "num_task": e['Num_task'],"num_findings" : e['Num_findings'],"prog":e['Progress']})
     return jsonify(system_json)
    
 
@@ -45,7 +45,7 @@ def addSystems():
     mycollection = mydb["system"]
 
     req = request.get_json()
-    system = {"System_Info" : req['sysInfo'], "System Description" : req['sysDesc'], "System_Location" : req['sysLoc'], "System Router" : req['sysRouter'], "System Switch" : req['sysSwitch'], "Test Plan" : req['sysTestPlan'], "Confidentiality" : req['Confidentiality'], "Integrity" : req['Integrity'], "Availability" : req['Availability'], "num_task" : 13, "num_findings" : 10, "progress" : "Assigned"}
+    system = {"System_Info" : req['sysInfo'], "System_Description" : req['sysDesc'], "System_Location" : req['sysLoc'], "System_Router" : req['sysRouter'], "System_Switch" : req['sysSwitch'], "Test_Plan" : req['sysTestPlan'], "Confidentiality" : req['Confidentiality'], "Integrity" : req['Integrity'], "Availability" : req['Availability'], "Num_task" : 13, "Num_findings" : 10, "Progress" : "Assigned"}
     mycollection.insert_one(system)
     
 
