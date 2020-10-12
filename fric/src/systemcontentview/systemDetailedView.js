@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 class systemDetailedView extends React.Component {
     constructor() {
         super();
@@ -19,6 +18,8 @@ class systemDetailedView extends React.Component {
             progress: ""
         };
     }
+
+
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -44,13 +45,13 @@ class systemDetailedView extends React.Component {
             <div><div class="systemDetailedTable" id="systemDetailedTable">
                 <h3>System Information</h3>
                 <div class="input-group">
-                    <form class="input-form" onSubmit={this.onSubmit}>
+                    <form class="input-form">
                         <div class="left-input-group">
-                            <input type="text" onChange={this.onChange} name="sysInfo" class="form-control browser-default mr-3" placeholder="System Information" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
+                            <input type="text" value={this.state.sysInfo} onChange={this.onChange} name="sysInfo" class="form-control browser-default mr-3" placeholder="System Information" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
                         &nbsp;
-                        <textarea type="text" onChange={this.onChange} name="sysDesc" class="form-control mr-3" placeholder="System Description" aria-label="System Description" aria-describedby="basic-addon2"></textarea>
+                        <textarea type="text" value={this.state.sysDesc} onChange={this.onChange} name="sysDesc" class="form-control mr-3" placeholder="System Description" aria-label="System Description" aria-describedby="basic-addon2"></textarea>
                         &nbsp;
-                        <input type="text" onChange={this.onChange} name="sysLoc" class="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
+                        <input type="text" value={this.state.sys} onChange={this.onChange} name="sysLoc" class="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
                         &nbsp;
                         </div>
                         <div class="right-input-group">

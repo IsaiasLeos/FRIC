@@ -10,16 +10,16 @@ import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Tree from '../eventTree/eventTree'
 import AddImage from '../assets/add.png'
-import {useEffect}  from "react";
+import { useEffect } from "react";
 function SystemContentView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [systems,setEvents] = useState([])
+    const [systems, setEvents] = useState([])
     useEffect(() => {
         fetch('/systems').then(
-        response => response.json()).then(data => setEvents(data))
-    },[]);
+            response => response.json()).then(data => setEvents(data))
+    }, []);
     return (
         <div >
             <GeneralView />
@@ -29,8 +29,8 @@ function SystemContentView() {
                         <div className="title-buttons">
                             <h2>System Overview Table</h2>
                             <ButtonGroup dialogClassName="title-system-buttons">
-                                <Button variant="dark">Archive</Button>
-                                <input type="image" src={AddImage} onClick={handleShow} alt="add button" />
+                                <Button variant="dark" src={AddImage} >Archive</Button>
+                                <Button variant="dark" src={AddImage} onClick={handleShow}>Add</Button>
                             </ButtonGroup>
                         </div>
                         <Table bordered hover striped>
