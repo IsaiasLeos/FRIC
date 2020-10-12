@@ -78,14 +78,11 @@ import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import GeneralView from '../generalView/generalView'
 import Modal from 'react-bootstrap/Modal'
-<<<<<<< HEAD
 import EventDetailedView from './eventDetailedView'
 import { Link } from 'react-router-dom';
 
-=======
-import EventDetailedView from './eventDetailedView';
+//import EventDetailedView from './eventDetailedView';
 import './eventView.css'
->>>>>>> origin/ialeos
 
 
 function EventContentView(){
@@ -102,63 +99,6 @@ function EventContentView(){
         return (
             <div>
                 <GeneralView/>
-<<<<<<< HEAD
-                <div class="main">
-                    <div class="title-buttons">
-                        <h2>Event Overview Table</h2>
-                        <ButtonGroup>
-                            <Button variant="dark">Archive</Button>
-                            <input type="image" alt="sort button" src={AddImage} onClick={handleShow} />
-                        </ButtonGroup>
-                    </div>
-                    <Table bordered striped hover>
-                        <thead class = "thead-grey">
-                            <tr>
-                                <th>Select</th>
-                                <th>Event Name <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
-                                <th>No. of Systems <input type="image"  alt="sort button" src={SortImage} className="sort-button" /></th>
-                                <th>No. of Findings <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
-                                <th>Progress <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                {events.map((event) => (
-                                
-                                    <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td>
-                                    <td>{event.name}</td>
-                                    <td>{event.num_sys}</td>
-                                    <td>{event.num_findings}</td>
-                                    <td>{event.prog}</td>
-                                    </tr>
-                            
-                                    ))}
-                        
-                        </tbody>
-                    </Table>
-
-                    <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
-                        <Modal.Header closeButton>
-                        <Modal.Title>
-                            Event Detailed View
-                        </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <EventDetailedView />
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="dark" onClick={handleClose}>
-                                Save
-                            </Button>
-                            <Button variant="dark" onClick={handleClose}>
-                                Delete
-                            </Button>
-                            <Button variant="dark" onClick={handleClose}>
-                                Cancel
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-=======
 
                     <div className= 'main'>
 
@@ -231,7 +171,6 @@ function EventContentView(){
                             </Modal>
 
                         
->>>>>>> origin/ialeos
                 </div>
                 <div class="right-tree">
                     <Tree />
