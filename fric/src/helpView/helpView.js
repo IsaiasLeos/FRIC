@@ -2,6 +2,10 @@ import * as React from 'react'
 import GeneralView from '../generalView/generalView'
 import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
+import BootstrapVersion from '../assets/bootstrap-4.5-blue.svg'
+import NodejsVersion from '../assets/nodejs-12.18.4-blue.svg'
+import ReactVersion from '../assets/react-latest-blue.svg'
+import FRICVersion from '../assets/version-1.23.7-blue.svg'
 
 class helpView extends React.Component {
 
@@ -21,8 +25,18 @@ class helpView extends React.Component {
                     Information Console (FRIC) system that will provide the ability to manage task assignment and progress, and
 facilitate the collection of evidence on existing vulnerabilities, and generation of custom reports.</p>
                 </blockquote>
+                <div align="center">
+                    <p>
+                    <img alt="Bootstrap" src={BootstrapVersion} />
+                    <img alt="Nodejs" src={NodejsVersion} />
+                    <img alt="React" src={ReactVersion} />
+                    <img alt="fric" src={FRICVersion} />
+                </p></div>
+
                 <h3 id="-homepage-https-github-com-isaiasleos-fric-"><span role="img" aria-label="emoji">🏠</span><a href="https://github.com/IsaiasLeos/FRIC">Homepage</a></h3>
                 <h2 id="install">Install</h2>
+                <pre><code class="lang-sh">cd FRIC/fric <span class="hljs-keyword"></span>
+                </code></pre>
                 <pre><code class="lang-sh">npm <span class="hljs-keyword">install</span>
                 </code></pre>
                 <h2 id="usage">Usage</h2>
@@ -51,7 +65,7 @@ facilitate the collection of evidence on existing vulnerabilities, and generatio
                 </ul>
 
             </div>
-                
+
         );
     }
 }
