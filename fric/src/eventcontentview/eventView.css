@@ -1,20 +1,37 @@
-
-.right, .left{
-    float: left;
-}
-.right label, .left label{
-    width:100%;
-}
-.left{
-    margin-right: 30px;
-}
-
-.event-data{
-    width: 100%;
-    height: 30px;
-}
-
-.event-title-buttons{
+.event-information-team{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
+
+.vertical-line{
+    height: 500px;
+    border-left: 2px solid rgba(163, 160, 160, 0.541);
+    align-self: center;
+}
+.horizontal-line{
+    width: 800px;
+    border-bottom: 2px solid rgba(163, 160, 160, 0.541);
+    margin: 0 auto;
+}
+
+.event-team{
+    display: flex;
+    flex-direction: column;
+}
+
+.analyst-data{
+    align-self: center;
+}
+.analyst-data form .analyst-fields{
+    display: flex;
+    flex-direction: column;
+}
+.add-dropdown{
+    display: flex;
+}
+.res-dropdown{
+    align-self: center;
+}
+
+
+

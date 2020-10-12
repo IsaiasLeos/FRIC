@@ -43,18 +43,18 @@ class subtaskDetailedView extends React.Component {
         return (
             <div>
                 <div>
-                    <input type="image" src={HelpImage} alt="Help button"/>
-                    <form action="" className="form">
+                    <form action="" className="form" className="subtask-form">
                         <div className="left">
-                            <label for="subtaskTitle">
+                        <input type="image" src={HelpImage} alt="Help button"/>
+                            <label htmlFor="subtaskTitle">
                                 Title:<br/>
                                 <input type="text" name="Title" id="subtask-title" className="subtask-data"/>
                             </label><br/>
-                            <label for="subtaskDescription">
+                            <label htmlFor="subtaskDescription">
                                 Description:<br/>
                                 <input type="text" name="Description" id="description" className="subtask-data"/>
                             </label><br/>
-                            <label for="subtaskProgress">
+                            <label htmlFor="subtaskProgress">
                                 Progress:<br/>
                                 <select name="progress" id="progress-dropdown" className="subtask-data">
                                     <option value="default" selected="selected"></option>
@@ -66,31 +66,31 @@ class subtaskDetailedView extends React.Component {
                                     <option value="notApplicable">Not applicable</option>
                                 </select>
                             </label><br/>
-                            <label for="subtaskDuedate">
+                            <label htmlFor="subtaskDuedate">
                                 Due Date:<br/>
                                 <input type="date" id="due-date" name="dueDate" className="subtask-data"/>
                             </label><br/>
                         </div>
                         <div className="right">
-                            <label for="subtaskAnalysts">
+                            <label htmlFor="subtaskAnalysts">
                                 Analyst(s):<br/>
-                                <ReactMultiSelectCheckboxes options={analysts} />
+                                <ReactMultiSelectCheckboxes options={analysts} width="100%" />
                             </label>
-                            <label for="subtaskCollaborators">
+                            <label htmlFor="subtaskCollaborators">
                                 Collaborator(s):<br/>
-                                <ReactMultiSelectCheckboxes options={collaborators} />
+                                <ReactMultiSelectCheckboxes options={collaborators} width="100%"/>
                             </label><br/>
-                            <label for="tasks">
+                            <label htmlFor="tasks">
                                 Related task(s):<br/>
-                                <ReactMultiSelectCheckboxes options={tasks} />
+                                <ReactMultiSelectCheckboxes options={tasks} width="100%"/>
                             </label><br/>
-                            <label for="subtasks">
+                            <label htmlFor="subtasks">
                                 Subtask(s):<br/>
-                                <ReactMultiSelectCheckboxes options={subtasks} />
+                                <ReactMultiSelectCheckboxes options={subtasks} width="100%"/>
                             </label><br/>
-                            <label for="attachments">
+                            <label htmlFor="attachments">
                                 Attachments:<br/>
-                                <ReactMultiSelectCheckboxes options={attachments} />
+                                <ReactMultiSelectCheckboxes options={attachments} width="100%"/>
                             </label><br/>
                         </div>
                     </form>

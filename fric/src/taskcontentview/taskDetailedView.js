@@ -35,18 +35,19 @@ class taskDetailedView extends React.Component {
         return (
             <div>
                 <div className="task-details">
-                    <input type="image" src={HelpImage} alt="Help button" />
+                    
                     <form action="" className="task-form">
                         <div className="left">
-                            <label for="taskTitle">
+                            <input type="image" src={HelpImage} alt="Help button" />
+                            <label htmlFor="taskTitle">
                                 Title:<br/>
                                 <input type="text" name="Title" id="task-title" className="task-data" />
                             </label><br />
-                            <label for="taskDescription">
+                            <label htmlFor="taskDescription">
                                 Description:<br/>
                                 <input type="text" name="Description" id="description" className="task-data" />
                             </label><br/>
-                            <label for="taskSystem">
+                            <label htmlFor="taskSystem">
                                 System:<br/>
                                 <select name="System" id="system-dropdown" className="task-data">
                                     <option value="default" selected="selected"></option>
@@ -56,7 +57,7 @@ class taskDetailedView extends React.Component {
                                     <option value="System4">System 4</option>
                                 </select>
                             </label><br/>
-                            <label for="taskPriority">
+                            <label htmlFor="taskPriority">
                                 Priority:<br/>
                                 <select name="priority" id="priority-dropdown" className="task-data">
                                     <option value="default" selected="selected"></option>
@@ -65,7 +66,7 @@ class taskDetailedView extends React.Component {
                                     <option value="High">Hight</option>
                                 </select>
                             </label><br/>
-                            <label for="taskProgress">
+                            <label htmlFor="taskProgress">
                                 Progress:<br/>
                                 <select name="progress" id="progress-dropdown" className="task-data">
                                     <option value="default" selected="selected"></option>
@@ -79,25 +80,25 @@ class taskDetailedView extends React.Component {
                             </label><br/>
                         </div>
                         <div className="right">
-                            <label for="taskDueDate">
+                            <label htmlFor="taskDueDate">
                                 Due Date:<br/>
                                 <input type="date" id="due-date" name="dueDate" />
                             </label><br/>
-                            <label for="taskAnalysts">
+                            <label htmlFor="taskAnalysts">
                                 Analyst(s):<br/>
-                                <ReactMultiSelectCheckboxes options={analysts} />
+                                <ReactMultiSelectCheckboxes options={analysts} width="100%" />
                             </label><br/>
-                            <label for="taskCollaborators">
+                            <label htmlFor="taskCollaborators">
                                 Collaborator(s):<br/>
-                                <ReactMultiSelectCheckboxes options={collaborators} />
+                                <ReactMultiSelectCheckboxes options={collaborators} width="100%"/>
                             </label><br/>
-                            <label for="relatedTask">
+                            <label htmlFor="relatedTask">
                                 Related Task:<br/>
-                                <ReactMultiSelectCheckboxes options={tasks} />
+                                <ReactMultiSelectCheckboxes options={tasks}  width="100%"/>
                             </label><br/>
-                            <label for="attachments">
+                            <label htmlFor="attachments">
                                 Attachments:<br/>
-                                <ReactMultiSelectCheckboxes options={attachments} />
+                                <ReactMultiSelectCheckboxes options={attachments} width="100%"/>
                             </label><br/>
                         </div>
                     </form>
