@@ -10,7 +10,7 @@ import FindingDetailedView from './findingDetailedView';
 import Tree from '../eventTree/eventTree';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import './findingView.css'
-import Tree from '../eventTree/eventTree'
+
 
 function TaskContentView(){
     const [show, setShow] = useState(false);

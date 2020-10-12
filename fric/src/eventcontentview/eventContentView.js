@@ -68,17 +68,17 @@
 //                     </Table>
 
 //                 </body>
-import * as React from 'react'
+import * as React from 'react';
 import {useState,useEffect}  from "react";
-import AddImage from '../assets/add.png'
-import SortImage from '../assets/updownarrow.png'
-import Table from 'react-bootstrap/Table'
-import Tree from '../eventTree/eventTree'
-import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import GeneralView from '../generalView/generalView'
-import Modal from 'react-bootstrap/Modal'
-import EventDetailedView from './eventDetailedView'
+import AddImage from '../assets/add.png';
+import SortImage from '../assets/updownarrow.png';
+import Table from 'react-bootstrap/Table';
+import Tree from '../eventTree/eventTree';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import GeneralView from '../generalView/generalView';
+import Modal from 'react-bootstrap/Modal';
+import EventDetailedView from './eventDetailedView';
 import { Link } from 'react-router-dom';
 
 
@@ -134,7 +134,7 @@ function EventContentView(){
                     <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
                         <Modal.Header closeButton>
                         <Modal.Title>
-                            Event Detailed View
+                            <h1>Event Detailed View</h1>
                         </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
