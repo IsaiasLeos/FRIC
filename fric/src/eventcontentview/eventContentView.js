@@ -78,9 +78,14 @@ import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import GeneralView from '../generalView/generalView'
 import Modal from 'react-bootstrap/Modal'
+<<<<<<< HEAD
 import EventDetailedView from './eventDetailedView'
 import { Link } from 'react-router-dom';
 
+=======
+import EventDetailedView from './eventDetailedView';
+import './eventView.css'
+>>>>>>> origin/ialeos
 
 
 function EventContentView(){
@@ -97,6 +102,7 @@ function EventContentView(){
         return (
             <div>
                 <GeneralView/>
+<<<<<<< HEAD
                 <div class="main">
                     <div class="title-buttons">
                         <h2>Event Overview Table</h2>
@@ -152,6 +158,80 @@ function EventContentView(){
                             </Button>
                         </Modal.Footer>
                     </Modal>
+=======
+
+                    <div className= 'main'>
+
+                            <div class="event-title-buttons">
+                            <h2>Findings Overview Table</h2>
+                                <br></br>
+                                
+                                <ButtonGroup>
+                                        <Button variant="dark">Save</Button>
+                                        <Button variant="dark">Delete</Button>
+                                        <Button variant="dark">Cancel</Button>
+                                        <input type="image" src={AddImage} onClick={handleShow} />
+                                </ButtonGroup>
+                            </div>
+                            <Table bordered striped hover>
+                                <thead class = "thead-grey">
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Event Name <input type="image" src={SortImage} /></th>
+                                        <th>No. of Systems <input type="image" src={SortImage} /></th>
+                                        <th>No. of Findings <input type="image" src={SortImage} /></th>
+                                        <th>Progress <input type="image" src={SortImage} /></th>
+                                    </tr>
+                                 </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                                        <td><Button variant="outline-dark" onClick={handleShow}>Event 1</Button></td>
+                                        <td>14</td>
+                                        <td>30</td>
+                                        <td>76%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                                        <td><Button variant="outline-dark" onClick={handleShow}>Event 2</Button></td>
+                                        <td>7</td>
+                                        <td>18</td>
+                                        <td>30%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" value="event" /></td>
+                                        <td><Button variant="outline-dark" onClick={handleShow}>Event 3</Button></td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0%</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+
+                            <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
+                                <Modal.Header closeButton>
+                                <Modal.Title>
+                                    Event Detailed View
+                                </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <EventDetailedView />
+                                </Modal.Body>
+                                <Modal.Footer>
+                                <Button variant="dark" onClick={handleClose}>
+                                    Save
+                                </Button>
+                                <Button variant="dark" onClick={handleClose}>
+                                    Delete
+                                </Button>
+                                <Button variant="dark" onClick={handleClose}>
+                                    Cancel
+                                </Button>
+                                </Modal.Footer>
+                            </Modal>
+
+                        
+>>>>>>> origin/ialeos
                 </div>
                 <div class="right-tree">
                     <Tree />

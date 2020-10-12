@@ -266,7 +266,9 @@ class archiveContentView extends React.Component {
                             </tr>
                         </tbody>
                     </Table>
+                    <Button variant="dark">Restore System</Button>
                 </div>
+
                 <div class="right-tree">
                     <Tree />
                 </div>
