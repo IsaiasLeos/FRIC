@@ -71,7 +71,6 @@ class archiveContentView extends React.Component {
                             </tr>
                         </tbody>
                     </Table>
-                    <Button variant="dark">Restore Task</Button>
 
                     <br></br>
                     <br></br>
@@ -133,13 +132,12 @@ class archiveContentView extends React.Component {
                             </tr>
                         </tbody>
                     </Table>
-                    <Button variant="dark">Restore Subtask</Button>
 
                     <div class="title-buttons">
                         <h2>Archived Findings</h2>
-                        <Button variant="dark">Restore Finding</Button>    
+                        <Button variant="dark">Restore Finding</Button>
                     </div>
-                    
+
                     <Table bordered hover striped>
                         <thead class="thead-grey">
                             <tr>
@@ -212,7 +210,6 @@ class archiveContentView extends React.Component {
                         </tbody>
 
                     </Table>
-                    <Button variant="dark">Restore Finding</Button>
 
                     <br></br>
                     <br></br>
@@ -266,9 +263,7 @@ class archiveContentView extends React.Component {
                             </tr>
                         </tbody>
                     </Table>
-                    <Button variant="dark">Restore System</Button>
                 </div>
-
                 <div class="right-tree">
                     <Tree />
                 </div>

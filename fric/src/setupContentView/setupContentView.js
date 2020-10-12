@@ -1,9 +1,7 @@
 import * as React from 'react'
 import 'react-bootstrap'
 import GeneralView from '../generalView/generalView';
-import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import '../assets/css/bootstrap.css'
-import Tree from '../eventTree/eventTree';
 import { Link } from 'react-router-dom'
 class setupContentView extends React.Component {
     constructor() {
@@ -15,7 +13,7 @@ class setupContentView extends React.Component {
         e.preventDefault();
         var self = this;
         
-        // On submit of the form, send a POST request with the data to the server.
+        // On submit send a POST request to the server with the data
         fetch('/users', { 
             method: 'POST',
             data: {
@@ -35,10 +33,7 @@ class setupContentView extends React.Component {
       }
     
     render() {
-        const questions = [
-            {label: 'Create a new event(any exsisting event will be archived)', value:1},
-            {label: 'First time sync with lead analyst', value:2}
-        ];
+        
         return (
             <div>
                 <GeneralView />
@@ -51,19 +46,18 @@ class setupContentView extends React.Component {
                     
                         <br/><br/>
 
-                        <h6>There is no exsisting event in your local system</h6>
-                        <input type="text" placeholder="q1" ref="q1"></input>
-
-                        <br/><br/>
-
                         <h6>Please enter your intials</h6>
-                        <input type="text" placeholder="q2" ref="q2"></input>
+                        <input type="text" placeholder="AC" ref="q2"></input>
 
                         <br/><br/>
 
-                        <label for="quest">Please select an option:<br/>
-                            <ReactMultiSelectCheckboxes options={questions} />
-                        </label>
+                        <h6>Please select an Option: </h6>
+                        <div class="btn-group">
+                          <select class="broswer-default custom-select mr-3">
+                            <option> First time sync with lead analyst </option>
+                            <option> Create a new event(any exsisting event will be archived) </option>
+                          </select>
+                        </div>
                         
                         <br/><br/>
 
@@ -71,7 +65,11 @@ class setupContentView extends React.Component {
                         <input type="text" placeholder="if first time sync" ref="q3"></input>
 
                         <br/><br/>
-                        
+
+                        <h6>Event name</h6>
+                        <input type="text" placeholder="if new event" ref="q1"></input>
+
+                        <br/><br/>
                         
                           <Link to="/Event">
                              <input type="submit"/>

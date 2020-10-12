@@ -6,8 +6,8 @@
 .pnp.js
 /python/venv
 /python/_pycache_
-
-
+#isaias personal py venv
+/python/fric-venv
 # testing
 /coverage
 
