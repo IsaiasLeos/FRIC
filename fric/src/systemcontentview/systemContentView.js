@@ -10,10 +10,16 @@ import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Tree from '../eventTree/eventTree'
 import AddImage from '../assets/add.png'
+import {useEffect}  from "react";
 function SystemContentView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [systems,setEvents] = useState([])
+    useEffect(() => {
+        fetch('/systems').then(
+        response => response.json()).then(data => setEvents(data))
+    },[]);
     return (
         <div >
             <GeneralView />
@@ -31,13 +37,13 @@ function SystemContentView() {
                             <thead className="thead-grey">
                                 <tr>
                                     <th>Select</th>
-                                    <th>System<input type="image" src={SortImage} alt="Sort Button" className="sort-button"/></th>
-                                    <th>No. of Task<input type="image" src={SortImage} alt="Sort Button" className="sort-button"/></th>
+                                    <th>System<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
+                                    <th>No. of Task<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
                                     <th>No. Findings<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
-                                    <th>Progress<input type="image" src={SortImage} alt="Sort Button" className="sort-button"/></th>
+                                    <th>Progress<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
                                 </tr>
                             </thead>
-                            <tbody>                                
+                            <tbody>
                                 <tr>
                                     <td className="column1"><input type="checkbox" id="" name="" value="1" /></td>
                                     <td><Button variant="outline-dark" onClick={handleShow}>Wells Fargo ATM</Button></td>
@@ -46,21 +52,21 @@ function SystemContentView() {
                                     <td>Assigned</td>
                                 </tr>
                                 <tr>
-                                    <td className="column1"><input type="checkbox" id="" name="" value="1"/></td>
+                                    <td className="column1"><input type="checkbox" id="" name="" value="1" /></td>
                                     <td><Button variant="outline-dark" onClick={handleShow}>Walmart Cashier Machine</Button></td>
                                     <td>2</td>
                                     <td>1</td>
                                     <td>Assigned</td>
                                 </tr>
                                 <tr>
-                                    <td className="column1"><input type="checkbox" id="" name="" value="1"/></td>
+                                    <td className="column1"><input type="checkbox" id="" name="" value="1" /></td>
                                     <td><Button variant="outline-dark" onClick={handleShow}>UTEP CS Computers</Button></td>
                                     <td>2</td>
                                     <td>0</td>
                                     <td>Not Started</td>
                                 </tr>
                                 <tr>
-                                    <td className="column1"><input type="checkbox" id="" name="" value="1"/></td>
+                                    <td className="column1"><input type="checkbox" id="" name="" value="1" /></td>
                                     <td><Button variant="outline-dark" onClick={handleShow}>Best Buy</Button></td>
                                     <td>10</td>
                                     <td>20</td>
@@ -91,10 +97,10 @@ function SystemContentView() {
                 </Modal>
             </div>
             <div class="right-tree">
-                    <Tree />
+                <Tree />
             </div>
         </div>
-        
+
     );
 }
 
