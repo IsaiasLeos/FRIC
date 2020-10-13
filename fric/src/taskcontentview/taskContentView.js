@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {useState}  from "react";
+import { useState } from "react";
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
@@ -11,11 +11,11 @@ import TaskDetailedView from './taskDetailedView';
 import './taskView.css'
 import Tree from '../eventTree/eventTree'
 
-function TaskContentView(){
+function TaskContentView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    return(
+    return (
         <div>
             <GeneralView />
             <div className="main">
@@ -24,11 +24,11 @@ function TaskContentView(){
                     <ButtonGroup>
                         <Button variant="dark">Archive</Button>
                         <Button variant="dark">Demote</Button>
-                        <input type="image" src={AddImage} onClick={handleShow} alt="add button" />
+                        <Button variant="dark">Add </Button>
                     </ButtonGroup>
                 </div>
                 <Table striped bordered hover>
-                    <thead class = "thead-grey">
+                    <thead class="thead-grey">
                         <tr>
                             <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></input></th>
                             <th>Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
@@ -38,7 +38,7 @@ function TaskContentView(){
                             <th>Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             <th>No. of Subtasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /> </th>
-                            <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
+                            <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -130,7 +130,7 @@ function TaskContentView(){
                 </Modal>
             </div>
             <div class="right-tree">
-                    <Tree />
+                <Tree />
             </div>
         </div>
     );

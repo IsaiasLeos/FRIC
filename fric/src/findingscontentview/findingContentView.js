@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {useState}  from "react";
+import { useState } from "react";
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
@@ -8,11 +8,11 @@ import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal'
 import FindingDetailedView from './findingDetailedView';
 import Tree from '../eventTree/eventTree';
+import { Link } from 'react-router-dom'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import './findingView.css'
 
-
-function TaskContentView(){
+function TaskContentView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -20,16 +20,13 @@ function TaskContentView(){
         <div>
             <GeneralView />
             <div class="main">
-                
-                
-                <br></br>
                 <div className="title-buttons">
                     <h2>Findings Overview Table</h2>
                     <ButtonGroup>
                         <Button variant="dark">Save</Button>
                         <Button variant="dark">Delete</Button>
                         <Button variant="dark">Cancel</Button>
-                        <input type="image" src={AddImage} onClick={handleShow} alt="Add button"/>
+                        <Button variant="dark" onClick={handleShow} >Add</Button>
                     </ButtonGroup>
                 </div>
 
@@ -104,27 +101,27 @@ function TaskContentView(){
                         </tr>
                     </tbody>
                 </Table>
-                    <Button variant="dark">Generate ERB Report</Button>
+                <Button variant="dark">Generate ERB Report</Button>
                     &nbsp;
                     <Button variant="dark">Generate Risk Matrix</Button>
                     &nbsp;
                     <Button variant="dark">Generate Final Report</Button>
 
-                    <br></br>
-                    <br></br>
+                <br></br>
+                <br></br>
 
-                    
 
-                    <Modal show={show} onHide={handleClose} size = 'lg'>
-                        <Modal.Header closeButton>
+
+                <Modal show={show} onHide={handleClose} size='lg'>
+                    <Modal.Header closeButton>
                         <Modal.Title>
                             Finding Detailed View
                         </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <FindingDetailedView />
-                        </Modal.Body>
-                        <Modal.Footer>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <FindingDetailedView />
+                    </Modal.Body>
+                    <Modal.Footer>
                         <Button variant="dark" onClick={handleClose}>
                             Save
                         </Button>
@@ -134,16 +131,13 @@ function TaskContentView(){
                         <Button variant="dark" onClick={handleClose}>
                             Cancel
                         </Button>
-                        </Modal.Footer>
-                    </Modal>
+                    </Modal.Footer>
+                </Modal>
 
-                
-                <div class="right-tree">
-                    <Tree />
-                </div>
-           
-            
-        </div>
+            </div>
+            <div class="right-tree">
+                <Tree />
+            </div>
         </div>
     );
 }

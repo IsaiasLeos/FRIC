@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {useState}  from "react";
+import { useState } from "react";
 import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
@@ -11,33 +11,33 @@ import SubtaskDetailedView from './subtaskDetailedView';
 import './subtaskView.css';
 import Tree from '../eventTree/eventTree';
 
-function SubtaskContentView(){
+function SubtaskContentView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    return(
+    return (
         <div>
             <GeneralView />
             <div className="main">
                 <div class="title-buttons">
                     <h2>Subtask Overview Table</h2>
                     <ButtonGroup>
-                    <Button variant="dark">Archive</Button>
+                        <Button variant="dark">Archive</Button>
                         <Button variant="dark">Promote</Button>
-                        <input type="image" src={AddImage} onClick={handleShow} alt="Add subtask button"/>
+                        <Button variant="dark" onClick={handleShow}>Add </Button>
                     </ButtonGroup>
                 </div>
-                
-                <Table  striped bordered hover>
-                    <thead class = "thead-grey">
+
+                <Table striped bordered hover>
+                    <thead class="thead-grey">
                         <tr>
                             <th><input type="checkbox" id="all-subtasks" name="all-subtasks" value="0"></input></th>
-                            <th>Title<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                            <th>Task<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                            <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                            <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                            <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                            <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
+                            <th>Title<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
+                            <th>Task<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
+                            <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
+                            <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
+                            <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
+                            <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,30 +98,30 @@ function SubtaskContentView(){
                     </tbody>
                 </Table>
                 <Modal show={show} onHide={handleClose} dialogClassName="subtask-modal">
-                        <Modal.Header closeButton>
+                    <Modal.Header closeButton>
                         <Modal.Title>
                             Subtask Detailed View
                         </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <SubtaskDetailedView />
-                        </Modal.Body>
-                        <Modal.Footer>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <SubtaskDetailedView />
+                    </Modal.Body>
+                    <Modal.Footer>
                         <Button variant="outline-dark" onClick={handleClose}>
                             Cancel
                         </Button>
                         <Button variant="outline-dark" onClick={handleClose}>
                             Submit
                         </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
-                <div class="right-tree">
-                    <Tree />
-                </div>
-                
+                    </Modal.Footer>
+                </Modal>
+            </div>
+            <div class="right-tree">
+                <Tree />
+            </div>
+
         </div>
-        
+
     );
 }
 

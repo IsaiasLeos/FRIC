@@ -3,24 +3,24 @@
     height: 20px;
 }
 
-.right, .left{
-    float: left;
+.subtask-form{
+    display: flex;
+    justify-content: space-evenly;
 }
+.left{
+    align-self: center;
+}
+
 .right label, .left label{
     width:100%;
 }
-.left{
-    margin-right: 30px;
-}
+
 
 .subtask-data{
     width: 200px;
     height: 30px;
 }
-.subtask-modal{
 
-    width: 230px;
-}
 
 .subtask-title-buttons{
     display: flex;

@@ -70,22 +70,25 @@
 //                 </body>
 import * as React from 'react'
 import {useState,useEffect}  from "react";
-import AddImage from '../assets/add.png'
-import SortImage from '../assets/updownarrow.png'
-import Table from 'react-bootstrap/Table'
-import Tree from '../eventTree/eventTree'
-import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import GeneralView from '../generalView/generalView'
-import Modal from 'react-bootstrap/Modal'
-import EventDetailedView from './eventDetailedView'
+import AddImage from '../assets/add.png';
+import SortImage from '../assets/updownarrow.png';
+import Table from 'react-bootstrap/Table';
+
+// import Table, {Thead, Tbody, Tr, Th, Td} from "react-row-select-table";
+
+import {useTable,useRowSelect} from "react-table";
+
+import Tree from '../eventTree/eventTree';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import GeneralView from '../generalView/generalView';
+import Modal from 'react-bootstrap/Modal';
+import EventDetailedView from './eventDetailedView';
+import Event from './EventTable'; 
 import { Link } from 'react-router-dom';
-import SystemContentView from '../systemcontentview/systemContentView'
-
-
 
 function EventContentView(){
-    const [events,setEvents] = useState([])
+    const [events,setEvents] = useState([{name: '', num_sys:'',num_findings:'',prog:''}])
 
     useEffect(() => {
         fetch('/events').then(
@@ -95,72 +98,76 @@ function EventContentView(){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+
         return (
-            <div>
-                <GeneralView/>
-                <div class="main">
-                    <div class="title-buttons">
-                        <h2>Event Overview Table</h2>
-                        <ButtonGroup>
-                            <Button variant="dark">Archive</Button>
-                            <input type="image" alt="sort button" src={AddImage} onClick={handleShow} />
-                        </ButtonGroup>
-                    </div>
-                    <Table bordered striped hover>
-                        <thead class = "thead-grey">
-                            <tr>
-                                <th>Select</th>
-                                <th>Event Name <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
-                                <th>No. of Systems <input type="image"  alt="sort button" src={SortImage} className="sort-button" /></th>
-                                <th>No. of Findings <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
-                                <th>Progress <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                {events.map((event) => (
+            <div><Event name={events[0].name}/></div>
+            // <div>
+            //     <GeneralView/>
+            //     <div class="main">
+            //         <div class="title-buttons">
+            //             <h2>Event Overview Table</h2>
+            //             <ButtonGroup>
+            //                 <Button variant="dark">Archive</Button>
+            //                 <input type="image" alt="sort button" src={AddImage} onClick={handleShow} />
+            //             </ButtonGroup>
+            //         </div>
+
+            //         <EventTable event = {console.log(events[0]}/>
                                 
-                                    <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" /> </td>
-                                    <td><Button variant="outline-dark" onClick={handleShow}>{event.name}</Button></td>
-                                    <td><Link to="/SystemView">{event.num_sys}</Link></td>
-                                    <td><Link to = '/Findings'>{event.num_findings}</Link></td>
-                                    <td>{event.prog}</td>
-                                    </tr>
+            //         <Table bordered striped hover>
+            //             <thead class = "thead-grey">
+            //                 <tr>
+            //                     <th>Select</th>
+            //                     <th>Event Name <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
+            //                     <th>No. of Systems <input type="image"  alt="sort button" src={SortImage} className="sort-button" /></th>
+            //                     <th>No. of Findings <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
+            //                     <th>Progress <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
+            //                 </tr>
+            //             </thead>
+            //             <tbody>
+            //                     {events.map((event) => (
+                                
+            //                         <tr>
+            //                         {/* <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td> */}
+            //                         <td></td>
+            //                         <td>{event.name}</td>
+            //                         <td>{event.num_sys}</td>
+            //                         <td>{event.num_findings}</td>
+            //                         <td>{event.prog}</td>
+            //                         </tr>
                             
-                                    ))}
+            //                         ))}
                         
-                        </tbody>
-                    </Table>
+            //             </tbody>
+            //         </Table>
 
-                    <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
-                        <Modal.Header closeButton>
-                        <Modal.Title>
-                            Event Detailed View
-                        </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <EventDetailedView />
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="dark" onClick={handleClose}>
-                                Save
-                            </Button>
-                            <Button variant="dark" onClick={handleClose}>
-                                Delete
-                            </Button>
-                            <Button variant="dark" onClick={handleClose}>
-                                Cancel
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
-                <div class="right-tree">
-                    <Tree />
-                </div>
-            </div>
+            //         <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
+            //             <Modal.Header closeButton>
+            //             <Modal.Title>
+            //                 Event Detailed View
+            //             </Modal.Title>
+            //             </Modal.Header>
+            //             <Modal.Body>
+            //                 <EventDetailedView />
+            //             </Modal.Body>
+            //             <Modal.Footer>
+            //                 <Button variant="dark" onClick={handleClose}>
+            //                     Save
+            //                 </Button>
+            //                 <Button variant="dark" onClick={handleClose}>
+            //                     Delete
+            //                 </Button>
+            //                 <Button variant="dark" onClick={handleClose}>
+            //                     Cancel
+            //                 </Button>
+            //             </Modal.Footer>
+            //         </Modal>
+            //     </div>
+            //     <div class="right-tree">
+            //         <Tree />
+            //     </div>
+            // </div>
         );
-    
 }
-
-
 export default EventContentView;
