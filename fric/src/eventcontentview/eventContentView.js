@@ -87,11 +87,15 @@ import EventDetailedView from './eventDetailedView';
 import Event from './EventTable'; 
 import { Link } from 'react-router-dom';
 
+
+
+
+
 function EventContentView(){
     const [events,setEvents] = useState([{name: '', num_sys:'',num_findings:'',prog:''}])
-
+    
     useEffect(() => {
-        fetch('/events').then(
+        fetch('/eventsOverview').then(
         response => response.json()).then(data => setEvents(data))
     },[]);
 
@@ -99,75 +103,76 @@ function EventContentView(){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const [selected_event,selectEvent] = useState({name: '', num_sys:'',num_findings:'',prog:''});
 
         return (
-            <div><Event name={events[0].name}/></div>
-            // <div>
-            //     <GeneralView/>
-            //     <div class="main">
-            //         <div class="title-buttons">
-            //             <h2>Event Overview Table</h2>
-            //             <ButtonGroup>
-            //                 <Button variant="dark">Archive</Button>
-            //                 <input type="image" alt="sort button" src={AddImage} onClick={handleShow} />
-            //             </ButtonGroup>
-            //         </div>
+            // <div><Event name={events[0].name}/></div>
+            <div>
+                <GeneralView/>
+                <div class="main">
+                    <div class="title-buttons">
+                        <h2>Event Overview Table</h2>
+                        <ButtonGroup>
+                            <Button variant="dark">Archive</Button>
+                            <input type="image" alt="sort button" src={AddImage} onClick={handleShow} />
+                        </ButtonGroup>
+                    </div>
 
-            //         <EventTable event = {console.log(events[0]}/>
+                    <Table bordered striped hover id = "event_table">
+                        <thead class = "thead-grey">
+                            <tr>
+                                <th>Select Event</th>
+                                <th>Event Name <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
+                                <th>No. of Systems <input type="image"  alt="sort button" src={SortImage} className="sort-button" /></th>
+                                <th>No. of Findings <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
+                                <th>Progress <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {events.map((event) => (
                                 
-            //         <Table bordered striped hover>
-            //             <thead class = "thead-grey">
-            //                 <tr>
-            //                     <th>Select</th>
-            //                     <th>Event Name <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
-            //                     <th>No. of Systems <input type="image"  alt="sort button" src={SortImage} className="sort-button" /></th>
-            //                     <th>No. of Findings <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
-            //                     <th>Progress <input type="image" alt="sort button" src={SortImage} className="sort-button" /></th>
-            //                 </tr>
-            //             </thead>
-            //             <tbody>
-            //                     {events.map((event) => (
-                                
-            //                         <tr>
-            //                         {/* <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td> */}
-            //                         <td></td>
-            //                         <td>{event.name}</td>
-            //                         <td>{event.num_sys}</td>
-            //                         <td>{event.num_findings}</td>
-            //                         <td>{event.prog}</td>
-            //                         </tr>
+                                    <tr>
+                                    {/* <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td> */}
+                                    <td><Button onClick ={() => {selectEvent(event)}}>Select</Button></td>
+                                    {/* <td></td> */}
+                                    <td>{event.name}</td>
+                                    <td>{event.num_sys}</td>
+                                    <td>{event.num_findings}</td>
+                                    <td>{event.prog}</td>
+                                    </tr>
                             
-            //                         ))}
+                                    ))}
                         
-            //             </tbody>
-            //         </Table>
+                        </tbody>
+                    </Table>
+                    
 
-            //         <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
-            //             <Modal.Header closeButton>
-            //             <Modal.Title>
-            //                 Event Detailed View
-            //             </Modal.Title>
-            //             </Modal.Header>
-            //             <Modal.Body>
-            //                 <EventDetailedView />
-            //             </Modal.Body>
-            //             <Modal.Footer>
-            //                 <Button variant="dark" onClick={handleClose}>
-            //                     Save
-            //                 </Button>
-            //                 <Button variant="dark" onClick={handleClose}>
-            //                     Delete
-            //                 </Button>
-            //                 <Button variant="dark" onClick={handleClose}>
-            //                     Cancel
-            //                 </Button>
-            //             </Modal.Footer>
-            //         </Modal>
-            //     </div>
-            //     <div class="right-tree">
-            //         <Tree />
-            //     </div>
-            // </div>
+                    <Modal show={show} onHide={handleClose}  dialogClassName="event-modal" size = "xl">
+                        <Modal.Header closeButton>
+                        <Modal.Title>
+                            Event Detailed View {console.log("Here", selected_event)}
+                        </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <EventDetailedView event = {selected_event} />
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="dark" onClick={handleClose}>
+                                Save
+                            </Button>
+                            <Button variant="dark" onClick={handleClose}>
+                                Delete
+                            </Button>
+                            <Button variant="dark" onClick={handleClose}>
+                                Cancel
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+                <div class="right-tree">
+                    <Tree />
+                </div>
+            </div>
         );
 }
 export default EventContentView;
