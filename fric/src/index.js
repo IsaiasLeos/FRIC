@@ -18,7 +18,8 @@ import setupContentView from './setupContentView/setupContentView.js';
 import helpView from './helpView/helpView.js';
 import eventTree from './eventTree/eventTree';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import EventTable from './eventcontentview/EventTable';
+
+import SelectEvent from './eventcontentview/EventTable'; // Event specific info
 
 ReactDOM.render(
   <Router>
@@ -28,7 +29,7 @@ ReactDOM.render(
       </React.StrictMode>,
     </Route>
     <Route exact path="/Event" component={eventContentView} />
-    <Route exact path="/EventTable" component={EventTable} /> 
+    <Route exact path="/SelectEvent" component={SelectEvent} /> 
     <Route exact path="/EventDetailed" component={eventDetailedView} />
     <Route exact path="/Task" component={taskContentView} />
     <Route exact path="/TaskDetails" component={taskDetailedView} />

@@ -8,6 +8,11 @@ import '../assets/css/bootstrap.css';
 import './eventView.css';
 
 class eventDetailedView extends React.Component {
+
+    // render() {
+    //     return <h1>Hello again, {this.props.event.num_sys}</h1>;
+    //   }
+
     constructor() {
         super();
         this.state = {
@@ -46,7 +51,6 @@ class eventDetailedView extends React.Component {
     render() {
         const { name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name } = this.state;
         return (
-
             <div>
                 <div className="event-information-team">
                     <div className="event-information">
@@ -55,7 +59,7 @@ class eventDetailedView extends React.Component {
                         <form onSubmit={this.onSubmit}>
                             <label>
                                 Title:<br />
-                                <input type="text" name="name" onChange={this.onChange} id="event-title" className="event-data" />
+                                <input type="text" name="name" onChange={this.onChange} id="event-title" className="event-data" value ={this.props.event.name}/>
                             </label><br />
                             <label>
                                 Description<br />
