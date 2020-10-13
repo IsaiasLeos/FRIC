@@ -3,78 +3,52 @@ import 'react-bootstrap'
 import GeneralView from '../generalView/generalView';
 import '../assets/css/bootstrap.css'
 import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 class setupContentView extends React.Component {
-    constructor() {
-        super();
-        this.state = { user: {} };
-        this.onSubmit = this.handleSubmit.bind(this);
+    constructor(){
+      super();
+      this.state = {
+        initials: "",
+        event_name: "",
+      };
+    }
+    onSubmit = (e) => {
+      e.preventDefault();
+      const{initials, event_name} = this.state;
+      fetch('/event', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify({initials, event_name}),
+      }).then(response => response.json())
+      .then(data => {console.log("Success", data);})
+      .then(error => {console.error('Error', error)});
       }
-      handleSubmit(e) {
-        e.preventDefault();
-        var self = this;
-        
-        // On submit send a POST request to the server with the data
-        fetch('/users', { 
-            method: 'POST',
-            data: {
-              q1: self.refs.q1,
-              q2: self.refs.q2,
-              q3: self.refs.q3
-            }
-          })
-          .then(function(response) {
-            return response.json()
-          })
-          .then(function(body) {
-            console.log(body);
-          });
-          
-          
-      }
+       
     
     render() {
-        
+        const{initials, event_name} = this.state;
         return (
             <div>
                 <GeneralView />
-
-                <div class="SetUpView">
-                    <h1 style={{ textAlign: "center" }}>Finding and Reporting Information Console (FRIC)</h1>
-                </div>
+                <br/>
+                
+                <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1>
 
                     <form onSubmit={this.onSubmit} style={{textAlign:"center"}}>
                     
                         <br/><br/>
-
+                        <h6>"There is no existing event in your system"</h6>
+                        <input type="text" name="event_name" placeholder="Enter event name" ></input>
+                        <br/><br/>
                         <h6>Please enter your intials</h6>
-                        <input type="text" placeholder="AC" ref="q2"></input>
-
-                        <br/><br/>
-
-                        <h6>Please select an Option: </h6>
-                        <div class="btn-group">
-                          <select class="broswer-default custom-select mr-3">
-                            <option> First time sync with lead analyst </option>
-                            <option> Create a new event(any exsisting event will be archived) </option>
-                          </select>
-                        </div>
-                        
-                        <br/><br/>
-
-                        <h6>Enter the Lead IP</h6>
-                        <input type="text" placeholder="if first time sync" ref="q3"></input>
-
-                        <br/><br/>
-
-                        <h6>Event name</h6>
-                        <input type="text" placeholder="if new event" ref="q1"></input>
-
+                        <input type="text" name="initials" placeholder="Enter initials" ></input>
                         <br/><br/>
                         
-                          <Link to="/Event">
-                             <input type="submit"/>
-                          </Link>
-                        
+                        <Link to="Event">
+                        <Button type="submit" classname="btn" variant="outline-dark"> Submit </Button>
+                        </Link> 
                     </form>
                 
             </div>
