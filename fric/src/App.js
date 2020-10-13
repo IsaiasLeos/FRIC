@@ -2,13 +2,13 @@ import React, {useState,useEffect}from 'react';
 import GeneralView from './generalView/generalView';
 
 function App() {
-  const [initialData,setInitialData] = useState([{}])
+  // const [initialData,setInitialData] = useState([{}])
 
-  useEffect(() => {
-    fetch('/events').then(
-      response => response.json()
-    ).then(data => setInitialData(data))
-  },[]);
+  // useEffect(() => {
+  //   fetch('/events').then(
+  //     response => response.json()
+  //   ).then(data => setInitialData(data))
+  // },[]);
   return (
     <div>
       <GeneralView />
