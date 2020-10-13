@@ -63,7 +63,7 @@ class eventDetailedView extends React.Component {
                             </label><br />
                             <label>
                                 Description<br />
-                                <input type="text" name="desc" onChange={this.onChange} id="event-desc" className="event-data" />
+                                <input type="text" name="desc" onChange={this.onChange} id="event-desc" className="event-data" value = {this.props.event.desc}/>
                             </label><br />
 
                             {/* <label for="eventType">Event Type:</label>
@@ -75,17 +75,17 @@ class eventDetailedView extends React.Component {
                         </select> */}
                             <label>
                                 Version:<br />
-                                <input type="text" name="vers" onChange={this.onChange} id="event-version" className="event-data" />
+                                <input type="text" name="vers" onChange={this.onChange} id="event-version" className="event-data" value ={this.props.event.vers}/>
                             </label><br />
 
                             <label>
                                 Assessment Date:<br />
-                                <input type="text" name="assess_date" onChange={this.onChange} id="event-assess-date" className="event-data" />
+                                <input type="text" name="assess_date" onChange={this.onChange} id="event-assess-date" className="event-data" value={this.props.event.assess_date}/>
                             </label><br />
 
                             <label>
                                 Organization Name:<br />
-                                <input type="text" name="org_name" onChange={this.onChange} id="event-org-name" className="event-data" />
+                                <input type="text" name="org_name" onChange={this.onChange} id="event-org-name" className="event-data" value={this.props.event.org_name}/>
                             </label><br />
 
                             {/* <label for="eventClass">Event Classification:</label>
@@ -97,11 +97,11 @@ class eventDetailedView extends React.Component {
                         </select> */}
                             <label>
                                 Declassification Date:<br />
-                                <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" />
+                                <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" value={this.props.event.declass_date}/>
                             </label><br />
                             <label>
                                 Customer Name:<br />
-                                <input type="text" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" />
+                                <input type="text" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" value={this.props.event.customer}/>
                             </label><br />
                             <Button type="submit" className="btn" variant="outline-dark">Sync</Button>
                         </form>
