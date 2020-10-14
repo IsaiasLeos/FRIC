@@ -34,22 +34,28 @@ class setupContentView extends React.Component {
                 <GeneralView />
                 <br/>
                 
+
+
+
                 <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1>
 
                     <form onSubmit={this.onSubmit} style={{textAlign:"center"}}>
                     
                         <br/><br/>
                         <h6>"There is no existing event in your system"</h6>
-                        <input type="text" name="event_name" placeholder="Enter event name" ></input>
-                        <br/><br/>
-                        <h6>Please enter your intials</h6>
-                        <input type="text" name="initials" placeholder="Enter initials" ></input>
+                        <input type="text" name="event_name" id="q1" placeholder="Enter event name" ></input>
                         <br/><br/>
                         
-                        <Link to="Event">
-                        <Button type="submit" classname="btn" variant="outline-dark"> Submit </Button>
-                        </Link> 
+                        <h6>Please enter your intials</h6>
+                        <input type="text" name="initials" id="q2" placeholder="Enter initials" ></input>
+                        <br/><br/>
+                        
+                        <Link to="\events">
+                          <Button type="submit" classname="btn" variant="outline-dark"> Submit </Button>
+                        </Link>                   
+
                     </form>
+
                 
             </div>
         );
