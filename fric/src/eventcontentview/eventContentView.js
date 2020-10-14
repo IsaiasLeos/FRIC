@@ -1,83 +1,9 @@
-// // import * as React from 'react';
-// import React, {useState,useEffect} from 'react';
-// import GeneralView from '../generalView/generalView';
-// import '../assets/css/bootstrap.css';
-// import AddImage from '../assets/add.png';
-// import SortImage from '../assets/updownarrow.png';
-// import Table from 'react-bootstrap/Table';
-// import { Link } from 'react-router-dom';
-
-// class eventContentView extends React.Component { 
-
-//     state = {
-//         events: []
-//     }
-
-//     componentDidMount(){
-//         fetch('/events')
-//         .then(res=> res.json())
-//         .then(eventList => {
-//             this.setState({events : eventList});
-//         });
-//     }
-
-
-    
-//     render() {
-//         return (
-//             <div>
-//                 <GeneralView/>        
-//                 <body>
-//                     <input type="image" src={AddImage} />
-//                     <button type="button">Delete</button>
-//                     <button type="button">Save</button>
-//                     <button type="button">Cancel</button>
-                    
-//                     {/* <ul>
-//                         {this.state.events.map((event) => (
-//                             <li key={event.Title}>{event.name}</li>
-//                         ))}
-//                      </ul> */}
-
-
-
-//                     <Table>
-//                         <tr>
-//                             <th></th>
-//                             <th>Event Name <input type="image" src={SortImage} /></th>
-//                             <th>No. of Systems <input type="image" src={SortImage} /></th>
-//                             <th>No. of Findings <input type="image" src={SortImage} /></th>
-//                             <th>Progress <input type="image" src={SortImage} /></th>
-//                         </tr>
-//                         <div>
-                            
-//                             <tr>
-//                             {this.state.events.map((event) => (
-//                                 <div>
-//                                 <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td>
-//                                 <td>{event.name}</td>
-//                                 <td>{event.num_sys}</td>
-//                                 <td>{event.num_findings}</td>
-//                                 <td>{event.prog}</td>
-//                                 </div>
-//                             ))}
-//                             </tr>
-//                         </div>
-                    
-
-//                     </Table>
-
-//                 </body>
 import * as React from 'react'
 import {useState,useEffect}  from "react";
 import AddImage from '../assets/add.png';
 import SortImage from '../assets/updownarrow.png';
 import Table from 'react-bootstrap/Table';
-
-// import Table, {Thead, Tbody, Tr, Th, Td} from "react-row-select-table";
-
 import {useTable,useRowSelect} from "react-table";
-
 import Tree from '../eventTree/eventTree';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -86,35 +12,44 @@ import Modal from 'react-bootstrap/Modal';
 import EventDetailedView from './eventDetailedView';
 import Event from './EventTable'; 
 import { Link } from 'react-router-dom';
-
-
-
+import SelectEvent from './EventTable';
 
 
 function EventContentView(){
-    const [events,setEvents] = useState([{name: '', num_sys:'',num_findings:'',prog:''}])
+    const [events,setEvents] = useState([{name: '', num_sys:'',num_findings:'',prog:''}]) 
     
     useEffect(() => {
         fetch('/eventsOverview').then(
-        response => response.json()).then(data => setEvents(data))
+        response => response.json()).then(data => setEvents(data)) // Get info for Event Overview Table // 
     },[]);
 
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false); // Close Modal View
+    const handleShow = () => setShow(true); // Open Modal View 
 
-    const [selected_event,selectEvent] = useState({name: '', num_sys:'',num_findings:'',prog:''});
+    const [selected_event,selectEvent] = useState({name: '', num_sys:'',num_findings:'',prog:''}); // Set selected event 
+
+    // After event is chosen make it the selected event and the show modal // 
+    function viewEvent(event){ 
+        selectEvent(event);
+        handleShow();
+    }
+
+    // Before showing modal clear event so there is no prepopulated data // 
+    function addEvent(){
+        selectEvent(0);
+        handleShow();
+    }
 
         return (
-            // <div><Event name={events[0].name}/></div>
             <div>
-                <GeneralView/>
+                <GeneralView/> {/* Tab Bar */ }
                 <div class="main">
                     <div class="title-buttons">
                         <h2>Event Overview Table</h2>
                         <ButtonGroup>
                             <Button variant="dark">Archive</Button>
-                            <input type="image" alt="sort button" src={AddImage} onClick={handleShow} />
+                            <input type="image" alt="sort button" src={AddImage} onClick={addEvent} />
                         </ButtonGroup>
                     </div>
 
@@ -129,18 +64,15 @@ function EventContentView(){
                             </tr>
                         </thead>
                         <tbody>
+                            {/* Populate event table*/ }
                                 {events.map((event) => (
-                                
                                     <tr>
-                                    {/* <td><input type="checkbox" id="cb1" value="event" /> <Link to="/EventDetailed" >Select </Link></td> */}
-                                    <td><Button onClick ={() => {selectEvent(event)}}>Select</Button></td>
-                                    {/* <td></td> */}
+                                    <td><Button onClick ={() => {viewEvent(event)}}>Select</Button></td>
                                     <td>{event.name}</td>
                                     <td>{event.num_sys}</td>
                                     <td>{event.num_findings}</td>
                                     <td>{event.prog}</td>
                                     </tr>
-                            
                                     ))}
                         
                         </tbody>
