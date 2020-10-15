@@ -10,6 +10,15 @@ import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal';
 import EventDetailedView from './eventDetailedView';
 
+function getCurrentDate(separator = '') {
+    let newDate = new Date()
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();  
+    let time = newDate.toTimeString()
+    let check = '';
+    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+}
 
 function EventContentView() {
     const [events, setEvents] = useState([{ name: '', num_sys: '', num_findings: '', prog: '' }])
@@ -27,14 +36,37 @@ function EventContentView() {
 
     // After event is chosen make it the selected event and the show modal // 
     function viewEvent(event) {
+        sendLog('view event')
         selectEvent(event);
         handleShow();
     }
 
     // Before showing modal clear event so there is no prepopulated data // 
     function addEvent() {
+        sendLog("add event")
         selectEvent(0);
         handleShow();
+    }
+
+    function sendLog(a) {
+        let action = {
+            date: getCurrentDate("/"),
+            action: a,
+            analyst: ""
+        }
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
     }
 
     return (
@@ -45,7 +77,7 @@ function EventContentView() {
                     <h2>Event Overview Table</h2>
                     <ButtonGroup>
                         <Button variant="dark">Archive</Button>
-                        <input type="image" alt="sort button" src={AddImage} onClick={addEvent} />
+                        <Button variant="dark" onClick={addEvent}>Add</Button>
                     </ButtonGroup>
                 </div>
 
@@ -63,8 +95,8 @@ function EventContentView() {
                         {/* Populate event table*/}
                         {events.map((event) => (
                             <tr>
-                                <td><Button onClick={() => { viewEvent(event) }}>Select</Button></td>
-                                <td>{event.name}</td>
+                                <td><input type="checkbox" id="cb1" /></td>
+                                <td><Button variant="outline-dark" onClick={() => { viewEvent(event) }}>{event.name}</Button></td>
                                 <td>{event.num_sys}</td>
                                 <td>{event.num_findings}</td>
                                 <td>{event.prog}</td>

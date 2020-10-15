@@ -9,10 +9,17 @@ import Button from 'react-bootstrap/Button'
 import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Tree from '../eventTree/eventTree'
-import AddImage from '../assets/add.png'
 import { useEffect } from "react";
+function getCurrentDate(separator = '') {
+    let newDate = new Date()
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();  
+    let time = newDate.toTimeString()
+    let check = '';
+    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+}
 function SystemContentView() {
-
     const [systems, setSystems] = useState([{ name: '', num_task: '', num_findings: '', prog: '' }])
     useEffect(() => {
         fetch('/systems').then(
@@ -26,12 +33,36 @@ function SystemContentView() {
     const [selected_system, selectedSystem] = useState({ name: '', num_task: '', num_findings: '', prog: '' }); // Set selected event 
 
     function viewSystem(system) {
+        sendLog("view system");
         selectedSystem(system);
         handleShow();
     }
 
+    function sendLog(a) {
+        let action = {
+            date: getCurrentDate("/"),
+            action: a,
+            analyst: ""
+        }
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+    }
+
+
 
     function addSystem() {
+        sendLog("add system");
         selectedSystem(0);
         handleShow();
     }
@@ -44,8 +75,8 @@ function SystemContentView() {
                         <div className="title-buttons">
                             <h2>System Overview Table</h2>
                             <ButtonGroup dialogClassName="title-system-buttons">
-                                <Button variant="dark" src={AddImage} >Archive</Button>
-                                <Button variant="dark" src={AddImage} onClick={addSystem}>Add</Button>
+                                <Button variant="dark" >Archive</Button>
+                                <Button variant="dark" onClick={addSystem}>Add</Button>
                             </ButtonGroup>
                         </div>
                         <Table bordered hover striped>
