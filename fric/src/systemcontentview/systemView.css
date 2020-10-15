@@ -5,3 +5,10 @@
 .right-input-group {
     float: left;
 }
+
+.button-input-group {
+    margin-top: 10px;
+    display: flex;
+
+}
+

@@ -31,6 +31,7 @@ def eventsOverview():
         num_sys = len(systems_json)
 
         events_json.append({"name": e["Event_name"],"desc":e["Description"],"type":e["Type"],"version":e["Version"],"assess_date":e["Assessment_date"],"org_name": e["Org_name"],"event_class":e["Event_class"],"declass_date":e["Declass_date"],"customer":e["Customer_name"], "num_sys": num_sys,"num_findings" : num_finds,"prog":e['Progress']})
+    print(events_json)
     return jsonify(events_json)
 
 
@@ -53,7 +54,7 @@ def systems():
     system_json = []
 
     for e in mycollection.find():
-        system_json.append({"sysInfo": e['System_Info'], "num_task": e['Num_task'],"num_findings" : e['Num_findings'],"prog":e['Progress']})
+        system_json.append({"sysInfo": e['System_Info'], "sysDesc": e['System_Description'],"sysLoc": e['System_Location'], "sysRouter": e['System_Router'], "sysSwitch": e['System_Switch'],  "sysRoom": e['System_Room'], "sysTestPlan": e['Test_Plan'], "Confidentiality": e['Confidentiality'], "Integrity": e['Integrity'], "Availability": e['Availability'], "num_task": e['Num_task'],"num_findings" : e['Num_findings'],"prog":e['Progress']})
     return jsonify(system_json)
    
 
@@ -64,6 +65,16 @@ def addSystems():
     mycollection = mydb["system"]
 
     req = request.get_json()
-    system = {"System_Info" : req['sysInfo'], "System_Description" : req['sysDesc'], "System_Location" : req['sysLoc'], "System_Router" : req['sysRouter'], "System_Switch" : req['sysSwitch'], "Test_Plan" : req['sysTestPlan'], "Confidentiality" : req['Confidentiality'], "Integrity" : req['Integrity'], "Availability" : req['Availability'], "Num_task" : 13, "Num_findings" : 10, "Progress" : "Assigned", "Event": "Event 1"}
+    system = {"System_Info" : req['sysInfo'], "System_Description" : req['sysDesc'], "System_Location" : req['sysLoc'], "System_Router" : req['sysRouter'], "System_Switch" : req['sysSwitch'], "System_Room" : req['sysRoom'], "Test_Plan" : req['sysTestPlan'], "Confidentiality" : req['Confidentiality'], "Integrity" : req['Integrity'], "Availability" : req['Availability'], "Num_task" : 13, "Num_findings" : 10, "Progress" : "Assigned", "Event": "Event 1"}
     mycollection.insert_one(system)
+
+@app.route('/addlog',methods=['POST'])
+def addLog():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["logs"]
+
+    req = request.get_json()
+    log = {"Date_Time" : req['date'], "Action_Performed" : req['action'], "Analyst" : req['analyst']}
+    mycollection.insert_one(log)
     
