@@ -4,12 +4,14 @@ import GeneralView from '../generalView/generalView';
 import '../assets/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
 import EventView from '../eventcontentview/eventContentView'
+import { Link } from 'react-router-dom';
 
 function getCurrentDate(separator = '') {
   let newDate = new Date()
   let day = newDate.getDate();
   let month = newDate.getMonth() + 1;
   let year = newDate.getFullYear();
+  let check = '';
   return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year}`
 }
 
@@ -34,17 +36,12 @@ class setupContentView extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  //transferView = (e){
-
-  //}
-
   checkEvent = (e) => {
     fetch('/eventsOverview').then(
     response => response.json()).then(data => this.setState(data))
     console.log(this.state.name) 
-    if(this.state.length == 0)
-      {this.handle = true}
-    else{this.handle = false}
+    if(this.state.data.name.length > 0){this.handle = false}
+    else{this.handle = true}
   }
 
   onSubmit = (e) => {
@@ -52,6 +49,7 @@ class setupContentView extends React.Component {
     this.action.action = "submit event";
     this.action.date = getCurrentDate("/");
     this.action.analyst = "";
+    this.check = true;
     
     fetch('/addlog', {
       method: 'POST',
@@ -66,22 +64,31 @@ class setupContentView extends React.Component {
       .catch(error => {
         console.error('Error', error)
       });
-
+    
     fetch('/addevent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      
       body: JSON.stringify(this.state), 
     }).then(response => response.json())
       .then(data => {
+        
         console.log("Success", data);
       })
       .catch(error => {
         console.error('Error', error)
       });
-
+      //if (this.check == true) {this.moveEvent};
   }
+
+  moveEvent() {
+    
+      return <Link to="/Event"> Moving </Link>
+  }
+  
+  
 
 
   render() {
@@ -96,7 +103,7 @@ class setupContentView extends React.Component {
         </form>
         
         
-        <form style={{ textAlign: "center" }} onSubmit={this.onSubmit}>
+        <form style={{ textAlign: "center" }} onSubmit={this.onSubmit} >
           <br/><br/><label>
             <h6>There is no existing event in your system </h6>
             <input type="text" placeholder="e.g. Event1" name="name" onChange={this.onChange} id="event-title" className="event-data" />
@@ -107,10 +114,10 @@ class setupContentView extends React.Component {
             <input type="text" placeholder="e.g. AC:" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" />
           </label>
           <br /><br />
-          <Button type="submit" className="btn" transferView={this.transferView}variant="outline-dark">Submit</Button>
+          <Button type="submit" className="btn"  variant="outline-dark">Submit</Button> <br/><br/>
+           
+          <Button type="submit" className="btn" a href="/Event" variant="outline-dark" >Temp to move to next page</Button>
         </form>
-        <Button type="submit" className="btn" a href="/Event" variant="outline-dark" >Temp to move to next page</Button>
-        
       </div>
     );
   }
