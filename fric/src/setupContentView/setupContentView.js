@@ -1,76 +1,127 @@
-import * as React from 'react'
-import 'react-bootstrap'
-import GeneralView from '../generalView/generalView'
-import '../assets/css/bootstrap.css'
-import { Link } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
-//import '../eventcontentview/eventcontentview'
-class setupContentView extends React.Component{
-   
-    //constructor() {
-     // super();
-     // this.state = [{name: '', desc: ' ', type: '', vers: '', assess_date: '', org_name: '', event_class: '', declass_date: '', customer_name: ''}]
-    //}
+import * as React from 'react';
+import 'react-bootstrap';
+import GeneralView from '../generalView/generalView';
+import '../assets/css/bootstrap.css';
+import Button from 'react-bootstrap/Button';
+import EventView from '../eventcontentview/eventContentView'
+import { Link } from 'react-router-dom';
 
-  //checkEvent = (e) => {
-    //fetch('/eventsOverview').then(
-    //response => response.json()).then(data => this.setState(data))
-    //console.log(this.state.name) 
+function getCurrentDate(separator = '') {
+  let newDate = new Date()
+  let day = newDate.getDate();
+  let month = newDate.getMonth() + 1;
+  let year = newDate.getFullYear();
+  let check = '';
+  return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year}`
+}
 
-    //if(this.state.length == 0){
-      //this.handle = true
+
+class setupContentView extends React.Component {
+  constructor() {
+    
+    super();
+    this.state = { name: '', desc: '', type: '', vers: '', assess_date: '', org_name: '', event_class: '', declass_date: '', customer_name: '' };
+    this.action = {date: "", action: "",manalyst: ""};
+  }
+
+
+  handleEventType(e) {
+    console.log(e.target.value); // Get value from select tag // 
+  }
+  handleEventClass(e) {
+    console.log(e.target.value); // Get value from select tag // 
+  }
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  checkEvent = (e) => {
+    fetch('/eventsOverview').then(
+    response => response.json()).then(data => this.setState(data))
+    console.log(this.state.name) 
+    if(this.state.data.name.length > 0){this.handle = false}
+    else{this.handle = true}
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.action.action = "submit event";
+    this.action.date = getCurrentDate("/");
+    this.action.analyst = "";
+    this.check = true;
+    
+    fetch('/addlog', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.action),
+    }).then(response => response.json())
+      .then(data => {
+        console.log("Success", data);
+      })
+      .catch(error => {
+        console.error('Error', error)
+      });
+    
+    fetch('/addevent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       
-    //}
-    //else{
-      //this.handle = false
-      
-    //}
-  //}
-  
-
-  //submitEvent = (e) => {
-    //fetch('/addevent', {
-      //method: 'POST',
-      //headers: {
-        //  'Content-Type': 'application/json',
-      //},
-      //body: JSON.stringify({name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name }),
-    //})
-  //}
-    //const { name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name } = this.state;
-    // <form handle={this.handle} style={{textAlign:"center"}}>
-    //               <h4> No events: Please Enter </h4>
-    //           </form>
-    render(){
+      body: JSON.stringify(this.state), 
+    }).then(response => response.json())
+      .then(data => {
         
-        return (
-            <div>
-            
-              <GeneralView /><br/>
-              <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1>
+        console.log("Success", data);
+      })
+      .catch(error => {
+        console.error('Error', error)
+      });
+      //if (this.check == true) {this.moveEvent};
+  }
 
-           
-              <form  style={{textAlign:"center"}} >
-               
-                <br/><br/><h6>"There is no existing event in your system"</h6>
-                <input type="text" name="name" id="q2" placeholder="Enter events" ></input>
-                
-              
-                <br/><br/><h6>Please enter your intials</h6>
-                <input type="text" name="initials" id="q2" placeholder="Enter initials" ></input>
-                <br/><br/>
-
-                <Link to="/Event">           
-                  <Button type="submit" classname="btn" variant="outline-dark" > Submit </Button>
-                </Link>
-                
-              
-              </form> 
- 
-            </div> 
-          );
-        }
+  moveEvent() {
+    
+      return <Link to="/Event"> Moving </Link>
   }
   
   
-  export default setupContentView;
+
+
+  render() {
+    return (
+      <div>
+        <GeneralView /><br/>
+        <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1> <br/>
+
+        
+        <form style={{ textAlign: "center" }} checkEvent={this.checkEvent}>
+          <h4> No events: Please enter </h4>
+        </form>
+        
+        
+        <form style={{ textAlign: "center" }} onSubmit={this.onSubmit} >
+          <br/><br/><label>
+            <h6>There is no existing event in your system </h6>
+            <input type="text" placeholder="e.g. Event1" name="name" onChange={this.onChange} id="event-title" className="event-data" />
+          </label>
+          <br /><br />
+          <label>
+            <h6>Please enter your intials</h6>
+            <input type="text" placeholder="e.g. AC:" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" />
+          </label>
+          <br /><br />
+          <Button type="submit" className="btn"  variant="outline-dark">Submit</Button> <br/><br/>
+           
+          <Button type="submit" className="btn" a href="/Event" variant="outline-dark" >Temp to move to next page</Button>
+        </form>
+      </div>
+    );
+  }
+}
+
+
+export default setupContentView;
