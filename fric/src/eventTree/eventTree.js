@@ -1,38 +1,27 @@
 import * as React from 'react'
-import "./eventTree.css";
-
+import TreeView from '@material-ui/lab/TreeView';
+import TreeItem from '@material-ui/lab/TreeItem';
 class eventTree extends React.Component {
     render() {
         return (
-            <div id="tree">
-                <ul>
-                    <li className="menu"><span a >Event</span>
-                        <ul className="submenu">
-                            <li className="menu"><span>System 1</span>
-                                <ul className="submenu">
-                                    <li className="menu"><span>Task 1</span>
-                                        <ul className="submenu">
-                                            <li className="menu"><span>Subtask</span> 
-                                                <ul className="submenu">
-                                                    <li>Finding 1</li>
-                                                    <li>Finding 2</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li className="menu"><span>Task 2</span>
-                                        <ul className="submenu">
-                                        <li>Finding 3</li>
-                                        </ul>
-                                    </li>
-                                    <li>Finding 4</li>
-                                </ul>
-                            </li>
-                            <li>System 2</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+            <TreeView>
+                <TreeItem nodeId="1" label="Event">
+                    <TreeItem nodeId="2" label="System 1">
+                        <TreeItem nodeId="3" label="Task 1">
+                            <TreeItem nodeId="4" label="Subtask 1">
+                                <TreeItem nodeId="5" label="Finding 1"/>
+                                <TreeItem nodeId="6" label="Finding 2"/>
+                            </TreeItem>
+                            <TreeItem nodeId="7" label="Subtask 2"/>
+                        </TreeItem>
+                        <TreeItem nodeId="8" label="Task 2">
+                            <TreeItem nodeId="9" label="Finding 3"/>
+                        </TreeItem>
+                        <TreeItem nodeId="10" label="Finding 4"/>
+                    </TreeItem>
+                    <TreeItem nodeId="11" label="System 2"></TreeItem>
+                </TreeItem>
+            </TreeView>
         );
     }
 }
