@@ -7,10 +7,25 @@ import Button from 'react-bootstrap/Button';
 import '../assets/css/bootstrap.css';
 import './eventView.css';
 
+function getCurrentDate(separator = '') {
+    let newDate = new Date()
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year}`
+}
+
 class eventDetailedView extends React.Component {
+
+
     constructor() {
         super();
         this.state = { name: '', desc: '', type: '', vers: '', assess_date: '', org_name: '', event_class: '', declass_date: '', customer_name: '' };
+        this.action = {
+            date: "",
+            action: "",
+            analyst: ""
+        };
     }
 
     handleEventType(e) {
@@ -23,8 +38,28 @@ class eventDetailedView extends React.Component {
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
+
+
+
+
     onSubmit = (e) => {
         e.preventDefault();
+        this.action.action = "submit event";
+        this.action.date = getCurrentDate("/");
+        this.action.analyst = "";
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.action),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
 
         fetch('/addevent', {
             method: 'POST',

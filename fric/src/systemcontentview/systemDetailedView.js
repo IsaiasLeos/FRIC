@@ -1,6 +1,13 @@
 import * as React from 'react';
 import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+
+function getCurrentDate(separator = '') {
+    let newDate = new Date()
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year}`
+}
 
 class systemDetailedView extends React.Component {
     constructor() {
@@ -20,6 +27,11 @@ class systemDetailedView extends React.Component {
             num_findings: "",
             progress: ""
         };
+        this.action = {
+            date: "",
+            action: "",
+            analyst: ""
+        }
     }
     handleEventType(e) {
         console.log(e.target.value);
@@ -32,6 +44,9 @@ class systemDetailedView extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
     }
     onSubmit = (e) => {
+        this.action.action = "submit system";
+        this.action.date = getCurrentDate("/");
+        this.action.analyst = "";
         e.preventDefault();
         fetch('/addsystem', {
             method: 'POST',
@@ -39,6 +54,19 @@ class systemDetailedView extends React.Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(this.state),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.action),
         }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
@@ -96,15 +124,13 @@ class systemDetailedView extends React.Component {
                                 <option >High</option>
                             </select>
                         </div>
-                    &nbsp;
-                    <div class="left-input-group">
-                            <br />
+
+                        <div class="button-input-group">
                             <form onSubmit> {/*For some reason, this closes the modal*/}
                                 <Button variant="outline-dark" type="submit" class="btn cancel">Cancel </Button>
                             </form>
                             <Button variant="outline-dark" type="submit" class="btn">Submit </Button>
                         </div>
-
                     </form>
                 </div>
 

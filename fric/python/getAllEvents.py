@@ -66,4 +66,14 @@ def addSystems():
     req = request.get_json()
     system = {"System_Info" : req['sysInfo'], "System_Description" : req['sysDesc'], "System_Location" : req['sysLoc'], "System_Router" : req['sysRouter'], "System_Switch" : req['sysSwitch'], "System_Room" : req['sysRoom'], "Test_Plan" : req['sysTestPlan'], "Confidentiality" : req['Confidentiality'], "Integrity" : req['Integrity'], "Availability" : req['Availability'], "Num_task" : 13, "Num_findings" : 10, "Progress" : "Assigned", "Event": "Event 1"}
     mycollection.insert_one(system)
+
+@app.route('/addlog',methods=['POST'])
+def addLog():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["logs"]
+
+    req = request.get_json()
+    log = {"Date_Time" : req['date'], "Action_Performed" : req['action'], "Analyst" : req['analyst']}
+    mycollection.insert_one(log)
     
