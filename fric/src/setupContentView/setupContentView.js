@@ -25,7 +25,6 @@ class setupContentView extends React.Component {
       .then(data => {console.log("Success", data);})
       .then(error => {console.error('Error', error)});
       }
-       
     
     render() {
         const{initials, event_name} = this.state;
@@ -33,9 +32,6 @@ class setupContentView extends React.Component {
             <div>
                 <GeneralView />
                 <br/>
-                
-
-
 
                 <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1>
 
