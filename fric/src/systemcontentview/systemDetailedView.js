@@ -1,6 +1,7 @@
-import * as React from 'react'
-import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import * as React from 'react';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+
 class systemDetailedView extends React.Component {
     constructor() {
         super();
@@ -20,20 +21,24 @@ class systemDetailedView extends React.Component {
             progress: ""
         };
     }
-
+    handleEventType(e) {
+        console.log(e.target.value);
+    }
+    handleEventClass(e) {
+        console.log(e.target.value);
+    }
 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
     onSubmit = (e) => {
         e.preventDefault();
-        const { sysInfo, sysDesc, sysLoc, sysRouter, sysSwitch, sysRoom, sysTestPlan, Confidentiality, Integrity, Availability, num_task, num_findings, progress } = this.state;
         fetch('/addsystem', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ sysInfo, sysDesc, sysLoc, sysRouter, sysSwitch, sysRoom, sysTestPlan, Confidentiality, Integrity, Availability, num_task, num_findings, progress }),
+            body: JSON.stringify(this.state),
         }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
@@ -49,26 +54,26 @@ class systemDetailedView extends React.Component {
                 <div class="input-group">
                     <form class="input-form" onSubmit={this.onSubmit}>
                         <div class="left-input-group">
-                            <input type="text" value={this.state.sysInfo} onChange={this.onChange} name="sysInfo" class="form-control browser-default mr-3" placeholder="System Information" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
+                            <input type="text" value={this.props.system.sysInfo} onChange={this.onChange} name="sysInfo" class="form-control browser-default mr-3" placeholder="System Information" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
                         &nbsp;
-                        <textarea type="text" value={this.state.sysDesc} onChange={this.onChange} name="sysDesc" class="form-control mr-3" placeholder="System Description" aria-label="System Description" aria-describedby="basic-addon2"></textarea>
+                        <textarea type="text" value={this.props.system.sysDesc} onChange={this.onChange} name="sysDesc" class="form-control mr-3" placeholder="System Description" aria-label="System Description" aria-describedby="basic-addon2"></textarea>
                         &nbsp;
-                        <input type="text" value={this.state.sysLoc} onChange={this.onChange} name="sysLoc" class="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
+                        <input type="text" value={this.props.system.sysLoc} onChange={this.onChange} name="sysLoc" class="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
                         &nbsp;
                         </div>
                         <div class="right-input-group">
-                            <input type="text" value={this.state.sysRouter} onChange={this.onChange} name="sysRouter" class="form-control mr-3" placeholder="System Router" aria-label="System Router" aria-describedby="basic-addon2"></input>
+                            <input type="text" value={this.props.system.sysRouter} onChange={this.onChange} name="sysRouter" class="form-control mr-3" placeholder="System Router" aria-label="System Router" aria-describedby="basic-addon2"></input>
                         &nbsp;
-                        <input type="text" value={this.state.sysSwitch} onChange={this.onChange} name="sysSwitch" class="form-control mr-3" placeholder="System Switch" aria-label="System Switch" aria-describedby="basic-addon2"></input>
+                        <input type="text" value={this.props.system.sysSwitch} onChange={this.onChange} name="sysSwitch" class="form-control mr-3" placeholder="System Switch" aria-label="System Switch" aria-describedby="basic-addon2"></input>
                         &nbsp;
-                        <input type="text" value={this.state.sysRoom} onChange={this.onChange} name="sysRoom" class="form-control mr-3" placeholder="System Room" aria-label="System Room" aria-describedby="basic-addon2"></input>
+                        <input type="text" value={this.props.system.sysRoom} onChange={this.onChange} name="sysRoom" class="form-control mr-3" placeholder="System Room" aria-label="System Room" aria-describedby="basic-addon2"></input>
                         &nbsp;
-                        <input type="text" value={this.state.sysTestPlan} onChange={this.onChange} name="sysTestPlan" class="form-control mr-3" placeholder="Test Plan" aria-label="Test Plan" aria-describedby="basic-addon2"></input>
+                        <input type="text" value={this.props.system.sysTestPlan} onChange={this.onChange} name="sysTestPlan" class="form-control mr-3" placeholder="Test Plan" aria-label="Test Plan" aria-describedby="basic-addon2"></input>
                         &nbsp;
                         </div>
                         <h3>System Categorization</h3>
                         <div class="btn-group">
-                            <select class="browser-default custom-select mr-3">
+                            <select class="browser-default custom-select mr-3" name="Confidentiality" onChange={this.onChange} value={this.props.system.Confidentiality}>
                                 <option selected>Confidentiality</option>
                                 <option >Low</option>
                                 <option >Medium</option>
@@ -76,7 +81,7 @@ class systemDetailedView extends React.Component {
                             </select>
                         </div>
                         <div class="btn-group">
-                            <select class="browser-default custom-select mr-3">
+                            <select class="browser-default custom-select mr-3" name="Integrity" onChange={this.onChange} value={this.props.system.Integrity}>
                                 <option selected>Integrity</option>
                                 <option >Low</option>
                                 <option >Medium</option>
@@ -84,7 +89,7 @@ class systemDetailedView extends React.Component {
                             </select>
                         </div>
                         <div class="btn-group">
-                            <select class="browser-default custom-select mr-3">
+                            <select class="browser-default custom-select mr-3" name="Availability" onChange={this.onChange} value={this.props.system.Availability}>
                                 <option selected>Availability</option>
                                 <option >Low</option>
                                 <option >Medium</option>
@@ -92,12 +97,12 @@ class systemDetailedView extends React.Component {
                             </select>
                         </div>
                     &nbsp;
-                    <div>
+                    <div class="left-input-group">
                             <br />
-                            <ButtonGroup>
-                                <Button variant="outline-dark">Cancel </Button>
-                                <Button variant="outline-dark" type="submit">Submit </Button>
-                            </ButtonGroup>
+                            <form onSubmit> {/*For some reason, this closes the modal*/}
+                                <Button variant="outline-dark" type="submit" class="btn cancel">Cancel </Button>
+                            </form>
+                            <Button variant="outline-dark" type="submit" class="btn">Submit </Button>
                         </div>
 
                     </form>
