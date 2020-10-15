@@ -4,7 +4,7 @@ import TreeItem from '@material-ui/lab/TreeItem';
 class eventTree extends React.Component {
     render() {
         return (
-            <TreeView>
+            <TreeView>  
                 <TreeItem nodeId="1" label="Event">
                     <TreeItem nodeId="2" label="System 1">
                         <TreeItem nodeId="3" label="Task 1">
