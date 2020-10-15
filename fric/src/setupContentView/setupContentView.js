@@ -1,66 +1,76 @@
 import * as React from 'react'
 import 'react-bootstrap'
-import GeneralView from '../generalView/generalView';
+import GeneralView from '../generalView/generalView'
 import '../assets/css/bootstrap.css'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-class setupContentView extends React.Component {
-    constructor(){
-      super();
-      this.state = {
-        initials: "",
-        event_name: "",
-      };
-    }
-    onSubmit = (e) => {
-      e.preventDefault();
-      const{initials, event_name} = this.state;
-      fetch('/event', {
-        method: 'POST',
-        headers: {
-          'Content-Type' : 'application/json',
-        },
-        body: JSON.stringify({initials, event_name}),
-      }).then(response => response.json())
-      .then(data => {console.log("Success", data);})
-      .then(error => {console.error('Error', error)});
-      }
-       
-    
-    render() {
-        const{initials, event_name} = this.state;
+//import '../eventcontentview/eventcontentview'
+class setupContentView extends React.Component{
+   
+    //constructor() {
+     // super();
+     // this.state = [{name: '', desc: ' ', type: '', vers: '', assess_date: '', org_name: '', event_class: '', declass_date: '', customer_name: ''}]
+    //}
+
+  //checkEvent = (e) => {
+    //fetch('/eventsOverview').then(
+    //response => response.json()).then(data => this.setState(data))
+    //console.log(this.state.name) 
+
+    //if(this.state.length == 0){
+      //this.handle = true
+      
+    //}
+    //else{
+      //this.handle = false
+      
+    //}
+  //}
+  
+
+  //submitEvent = (e) => {
+    //fetch('/addevent', {
+      //method: 'POST',
+      //headers: {
+        //  'Content-Type': 'application/json',
+      //},
+      //body: JSON.stringify({name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name }),
+    //})
+  //}
+    //const { name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name } = this.state;
+    // <form handle={this.handle} style={{textAlign:"center"}}>
+    //               <h4> No events: Please Enter </h4>
+    //           </form>
+    render(){
+        
         return (
             <div>
-                <GeneralView />
-                <br/>
+            
+              <GeneralView /><br/>
+              <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1>
+
+           
+              <form  style={{textAlign:"center"}} >
+               
+                <br/><br/><h6>"There is no existing event in your system"</h6>
+                <input type="text" name="name" id="q2" placeholder="Enter events" ></input>
                 
+              
+                <br/><br/><h6>Please enter your intials</h6>
+                <input type="text" name="initials" id="q2" placeholder="Enter initials" ></input>
+                <br/><br/>
 
-
-
-                <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1>
-
-                    <form onSubmit={this.onSubmit} style={{textAlign:"center"}}>
-                    
-                        <br/><br/>
-                        <h6>"There is no existing event in your system"</h6>
-                        <input type="text" name="event_name" id="q1" placeholder="Enter event name" ></input>
-                        <br/><br/>
-                        
-                        <h6>Please enter your intials</h6>
-                        <input type="text" name="initials" id="q2" placeholder="Enter initials" ></input>
-                        <br/><br/>
-                        
-                        <Link to="\events">
-                          <Button type="submit" classname="btn" variant="outline-dark"> Submit </Button>
-                        </Link>                   
-
-                    </form>
-
+                <Link to="/Event">           
+                  <Button type="submit" classname="btn" variant="outline-dark" > Submit </Button>
+                </Link>
                 
-            </div>
-        );
-    }
-}
-
-
-export default setupContentView;
+              
+              </form> 
+ 
+            </div> 
+          );
+        }
+  }
+  
+  
+  export default setupContentView;

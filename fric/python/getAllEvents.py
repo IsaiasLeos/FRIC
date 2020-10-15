@@ -31,6 +31,7 @@ def eventsOverview():
         num_sys = len(systems_json)
 
         events_json.append({"name": e["Event_name"],"desc":e["Description"],"type":e["Type"],"version":e["Version"],"assess_date":e["Assessment_date"],"org_name": e["Org_name"],"event_class":e["Event_class"],"declass_date":e["Declass_date"],"customer":e["Customer_name"], "num_sys": num_sys,"num_findings" : num_finds,"prog":e['Progress']})
+    print(events_json)
     return jsonify(events_json)
 
 
