@@ -18,12 +18,10 @@ function getCurrentDate(separator = '') {
 
 class setupContentView extends React.Component {
   constructor() {
-    
     super();
     this.state = { name: '', desc: '', type: '', vers: '', assess_date: '', org_name: '', event_class: '', declass_date: '', customer_name: '' };
     this.action = {date: "", action: "",manalyst: ""};
   }
-
 
   handleEventType(e) {
     console.log(e.target.value); // Get value from select tag // 
@@ -35,22 +33,13 @@ class setupContentView extends React.Component {
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
-
-  checkEvent = (e) => {
-    fetch('/eventsOverview').then(
-    response => response.json()).then(data => this.setState(data))
-    console.log(this.state.name) 
-    if(this.state.data.name.length > 0){this.handle = false}
-    else{this.handle = true}
-  }
-
   onSubmit = (e) => {
     e.preventDefault();
     this.action.action = "submit event";
     this.action.date = getCurrentDate("/");
     this.action.analyst = "";
-    this.check = true;
-    
+    this.props.history.push('/Event');
+
     fetch('/addlog', {
       method: 'POST',
       headers: {
@@ -74,33 +63,42 @@ class setupContentView extends React.Component {
       body: JSON.stringify(this.state), 
     }).then(response => response.json())
       .then(data => {
-        
+        // this.props.history.push('/Events');
         console.log("Success", data);
       })
       .catch(error => {
         console.error('Error', error)
       });
-      //if (this.check == true) {this.moveEvent};
+      
   }
 
-  moveEvent() {
-    
-      return <Link to="/Event"> Moving </Link>
+  checkEvent = (e) => {
+    fetch('/eventsOverview').then(
+    response => response.json()).then(data => this.setState(data))
+    console.log(this.state.name)
+    if (this.state.name.length == 0){
+      this.setState({noData : true})
+    }
+    else{
+      this.setState({noData : false})
+    }
   }
   
-  
+ 
+    
 
 
   render() {
+    const noEvent = this.checkEvent.noData;
     return (
       <div>
         <GeneralView /><br/>
         <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1> <br/>
+             
 
-        
-        <form style={{ textAlign: "center" }} checkEvent={this.checkEvent}>
-          <h4> No events: Please enter </h4>
-        </form>
+        <div> 
+         <h4 style={{textAlign: "center" }}> {noEvent ? 'Events Available' : ' No Events Available'} </h4>
+        </div>
         
         
         <form style={{ textAlign: "center" }} onSubmit={this.onSubmit} >
@@ -114,9 +112,7 @@ class setupContentView extends React.Component {
             <input type="text" placeholder="e.g. AC:" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" />
           </label>
           <br /><br />
-          <Button type="submit" className="btn"  variant="outline-dark">Submit</Button> <br/><br/>
-           
-          <Button type="submit" className="btn" a href="/Event" variant="outline-dark" >Temp to move to next page</Button>
+          <Button type="submit" className="btn"  variant="outline-dark" moveEvent={this.moveEvent=true}>Submit</Button> <br/><br/>
         </form>
       </div>
     );
