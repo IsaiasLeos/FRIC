@@ -43,6 +43,11 @@ function GeneralView() {
                         <li class="nav-item">
                             <a class="nav-link" href="/Help">Help</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Notify"> Notification </a>
+                        </li>
+
+
                     </ul>
                     <form class="form-inline my-2 my-md-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
