@@ -10,7 +10,7 @@ import systemContentView from './systemcontentview/systemContentView';
 import findingContentView from './findingscontentview/findingContentView';
 import subtaskContentView from './subtaskContentView/subtaskContentView';
 import archiveContentView from './archivecontentview/archiveContentView';
-import configurationContentView from './configurationcontentview/configurationContentView'
+import configurationContentView from './configurationContentView/configurationContentView'
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'
@@ -18,6 +18,7 @@ import setupContentView from './setupContentView/setupContentView.js';
 import helpView from './helpView/helpView.js';
 import eventTree from './eventTree/eventTree';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
+import notification from './notificationView/notification.js';
 
 import SelectEvent from './eventcontentview/EventTable'; // Event specific info
 
@@ -44,6 +45,8 @@ ReactDOM.render(
     <Route exact path="/Setup" component={setupContentView} />
     <Route exact path="/Help" component={helpView} />
     <Route exact path="/Tree" component={eventTree} />
+    <Route exact path="/Notify" component={notification} />
+
   </Router>,
   document.getElementById('root')
 

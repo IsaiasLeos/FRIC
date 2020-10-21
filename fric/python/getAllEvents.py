@@ -11,23 +11,27 @@ def eventsOverview():
     myEventCollection = mydb["event"]
     mySystemCollection = mydb["system"]
     myFindingCollection  = mydb["finding"]
-    
-    events_json = []
-    findings_json = []
-    systems_json = [] 
 
-    #Get number of Findings
-    for f in myFindingCollection.find({"Event":"Event 1"}): 
-        findings_json.append({"host_name":f["host_name"],"Event":f["Event"]})
-    num_finds = len(findings_json)
-    #Get number of systems 
-    for s in mySystemCollection.find({"Event":"Event 1"}): 
-        systems_json.append({"System_info":s["System_Info"],"Event":s["Event"]})
-    num_sys = len(systems_json)
+    events_json = []
 
     # Event Overview Information 
     for e in myEventCollection.find():
-        events_json.append({"name": e['Event_name'],"desc":e["Description"],"type":e["Type"],"version":e["Version"],"assess_date":e["Assessment_date"],"org_name": e["Org_name"],"event_class":e["Event_class"],"declass_date":e["Declass_date"],"customer":e["Customer_name"], "num_sys": num_sys,"num_findings" : num_finds,"prog":e['Progress']})
+        # Reset counters after every event
+        findings_json = []
+        systems_json = []
+
+        #Get number of Findings
+        for f in myFindingCollection.find({"Event":e['Event_name']}): 
+            findings_json.append({"host_name":f["host_name"],"Event":f["Event"]})
+        num_finds = len(findings_json)
+
+        #Get number of systems 
+        for s in mySystemCollection.find({"Event":e['Event_name']}): 
+            systems_json.append({"System_info":s["System_Info"],"Event":s["Event"]})
+        num_sys = len(systems_json)
+
+        events_json.append({"name": e["Event_name"],"desc":e["Description"],"type":e["Type"],"version":e["Version"],"assess_date":e["Assessment_date"],"org_name": e["Org_name"],"event_class":e["Event_class"],"declass_date":e["Declass_date"],"customer":e["Customer_name"], "num_sys": num_sys,"num_findings" : num_finds,"prog":e['Progress']})
+    print(events_json)
     return jsonify(events_json)
 
 
@@ -38,6 +42,7 @@ def addEvent():
     mycollection = mydb["event"]
 
     req = request.get_json()
+    print(req)
     event = {"Event_name" : req['name'], "Description" : req['desc'], "Type" : req['type'], "Version" : req['vers'], "Assessment_date" : req['assess_date'], "Org_name" : req['org_name'], "Event_class" : req['event_class'], "Declass_date" : req['declass_date'], "Customer_name" : req['customer_name'], "Num_systems" : 13, "Num_findings" : 10, "Progress" : "33%"}
     mycollection.insert_one(event)
 

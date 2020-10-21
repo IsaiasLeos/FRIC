@@ -8,37 +8,30 @@ import '../assets/css/bootstrap.css';
 import './eventView.css';
 
 class eventDetailedView extends React.Component {
-
-    // render() {
-    //     return <h1>Hello again, {this.props.event.num_sys}</h1>;
-    //   }
-
-    constructor() {
-        super();
-        this.state = {
-            name: " ",
-            desc: "",
-            type: "",
-            vers: "",
-            assess_date: "",
-            org_name: "",
-            event_class: "",
-            declass_date: "",
-            customer_name: "",
-        };
+    constructor(props){
+        super(props);
+        this.state = {name:'', desc:'', type:'', vers:'', assess_date:'', org_name:'', event_class:'', declass_date:'', customer_name:''};
     }
+
+    handleEventType(e) {
+        console.log(e.target.value); // Get value from select tag // 
+    }
+    handleEventClass(e) {
+        console.log(e.target.value); // Get value from select tag // 
+    }
+
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
     onSubmit = (e) => {
         e.preventDefault();
-        const { name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name } = this.state;
+        
         fetch('/addevent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name }),
+            body: JSON.stringify(this.state), //{ name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name } 
         }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
@@ -49,7 +42,34 @@ class eventDetailedView extends React.Component {
     }
 
     render() {
-        const { name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name } = this.state;
+        const eventTypes = [
+            {
+                label: "Type A",
+                value: "Type A"
+            },
+            {
+                label: "Type B",
+                value: "Type B"
+            },
+            {
+                label: "Type C",
+                value: "Type C"
+            },
+        ];
+        const eventClasses = [
+            {
+                label: "Type A",
+                value: "Type A"
+            },
+            {
+                label: "Type B",
+                value: "Type B"
+            },
+            {
+                label: "Type C",
+                value: "Type C"
+            },
+        ];
         return (
             <div>
                 <div className="event-information-team">
@@ -57,7 +77,7 @@ class eventDetailedView extends React.Component {
                         <h2>Basic Information</h2>
                         <input type="image" src={HelpImage} alt="help button" />
                         <form onSubmit={this.onSubmit}>
-                            <label>
+                            <label> 
                                 Title:<br />
                                 <input type="text" name="name" onChange={this.onChange} id="event-title" className="event-data" value ={this.props.event.name}/>
                             </label><br />
@@ -66,16 +86,15 @@ class eventDetailedView extends React.Component {
                                 <input type="text" name="desc" onChange={this.onChange} id="event-desc" className="event-data" value = {this.props.event.desc}/>
                             </label><br />
 
-                            {/* <label for="eventType">Event Type:</label>
-                        <select name="type" id="types" onChange={this.onChange}>
-                            <option value="a">Type 1</option>
-                            <option value="b">Type 2</option>
-                            <option value="c">Type 3</option>
-                            <option value="d">Type 4</option>
-                        </select> */}
+                            <label for="eventType">Event Type:</label>
+                            <select onChange={this.handleEventType} value = {this.props.type}>
+                                {eventTypes.map(eventType => (
+                                    <option value = {eventType.value}>{eventType.label}</option>
+                                ))}
+                            </select><br />
                             <label>
                                 Version:<br />
-                                <input type="text" name="vers" onChange={this.onChange} id="event-version" className="event-data" value ={this.props.event.vers}/>
+                                <input type="text" name="vers" onChange={this.onChange} id="event-version" className="event-data" value ={this.props.event.version}/>
                             </label><br />
 
                             <label>
@@ -88,13 +107,13 @@ class eventDetailedView extends React.Component {
                                 <input type="text" name="org_name" onChange={this.onChange} id="event-org-name" className="event-data" value={this.props.event.org_name}/>
                             </label><br />
 
-                            {/* <label for="eventClass">Event Classification:</label>
-                        <select name="event_class" id="classes" onChange={this.onChange}>
-                            <option value="a">Class 1</option>
-                            <option value="b">Class 2</option>
-                            <option value="c">Class 3</option>
-                            <option value="d">Class 4</option>
-                        </select> */}
+                            <label for="eventClass">Event Classification:</label>
+                            <select onChange={this.handleEventClass} value = {this.props.type}>
+                                {eventClasses.map(eventClass => (
+                                    <option value = {eventClass.value}>{eventClass.label}</option>
+                                ))}
+                            </select><br />
+
                             <label>
                                 Declassification Date:<br />
                                 <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" value={this.props.event.declass_date}/>
