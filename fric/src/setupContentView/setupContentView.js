@@ -3,17 +3,15 @@ import 'react-bootstrap';
 import GeneralView from '../generalView/generalView';
 import '../assets/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
-import EventView from '../eventcontentview/eventContentView'
-import { Link } from 'react-router-dom';
+//import EventView from '../eventcontentview/eventContentView'
+//import { Link } from 'react-router-dom';
 
 function getCurrentDate(separator = '') {
   let newDate = new Date()
   let day = newDate.getDate();
   let month = newDate.getMonth() + 1;
   let year = newDate.getFullYear();
-  let time = newDate.toTimeString()
-  let check = '';
-  return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+  return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year}`
 }
 
 
@@ -64,7 +62,6 @@ class setupContentView extends React.Component {
       body: JSON.stringify(this.state), 
     }).then(response => response.json())
       .then(data => {
-        // this.props.history.push('/Events');
         console.log("Success", data);
       })
       .catch(error => {
@@ -73,24 +70,25 @@ class setupContentView extends React.Component {
       
   }
 
-  checkEvent = (e) => {
+  checkEvent = (message) => {
+    //let message = "";
     fetch('/eventsOverview').then(
     response => response.json()).then(data => this.setState(data))
     console.log(this.state.name)
-    if (this.state.name.length == 0){
-      this.setState({noData : true})
+    if (this.state.name.length <= 0){
+      //this.setState({message : true})
+      this.setState(message = <h4 style={{textAlign:"center"}}>No Events Available </h4>)
     }
     else{
-      this.setState({noData : false})
+      
+      this.setState({message : false})
+      //return message = <h4 style={{textAlign:"center"}}> Events Available </h4>
+      this.setState(message = <h4 style={{textAlign:"center"}}>Events Available </h4>)
     }
-  }
-  
- 
-    
-
+  } 
 
   render() {
-    const noEvent = this.checkEvent.noData;
+   let message = this.checkEvent;
     return (
       <div>
         <GeneralView /><br/>
@@ -98,22 +96,25 @@ class setupContentView extends React.Component {
              
 
         <div> 
-         <h4 style={{textAlign: "center" }}> {noEvent ? 'Events Available' : ' No Events Available'} </h4>
+         <h4 style={{textAlign: "center" }}> Checking...</h4>
+          {this.message}
+         
         </div>
         
         
-        <form style={{ textAlign: "center" }} onSubmit={this.onSubmit} >
-          <br/><br/><label>
+        <form style={{ textAlign: "center" }} onSubmit={this.onSubmit} ><br/><br/>
+
+          <label>
             <h6>There is no existing event in your system </h6>
             <input type="text" placeholder="e.g. Event1" name="name" onChange={this.onChange} id="event-title" className="event-data" />
-          </label>
-          <br /><br />
+          </label> <br/><br/>
+
           <label>
             <h6>Please enter your intials</h6>
             <input type="text" placeholder="e.g. AC:" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" />
-          </label>
-          <br /><br />
-          <Button type="submit" className="btn"  variant="outline-dark" moveEvent={this.moveEvent=true}>Submit</Button> <br/><br/>
+          </label><br/><br/>
+
+          <Button type="submit" className="btn"  variant="outline-dark" >Submit</Button> <br/><br/>
         </form>
       </div>
     );
