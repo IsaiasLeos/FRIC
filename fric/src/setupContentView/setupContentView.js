@@ -11,8 +11,9 @@ function getCurrentDate(separator = '') {
   let day = newDate.getDate();
   let month = newDate.getMonth() + 1;
   let year = newDate.getFullYear();
+  let time = newDate.toTimeString()
   let check = '';
-  return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year}`
+  return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
 }
 
 

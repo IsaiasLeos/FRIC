@@ -9,18 +9,63 @@ import Button from 'react-bootstrap/Button'
 import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Tree from '../eventTree/eventTree'
-import AddImage from '../assets/add.png'
 import { useEffect } from "react";
+function getCurrentDate(separator = '') {
+    let newDate = new Date()
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();  
+    let time = newDate.toTimeString()
+    let check = '';
+    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+}
 function SystemContentView() {
+    const [systems, setSystems] = useState([{ name: '', num_task: '', num_findings: '', prog: '' }])
+    useEffect(() => {
+        fetch('/systems').then(
+            response => response.json()).then(data => setSystems(data))
+    }, []);
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
-    const [systems, setEvents] = useState([])
-    useEffect(() => {
-        fetch('/systems').then(
-            response => response.json()).then(data => setEvents(data))
-    }, []);
+
+    const [selected_system, selectedSystem] = useState({ name: '', num_task: '', num_findings: '', prog: '' }); // Set selected event 
+
+    function viewSystem(system) {
+        sendLog("view system");
+        selectedSystem(system);
+        handleShow();
+    }
+
+    function sendLog(a) {
+        let action = {
+            date: getCurrentDate("/"),
+            action: a,
+            analyst: ""
+        }
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+    }
+
+
+
+    function addSystem() {
+        sendLog("add system");
+        selectedSystem(0);
+        handleShow();
+    }
     return (
         <div >
             <GeneralView />
@@ -30,8 +75,8 @@ function SystemContentView() {
                         <div className="title-buttons">
                             <h2>System Overview Table</h2>
                             <ButtonGroup dialogClassName="title-system-buttons">
-                                <Button variant="dark" src={AddImage} >Archive</Button>
-                                <Button variant="dark" src={AddImage} onClick={handleShow}>Add</Button>
+                                <Button variant="dark" >Archive</Button>
+                                <Button variant="dark" onClick={addSystem}>Add</Button>
                             </ButtonGroup>
                         </div>
                         <Table bordered hover striped>
@@ -45,13 +90,13 @@ function SystemContentView() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {systems.map((event) => (
+                                {systems.map((system) => (
                                     <tr>
-                                        <td><input type="checkbox" id="cb1" value="event" /></td>
-                                        <td><Button variant="outline-dark" onClick={handleShow}>{event.sysInfo}</Button></td>
-                                        <td>{event.num_task}</td>
-                                        <td>{event.num_findings}</td>
-                                        <td>{event.prog}</td>
+                                        <td><input type="checkbox" id="cb1" value="system" /></td>
+                                        <td><Button variant="outline-dark" onClick={() => { viewSystem(system) }}>{system.sysInfo}</Button></td>
+                                        <td>{system.num_task}</td>
+                                        <td>{system.num_findings}</td>
+                                        <td>{system.prog}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -59,14 +104,14 @@ function SystemContentView() {
                     </div>
                 </div>
 
-                <Modal show={show} onHide={handleClose} dialogclassNameName="task-modal">
+                <Modal show={show} onHide={handleClose} >
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            System Detailed View
-                    </Modal.Title>
+                            System Detailed View {console.log("Here", selected_system)}
+                        </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <SystemDetailedView />
+                        <SystemDetailedView system={selected_system} />
                     </Modal.Body>
                 </Modal>
             </div>
