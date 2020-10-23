@@ -127,68 +127,95 @@ def addFinding():
     finding = {"Finding_ID": req['findingID'], "Host_Name": req['hostName']}
     mycollection.insert_one(finding)  # Send information to collection
 
+@app.route('/subtasks')
+def subtasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["subtask"]
+    subtask_json = []
+    for e in mycollection.find():
+        subtask_json.append({
+            "subtaskTitle": e['Subtask_Title'], 
+            "subtaskDescription": e['Subtask_Description'],
+            "subtaskProgress": e['Subtask_Progress'], 
+            "subtaskDueDate": e['Subtask_Due_Date'], 
+            "analysts": e['Analysts'],  
+            "collaborators": e['Collaborators'], 
+            "relatedTask": e['Related_Task'], 
+            "subtasks": e['Subtasks'], 
+            "attachments": e['Attachments'],
+            "numFindings": e['Num_Findings'],
+            "analyst": e['Analyst'],
+            "task": e['Task']
+            })
+    return jsonify(subtask_json)
+
+@app.route('/addsubtask',methods=['POST'])
+def addSubtasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["subtask"]
+    req = request.get_json()
+    subtask = {
+        "Subtask_Title" : req['subtaskTitle'], 
+        "Subtask_Description" : req['subtaskDescription'], 
+        "Subtask_Progress" : req['subtaskProgress'], 
+        "Subtask_Due_Date" : req['subtaskDueDate'], 
+        "Analysts" : req['analysts'], 
+        "Collaborators" : req['collaborators'], 
+        "Related_Task" : req['relatedTask'], 
+        "Subtasks" : req['subtasks'], 
+        "Attachments" : req['attachments'],
+        "Num_Findings" : 0,
+        "Analyst" : "Analyst 0",
+        "Task" : "Task 0"
+        }
+    mycollection.insert_one(subtask)
 
 @app.route('/tasks')
 def tasks():
-    myclient = pymongo.MongoClient(
-        "mongodb://localhost:27017/")  # Connect to the DB Client
-    mydb = myclient["FRIC"]  # Database name
-    mycollection = mydb["task"]  # Collection Name
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
     task_json = []
-
-    # Find all data inside the collection and append as necessary
     for e in mycollection.find():
-        # Format => How to Access field, Name inside the collection
-        task_json.append(
-            {"taskTitle": e['Task_Title'], "taskDesc": e["Task_Description"]})
-    return jsonify(task_json)  # return what was found in the collection
+        task_json.append({
+            "taskTitle": e['Task_title'], 
+            "taskDescription": e['Task_Description'],
+            "system": e['System'], 
+            "taskPriority": e['Task_Priority'], 
+            "taskProgress": e['Task_Progress'],  
+            "taskDueDate": e['Task_Due_Date'], 
+            "taskAnalysts": e['Task_Analysts'], 
+            "taskCollaborators": e['Task_Collaborators'], 
+            "relatedTasks": e['Related_Tasks'], 
+            "attachments": e['Attachments'],
+            "num_subtask": e['Num_subtask'],
+            "num_finding": e['Num_finding']
+            })
+    return jsonify(task_json)
 
-
-@app.route('/addtask', methods=['POST'])
-def addTask():
-    myclient = pymongo.MongoClient(
-        "mongodb://localhost:27017/")  # Connect to the DB Client
-    mydb = myclient["FRIC"]  # Database name
-    mycollection = mydb["task"]  # Collection Name
-
-    req = request.get_json()  # Assign the information
-
-    # Format => Name inside the collection, How to Access field
-    task = {"Task_Title": req['taskTitle'],
-            "Task_Description": req['taskDesc']}
-    mycollection.insert_one(task)  # Send information to collection
-
-
-@app.route('/subtasks')
-def subtasks():
-    myclient = pymongo.MongoClient(
-        "mongodb://localhost:27017/")  # Connect to the DB Client
-    mydb = myclient["FRIC"]  # Database name
-    mycollection = mydb["finding"]  # Collection Name
-    subtask_json = []
-
-    # Find all data inside the collection finding and append as necessary
-    for e in mycollection.find():
-        # Format => How to Access field, Name inside the collection
-        subtask_json.append(
-            {"subtaskTitle": e['Subtask_Title'], "subtaskDesc": e["Subtask_Description"]})
-    # return what was found in the finding collection
-    return jsonify(subtask_json)
-
-
-@app.route('/addsubtask', methods=['POST'])
-def addSubtask():
-    myclient = pymongo.MongoClient(
-        "mongodb://localhost:27017/")  # Connect to the DB Client
-    mydb = myclient["FRIC"]  # Database name
-    mycollection = mydb["finding"]  # Collection Name
-
-    req = request.get_json()  # Assign the information
-    # Name inside the collection, How to Access field
-    subtask = {"Subtask_Title": req['subtaskTitle'],
-               "Subtask_Description": req['subtaskDesc']}
-    mycollection.insert_one(subtask)  # Send information to collection
-
+@app.route('/addtask',methods=['POST'])
+def addTasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
+    req = request.get_json()
+    task = {
+        "Task_title" : req['taskTitle'], 
+        "Task_Description" : req['taskDescription'], 
+        "System" : req['system'], 
+        "Task_Priority" : req['taskPriority'], 
+        "Task_Progress" : req['taskProgress'], 
+        "Task_Due_Date" : req['taskDueDate'], 
+        "Task_Analysts" : req['taskAnalysts'], 
+        "Task_Collaborators" : req['taskCollaborators'], 
+        "Related_Tasks" : req['relatedTasks'], 
+        "Attachments" : req['attachments'],
+        "Num_subtask" : 0,
+        "Num_finding" : 13 
+        }
+    mycollection.insert_one(task)
 
 @app.route('/addlog', methods=['POST'])
 def addLog():
