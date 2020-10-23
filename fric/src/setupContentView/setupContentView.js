@@ -89,7 +89,7 @@ class setupContentView extends React.Component {
         <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1> <br />
         <div>
           <h4 style={{ textAlign: "center" }}> Checking...</h4>
-          {this.message}
+          {message}
         </div>
         <form style={{ textAlign: "center" }} onSubmit={this.onSubmit} ><br /><br />
           <label>

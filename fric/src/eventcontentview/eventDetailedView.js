@@ -13,7 +13,6 @@ function getCurrentDate(separator = '') {
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
     let time = newDate.toTimeString()
-    let check = '';
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
 }
 
@@ -25,7 +24,7 @@ class eventDetailedView extends React.Component {
         this.state = { name: '', desc: '', type: '', vers: '', assess_date: '', org_name: '', event_class: '', declass_date: '', customer_name: '' };
         this.action = {
             date: "",
-            action: "", 
+            action: "",
             analyst: ""
         };
     }
@@ -40,9 +39,6 @@ class eventDetailedView extends React.Component {
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
-
-
-
 
     onSubmit = (e) => {
         e.preventDefault();
