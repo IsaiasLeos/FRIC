@@ -56,7 +56,6 @@ def systems():
     for e in mycollection.find():
         system_json.append({"sysInfo": e['System_Info'], "sysDesc": e['System_Description'],"sysLoc": e['System_Location'], "sysRouter": e['System_Router'], "sysSwitch": e['System_Switch'],  "sysRoom": e['System_Room'], "sysTestPlan": e['Test_Plan'], "Confidentiality": e['Confidentiality'], "Integrity": e['Integrity'], "Availability": e['Availability'], "num_task": e['Num_task'],"num_findings" : e['Num_findings'],"prog":e['Progress']})
     return jsonify(system_json)
-   
 
 @app.route('/addsystem',methods=['POST'])
 def addSystems():
@@ -67,6 +66,53 @@ def addSystems():
     req = request.get_json()
     system = {"System_Info" : req['sysInfo'], "System_Description" : req['sysDesc'], "System_Location" : req['sysLoc'], "System_Router" : req['sysRouter'], "System_Switch" : req['sysSwitch'], "System_Room" : req['sysRoom'], "Test_Plan" : req['sysTestPlan'], "Confidentiality" : req['Confidentiality'], "Integrity" : req['Integrity'], "Availability" : req['Availability'], "Num_task" : 13, "Num_findings" : 10, "Progress" : "Assigned", "Event": "Event 1"}
     mycollection.insert_one(system)
+
+@app.route('/tasks')
+def tasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
+    task_json = []
+    for e in mycollection.find():
+        task_json.append({
+            "taskTitle": e['Task_title'], 
+            "taskDescription": e['Task_Description'],
+            "system": e['System'], 
+            "taskPriority": e['Task_Priority'], 
+            "taskProgress": e['Task_Progress'],  
+            "taskDueDate": e['Task_Due_Date'], 
+            "taskAnalysts": e['Task_Analysts'], 
+            "taskCollaborators": e['Task_Collaborators'], 
+            "relatedTasks": e['Related_Tasks'], 
+            "attachments": e['Attachments'],
+            "num_subtask": e['Num_subtask'],
+            "num_finding": e['Num_finding']
+            })
+    return jsonify(task_json)
+
+@app.route('/addtask',methods=['POST'])
+def addTasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
+    req = request.get_json()
+    task = {
+        "Task_title" : req['taskTitle'], 
+        "Task_Description" : req['taskDescription'], 
+        "System" : req['system'], 
+        "Task_Priority" : req['taskPriority'], 
+        "Task_Progress" : req['taskProgress'], 
+        "Task_Due_Date" : req['taskDueDate'], 
+        "Task_Analysts" : req['taskAnalysts'], 
+        "Task_Collaborators" : req['taskCollaborators'], 
+        "Related_Tasks" : req['relatedTasks'], 
+        "Attachments" : req['attachments'],
+        "Num_subtask" : 0,
+        "Num_finding" : 13 
+        }
+    mycollection.insert_one(task)
+
+
 
 @app.route('/addlog',methods=['POST'])
 def addLog():
