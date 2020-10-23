@@ -20,17 +20,17 @@ function getCurrentDate(separator = '') {
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
 }
 function SystemContentView() {
+
     const [systems, setSystems] = useState([{ name: '', num_task: '', num_findings: '', prog: '' }])
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [selected_system, selectedSystem] = useState({ name: '', num_task: '', num_findings: '', prog: '' });
+
     useEffect(() => {
         fetch('/systems').then(
             response => response.json()).then(data => setSystems(data))
     }, []);
-
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const [selected_system, selectedSystem] = useState({ name: '', num_task: '', num_findings: '', prog: '' }); // Set selected event 
 
     function viewSystem(system) {
         sendLog("view system");
@@ -58,8 +58,6 @@ function SystemContentView() {
                 console.error('Error', error)
             });
     }
-
-
 
     function addSystem() {
         sendLog("add system");

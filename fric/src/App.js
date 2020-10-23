@@ -1,20 +1,11 @@
-import React, {useState,useEffect}from 'react';
-import GeneralView from './generalView/generalView';
+import React from 'react';
+import SetupContentView from './setupContentView/setupContentView';
 
 function App() {
-  // const [initialData,setInitialData] = useState([{}])
-
-  // useEffect(() => {
-  //   fetch('/events').then(
-  //     response => response.json()
-  //   ).then(data => setInitialData(data))
-  // },[]);
   return (
     <div>
-      <GeneralView />
-      {/* <h1>{initialData.name}</h1> */}
+      <SetupContentView />
     </div>
-    
   );
 }
 

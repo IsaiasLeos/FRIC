@@ -25,7 +25,7 @@ class eventDetailedView extends React.Component {
         this.state = { name: '', desc: '', type: '', vers: '', assess_date: '', org_name: '', event_class: '', declass_date: '', customer_name: '' };
         this.action = {
             date: "",
-            action: "",
+            action: "", 
             analyst: ""
         };
     }
