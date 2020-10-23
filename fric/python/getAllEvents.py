@@ -67,6 +67,59 @@ def addSystems():
     system = {"System_Info" : req['sysInfo'], "System_Description" : req['sysDesc'], "System_Location" : req['sysLoc'], "System_Router" : req['sysRouter'], "System_Switch" : req['sysSwitch'], "System_Room" : req['sysRoom'], "Test_Plan" : req['sysTestPlan'], "Confidentiality" : req['Confidentiality'], "Integrity" : req['Integrity'], "Availability" : req['Availability'], "Num_task" : 13, "Num_findings" : 10, "Progress" : "Assigned", "Event": "Event 1"}
     mycollection.insert_one(system)
 
+
+@app.route('/subtasks')
+def subtasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["subtask"]
+    subtask_json = []
+    for e in mycollection.find():
+        subtask_json.append({
+            "subtaskTitle": e['Subtask_Title'], 
+            "subtaskDescription": e['Subtask_Description'],
+            "subtaskProgress": e['Subtask_Progress'], 
+            "subtaskDueDate": e['Subtask_Due_Date'], 
+            "analysts": e['Analysts'],  
+            "collaborators": e['Collaborators'], 
+            "relatedTask": e['Related_Task'], 
+            "subtasks": e['Subtasks'], 
+            "attachments": e['Attachments'],
+            "numFindings": e['Num_Findings'],
+            "analyst": e['Analyst'],
+            "task": e['Task']
+            })
+    return jsonify(subtask_json)
+
+@app.route('/addsubtask',methods=['POST'])
+def addSubtasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["subtask"]
+    req = request.get_json()
+    subtask = {
+        "Subtask_Title" : req['subtaskTitle'], 
+        "Subtask_Description" : req['subtaskDescription'], 
+        "Subtask_Progress" : req['subtaskProgress'], 
+        "Subtask_Due_Date" : req['subtaskDueDate'], 
+        "Analysts" : req['analysts'], 
+        "Collaborators" : req['collaborators'], 
+        "Related_Task" : req['relatedTask'], 
+        "Subtasks" : req['subtasks'], 
+        "Attachments" : req['attachments'],
+        "Num_Findings" : 0,
+        "Analyst" : "Analyst 0",
+        "Task" : "Task 0"
+        }
+    mycollection.insert_one(subtask)
+
+
+
+
+
+
+
+
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
