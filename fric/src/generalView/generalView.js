@@ -2,7 +2,17 @@ import * as React from 'react'
 import '../generalView/style.css'
 import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
+import Modal from 'react-bootstrap/Modal'
+import { useState } from "react"
+import Button from 'react-bootstrap/Button'
+import SetUpContentView from '../setupContentView/setupContentView'
 function GeneralView() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    function viewNote() {
+        handleShow();
+    }
     return (
         <div>
             <nav class="navbar navbar-expand navbar-dark bg-dark">
@@ -15,18 +25,15 @@ function GeneralView() {
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link " href="/Event">Event</a>
-                            {/* <Link to="/Event" >Event </Link> */}
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/SystemView">System</a>
-                            {/* <Link to="/SystemView" >System Content </Link> */}
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Findings">Findings</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Task">Task</a>
-                            {/* <Link to="/Task" >Task </Link> */}
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="/Subtask">Subtask</a>
@@ -44,10 +51,8 @@ function GeneralView() {
                             <a class="nav-link" href="/Help">Help</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Notify"> Notification </a>
+                            <a class="nav-link" onClick={viewNote}> Notification </a>
                         </li>
-
-
                     </ul>
                     <form class="form-inline my-2 my-md-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
@@ -55,6 +60,38 @@ function GeneralView() {
                 </div>
             </nav>
 
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Notification</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div style={{ textAlign: "center" }} className="Notify">
+
+                        <label for="taskTitle">
+                            Task Title:<br />
+                            <input type="text" name="taskT" value="Task1" />
+                        </label><br />
+
+                        <label for="taskDueDate">
+                            Task Due Date:<br />
+                            <input type="text" name="task-Due-Date" value="11/11/2020" />
+                        </label><br />
+
+                        <label for="subtaskTitle">
+                            SubTask Title:<br />
+                            <input type="text" name="subtaskT" value="Subtask3" />
+                        </label><br />
+
+                        <label for="subtaskDueDate">
+                            SubTask Due Date:<br />
+                            <input type="text" name="subtask-Due-Date" value="11/10/2020" />
+                        </label><br />
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}> Okay! </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

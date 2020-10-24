@@ -1,7 +1,8 @@
 import * as React from 'react'
 import 'react-bootstrap'
-import GeneralView from '../generalView/generalView';
+//import GeneralView from '../generalView/generalView';
 import '../assets/css/bootstrap.css'
+
 
 class notification extends React.Component {
     
@@ -9,7 +10,7 @@ class notification extends React.Component {
         
         return (
             <div>
-                <GeneralView /> <br/><br/><br/>
+                {/*<GeneralView /> <br/><br/><br/>*/}
                 <div style={{textAlign:"center"}}className="Notify">
                     
 

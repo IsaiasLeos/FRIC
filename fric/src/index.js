@@ -19,7 +19,6 @@ import helpView from './helpView/helpView.js';
 import eventTree from './eventTree/eventTree';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import notification from './notificationView/notification.js';
-
 import SelectEvent from './eventcontentview/EventTable'; // Event specific info
 
 ReactDOM.render(
