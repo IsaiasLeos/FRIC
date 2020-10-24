@@ -16,7 +16,7 @@ function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
     let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();  
+    let year = newDate.getFullYear();
     let time = newDate.toTimeString()
     let check = '';
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
@@ -108,7 +108,7 @@ function SystemContentView() {
                 <Modal show={show} onHide={handleClose} >
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            System Detailed View {console.log("Here", selected_system)}
+                            System Detailed View
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

@@ -71,10 +71,10 @@ def systems():
         num_finds = len(findings_json)
 
         # Get number of tasks
-        for g in myFindingCollection.find():
-            task_json.append(
-                {"taskTitle": g["Task_Title"], "taskDesc": g["Task_Description"]})
-        num_tasks = len(task_json)
+        # for g in myFindingCollection.find():
+        #     task_json.append(
+        #         {"taskTitle": g["Task_Title"], "taskDesc": g["Task_Description"]})
+        # num_tasks = len(task_json)
 
         # Get number of subtask 
         # for h in mySystemCollection.find(): 
@@ -83,7 +83,7 @@ def systems():
         # num_subtasks = len(subtask_json)
 
         system_json.append({"sysInfo": e['System_Info'], "sysDesc": e['System_Description'], "sysLoc": e['System_Location'], "sysRouter": e['System_Router'], "sysSwitch": e['System_Switch'],  "sysRoom": e['System_Room'],
-                            "sysTestPlan": e['Test_Plan'], "Confidentiality": e['Confidentiality'], "Integrity": e['Integrity'], "Availability": e['Availability'], "num_task": num_tasks, "num_findings": num_finds, "prog": e['Progress']})
+                            "sysTestPlan": e['Test_Plan'], "Confidentiality": e['Confidentiality'], "Integrity": e['Integrity'], "Availability": e['Availability'], "num_task": 5, "num_findings": num_finds, "prog": e['Progress']})
     return jsonify(system_json)
 
 

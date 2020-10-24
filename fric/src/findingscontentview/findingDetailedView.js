@@ -5,7 +5,7 @@ function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
     let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();  
+    let year = newDate.getFullYear();
     let time = newDate.toTimeString()
     let check = '';
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
@@ -73,14 +73,14 @@ class findingDetailedView extends React.Component {
                         <h4>Finding Information</h4>
                         <label for="ID">
                             ID:
-                            <br></br><input  type="text" name="findingID" id="ID" onChange={this.onChange} placeholder="ID"/>
+                            <br></br><input type="text" name="findingID" id="ID" onChange={this.onChange} placeholder="ID" />
                         </label><br></br>
-                        
+
                         <label for="Host Name">
                             Host Name:
                             <br></br>
-                            <input type="text"  name="hostName" id="hostName" class="browser-default  mr-3" onChange = {this.onChange} placeholder = "Host Name" />
-                        </label><br/>
+                            <input type="text" name="hostName" id="hostName" class="browser-default  mr-3" onChange={this.onChange} placeholder="Host Name" />
+                        </label><br />
                         <label for="IP-Port">
                             IP Port:
                             <br></br>
@@ -90,14 +90,14 @@ class findingDetailedView extends React.Component {
                             Description:
                             <br></br>
                             <input type="text" name="description" id="description" class="browser-default  mr-3" />
-                        </label><br/>
+                        </label><br />
 
                         <label for="LongDescription">
                             Long Description:
                             <br></br>
                             <textarea name="LongDescription" id="LongDescription" cols="45" rows="5" class="browser-default  mr-3"></textarea>
-                        </label><br/>
-                        
+                        </label><br />
+
                         <label for="Status">
                             Status:
                             <br></br>
@@ -127,7 +127,7 @@ class findingDetailedView extends React.Component {
                                 <option value="collaborator4">Missing Patches</option>
                                 <option value="collaborator4">Physical Security</option>
                                 <option value="collaborator4">Information Disclosure</option>
-                                
+
                             </select>
                         </label>
                         &nbsp;
@@ -140,13 +140,13 @@ class findingDetailedView extends React.Component {
                                 <option value="analyst1">Vulnerability</option>
                                 <option value="analyst2">Information</option>
                             </select>
-                        </label><br/>
+                        </label><br />
 
                         <label for="fileName">
                             File:
                             <br></br>
                             <input type="text" name="filename" id="filename" class="browser-default mr-3" />
-                        </label><br/>
+                        </label><br />
 
                         <label for="system">
                             System:
@@ -195,7 +195,7 @@ class findingDetailedView extends React.Component {
                                 <option value="relatedTask3">Finding 3</option>
                             </select>
                         </label>
-                        
+
                         <h4>Finding Impact</h4>
                         <label for="Confidentiality">
                             Confidentiality:
@@ -245,7 +245,7 @@ class findingDetailedView extends React.Component {
                                 <option value="Attachment1">Alex Vasquez</option>
                                 <option value="Attachment2">Jacob Padilla</option>
                                 <option value="Attachment3">Luis Soto</option>
-                                
+
                             </select>
                         </label>
                         &nbsp;
@@ -258,7 +258,7 @@ class findingDetailedView extends React.Component {
                                 <option value="Attachment1">Alex Vasquez</option>
                                 <option value="Attachment2">Jacob Padilla</option>
                                 <option value="Attachment3">Luis Soto</option>
-                                
+
                             </select>
                         </label><br></br>
                         <label for="Posture">
@@ -293,12 +293,12 @@ class findingDetailedView extends React.Component {
                             Brief Description:
                             <br></br>
                             <input type="text" name="mitigationDescription" id="mitigationDescriptionInfo" class="browser-default  mr-3" />
-                        </label><br/>
+                        </label><br />
                         <label for="LongDescription">
                             Long Description:
                             <br></br>
                             <textarea name="LongDescription" id="LongDescription" cols="45" rows="5" class="browser-default  mr-3"></textarea>
-                        </label><br/>
+                        </label><br />
 
                         <h4>Threat Relevence</h4>
                         <label for="Relevence">
@@ -368,13 +368,13 @@ class findingDetailedView extends React.Component {
                             <br></br>
                             <input type="text" name="quantitativeVulnerabilityDescription" id="quantitativeVulnerabilityDescriptionInfo" class="browser-default mr-3" />
                         </label><br></br>
-                        
+
                         <h4>Risk</h4>
 
                         <label for="RiskDescription">
                             Risk:
                             <br></br>
-                            <input type="text" name="riskDescription" id="riskDescriptionInfo" class="browser-default  mr-3"/>
+                            <input type="text" name="riskDescription" id="riskDescriptionInfo" class="browser-default  mr-3" />
                         </label><br></br>
 
                         <label for="LikelihoodDescription">
@@ -388,7 +388,7 @@ class findingDetailedView extends React.Component {
                         <label for="CFISDescription">
                             Confidentiality Finding Impact on System:
                             <br></br>
-                            <input type="text" name="CFISDescription" id="CFISDescriptionInfo" class="browser-default  mr-3"/>
+                            <input type="text" name="CFISDescription" id="CFISDescriptionInfo" class="browser-default  mr-3" />
                         </label><br></br>
 
                         <label for="IFISDescription">
@@ -408,13 +408,13 @@ class findingDetailedView extends React.Component {
                             <br></br>
                             <input type="text" name="impactScoreDescription" id="impactScoreDescriptionInfo" class="browser-default  mr-3" />
                         </label><br></br>
-                        <Button variant="dark" type = "submit">
+                        <Button variant="dark" type="submit">
                             Save
                         </Button>
-                        <Button variant="dark" type = "submit">
+                        <Button variant="dark" type="submit">
                             Delete
                         </Button>
-                        <Button variant="dark" type = "submit" >
+                        <Button variant="dark" type="submit" >
                             Cancel
                         </Button>
                     </form>
