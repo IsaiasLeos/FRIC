@@ -53,7 +53,7 @@ function GeneralView() {
                             <a class="nav-link" href="/Help">Help</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" onClick={viewNote}> Notification </a>
+                            <div class="nav-link" onClick={viewNote}> Notification </div>
                         </li>
 
 
