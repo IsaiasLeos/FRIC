@@ -10,6 +10,8 @@ import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Tree from '../eventTree/eventTree'
 import { useEffect } from "react";
+
+
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -19,6 +21,7 @@ function getCurrentDate(separator = '') {
     let check = '';
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
 }
+
 function SystemContentView() {
 
     const [systems, setSystems] = useState([{ name: '', num_task: '', num_findings: '', prog: '' }])

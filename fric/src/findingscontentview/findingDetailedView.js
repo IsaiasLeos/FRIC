@@ -1,20 +1,85 @@
 import * as React from 'react'
+import Button from 'react-bootstrap/Button'
+
+function getCurrentDate(separator = '') {
+    let newDate = new Date()
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();  
+    let time = newDate.toTimeString()
+    let check = '';
+    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+}
 class findingDetailedView extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+            findingID: "",
+            hostName: "",
+        };
+
+        this.action = {
+            date: "",
+            action: "",
+            analyst: ""
+        }
+    }
+
+    onChange = (e) => { //call on modification
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    onSubmit = (e) => {
+        this.action.action = "submit finding";//Setting up information for Logging
+        this.action.date = getCurrentDate("/");
+        this.action.analyst = "";
+        e.preventDefault();
+
+        fetch('/addfinding', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+
+        fetch('/addlog', {//Logging information
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.action),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+    }
+
     render() {
         return (
             <div>
                 <div>
-                    <form action="" class="form">
+                    <form action="" class="form" onSubmit={this.onSubmit}>
                         <h4>Finding Information</h4>
                         <label for="ID">
                             ID:
-                            <br></br><input type="text" name="ID" id="ID" />
+                            <br></br><input  type="text" name="findingID" id="ID" onChange={this.onChange} placeholder="ID"/>
                         </label><br></br>
                         
                         <label for="Host Name">
                             Host Name:
                             <br></br>
-                            <input type="text" name="hostName" id="hostName" class="browser-default  mr-3" />
+                            <input type="text"  name="hostName" id="hostName" class="browser-default  mr-3" onChange = {this.onChange} placeholder = "Host Name" />
                         </label><br/>
                         <label for="IP-Port">
                             IP Port:
@@ -343,7 +408,15 @@ class findingDetailedView extends React.Component {
                             <br></br>
                             <input type="text" name="impactScoreDescription" id="impactScoreDescriptionInfo" class="browser-default  mr-3" />
                         </label><br></br>
-
+                        <Button variant="dark" type = "submit">
+                            Save
+                        </Button>
+                        <Button variant="dark" type = "submit">
+                            Delete
+                        </Button>
+                        <Button variant="dark" type = "submit" >
+                            Cancel
+                        </Button>
                     </form>
                 </div>
 

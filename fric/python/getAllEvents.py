@@ -111,7 +111,7 @@ def findings():
     for e in mycollection.find():
         # Format => How to Access field, Name inside the collection
         finding_json.append(
-            {"findingID": e['Finding_ID'], "Host_Name": e["hostName"]})
+            {"findingID": e['Finding_ID'], "hostName": e["Host_Name"]})
     return jsonify(finding_json)  # return what was found in the collection
 
 
