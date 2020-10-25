@@ -24,6 +24,7 @@ class SystemContentView extends React.Component {
         super(props);
     }
 
+
     sendLog(a) {
         let action = {
             date: getCurrentDate("/"),
@@ -49,24 +50,6 @@ class SystemContentView extends React.Component {
         this.props.updateData();
     }
 
-    SendData(e) {
-        e.preventDefault();
-        fetch('/addsystem', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.state),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-        this.props.updateData();
-        this.SendLog(e);
-    }
 
     render() {
         return (
@@ -80,7 +63,7 @@ class SystemContentView extends React.Component {
                                 <h2>System Overview Table</h2>
                                 <ButtonGroup dialogclassname="title-system-buttons">
                                     <Button variant="dark" >Archive</Button>
-                                    <Button variant="dark" onSubmit={this.SendData}>Add</Button>
+                                    <Button variant="dark" >Add</Button>
                                 </ButtonGroup>
                             </div>
                             <Table bordered hover striped>
