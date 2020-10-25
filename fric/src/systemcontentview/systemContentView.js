@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Table from 'react-bootstrap/Table'
 import './systemView.css'
-import GeneralView from '../generalView/generalView'
 import Button from 'react-bootstrap/Button'
 import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
@@ -21,10 +20,12 @@ export default function SystemContentView(props) {
     const [dialogOpen, handleDialog] = React.useState(false)
     function handleDialogOpen() {
         handleDialog(true)
+        sendLog("system dialog open");
     }
 
     function handleDialogClose() {
         handleDialog(false)
+        sendLog("system dialog close")
     }
     function sendLog(a) {
         let action = {
@@ -53,7 +54,7 @@ export default function SystemContentView(props) {
 
     return (
         <div >
-            <GeneralView />
+            
             <div className="main">
                 <div className="SystemContentView">
                     <div id="systemTable" update={props.updateSystemData}>

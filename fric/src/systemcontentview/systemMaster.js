@@ -1,6 +1,7 @@
 import React from 'react';
 import SystemContentView from './systemContentView';
-
+import Tree from '../eventTree/eventTree'
+import GeneralView from '../generalView/generalView'
 class SystemMaster extends React.Component {
     constructor() {
         super();
@@ -35,10 +36,14 @@ class SystemMaster extends React.Component {
     render() {
         return (
             <div>
+                <GeneralView />
                 <SystemContentView
                     data={this.state.data}
                     updateData={this.updateData}
                 />
+                <div class="right-tree">
+                    <Tree />
+                </div>
             </div>
         );
     }
