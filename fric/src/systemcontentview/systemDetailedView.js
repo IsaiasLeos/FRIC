@@ -88,6 +88,7 @@ class systemDetailedView extends React.Component {
         return (
             <div>
                 <div className="systemDetailedTable" id="systemDetailedTable">
+                    <div className="title-buttons"></div>
                     <Accordion defaultActiveKey="1">
                         <Card>
                             <Accordion.Toggle as={Card.Header} eventKey="1">
