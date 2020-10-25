@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from 'react-bootstrap/Button'
-import { useState, setState, useEffect } from 'react';
+import { useState, } from 'react';
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -11,7 +11,6 @@ function getCurrentDate(separator = '') {
 }
 
 function SystemDetailedView(props) {
-
 
     const [sysInfo, setName] = useState('');
     const [sysDesc, setDesc] = useState('');

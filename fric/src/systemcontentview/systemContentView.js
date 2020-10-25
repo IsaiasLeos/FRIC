@@ -1,14 +1,11 @@
 import * as React from 'react'
-import { useState } from "react";
 import Table from 'react-bootstrap/Table'
 import './systemView.css'
 import GeneralView from '../generalView/generalView'
 import Button from 'react-bootstrap/Button'
 import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import Tree from '../eventTree/eventTree'
 import { useEffect } from "react";
-import Dialog from '@material-ui/core/Dialog';
 import { Modal } from 'react-bootstrap';
 function getCurrentDate(separator = '') {
     let newDate = new Date()

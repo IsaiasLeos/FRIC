@@ -1,6 +1,5 @@
 import React from 'react';
 import SystemContentView from './systemContentView';
-import SystemDetailedView from './systemDetailedView';
 
 class SystemMaster extends React.Component {
     constructor() {
