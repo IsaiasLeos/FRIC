@@ -1,20 +1,86 @@
-import * as React from 'react'
+import * as React from 'react';
 import { useState } from "react";
-import AddImage from '../assets/add.png'
-import SortImage from '../assets/updownarrow.png'
-import Table from 'react-bootstrap/Table'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import { useEffect } from "react";
+import SortImage from '../assets/updownarrow.png';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import GeneralView from '../generalView/generalView';
 import SubtaskDetailedView from './subtaskDetailedView';
 import './subtaskView.css';
 import Tree from '../eventTree/eventTree';
 
+function getCurrentDate(separator = '') {
+    let newDate = new Date()
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();  
+    let time = newDate.toTimeString()
+    let check = '';
+    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+}
 function SubtaskContentView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [subtasks, setSubtasks] = useState([{ 
+        subtaskTitle: '', 
+        task: '', 
+        analyst: '', 
+        subtaskProgress: '', 
+        numFindings: '',
+        subtaskDueDate: '' 
+    }])
+
+    useEffect(() => {
+        fetch('/subtasks').then(
+            response => response.json()).then(data => setSubtasks(data))
+    }, []);
+
+    const [selected_subtask, selectedSubtask] = useState({        
+        subtaskTitle: '', 
+        task: '', 
+        analyst: '', 
+        subtaskProgress: '', 
+        numFindings: '',
+        subtaskDueDate: '' 
+    });
+
+    function viewSubtask(subtask) {
+        sendLog("view subtask");
+        selectedSubtask(subtask);
+        handleShow();
+    }
+
+    function sendLog(a) {
+        let action = {
+            date: getCurrentDate("/"),
+            action: a,
+            analyst: ""
+        }
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+    }
+
+    function addSubtask() {
+        sendLog("add subtask");
+        selectedSubtask(0);
+        handleShow();
+    }
+
+
     return (
         <div>
             <GeneralView />
@@ -24,7 +90,7 @@ function SubtaskContentView() {
                     <ButtonGroup>
                         <Button variant="dark">Archive</Button>
                         <Button variant="dark">Promote</Button>
-                        <Button variant="dark" onClick={handleShow}>Add </Button>
+                        <Button variant="dark" onClick={addSubtask}>Add </Button>
                     </ButtonGroup>
                 </div>
 
@@ -41,79 +107,29 @@ function SubtaskContentView() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="subtask1" name="subtask1" value="1" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 1</Button></td>
-                            <td className="column3">Task 1</td>
-                            <td className="column4">Analyst 1</td>
-                            <td className="column5">Not started</td>
-                            <td className="column6">1</td>
-                            <td className="column7">25/09/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="subtask2" name="subtask2" value="2" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 2</Button></td>
-                            <td className="column3">Task 2</td>
-                            <td className="column4">Analyst 2</td>
-                            <td className="column5">Complete</td>
-                            <td className="column6">1</td>
-                            <td className="column7">22/09/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="subtask3" name="subtask3" value="3" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 3</Button></td>
-                            <td className="column3">Task 3</td>
-                            <td className="column4">Analyst 3</td>
-                            <td className="column5">In progress</td>
-                            <td className="column6">3</td>
-                            <td className="column7">18/09/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="subtask3" name="subtask3" value="3" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 4</Button></td>
-                            <td className="column3">Task 4</td>
-                            <td className="column4">Analyst 4</td>
-                            <td className="column5">transfered</td>
-                            <td className="column6">0</td>
-                            <td className="column7">21/10/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="subtask5" name="subtask5" value="5" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 5</Button></td>
-                            <td className="column3">Task 5</td>
-                            <td className="column4">Analyst 5</td>
-                            <td className="column5">Completed</td>
-                            <td className="column6">1</td>
-                            <td className="column7">10/09/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="subtask6" name="subtask1" value="6" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 6</Button></td>
-                            <td className="column3">Task 6</td>
-                            <td className="column4">Analyst 6</td>
-                            <td className="column5">Not applicable</td>
-                            <td className="column6">2</td>
-                            <td className="column7">25/10/2020</td>
-                        </tr>
+                        {subtasks.map((subtask) => (
+                            <tr>
+                                <td><input type="checkbox" id="cb1" value="subtask" /></td>
+                                <td><Button variant="outline-dark" onClick={() => { viewSubtask(subtask) }}>{subtask.subtaskTitle}</Button></td>
+                                <td>{subtask.task}</td>
+                                <td>{subtask.analyst}</td>
+                                <td>{subtask.subtaskProgress}</td>
+                                <td>{subtask.numFindings}</td>
+                                <td>{subtask.subtaskDueDate}</td>
+                            </tr>
+                            ))
+                        }
                     </tbody>
                 </Table>
                 <Modal show={show} onHide={handleClose} dialogClassName="subtask-modal">
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Subtask Detailed View
+                            Subtask Detailed View {console.log("Here", selected_subtask)}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <SubtaskDetailedView />
+                        <SubtaskDetailedView  subtask={selected_subtask} />
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="outline-dark" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                        <Button variant="outline-dark" onClick={handleClose}>
-                            Submit
-                        </Button>
-                    </Modal.Footer>
                 </Modal>
             </div>
             <div class="right-tree">

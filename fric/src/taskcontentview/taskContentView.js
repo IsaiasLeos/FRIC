@@ -1,20 +1,75 @@
-import * as React from 'react'
+import * as React from 'react';
 import { useState } from "react";
-import AddImage from '../assets/add.png'
-import SortImage from '../assets/updownarrow.png'
-import Table from 'react-bootstrap/Table'
-import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import { useEffect } from "react";
+import SortImage from '../assets/updownarrow.png';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import GeneralView from '../generalView/generalView';
-import Modal from 'react-bootstrap/Modal'
+import Modal from 'react-bootstrap/Modal';
 import TaskDetailedView from './taskDetailedView';
-import './taskView.css'
-import Tree from '../eventTree/eventTree'
+import './taskView.css';
+import Tree from '../eventTree/eventTree';
 
 function TaskContentView() {
+    function getCurrentDate(separator = '') {
+        let newDate = new Date()
+        let day = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();
+        let time = newDate.toTimeString()
+        let check = '';
+        return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+    }
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [tasks, setTasks] = useState([{ taskTitle: '', system: '', taskAnalysts: '', taskProgress: '', num_subtask: '', num_finding: '', taskDueDate:''}])
+    useEffect(() => {
+        fetch('/tasks').then(
+            response => response.json()).then(data => setTasks(data))
+    }, []);
+
+
+    const [selected_task, selectedTask] = useState({ taskTitle: '', system: '', taskAnalysts: '', taskProgress: '', num_subtask: '', num_finding: '', taskDueDate:'' }); // Set selected event 
+
+    function viewTask(task) {
+        sendLog("view task");
+        selectedTask(task);
+        handleShow();
+    }
+
+    function sendLog(a) {
+        let action = {
+            date: getCurrentDate("/"),
+            action: a,
+            analyst: ""
+        }
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+    }
+
+
+
+    function addTask() {
+        sendLog("add Task");
+        selectedTask(0);
+        handleShow();
+    }
+
+    
     return (
         <div>
             <GeneralView />
@@ -24,7 +79,7 @@ function TaskContentView() {
                     <ButtonGroup>
                         <Button variant="dark">Archive</Button>
                         <Button variant="dark">Demote</Button>
-                        <Button variant="dark">Add </Button>
+                        <Button variant="dark" onClick={addTask}>Add</Button>
                     </ButtonGroup>
                 </div>
                 <Table striped bordered hover>
@@ -42,72 +97,19 @@ function TaskContentView() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="task1" name="task1" value="1" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 1</Button></td>
-                            <td className="column3">System 1</td>
-                            <td className="column4">Analyst 1</td>
-                            <td className="column5">Low</td>
-                            <td className="column6">Not started</td>
-                            <td className="column7">1</td>
-                            <td className="column8">2</td>
-                            <td className="column9">30/09/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="task2" name="task2" value="2" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 2</Button></td>
-                            <td className="column3">System 2</td>
-                            <td className="column4">Analyst 2</td>
-                            <td className="column5">Medium</td>
-                            <td className="column6">Assigned</td>
-                            <td className="column7">2</td>
-                            <td className="column8">4</td>
-                            <td className="column9">27/09/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="task3" name="task3" value="3" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 3</Button></td>
-                            <td className="column3">System 3</td>
-                            <td className="column4">Analyst 3</td>
-                            <td className="column5">High</td>
-                            <td className="column6">In progress</td>
-                            <td className="column7">2</td>
-                            <td className="column8">3</td>
-                            <td className="column9">23/09/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="task4" name="task4" value="4" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 4</Button></td>
-                            <td className="column3">System 4</td>
-                            <td className="column4">Analyst 4</td>
-                            <td className="column5">Low</td>
-                            <td className="column6">Transfered</td>
-                            <td className="column7">2</td>
-                            <td className="column8">3</td>
-                            <td className="column9">26/10/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="task5" name="task5" value="5" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 5</Button></td>
-                            <td className="column3">System 5</td>
-                            <td className="column4">Analyst 5</td>
-                            <td className="column5">Low</td>
-                            <td className="column6">Complete</td>
-                            <td className="column7">3</td>
-                            <td className="column8">3</td>
-                            <td className="column9">15/09/2020</td>
-                        </tr>
-                        <tr>
-                            <td className="column1"><input type="checkbox" id="task6" name="task1" value="6" /></td>
-                            <td className="column2"><Button variant="outline-dark" onClick={handleShow}>Title 6</Button></td>
-                            <td className="column3">System 6</td>
-                            <td className="column4">Analyst 6</td>
-                            <td className="column5">Low</td>
-                            <td className="column6">Not applicable</td>
-                            <td className="column7">1</td>
-                            <td className="column8">4</td>
-                            <td className="column9">30/10/2020</td>
-                        </tr>
+                        {tasks.map((task) => (
+                            <tr>
+                                <td><input type="checkbox" id="cb1" value="system" /></td>
+                                <td><Button variant="outline-dark" onClick={() => { viewTask(task) }}>{task.taskTitle}</Button></td>
+                                <td>{task.taskTitle}</td>
+                                <td>{task.system}</td>
+                                <td>{task.taskAnalysts}</td>
+                                <td>{task.taskProgress}</td>
+                                <td>{task.num_subtask}</td>
+                                <td>{task.num_finding}</td>
+                                <td>{task.taskDueDate}</td>
+                                </tr>
+                        ))}
                     </tbody>
                 </Table>
                 <Modal show={show} onHide={handleClose} dialogClassName="task-modal">
@@ -117,7 +119,7 @@ function TaskContentView() {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <TaskDetailedView />
+                        <TaskDetailedView task={selected_task} />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="outline-dark" onClick={handleClose}>
