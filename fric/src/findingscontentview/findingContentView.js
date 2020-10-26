@@ -39,7 +39,39 @@ function FindingContentView() {
     
     const [findings, setFindings] = useState([{
          findingID: '',
-         hostName: '' 
+         hostName: '',
+         ip_port: '',
+         description: '',
+         longDescription: '',
+         findingStatus: '',
+         findingType: '',
+         findingClassification: '',
+         findingSystem: '',
+         findingTask: '',
+         findingSubtask: '',
+         relatedFindings: '',
+         findingConfidentiality: '',
+         findingIntegrity: '',
+         findingAvailability: '',
+         findingAnalyst: '',
+         findingCollaborators: '',
+         findingPosture: '',
+         mitigationDesc: '',
+         mitigationLongDesc: '',
+         threatRelevence: '',
+         countermeasure: '',
+         impactDesc: '',
+         findingImpact: '',
+         severityCategoryScore: '',
+         vulnerabilityScore: '',
+         quantitativeScore: '',
+         findingRisk: '',
+         findingLikelihood: '',
+         findingCFIS: '',
+         findingIFIS: '',
+         findingAFIS: '',
+         impactScore: ''
+
     }])
 
     useEffect(() => {
@@ -51,6 +83,37 @@ function FindingContentView() {
     const [selected_finding, selectedFinding] = useState({
         findingID: '',
         hostName: '',
+        ip_port: '',
+        description: '',
+        longDescription: '',
+        findingStatus: '',
+        findingType: '',
+        findingClassification: '',
+        findingSystem: '',
+        findingTask: '',
+        findingSubtask: '',
+        relatedFindings: '',
+        findingConfidentiality: '',
+        findingIntegrity: '',
+        findingAvailability: '',
+        findingAnalyst: '',
+        findingCollaborators: '',
+        findingPosture: '',
+        mitigationDesc: '',
+        mitigationLongDesc: '',
+        threatRelevence: '',
+        countermeasure: '',
+        impactDesc: '',
+        findingImpact: '',
+        severityCategoryScore: '',
+        vulnerabilityScore: '',
+        quantitativeScore: '',
+        findingRisk: '',
+        findingLikelihood: '',
+        findingCFIS: '',
+        findingIFIS: '',
+        findingAFIS: '',
+        impactScore: ''
     });
 
     function viewFinding(finding) { //When we press title button
@@ -123,6 +186,14 @@ function FindingContentView() {
                                 <td><input type="checkbox" id="cb1" value="" /></td>
                                 <td>{finding.findingID}</td>
                                 <td><Button variant="outline-dark" onClick={() => {viewFinding(finding)}}>{finding.hostName}</Button></td>
+                                <td>System</td>
+                                <td>Task</td>
+                                <td>Subtask</td>
+                                <td>Analyst</td>
+                                <td>Status</td>
+                                <td>Classification</td>
+                                <td>Type</td>
+                                <td>Risk</td>
                                
                             </tr>
                         ))}
