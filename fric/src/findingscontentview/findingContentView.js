@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useState } from "react";
-import AddImage from '../assets/add.png'
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
@@ -8,14 +7,65 @@ import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal'
 import FindingDetailedView from './findingDetailedView';
 import Tree from '../eventTree/eventTree';
-import { Link } from 'react-router-dom'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import './findingView.css'
+import { useEffect } from "react";
 
-function TaskContentView() {
+function getCurrentDate(separator = '') {
+    let newDate = new Date()
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    let time = newDate.toTimeString()
+    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+}
+
+function FindingContentView() {
+
+    const [findings, setFindings] = useState([{ findingID: '', hostName: '' }])
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [selected_finding, selectedFinding] = useState({ findingID: '', hostName: '' });
+
+    useEffect(() => {
+        fetch('/findings').then(
+            response => response.json()).then(data => setFindings(data))
+    }, []);
+
+    function viewFinding(finding) { //When we press title button
+        sendLog("view finding");
+        selectedFinding(finding);
+        handleShow();
+    }
+
+    function sendLog(a) { //action that is going to be recorded
+        let action = {
+            date: getCurrentDate("/"),
+            action: a,
+            analyst: ""
+        }
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+    }
+
+    function addFinding() {
+        sendLog("add finding");
+        selectedFinding(0);
+        handleShow();
+    }
+
     return (
         <div>
             <GeneralView />
@@ -26,7 +76,7 @@ function TaskContentView() {
                         <Button variant="dark">Save</Button>
                         <Button variant="dark">Delete</Button>
                         <Button variant="dark">Cancel</Button>
-                        <Button variant="dark" onClick={handleShow} >Add</Button>
+                        <Button variant="dark" onClick={addFinding} >Add</Button>
                     </ButtonGroup>
                 </div>
 
@@ -47,58 +97,22 @@ function TaskContentView() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="Finding1"><input type="checkbox" id="" name="" value="1"></input></td>
-                            <td>234</td>
-                            <td><Button variant="outline-dark" onClick={handleShow}>Finding 1</Button></td>
-                            <td>System W</td>
-                            <td>Task 1 and Task 2</td>
-                            <td>N/A</td>
-                            <td>Alex Vasquez</td>
-                            <td>Open</td>
-                            <td>Vulnerability</td>
-                            <td>Physical Security</td>
-                            <td>VL</td>
-                        </tr>
-                        <tr>
-                            <td className="Finding2"><input type="checkbox" id="" name="" value="1"></input></td>
-                            <td>234</td>
-                            <td><Button variant="outline-dark" onClick={handleShow}>Finding 2</Button></td>
-                            <td>System W</td>
-                            <td>Task 1 and Task 2</td>
-                            <td>N/A</td>
-                            <td>Alex Vasquez</td>
-                            <td>Open</td>
-                            <td>Vulnerability</td>
-                            <td>Physical Security</td>
-                            <td>VL</td>
-                        </tr>
-                        <tr>
-                            <td className="Finding3"><input type="checkbox" id="" name="" value="1"></input></td>
-                            <td>234</td>
-                            <td><Button variant="outline-dark" onClick={handleShow}>Finding 3</Button></td>
-                            <td>System W</td>
-                            <td>Task 1 and Task 2</td>
-                            <td>N/A</td>
-                            <td>Alex Vasquez</td>
-                            <td>Open</td>
-                            <td>Vulnerability</td>
-                            <td>Physical Security</td>
-                            <td>VL</td>
-                        </tr>
-                        <tr>
-                            <td className="Finding4"><input type="checkbox" id="" name="" value="1"></input></td>
-                            <td>234</td>
-                            <td><Button variant="outline-dark" onClick={handleShow}>Finding 4</Button></td>
-                            <td>System W</td>
-                            <td>Task 1 and Task 2</td>
-                            <td>N/A</td>
-                            <td>Alex Vasquez</td>
-                            <td>Open</td>
-                            <td>Vulnerability</td>
-                            <td>Physical Security</td>
-                            <td>VL</td>
-                        </tr>
+                        {findings.map((finding) => (
+                            <tr>
+                                <td className="Finding1"><input type="checkbox" id="" name="" value="1"></input></td>
+                                <td>{finding.findingID}</td>
+                                <td><Button variant="outline-dark" onClick={viewFinding}>{finding.hostName}</Button></td>
+                                <td>System W</td>
+                                <td>Task 1 and Task 2</td>
+                                <td>N/A</td>
+                                <td>Alex Vasquez</td>
+                                <td>Open</td>
+                                <td>Vulnerability</td>
+                                <td>Physical Security</td>
+                                <td>VL</td>
+                            </tr>
+                        ))}
+
                     </tbody>
                 </Table>
                 <Button variant="dark">Generate ERB Report</Button>
@@ -119,18 +133,10 @@ function TaskContentView() {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <FindingDetailedView />
+                        <FindingDetailedView finding={selected_finding} />
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="dark" onClick={handleClose}>
-                            Save
-                        </Button>
-                        <Button variant="dark" onClick={handleClose}>
-                            Delete
-                        </Button>
-                        <Button variant="dark" onClick={handleClose}>
-                            Cancel
-                        </Button>
+
                     </Modal.Footer>
                 </Modal>
 
@@ -142,4 +148,4 @@ function TaskContentView() {
     );
 }
 
-export default TaskContentView;
+export default FindingContentView;

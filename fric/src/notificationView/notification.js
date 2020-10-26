@@ -1,16 +1,18 @@
 import * as React from 'react'
 import 'react-bootstrap'
-import GeneralView from '../generalView/generalView';
+//import GeneralView from '../generalView/generalView';
 import '../assets/css/bootstrap.css'
 
-class setupContentView extends React.Component {
+
+class notification extends React.Component {
     
     render() {
         
         return (
             <div>
-                <GeneralView />
-                <div className="Notify">
+                {/*<GeneralView /> <br/><br/><br/>*/}
+                <div style={{textAlign:"center"}}className="Notify">
+                    
 
                     <label for="taskTitle">
                         Task Title:<br/>

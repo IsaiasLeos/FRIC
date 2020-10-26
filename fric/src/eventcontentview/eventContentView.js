@@ -1,6 +1,5 @@
-import * as React from 'react'
+import React from 'react';
 import { useState, useEffect } from "react";
-import AddImage from '../assets/add.png';
 import SortImage from '../assets/updownarrow.png';
 import Table from 'react-bootstrap/Table';
 import Tree from '../eventTree/eventTree';
@@ -14,9 +13,8 @@ function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
     let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();  
+    let year = newDate.getFullYear();
     let time = newDate.toTimeString()
-    let check = '';
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
 }
 
