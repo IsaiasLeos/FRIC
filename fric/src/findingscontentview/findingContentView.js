@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useState } from "react";
-
 import SortImage from '../assets/updownarrow.png'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
@@ -8,10 +7,18 @@ import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal'
 import FindingDetailedView from './findingDetailedView';
 import Tree from '../eventTree/eventTree';
-
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import './findingView.css'
 import { useEffect } from "react";
+
+function getCurrentDate(separator = '') {
+    let newDate = new Date()
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    let time = newDate.toTimeString()
+    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+}
 
 function FindingContentView() {
     

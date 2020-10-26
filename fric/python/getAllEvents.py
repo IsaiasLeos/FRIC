@@ -16,24 +16,22 @@ def eventsOverview():
 
     events_json = []
 
+    findings_json = []
+    # Get number of Findings
+    for f in myFindingCollection.find():
+        findings_json.append(
+            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+    num_finds = len(findings_json)
+
+    systems_json = []
+    # Get number of systems
+    for s in mySystemCollection.find():
+        systems_json.append(
+            {"sysInfo": s["System_Info"], "sysDesc": s["System_Description"]})
+    num_sys = len(systems_json)
+
     # Event Overview Information
     for e in myEventCollection.find():
-        # Reset counters after every event
-        findings_json = []
-        systems_json = []
-
-        # Get number of Findings
-        for f in myFindingCollection.find():
-            findings_json.append(
-                {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
-        num_finds = len(findings_json)
-
-        # Get number of systems
-        for s in mySystemCollection.find():
-            systems_json.append(
-                {"sysInfo": s["System_Info"], "sysDesc": s["System_Description"]})
-        num_sys = len(systems_json)
-
         events_json.append({"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],
                             "event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress']})
 
@@ -52,35 +50,29 @@ def addEvent():
     mycollection.insert_one(event)
 
 
-@app.route('/systems')
+@app.route('/getsystem')
 def systems():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mySystemCollection = mydb["system"]
     myFindingCollection = mydb["finding"]
     myTaskCollection = mydb["task"]
+    mySubtaskCollection = mydb["subtask"]
     system_json = []
+    findings_json = []
+    for f in myFindingCollection.find():
+        
+        findings_json.append({"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+        num_finds = len(findings_json)
+    task_json = []
+    for f in myTaskCollection.find():
+        
+        task_json.append({"taskTitle": f["Task_title"], "taskDescription": f["Task_Description"]})
+    num_tasks = len(task_json)
 
     for e in mySystemCollection.find():
-        findings_json = []
+        
         task_json = []
-        # Get number of Findings
-        for f in myFindingCollection.find():
-            findings_json.append(
-                {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
-        num_finds = len(findings_json)
-
-        # Get number of tasks
-        for g in myFindingCollection.find():
-            task_json.append(
-                {"taskTitle": g["Task_Title"], "taskDesc": g["Task_Description"]})
-        num_tasks = len(task_json)
-
-        # Get number of subtask 
-        # for h in mySystemCollection.find(): 
-        #     subtask_json.append(
-        #         {"subtaskTitle":h["Subtask_Title"],"subtaskDesc":h["Subtask_Description"]})
-        # num_subtasks = len(subtask_json)
 
         system_json.append({"sysInfo": e['System_Info'], "sysDesc": e['System_Description'], "sysLoc": e['System_Location'], "sysRouter": e['System_Router'], "sysSwitch": e['System_Switch'],  "sysRoom": e['System_Room'],
                             "sysTestPlan": e['Test_Plan'], "Confidentiality": e['Confidentiality'], "Integrity": e['Integrity'], "Availability": e['Availability'], "num_task": num_tasks, "num_findings": num_finds, "prog": e['Progress']})
@@ -109,11 +101,11 @@ def findings():
     for e in mycollection.find():
         finding_json.append({
             "findingID": e['Finding_ID'], 
-            "hostName": e['Host_Name']
+            "hostName": e['Host_Name'],
             "ipPort": e['IP_Port'], 
-            "description": e['Description']
+            "description": e['Description'],
             "findingID": e['Finding_ID'], 
-            "hostName": e['Host_Name']
+            "hostName": e['Host_Name'],
             "ipPort": e['IP_Port'], 
             "description": e['Description']
             })
@@ -139,6 +131,14 @@ def subtasks():
     mydb = myclient["FRIC"]
     mycollection = mydb["subtask"]
     subtask_json = []
+
+    findings_json = []
+    # Get number of Findings
+    for f in mycollection.find():
+        findings_json.append(
+            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+    num_finds = len(findings_json)
+
     for e in mycollection.find():
         subtask_json.append({
             "subtaskTitle": e['Subtask_Title'], 
@@ -150,7 +150,7 @@ def subtasks():
             "relatedTask": e['Related_Task'], 
             "subtasks": e['Subtasks'], 
             "attachments": e['Attachments'],
-            "numFindings": e['Num_Findings'],
+            "numFindings": num_finds,
             "analyst": e['Analyst'],
             "task": e['Task']
             })
@@ -183,8 +183,26 @@ def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["task"]
+    myFindingCollection = mydb["finding"]
+    mySubtaskCollection = mydb["subtask"]
     task_json = []
+
+    findings_json = []
+    # Get number of Findings
+    for f in myFindingCollection.find():
+        findings_json.append(
+            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+    num_finds = len(findings_json)
+
+    subtask_json = []
+    # Get number of systems
+    for s in mySubtaskCollection.find():
+        subtask_json.append({"subtaskTitle": s["Subtask_Title"], "subtaskDescription": s["Subtask_Description"]})
+    num_subtask = len(subtask_json)
+
+
     for e in mycollection.find():
+        
         task_json.append({
             "taskTitle": e['Task_title'], 
             "taskDescription": e['Task_Description'],
@@ -196,8 +214,8 @@ def tasks():
             "taskCollaborators": e['Task_Collaborators'], 
             "relatedTasks": e['Related_Tasks'], 
             "attachments": e['Attachments'],
-            "num_subtask": e['Num_subtask'],
-            "num_finding": e['Num_finding']
+            "num_subtask": num_subtask,
+            "num_finding": num_finds
             })
     return jsonify(task_json)
 
