@@ -1,5 +1,9 @@
 import * as React from 'react'
 import 'react-bootstrap'
+import DatePicker from "react-datepicker";   // Need to udate npm install: npm install react-datepicker --save
+import "react-datepicker/dist/react-datepicker.css"; // For calendar function
+import GeneralView from '../generalView/generalView';
+import { useState} from "react";//For calendar use
 //import GeneralView from '../generalView/generalView';
 //import '../assets/css/bootstrap.css'
 //import React from 'react';
@@ -42,7 +46,6 @@ import 'react-bootstrap'
     //     );
     // }
 //}
-import GeneralView from '../generalView/generalView';
 
 const useSortableData = (items, config = null) => {
   const [sortConfig, setSortConfig] = React.useState(config);
@@ -112,7 +115,16 @@ const ProductTable = (props) => {
   );
 };
 
+const Picker = () => {
+  const [startDate, setStartDate] = useState(new Date());
+  return (
+    <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+  );
+};
+
 export default function notification() {
+
+  
   return (
     <div className="App">
       <GeneralView />
@@ -124,6 +136,12 @@ export default function notification() {
           { id: 4, name: 'Jacob'},
         ]}
       />
+
+        <div>
+          <h4> Example for the calendar </h4>
+        <Picker/>
+        </div>
+
     </div>
   );
 }
