@@ -67,7 +67,7 @@ def systems():
         # Get number of Findings
         for f in myFindingCollection.find():
             findings_json.append(
-                {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+                {"id": f["id"], "hostName": f["host_name"]})
         num_finds = len(findings_json)
 
         # Get number of tasks

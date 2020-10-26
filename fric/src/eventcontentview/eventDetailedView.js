@@ -30,7 +30,8 @@ class eventDetailedView extends React.Component {
     }
 
     handleEventType(e) {
-        console.log(e.target.value); // Get value from select tag // 
+        console.log(e.target.value); // Get value from select tag //
+
     }
     handleEventClass(e) {
         console.log(e.target.value); // Get value from select tag // 
@@ -68,6 +69,7 @@ class eventDetailedView extends React.Component {
         }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
+                console.log(this.state)
             })
             .catch(error => {
                 console.error('Error', error)
@@ -112,48 +114,49 @@ class eventDetailedView extends React.Component {
                         <form onSubmit={this.onSubmit}>
                             <label>
                                 Title:<br />
-                                <input type="text" name="name" onChange={this.onChange} id="event-title" className="event-data" value={this.props.event.name} />
+                                <input type="text" name="name" onChange={this.onChange} id="event-title" className="event-data" defaultValue={this.props.event.name} />
                             </label><br />
                             <label>
                                 Description<br />
-                                <input type="text" name="desc" onChange={this.onChange} id="event-desc" className="event-data" value={this.props.event.desc} />
+                                <input type="text" name="desc" onChange={this.onChange} id="event-desc" className="event-data" defaultValue={this.props.event.desc} />
                             </label><br />
 
                             <label for="eventType">Event Type:</label>
-                            <select onChange={this.handleEventType} value={this.props.type}>
+                            <select onChange={this.handleEventType} defaultValue={this.props.event.type}>
                                 {eventTypes.map(eventType => (
                                     <option value={eventType.value}>{eventType.label}</option>
                                 ))}
                             </select><br />
                             <label>
                                 Version:<br />
-                                <input type="text" name="vers" onChange={this.onChange} id="event-version" className="event-data" value={this.props.event.version} />
+                                <input type="text" name="vers" onChange={this.onChange} id="event-version" className="event-data" defaultValue={this.props.event.version} />
                             </label><br />
 
                             <label>
                                 Assessment Date:<br />
-                                <input type="text" name="assess_date" onChange={this.onChange} id="event-assess-date" className="event-data" value={this.props.event.assess_date} />
+                                <input type="text" name="assess_date" onChange={this.onChange} id="event-assess-date" className="event-data" defaultValue={this.props.event.assess_date} />
                             </label><br />
 
                             <label>
                                 Organization Name:<br />
-                                <input type="text" name="org_name" onChange={this.onChange} id="event-org-name" className="event-data" value={this.props.event.org_name} />
+                                <input type="text" name="org_name" onChange={this.onChange} id="event-org-name" className="event-data" defaultValue={this.props.event.org_name} />
                             </label><br />
 
                             <label for="eventClass">Event Classification:</label>
-                            <select onChange={this.handleEventClass} value={this.props.type}>
+                            <select onChange={this.handleEventClass} defaultValue={this.props.event.event_class}>
                                 {eventClasses.map(eventClass => (
                                     <option value={eventClass.value}>{eventClass.label}</option>
                                 ))}
+
                             </select><br />
 
                             <label>
                                 Declassification Date:<br />
-                                <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" value={this.props.event.declass_date} />
+                                <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" defaultValue={this.props.event.declass_date} />
                             </label><br />
                             <label>
                                 Customer Name:<br />
-                                <input type="text" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" value={this.props.event.customer} />
+                                <input type="text" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" defaultValue={this.props.event.customer} />
                             </label><br />
                             <Button type="submit" className="btn" variant="outline-dark">Sync</Button>
                         </form>
