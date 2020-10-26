@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request, make_response
 import json
 import pymongo
+from flask import Flask, jsonify, request, make_response
+
 
 app = Flask(__name__)
 
@@ -38,7 +39,6 @@ def eventsOverview():
 
     return jsonify(events_json)
 
-
 @app.route('/addevent', methods=['POST'])
 def addEvent():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -71,10 +71,10 @@ def systems():
         num_finds = len(findings_json)
 
         # Get number of tasks
-        # for g in myFindingCollection.find():
-        #     task_json.append(
-        #         {"taskTitle": g["Task_Title"], "taskDesc": g["Task_Description"]})
-        # num_tasks = len(task_json)
+        for g in myFindingCollection.find():
+            task_json.append(
+                {"taskTitle": g["Task_Title"], "taskDesc": g["Task_Description"]})
+        num_tasks = len(task_json)
 
         # Get number of subtask 
         # for h in mySystemCollection.find(): 
@@ -83,7 +83,7 @@ def systems():
         # num_subtasks = len(subtask_json)
 
         system_json.append({"sysInfo": e['System_Info'], "sysDesc": e['System_Description'], "sysLoc": e['System_Location'], "sysRouter": e['System_Router'], "sysSwitch": e['System_Switch'],  "sysRoom": e['System_Room'],
-                            "sysTestPlan": e['Test_Plan'], "Confidentiality": e['Confidentiality'], "Integrity": e['Integrity'], "Availability": e['Availability'], "num_task": 5, "num_findings": num_finds, "prog": e['Progress']})
+                            "sysTestPlan": e['Test_Plan'], "Confidentiality": e['Confidentiality'], "Integrity": e['Integrity'], "Availability": e['Availability'], "num_task": num_tasks, "num_findings": num_finds, "prog": e['Progress']})
     return jsonify(system_json)
 
 
@@ -101,30 +101,36 @@ def addSystems():
 
 @app.route('/findings')  # path used in JS to call this
 def findings():
-    myclient = pymongo.MongoClient(
-        "mongodb://localhost:27017/")  # Connect to the DB Client
-    mydb = myclient["FRIC"]  # Database name
-    mycollection = mydb["finding"]  # Collection Name
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient['FRIC']  # Database name
+    mycollection = mydb['finding']  # Collection Name
     finding_json = []
 
-    # Find all data inside the collection finding and append as necessary
     for e in mycollection.find():
-        # Format => How to Access field, Name inside the collection
-        finding_json.append(
-            {"findingID": e['Finding_ID'], "hostName": e["Host_Name"]})
+        finding_json.append({
+            "findingID": e['Finding_ID'], 
+            "hostName": e['Host_Name']
+            "ipPort": e['IP_Port'], 
+            "description": e['Description']
+            "findingID": e['Finding_ID'], 
+            "hostName": e['Host_Name']
+            "ipPort": e['IP_Port'], 
+            "description": e['Description']
+            })
     return jsonify(finding_json)  # return what was found in the collection
 
 
 @app.route('/addfinding', methods=['POST'])
-def addFinding():
-    myclient = pymongo.MongoClient(
-        "mongodb://localhost:27017/")  # Connect to the DB Client
-    mydb = myclient["FRIC"]  # Database name
-    mycollection = mydb["finding"]  # Collection Name
+def addFindings():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")  # Connect to the DB Client
+    mydb = myclient["FRIC"]
+    mycollection = mydb["finding"]  
+    req = request.get_json() 
+    finding = {
+        "Finding_ID": req['findingID'],
+        "Host_Name": req['hostName']
+    }
 
-    req = request.get_json()  # Assign the information
-    # Format => Name inside the collection, How to Access field
-    finding = {"Finding_ID": req['findingID'], "Host_Name": req['hostName']}
     mycollection.insert_one(finding)  # Send information to collection
 
 @app.route('/subtasks')

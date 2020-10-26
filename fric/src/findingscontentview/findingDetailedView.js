@@ -15,23 +15,30 @@ class findingDetailedView extends React.Component {
     constructor() {
         super();
         this.state = {
-            findingID: "",
-            hostName: "",
+            findingID: " ",
+            hostName: " ",
         };
 
         this.action = {
-            date: "",
-            action: "",
-            analyst: ""
-        }
+            date: " ",
+            action: " ",
+            analyst: " "
+        };
     }
 
+    handleEventType(e) {
+        console.log(e.target.value);
+    }
+
+    handleEventClass(e) {
+        console.log(e.target.value);
+    }
     onChange = (e) => { //call on modification
         this.setState({ [e.target.name]: e.target.value });
     }
 
     onSubmit = (e) => {
-        this.action.action = "submit finding";//Setting up information for Logging
+        this.action.action = "submit finding";
         this.action.date = getCurrentDate("/");
         this.action.analyst = "";
         e.preventDefault();
@@ -69,17 +76,17 @@ class findingDetailedView extends React.Component {
         return (
             <div>
                 <div>
-                    <form action="" class="form" onSubmit={this.onSubmit}>
+                    <form onSubmit={this.onSubmit} className= "finding-form">
                         <h4>Finding Information</h4>
                         <label for="ID">
                             ID:
-                            <br></br><input type="text" name="findingID" id="ID" onChange={this.onChange} placeholder="ID" />
+                            <br></br><input type="text" value={this.props.finding.findingID} onChange={this.onChange} name="findingID" id="ID" />
                         </label><br></br>
 
-                        <label for="Host Name">
+                        <label htmlFor="hostName">
                             Host Name:
                             <br></br>
-                            <input type="text" name="hostName" id="hostName" class="browser-default  mr-3" onChange={this.onChange} placeholder="Host Name" />
+                            <input type="text" value={this.props.finding.hostName} onChange={this.onChange} name = "hostName" id="host-name" className="finding-data"/>
                         </label><br />
                         <label for="IP-Port">
                             IP Port:
@@ -408,15 +415,12 @@ class findingDetailedView extends React.Component {
                             <br></br>
                             <input type="text" name="impactScoreDescription" id="impactScoreDescriptionInfo" class="browser-default  mr-3" />
                         </label><br></br>
-                        <Button variant="dark" type="submit">
-                            Save
-                        </Button>
-                        <Button variant="dark" type="submit">
-                            Delete
-                        </Button>
-                        <Button variant="dark" type="submit" >
-                            Cancel
-                        </Button>
+                        <div class="button-input-group">
+                                <form onSubmit> {/*For some reason, this closes the modal*/}
+                                    <Button variant="outline-dark" type="submit" class="btn cancel">Cancel </Button>
+                                </form>
+                                <Button variant="outline-dark" type="submit" class="btn">Submit </Button>
+                            </div>
                     </form>
                 </div>
 
