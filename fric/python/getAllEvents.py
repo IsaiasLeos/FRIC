@@ -109,7 +109,7 @@ def findings():
     for e in mycollection.find():
         finding_json.append({
             "findingID": e['Finding_ID'], 
-            "hostName": e['Host_Name']
+            "hostName": e['Host_Name'],
             "ipPort": e['IP_Port'], 
             "description": e['Description']
             "findingID": e['Finding_ID'], 
