@@ -186,14 +186,14 @@ function FindingContentView() {
                                 <td><input type="checkbox" id="cb1" value="" /></td>
                                 <td>{finding.findingID}</td>
                                 <td><Button variant="outline-dark" onClick={() => {viewFinding(finding)}}>{finding.hostName}</Button></td>
-                                <td>System</td>
-                                <td>Task</td>
-                                <td>Subtask</td>
-                                <td>Analyst</td>
-                                <td>Status</td>
-                                <td>Classification</td>
-                                <td>Type</td>
-                                <td>Risk</td>
+                                <td>{finding.findingSystem}</td>
+                                <td>{finding.findingTask}k</td>
+                                <td>{finding.findingSubtask}</td>
+                                <td>{finding.findingAnalyst}</td>
+                                <td>{finding.findingStatus}</td>
+                                <td>{finding.findingClassification}</td>
+                                <td>{finding.findingType}</td>
+                                <td>{finding.findingRisk}</td>
                                
                             </tr>
                         ))}
