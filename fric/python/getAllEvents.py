@@ -113,13 +113,6 @@ def addSubtasks():
         }
     mycollection.insert_one(subtask)
 
-
-
-
-
-
-
-
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
