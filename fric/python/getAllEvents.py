@@ -25,7 +25,7 @@ def eventsOverview():
         # Get number of Findings
         for f in myFindingCollection.find():
             findings_json.append(
-                {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+                {"id": f["id"], "host_name": f["host_name"]})
         num_finds = len(findings_json)
 
         # Get number of systems
@@ -111,9 +111,9 @@ def findings():
             "findingID": e['Finding_ID'], 
             "hostName": e['Host_Name'],
             "ipPort": e['IP_Port'], 
-            "description": e['Description']
+            "description": e['Description'],
             "findingID": e['Finding_ID'], 
-            "hostName": e['Host_Name']
+            "hostName": e['Host_Name'],
             "ipPort": e['IP_Port'], 
             "description": e['Description']
             })
