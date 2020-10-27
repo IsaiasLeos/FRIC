@@ -65,7 +65,7 @@ function SetupContentView(props) {
   }
 
   function checker() {
-    console.log(event.data.length)
+    console.log(event.data)
     // if ((event.data === null)) {
     //   return <h4 style={{ textAlign: 'center' }}>No event</h4>;
     // }

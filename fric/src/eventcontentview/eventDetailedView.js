@@ -6,6 +6,10 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import '../assets/css/bootstrap.css';
 import './eventView.css';
+import DatePicker from "react-datepicker";   // Need to udate npm install: npm install react-datepicker --save
+import "react-datepicker/dist/react-datepicker.css"; // For calendar function
+import { useState} from "react";//For calendar use
+
 
 function getCurrentDate(separator = '') {
     let newDate = new Date()
@@ -77,6 +81,13 @@ class eventDetailedView extends React.Component {
     }
 
     render() {
+        const Picker = () => {
+            const [startDate, setStartDate] = useState(new Date());
+            return (
+              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+            );
+          };
+
         const eventTypes = [
             {
                 label: "Type A",
@@ -152,7 +163,8 @@ class eventDetailedView extends React.Component {
 
                             <label>
                                 Declassification Date:<br />
-                                <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" defaultValue={this.props.event.declass_date} />
+                                <Picker name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" defaultValue={this.props.event.declass_date}/>
+                                {/* <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" defaultValue={this.props.event.declass_date} /> */}
                             </label><br />
                             <label>
                                 Customer Name:<br />
