@@ -84,10 +84,9 @@ def systems():
     for f in myFindingCollection.find():
         findings_json.append(
             {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
-        num_finds = len(findings_json)
+    num_finds = len(findings_json)
     task_json = []
     for f in myTaskCollection.find():
-
         task_json.append(
             {"taskTitle": f["Task_title"], "taskDescription": f["Task_Description"]})
     num_tasks = len(task_json)
