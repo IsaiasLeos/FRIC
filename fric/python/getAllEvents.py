@@ -96,7 +96,18 @@ def findings():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient['FRIC']  # Database name
     mycollection = mydb['finding']  # Collection Name
+    myTaskCollection = mydb['task']
     finding_json = []
+    active_tasks = [] 
+
+    for e in myTaskCollection.distinct("Task_title"):
+        active_tasks.append(e)
+
+    testing = active_tasks
+
+    
+        
+
 
     for e in mycollection.find():
         finding_json.append({
@@ -132,7 +143,8 @@ def findings():
             "findingCFIS" : e['Finding_CFIS'],
             "findingIFIS": e['Finding_IFIS'], 
             "findingAFIS": e['Finding_AFIS'],
-            "impactScore" : e['Impact_Score']
+            "impactScore" : e['Impact_Score'],
+            "activeTasks" : testing
             })
     return jsonify(finding_json)  # return what was found in the collection
 
@@ -176,7 +188,9 @@ def addFindings():
         "Finding_CFIS": req['findingCFIS'],
         "Finding_IFIS": req['findingIFIS'],
         "Finding_AFIS": req['findingAFIS'],
-        "Impact_Score": req['impactScore']
+        "Impact_Score": req['impactScore'],
+        
+
     }
 
     mycollection.insert_one(finding)  # Send information to collection
@@ -255,6 +269,8 @@ def tasks():
     for s in mySubtaskCollection.find():
         subtask_json.append({"subtaskTitle": s["Subtask_Title"], "subtaskDescription": s["Subtask_Description"]})
     num_subtask = len(subtask_json)
+
+    
 
 
     for e in mycollection.find():

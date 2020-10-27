@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Button from 'react-bootstrap/Button'
+import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 
 function getCurrentDate(separator = '') {
     let newDate = new Date()
@@ -9,7 +10,9 @@ function getCurrentDate(separator = '') {
     let time = newDate.toTimeString()
     let check = '';
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+
 }
+
 class findingDetailedView extends React.Component {
 
     constructor() {
@@ -47,7 +50,8 @@ class findingDetailedView extends React.Component {
             findingCFIS: '',
             findingIFIS: '',
             findingAFIS: '',
-            impactScore: ''
+            impactScore: '',
+            activeTasks: ''
         };
 
         this.action = {
@@ -55,8 +59,13 @@ class findingDetailedView extends React.Component {
             action: " ",
             analyst: " "
         };
+
+        
+
+     
     }
 
+    
     handleEventType(e) {
         console.log(e.target.value);
     }
@@ -103,8 +112,9 @@ class findingDetailedView extends React.Component {
             });
     }
 
-    render() {
 
+    
+    render() {
         const findingStatusType = [
             {
                 label: "Open",
@@ -115,6 +125,9 @@ class findingDetailedView extends React.Component {
                 value: "Closed"
             },
         ];
+
+       const activeTaskFields = this.props.finding.activeTasks; //array holding all of the task titles to use as dropdown
+
         const findingType = [
             {
                 label: "Manufactuerer Default Creds",
@@ -170,6 +183,10 @@ class findingDetailedView extends React.Component {
             },
         ];
         
+        
+        
+
+
         return (
             <div>
                 <div>
@@ -208,6 +225,8 @@ class findingDetailedView extends React.Component {
                             <select name="findingStatus" defaultValue={this.props.finding.findingStatus} onChange={this.onChange} id="findingStatus" class="browser-default custom-select mr-3">
                                 <option value="Open">Open</option>
                                 <option value="Closed">Closed</option>
+                                
+                                
                             </select>
                         </label>
                         &nbsp;
@@ -249,7 +268,8 @@ class findingDetailedView extends React.Component {
                         <label for="fileName">
                             File:
                             <br></br>
-                            <input type="text" name="filename" id="filename" class="browser-default mr-3" />
+                            <input type="text" name="activeTasks" value={this.props.finding.activeTasks} id="filename" class="browser-default mr-3" />
+                            
                         </label><br />
 
                         <label for="system">
@@ -264,15 +284,10 @@ class findingDetailedView extends React.Component {
                         </label>
                         &nbsp;
                         &nbsp;
-                        <label for="Task">
+                        <label for="activeTaskFields">
                             Task(s):
                             <br></br>
-                            <select name="findingTask" value={this.props.finding.findingTask} onChange={this.onChange} id="findingTask" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Task A">Task A</option>
-                                <option value="Task B">Task B</option>
-                                <option value="Task C">Task C</option>
-                            </select>
+                            <ReactMultiSelectCheckboxes options={null} width="100%" name="activeTaskFields"/>
                         </label>
                         &nbsp;
                         &nbsp;
@@ -495,11 +510,15 @@ class findingDetailedView extends React.Component {
                             <input type="text" name="findingAFIS" value={this.props.finding.findingAFIS} onChange={this.onChange} id="findingAFIS" class="browser-default  mr-3" />
                         </label><br></br>
 
+                        
+
                         <label for="ImpactScoreDescription">
                             Impact Score:
                             <br></br>
                             <input type="text" name="impactDesc" value={this.props.finding.impactDesc} onChange={this.onChange} id="impactDesc" class="browser-default  mr-3" />
                         </label><br></br>
+
+                        
                         <div class="button-input-group">
                                 <form onSubmit> {/*For some reason, this closes the modal*/}
                                     <Button variant="outline-dark" type="submit" class="btn cancel">Cancel </Button>

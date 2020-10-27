@@ -37,7 +37,7 @@ function FindingContentView() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     
-    const [findings, setFindings] = useState([{
+    const [findings, setFindings] = useState([{ //define findings
          findingID: '',
          hostName: '',
          ip_port: '',
@@ -70,7 +70,8 @@ function FindingContentView() {
          findingCFIS: '',
          findingIFIS: '',
          findingAFIS: '',
-         impactScore: ''
+         impactScore: '',
+         activeTasks: ''
 
     }])
 
@@ -113,13 +114,26 @@ function FindingContentView() {
         findingCFIS: '',
         findingIFIS: '',
         findingAFIS: '',
-        impactScore: ''
+        impactScore: '',
+        activeTasks: ''
+        
     });
+
+
+
+    
+     
+   // var obj = this.props.finding.activeTasks;
+    //var arr = Object.keys(obj).map(function(key){return obj[key];});
 
     function viewFinding(finding) { //When we press title button
         sendLog("view finding");
         selectedFinding(finding);
         handleShow();
+    }
+    function setActiveTasks(finding){
+        
+        
     }
 
     function sendLog(a) { //action that is going to be recorded
@@ -149,6 +163,8 @@ function FindingContentView() {
         handleShow();
     }
 
+    
+ 
     return (
         <div>
             <GeneralView />
@@ -159,7 +175,7 @@ function FindingContentView() {
                          
                         <Button variant="dark">Delete</Button>
                         <Button variant="dark">Cancel</Button>
-                        <Button variant="dark" onClick={addFinding}>Add</Button>
+                        <Button variant="dark" onClick={addFinding}>Add</Button> 
                         
                     </ButtonGroup>
                 </div>
@@ -178,6 +194,7 @@ function FindingContentView() {
                             <th>Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             <th>Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             <th>Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>TEST<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -193,7 +210,10 @@ function FindingContentView() {
                                 <td>{finding.findingStatus}</td>
                                 <td>{finding.findingClassification}</td>
                                 <td>{finding.findingType}</td>
-                                <td>{finding.findingRisk}</td>
+                                <td></td>
+                                
+                                
+                                
                                
                             </tr>
                         ))}
