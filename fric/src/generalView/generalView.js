@@ -52,9 +52,9 @@ function GeneralView() {
                         <li class="nav-item">
                             <div class="nav-link" onClick={viewNote}> Notification </div>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <a className="nav-link" href="/Notify"> EX </a>
-                        </li>
+                        </li> */}
                     </ul>
                     <form className="form-inline my-2 my-md-0">
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
