@@ -24,7 +24,15 @@ function TaskContentView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [tasks, setTasks] = useState([{ taskTitle: '', system: '', taskAnalysts: '', taskProgress: '', num_subtask: '', num_finding: '', taskDueDate:''}])
+    const [tasks, setTasks] = useState([{ 
+        taskTitle: '', 
+        system: '', 
+        taskAnalysts: '',
+        taskPriority: '', 
+        taskProgress: '', 
+        num_subtask: '', 
+        num_finding: '', 
+        taskDueDate:''}])
     useEffect(() => {
         fetch('/tasks').then(
             response => response.json()).then(data => setTasks(data))
@@ -100,9 +108,9 @@ function TaskContentView() {
                             <tr>
                                 <td><input type="checkbox" id="cb1" value="system" /></td>
                                 <td><Button variant="outline-dark" onClick={() => { viewTask(task) }}>{task.taskTitle}</Button></td>
-                                <td>{task.taskTitle}</td>
                                 <td>{task.system}</td>
                                 <td>{task.taskAnalysts}</td>
+                                <td>{task.taskPriority}</td>
                                 <td>{task.taskProgress}</td>
                                 <td>{task.num_subtask}</td>
                                 <td>{task.num_finding}</td>
@@ -120,14 +128,6 @@ function TaskContentView() {
                     <Modal.Body>
                         <TaskDetailedView task={selected_task} />
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="outline-dark" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                        <Button variant="outline-dark" onClick={handleClose}>
-                            Submit
-                        </Button>
-                    </Modal.Footer>
                 </Modal>
             </div>
             <div class="right-tree">

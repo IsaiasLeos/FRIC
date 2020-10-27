@@ -153,23 +153,23 @@ class subtaskDetailedView extends React.Component {
                         <div className="right">
                             <label htmlFor="subtaskAnalysts">
                                 Analyst(s):<br />
-                                <ReactMultiSelectCheckboxes options={analysts} width="100%" value={this.props.subtask.analysts} onChange={this.onChange} name="analysts" />
+                                <ReactMultiSelectCheckboxes options={analysts} width="100%"  name="analysts" />
                             </label>
                             <label htmlFor="subtaskCollaborators">
                                 Collaborator(s):<br />
-                                <ReactMultiSelectCheckboxes options={collaborators} width="100%" value={this.props.subtask.collaborators} onChange={this.onChange} name="collaborators" />
+                                <ReactMultiSelectCheckboxes options={collaborators} width="100%"  name="collaborators" />
                             </label><br />
                             <label htmlFor="tasks">
                                 Related task(s):<br />
-                                <ReactMultiSelectCheckboxes options={tasks} width="100%" value={this.props.subtask.relatedTask} onChange={this.onChange} name="relatedTask" />
+                                <ReactMultiSelectCheckboxes options={tasks} width="100%"  name="relatedTask" />
                             </label><br />
                             <label htmlFor="subtasks">
                                 Subtask(s):<br />
-                                <ReactMultiSelectCheckboxes options={subtasks} width="100%" value={this.props.subtask.subtasks} onChange={this.onChange} name="subtasks" />
+                                <ReactMultiSelectCheckboxes options={subtasks} width="100%"  name="subtasks" />
                             </label><br />
                             <label htmlFor="attachments">
                                 Attachments:<br />
-                                <ReactMultiSelectCheckboxes options={attachments} width="100%" value={this.props.subtask.attachments} onChange={this.onChange} name="attachments" />
+                                <ReactMultiSelectCheckboxes options={attachments} width="100%"  name="attachments" />
                             </label><br />
                         </div>
                         <div class="button-input-group">
