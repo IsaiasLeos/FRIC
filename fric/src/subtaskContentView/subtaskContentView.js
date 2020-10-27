@@ -11,15 +11,16 @@ import SubtaskDetailedView from './subtaskDetailedView';
 import './subtaskView.css';
 import Tree from '../eventTree/eventTree';
 
-function getCurrentDate(separator = '') {
-    let newDate = new Date()
-    let day = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();  
-    let time = newDate.toTimeString()
-    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
-}
+
 function SubtaskContentView() {
+    function getCurrentDate(separator = '') {
+        let newDate = new Date()
+        let day = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();  
+        let time = newDate.toTimeString()
+        return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+    }
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -89,7 +90,7 @@ function SubtaskContentView() {
                     <ButtonGroup>
                         <Button variant="dark">Archive</Button>
                         <Button variant="dark">Promote</Button>
-                        <Button variant="dark" onClick={addSubtask}>Add </Button>
+                        <Button variant="dark" onClick={addSubtask}>Add</Button>
                     </ButtonGroup>
                 </div>
 
@@ -123,7 +124,7 @@ function SubtaskContentView() {
                 <Modal show={show} onHide={handleClose} dialogClassName="subtask-modal">
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Subtask Detailed View {console.log("Here", selected_subtask)}
+                            Subtask Detailed View 
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

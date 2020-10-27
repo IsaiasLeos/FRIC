@@ -49,8 +49,11 @@ function GeneralView() {
                         <li className="nav-item">
                             <a className="nav-link" href="/Help">Help</a>
                         </li>
+                        <li class="nav-item">
+                            <div class="nav-link" onClick={viewNote}> Notification </div>
+                        </li>
                         <li className="nav-item">
-                            <a className="nav-link" onClick={viewNote}> Notification </a>
+                            <a className="nav-link" href="/Notify"> EX </a>
                         </li>
                     </ul>
                     <form className="form-inline my-2 my-md-0">

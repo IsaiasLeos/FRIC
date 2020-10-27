@@ -17,61 +17,83 @@ function getCurrentDate(separator = '') {
 }
 
 class eventDetailedView extends React.Component {
-
-
-    constructor() {
-        super();
-        this.state = { name: '', desc: '', type: '', vers: '', assess_date: '', org_name: '', event_class: '', declass_date: '', customer_name: '' };
+    constructor(props) {
+        super(props);
+        this.state = { id: this.props.event.id, name: this.props.event.name, desc: this.props.event.desc, type: this.props.event.type, vers: this.props.event.version, assess_date: this.props.event.assess_date, org_name: this.props.event.org_name, event_class: this.props.event.event_class, declass_date: this.props.event.declass_date, customer_name:this.props.event.customer}; // State var to hold selected event // 
         this.action = {
             date: "",
             action: "",
             analyst: ""
         };
     }
-
+    // Get value from event type select tag //
     handleEventType(e) {
-        console.log(e.target.value); // Get value from select tag // 
-    }
-    handleEventClass(e) {
-        console.log(e.target.value); // Get value from select tag // 
-    }
+        console.log(e.target.name); 
 
+
+    }
+    // Get value from event class select tag // 
+    handleEventClass(e) {
+        console.log(e.target.name); 
+    }
+    // Update state var if a field is changed // 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
+    // Handle "Sync" // 
+    onSubmitEvent = (e) => {
+        
+        if(this.state.name == null){
+            console.log("Add event"); // debugging
+            // Add a new event // 
+            fetch('/addevent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.state), 
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+        }else {
+            console.log("Edit event",this.state); // Edit exisitng event // debugging 
+            // Edit Event // TO:DO
+            fetch('/editevent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.state), 
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
 
-    onSubmit = (e) => {
+        }
         e.preventDefault();
-        this.action.action = "submit event";
-        this.action.date = getCurrentDate("/");
-        this.action.analyst = "";
-        fetch('/addlog', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.action),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-
-        fetch('/addevent', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.state), //{ name, desc, type, vers, assess_date, org_name, event_class, declass_date, customer_name } 
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
+        // this.action.action = "submit event";
+        // this.action.date = getCurrentDate("/");
+        // this.action.analyst = "";
+        // fetch('/addlog', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(this.action),
+        // }).then(response => response.json())
+        //     .then(data => {
+        //         console.log("Success", data);
+        //     })
+        //     .catch(error => {
+        //         console.error('Error', error)
+        //     });
     }
 
     render() {
@@ -109,51 +131,52 @@ class eventDetailedView extends React.Component {
                     <div className="event-information">
                         <h2>Basic Information</h2>
                         <input type="image" src={HelpImage} alt="help button" />
-                        <form onSubmit={this.onSubmit}>
+                        <form onSubmit={this.onSubmitEvent}>
                             <label>
                                 Title:<br />
-                                <input type="text" name="name" onChange={this.onChange} id="event-title" className="event-data" value={this.props.event.name} />
+                                <input type="text" name="name" onChange={this.onChange} id="event-title" className="event-data" defaultValue={this.props.event.name} />
                             </label><br />
                             <label>
                                 Description<br />
-                                <input type="text" name="desc" onChange={this.onChange} id="event-desc" className="event-data" value={this.props.event.desc} />
+                                <input type="text" name="desc" onChange={this.onChange} id="event-desc" className="event-data" defaultValue={this.props.event.desc} />
                             </label><br />
 
                             <label for="eventType">Event Type:</label>
-                            <select onChange={this.handleEventType} value={this.props.type}>
+                            <select name = "type" onChange={this.onChange} defaultValue={this.props.event.type}>
                                 {eventTypes.map(eventType => (
                                     <option value={eventType.value}>{eventType.label}</option>
                                 ))}
                             </select><br />
                             <label>
                                 Version:<br />
-                                <input type="text" name="vers" onChange={this.onChange} id="event-version" className="event-data" value={this.props.event.version} />
+                                <input type="text" name="vers" onChange={this.onChange} id="event-version" className="event-data" defaultValue={this.props.event.version} />
                             </label><br />
 
                             <label>
                                 Assessment Date:<br />
-                                <input type="text" name="assess_date" onChange={this.onChange} id="event-assess-date" className="event-data" value={this.props.event.assess_date} />
+                                <input type="text" name="assess_date" onChange={this.onChange} id="event-assess-date" className="event-data" defaultValue={this.props.event.assess_date} />
                             </label><br />
 
                             <label>
                                 Organization Name:<br />
-                                <input type="text" name="org_name" onChange={this.onChange} id="event-org-name" className="event-data" value={this.props.event.org_name} />
+                                <input type="text" name="org_name" onChange={this.onChange} id="event-org-name" className="event-data" defaultValue={this.props.event.org_name} />
                             </label><br />
 
                             <label for="eventClass">Event Classification:</label>
-                            <select onChange={this.handleEventClass} value={this.props.type}>
+                            <select name= "event_class"onChange={this.onChange} defaultValue={this.props.event.event_class}>
                                 {eventClasses.map(eventClass => (
                                     <option value={eventClass.value}>{eventClass.label}</option>
                                 ))}
+
                             </select><br />
 
                             <label>
                                 Declassification Date:<br />
-                                <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" value={this.props.event.declass_date} />
+                                <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" defaultValue={this.props.event.declass_date} />
                             </label><br />
                             <label>
                                 Customer Name:<br />
-                                <input type="text" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" value={this.props.event.customer} />
+                                <input type="text" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" defaultValue={this.props.event.customer} />
                             </label><br />
                             <Button type="submit" className="btn" variant="outline-dark">Sync</Button>
                         </form>

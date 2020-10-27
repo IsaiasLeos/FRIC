@@ -11,15 +11,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import './findingView.css'
 import { useEffect } from "react";
 
-function getCurrentDate(separator = '') {
-    let newDate = new Date()
-    let day = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
-    let time = newDate.toTimeString()
-    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
-}
-
 function FindingContentView() {
     
     function getCurrentDate(separator = '') {
