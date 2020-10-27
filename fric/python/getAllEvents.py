@@ -212,7 +212,6 @@ def addFindings():
 
     mycollection.insert_one(finding)  # Send information to collection
 
-
 @app.route('/subtasks')
 def subtasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -223,7 +222,7 @@ def subtasks():
 
     findings_json = []
     # Get number of Findings
-    for f in mycollection.find():
+    for f in myFindingCollection.find():
         findings_json.append(
             {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
@@ -268,7 +267,7 @@ def addSubtasks():
     }
     mycollection.insert_one(subtask)
 
-
+    
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")

@@ -278,7 +278,7 @@ class findingDetailedView extends React.Component {
                             <select name="findingSystem" value={this.props.finding.findingSystem} onChange={this.onChange} id="findingSystem" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
                                 <option value="System A">System A</option>
-                                <option value="System B">System B</option>
+                                <option value="System B">System B</option>  
                                 <option value="System C">System C</option>
                             </select>
                         </label>
