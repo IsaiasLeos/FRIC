@@ -62,10 +62,10 @@ const useSortableData = (items, config = null) => {
             <Table bordered hover striped>
             <thead className="thead-grey">
               <tr>
-                <th> System Name <input type="image" alt="sort button" src={SortImage} className="sort-button" id onClick={() => requestSort('name')} className={getClassNamesFor('name')} /></th>
-                <th> No. of Task <input type="image" alt="sort button" src={SortImage} className="sort-button" id onClick={() => requestSort('num_task')} className={getClassNamesFor('num_task')} /></th>
-                <th> No. Finding <input type="image" alt="sort button" src={SortImage} className="sort-button" id onClick={() => requestSort('num_finding')} className={getClassNamesFor('num_finding')} /></th>
-                <th> Progress <input type="image" alt="sort button" src={SortImage} className="sort-button" id onClick={() => requestSort('progress_percent')} className={getClassNamesFor('progress_percent')} /></th>
+                <th> System Name <input type="image" alt="sort button" src={SortImage}  onClick={() => requestSort('name')} className={getClassNamesFor('name')} /></th>
+                <th> No. of Task <input type="image" alt="sort button" src={SortImage}  onClick={() => requestSort('num_task')} className={getClassNamesFor('num_task')} /></th>
+                <th> No. Finding <input type="image" alt="sort button" src={SortImage}  onClick={() => requestSort('num_finding')} className={getClassNamesFor('num_finding')} /></th>
+                <th> Progress <input type="image" alt="sort button" src={SortImage}    onClick={() => requestSort('progress_percent')} className={getClassNamesFor('progress_percent')} /></th>
                   {/* <Button variant="outline-dark" id onClick={() => requestSort('name')} className={getClassNamesFor('name')}> */}
                   {/* </Button> </div> */}
                 

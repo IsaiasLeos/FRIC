@@ -3,7 +3,7 @@ import 'react-bootstrap';
 import GeneralView from '../generalView/generalView';
 import '../assets/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
-import { useState } from "react";
+// import { useState } from "react";
 
 // function getCurrentDate(separator = '') {
 //   let newDate = new Date()
@@ -127,12 +127,6 @@ import { useState } from "react";
       
     }
   
-    handleEventType(e) {
-      console.log(e.target.value); // Get value from select tag // 
-    }
-    handleEventClass(e) {
-      console.log(e.target.value); // Get value from select tag // 
-    }
     onChange = (e) => {
       this.setState({ [e.target.name]: e.target.value });
     }
