@@ -1,11 +1,10 @@
 import React from 'react';
 import SystemContentView from './systemContentView';
-import SystemDetailedView from './systemDetailedView';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
+import Tree from '../eventTree/eventTree'
+import GeneralView from '../generalView/generalView'
 class SystemMaster extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.flag = false;
         this.state = {
             data: [],
@@ -25,15 +24,6 @@ class SystemMaster extends React.Component {
         };
 
         this.updateData = this.updateData.bind(this);
-        this.enableModal = this.enableModal.bind(this);
-        this.disableModal = this.disableModal.bind(this);
-    }
-    enableModal() {
-        this.flag = true;
-    }
-
-    disableModal() {
-        this.flag = false;
     }
 
     updateData() {
@@ -46,35 +36,14 @@ class SystemMaster extends React.Component {
     render() {
         return (
             <div>
+                <GeneralView />
                 <SystemContentView
                     data={this.state.data}
                     updateData={this.updateData}
-                    enableModal={this.enableModal}
-                    disableModal={this.disableModal}
-                    flag={this.flag}
                 />
-                <Modal show={this.flag}  >
-                    <Modal.Header>
-                        <Modal.Title>
-                            System Detailed View
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <SystemDetailedView
-                            data={this.state.data}
-                            updateData={this.updateData}
-                            enableModal={this.enableModal}
-                            disableModal={this.disableModal}
-                            flag={this.flag}
-                        />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <div className="button-input-group">
-                            <Button variant="outline-dark" type="submit" className="btn cancel" onClick={this.disableModal()}>Cancel </Button>
-                            <Button variant="outline-dark" type="submit" className="btn" onClick={this.disableModal()}>Submit </Button>
-                        </div>
-                    </Modal.Footer>
-                </Modal>
+                <div class="right-tree">
+                    <Tree />
+                </div>
             </div>
         );
     }

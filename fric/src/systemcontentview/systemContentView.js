@@ -1,15 +1,11 @@
 import * as React from 'react'
-import { useState } from "react";
 import Table from 'react-bootstrap/Table'
 import './systemView.css'
-import SortImage from '../assets/updownarrow.png'
-import GeneralView from '../generalView/generalView'
 import Button from 'react-bootstrap/Button'
 import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import Tree from '../eventTree/eventTree'
 import { useEffect } from "react";
-
+import { Modal } from 'react-bootstrap';
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -19,13 +15,19 @@ function getCurrentDate(separator = '') {
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
 }
 
-class SystemContentView extends React.Component {
-    constructor(props) {
-        super(props);
+export default function SystemContentView(props) {
+
+    const [dialogOpen, handleDialog] = React.useState(false)
+    function handleDialogOpen() {
+        handleDialog(true)
+        sendLog("system dialog open");
     }
 
-
-    sendLog(a) {
+    function handleDialogClose() {
+        handleDialog(false)
+        sendLog("system dialog close")
+    }
+    function sendLog(a) {
         let action = {
             date: getCurrentDate("/"),
             action: a,
@@ -46,55 +48,62 @@ class SystemContentView extends React.Component {
             });
     }
 
-    componentDidMount() {
-        this.props.updateData();
-    }
+    useEffect(() => {
+        props.updateData();
+    });
+
+    return (
+        <div >
+            
+            <div className="main">
+                <div className="SystemContentView">
+                    <div id="systemTable" update={props.updateSystemData}>
+                        <div className="title-buttons">
+                            <h2>System Overview Table</h2>
 
 
-    render() {
-        return (
+                            <ButtonGroup dialogclassname="title-system-buttons">
+                                <Button variant="dark" >Archive</Button>
+                                <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
+                            </ButtonGroup>
+                            <Modal show={dialogOpen} onHide={handleDialogClose} >
+                                <Modal.Header>
+                                    <Modal.Title>
+                                        System Detailed View
+                                </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <SystemDetailedView closeDetailAction={handleDialogClose} />
+                                </Modal.Body>
+                            </Modal>
 
-            <div >
-                <GeneralView />
-                <div className="main">
-                    <div className="SystemContentView">
-                        <div id="systemTable" update={this.props.updateSystemData}>
-                            <div className="title-buttons">
-                                <h2>System Overview Table</h2>
-                                <ButtonGroup dialogclassname="title-system-buttons">
-                                    <Button variant="dark" >Archive</Button>
-                                    <Button variant="dark" >Add</Button>
-                                </ButtonGroup>
-                            </div>
-                            <Table bordered hover striped>
-                                <thead className="thead-grey">
-                                    <tr>
-                                        <th>Select</th>
-                                        <th>System<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
-                                        <th>No. of Task<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
-                                        <th>No. Findings<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
-                                        <th>Progress<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.props.data.map((state) => (
-                                        <tr>
-                                            <td><input type="checkbox" /></td>
-                                            <td><Button variant="outline-dark">{state.sysInfo}</Button></td>
-                                            <td>{state.num_task}</td>
-                                            <td>{state.num_findings}</td>
-                                            <td>{state.prog}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
                         </div>
+                        <Table bordered hover striped>
+                            <thead className="thead-grey">
+                                <tr>
+                                    <th>Select</th>
+                                    <th>System</th>
+                                    <th>No. of Task</th>
+                                    <th>No. Findings</th>
+                                    <th>Progress</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {props.data.map((state) => (
+                                    <tr>
+                                        <td><input type="checkbox" /></td>
+                                        <td><Button variant="outline-dark">{state.sysInfo}</Button></td>
+                                        <td>{state.num_task}</td>
+                                        <td>{state.num_findings}</td>
+                                        <td>{state.prog}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
                     </div>
-
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
-export default SystemContentView;
