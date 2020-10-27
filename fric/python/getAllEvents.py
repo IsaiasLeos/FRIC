@@ -63,16 +63,6 @@ def editEvent():
     mycollection.update_one(query,event)
     return jsonify(event)
 
-# @app.route('/editevent')
-# def editEvent():
-#     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-#     mydb = myclient["FRIC"]
-#     mycollection = mydb["event"]
-#     for x in mycollection.find({"id":"2"}):
-#         print(x["id"])
-#     return {"hello":"world"}
-
-
 @app.route('/systems')
 def systems():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
