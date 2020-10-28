@@ -33,12 +33,20 @@ function EventTree(){
             response => response.json()).then(data => setTasks(data))
     }, []);
 
+
+    const [events, setEvents] = useState([{ name: '', num_sys: '', num_findings: '', prog: '' }])
+    
+    useEffect(() => {
+        fetch('/eventsOverview').then(
+            response => response.json()).then(data => setEvents(data)) // Get info for Event Overview Table // 
+    }, []);
+
     return (
         <TreeView>
-            {tasks.map((task) => (
-                <TreeItem nodeId={treeId++} label={task.taskTitle}>
-                {subtasks.map((subtask) => (
-                    <TreeItem nodeId={treeId++} label={subtask.subtaskTitle}></TreeItem>
+            {events.map((event) => (
+                <TreeItem nodeId={treeId++} label={event.name}>
+                {tasks.map((task) => (
+                    <TreeItem nodeId={treeId++} label={task.taskTitle}></TreeItem>
                     ))
                 }  
                 </TreeItem>
