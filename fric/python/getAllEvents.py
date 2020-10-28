@@ -108,6 +108,19 @@ def addSystems():
     mycollection.insert_one(system)
 
 
+@app.route('/editsystem',methods=['POST'])
+def editSystem():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["system"]
+    
+    req = request.get_json()
+    query = {"id":req["id"]}
+    system = {"System_Info": req['sysInfo'], "System_Description": req['sysDesc'], "System_Location": req['sysLoc'], "System_Router": req['sysRouter'], "System_Switch": req['sysSwitch'], "System_Room": req['sysRoom'],
+              "Test_Plan": req['sysTestPlan'], "Confidentiality": req['Confidentiality'], "Integrity": req['Integrity'], "Availability": req['Availability'], "Num_Task": 13, "Num_Findings": 10, "Progress": "Assigned", "Event": "Event 1"}
+    mycollection.update_one(query,system)
+    return jsonify(system)
+
 @app.route('/findings')  # path used in JS to call this
 def findings():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")

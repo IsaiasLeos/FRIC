@@ -49,8 +49,8 @@ function GeneralView() {
                         <li className="nav-item">
                             <a className="nav-link" href="/Help">Help</a>
                         </li>
-                        <li class="nav-item">
-                            <div class="nav-link" onClick={viewNote}> Notification </div>
+                        <li className="nav-item">
+                            <div className="nav-link" onClick={viewNote}> Notification </div>
                         </li>
                         {/* <li className="nav-item">
                             <a className="nav-link" href="/Notify"> EX </a>
