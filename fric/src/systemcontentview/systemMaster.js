@@ -41,7 +41,7 @@ class SystemMaster extends React.Component {
                     data={this.state.data}
                     updateData={this.updateData}
                 />
-                <div class="right-tree">
+                <div className="right-tree">
                     <Tree />
                 </div>
             </div>

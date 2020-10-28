@@ -21,15 +21,15 @@ export default function SystemContentView(props) {
 
   const [dialogOpen, handleDialog] = React.useState(false)
   function handleDialogOpen(state) {
+    sendLog("system dialog open");
     handleDialog(true)
     console.log(state)
     selectedSystem(state)
-    sendLog("system dialog open");
   }
 
   function handleDialogClose() {
-    handleDialog(false)
     sendLog("system dialog close")
+    handleDialog(false)
   }
   function sendLog(a) {
     let action = {
@@ -37,6 +37,7 @@ export default function SystemContentView(props) {
       action: a,
       analyst: ""
     }
+    console.log(action)
     fetch('/addlog', {
       method: 'POST',
       headers: {
