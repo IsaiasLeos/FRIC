@@ -45,22 +45,39 @@ function SystemDetailedView(props) {
     }
 
     function SendData(e) {
+        console.log(props.system)
         e.preventDefault();
-        fetch('/addsystem', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(state),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-        SendLog(e);
-        props.closeDetailAction();
+        if (state.name == null) {
+            fetch('/addsystem', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(state),
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+            SendLog(e);
+            props.closeDetailAction();
+        } else {
+            fetch('/editsystem', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(state),
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+        }
     }
 
     function closeOnCancel() {
@@ -94,24 +111,24 @@ function SystemDetailedView(props) {
 
                 <h3>System Information</h3>
                 <div className="input-group">
-                    <form className="input-form" onSubmit={SendData} onReset="">
-                        <input type="text" onChange={e => setName(e.target.value)} name="sysInfo" className="form-control browser-default mr-3" placeholder="System Information" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
+                    <form className="input-form" onSubmit={SendData} >
+                        <input type="text" onChange={e => setName(e.target.value)} name="sysInfo" defaultValue={props.system.sysInfo} className="form-control browser-default mr-3" placeholder="System Information" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
                             &nbsp;
-                            <textarea type="text" onChange={e => setDesc(e.target.value)} name="sysDesc" className="form-control mr-3" placeholder="System Description" aria-label="System Description" aria-describedby="basic-addon2"></textarea>
+                            <textarea type="text" onChange={e => setDesc(e.target.value)} name="sysDesc" defaultValue={props.system.sysDesc} className="form-control mr-3" placeholder="System Description" aria-label="System Description" aria-describedby="basic-addon2"></textarea>
                             &nbsp;
-                            <input type="text" onChange={e => setLocation(e.target.value)} name="sysLoc" className="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
+                            <input type="text" onChange={e => setLocation(e.target.value)} name="sysLoc" defaultValue={props.system.sysInfo} className="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
                             &nbsp;
-                            <input type="text" onChange={e => setRouter(e.target.value)} name="sysRouter" className="form-control mr-3" placeholder="System Router" aria-label="System Router" aria-describedby="basic-addon2"></input>
+                            <input type="text" onChange={e => setRouter(e.target.value)} name="sysRouter" defaultValue={props.system.sysRouter} className="form-control mr-3" placeholder="System Router" aria-label="System Router" aria-describedby="basic-addon2"></input>
                             &nbsp;
-                            <input type="text" onChange={e => setSwitch(e.target.value)} name="sysSwitch" className="form-control mr-3" placeholder="System Switch" aria-label="System Switch" aria-describedby="basic-addon2"></input>
+                            <input type="text" onChange={e => setSwitch(e.target.value)} name="sysSwitch" defaultValue={props.system.sysSwitch} className="form-control mr-3" placeholder="System Switch" aria-label="System Switch" aria-describedby="basic-addon2"></input>
                             &nbsp;
-                            <input type="text" onChange={e => setRoom(e.target.value)} name="sysRoom" className="form-control mr-3" placeholder="System Room" aria-label="System Room" aria-describedby="basic-addon2"></input>
+                            <input type="text" onChange={e => setRoom(e.target.value)} name="sysRoom" defaultValue={props.system.sysRoom} className="form-control mr-3" placeholder="System Room" aria-label="System Room" aria-describedby="basic-addon2"></input>
                             &nbsp;
-                            <input type="text" onChange={e => setTestPlan(e.target.value)} name="sysTestPlan" className="form-control mr-3" placeholder="Test Plan" aria-label="Test Plan" aria-describedby="basic-addon2"></input>
+                            <input type="text" onChange={e => setTestPlan(e.target.value)} name="sysTestPlan" defaultValue={props.system.sysTestPlan} className="form-control mr-3" placeholder="Test Plan" aria-label="Test Plan" aria-describedby="basic-addon2"></input>
                             &nbsp;
                             <h3>System Categorization</h3>
                         <div className="btn-group">
-                            <select className="browser-default custom-select mr-3" name="Confidentiality" onChange={e => setConfidentiality(e.target.value)} >
+                            <select className="browser-default custom-select mr-3" defaultValue={props.system.Confidentiality} name="Confidentiality" onChange={e => setConfidentiality(e.target.value)} >
                                 <option defaultValue>Confidentiality</option>
                                 <option >Low</option>
                                 <option >Medium</option>
@@ -119,7 +136,7 @@ function SystemDetailedView(props) {
                             </select>
                         </div>
                         <div className="btn-group">
-                            <select className="browser-default custom-select mr-3" name="Integrity" onChange={e => setIntegrity(e.target.value)}>
+                            <select className="browser-default custom-select mr-3" defaultValue={props.system.Integrity} name="Integrity" onChange={e => setIntegrity(e.target.value)}>
                                 <option defaultValue>Integrity</option>
                                 <option >Low</option>
                                 <option >Medium</option>
@@ -127,7 +144,7 @@ function SystemDetailedView(props) {
                             </select>
                         </div>
                         <div className="btn-group">
-                            <select className="browser-default custom-select mr-3" name="Availability" onChange={e => setAvailability(e.target.value)} >
+                            <select className="browser-default custom-select mr-3" defaultValue={props.system.Availability} name="Availability" onChange={e => setAvailability(e.target.value)} >
                                 <option defaultValue>Availability</option>
                                 <option >Low</option>
                                 <option >Medium</option>
