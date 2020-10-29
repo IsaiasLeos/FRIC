@@ -4,6 +4,7 @@ import GeneralView from '../generalView/generalView';
 import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
 import Tree from '../eventTree/eventTree';
+import Button from 'react-bootstrap/Button';
 class configurationContentView extends React.Component { 
     render() {
         return (
@@ -20,6 +21,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Finding Type </th>
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,7 +51,8 @@ class configurationContentView extends React.Component {
 
                                             </select>
                                         </div>
-                                    </td>        
+                                    </td>  
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>     
                                 </tr> 
                                 
                             </tbody>
@@ -64,6 +67,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th>Posture type</th>
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,6 +86,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                     
                                 </tr>
                             </tbody>
@@ -96,6 +101,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Threat Level Type </th>
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -114,6 +120,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -127,6 +134,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Impact Type </th>  
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -146,6 +154,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -159,6 +168,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Classification Type </th>
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -174,6 +184,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -187,6 +198,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Countermeasure Type </th>
+                                    <th> Changes </th>
                                     
                                 </tr>
                             </thead>
@@ -207,6 +219,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -220,6 +233,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Event Classification Type </th>
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -239,6 +253,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -252,6 +267,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Level Type </th>
+                                    <th> Changes </th>
                                     
                                 </tr>
                             </thead>
@@ -269,6 +285,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -282,6 +299,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Event Type </th>
+                                    <th> Changes </th>
                                    
                                 </tr>
                             </thead>
@@ -299,6 +317,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -312,6 +331,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Finding Impact Type </th>
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -328,6 +348,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -341,6 +362,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Severity Code Type </th>
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -357,6 +379,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -370,6 +393,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Progress Type </th>
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -389,6 +413,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -402,6 +427,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Event Rules</th>
+                                    <th> Changes </th>
 
                                 </tr>
                             </thead>
@@ -415,6 +441,7 @@ class configurationContentView extends React.Component {
                                             </form>
                                         </div>  
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -428,6 +455,7 @@ class configurationContentView extends React.Component {
                                 <tr>
                                     <th> Name </th>
                                     <th> Report Type </th>
+                                    <th> Changes </th>
                                     
                                 </tr>
                             </thead>
@@ -445,6 +473,7 @@ class configurationContentView extends React.Component {
                                             </select>
                                         </div>
                                     </td>
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                                 
                             </tbody>
@@ -460,13 +489,15 @@ class configurationContentView extends React.Component {
                                     <th> Name </th>
                                     <th> Duration </th> 
                                     <th> Frequency </th>
+                                    <th> Changes </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td> System "a" </td>
-                                    <td> 2 weeks </td>
-                                    <td> 1 alert every 5hrs </td>
+                                    <td> Task2</td>
+                                    <td> 2 weeks</td>
+                                    <td> 2 times a day</td> 
+                                    <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>
                         </Table>
