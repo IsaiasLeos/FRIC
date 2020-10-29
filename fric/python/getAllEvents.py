@@ -72,6 +72,16 @@ def editEvent():
 #     return {"hello":"world"}
 
 
+@app.route('/getprogress')
+def getProgress():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mySystemCollection = mydb["task"]
+    task_progress = []
+    for e in mySystemCollection.find():
+        task_progress.append({"taskProgress": e['Task_Progress']})
+    return jsonify(task_progress)
+
 @app.route('/getsystem')
 def systems():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
