@@ -1,5 +1,6 @@
 import json
 import pymongo
+import random
 from flask import Flask, jsonify, request, make_response
 
 
@@ -16,15 +17,32 @@ app = Flask(__name__)
 #         analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
 #     return jsonify(analysts)
 
-@app.route('/analystInEvent',)
+#Given Analyst return progress # tasks completed / # of tasks 
+def calculateProgress(analyst): 
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    myTaskCollection = mydb["task"]
+    tasks = []
+    tasks_completed = 0 
+    for t in myTaskCollection.find({"Task_Analysts": analyst}):
+        tasks.append(t)
+        if(t["Task_Progress"]== "complete"):
+            tasks_completed += 1
+    if(len(tasks) == 0 ):
+        return 0
+    return tasks_completed / len(tasks) 
+    
+
+# Given event, return analsysts from that event # 
+@app.route('/analystsInEvent',methods=['POST'])
 def analystList():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     analysts = []
     myAnalystCollection = mydb["event_analyst"]
     req = request.get_json()
-    for a in myAnalystCollection.find():
-        analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
+    for a in myAnalystCollection.find({"event_id": req[0]}): # Using '0' bc there is oly only POST variable # 
+        analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
     return jsonify(analysts)
 
 
@@ -54,7 +72,7 @@ def eventsOverview():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["id"], "hostName": f["host_name"]})
+            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     systems_json = []
@@ -66,7 +84,7 @@ def eventsOverview():
 
     # Event Overview Information
     for e in myEventCollection.find():
-        events_json.append({"id": "3","name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],
+        events_json.append({"id": e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],
                             "event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress']})
 
     return jsonify(events_json)
@@ -80,7 +98,7 @@ def addEvent():
 
     req = request.get_json()
     print(req)
-    event = {"Event_name": req['name'], "Description": req['description'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
+    event = {"id":str(random.randint(1,30)),"Event_name": req['name'], "Description": req['description'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
              "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}
     
     mycollection.insert_one(event)

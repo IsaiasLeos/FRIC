@@ -31,10 +31,30 @@ function EventContentView() {
     const handleShow = () => setShow(true); // Open Modal View 
 
     const [selected_event, selectEvent] = useState(); // Set selected event 
+    const [analysts,setAnalysts] = useState([]); 
+
+    function getAnalysts(event_id){    
+        console.log("Fetching analysts for event #", event_id)
+        fetch('/analystsInEvent', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(event_id), //Pass event ID to select event// 
+        }).then(response => response.json())
+            .then(data => {
+                setAnalysts(data)
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+    }
 
     // After event is chosen make it the selected event and the show modal // 
     function viewEvent(event) {
-        sendLog('view event')
+        sendLog('view event');
+        getAnalysts(event.id)
         selectEvent(event);
         handleShow();
     }
@@ -108,11 +128,11 @@ function EventContentView() {
                 <Modal show={show} onHide={handleClose} dialogClassName="event-modal" size="xl">
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Event Detailed View {console.log("Selected Event", selected_event)}
+                            Event Detailed View {console.log("Analysts For event", analysts)}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <EventDetailedView event={selected_event} />
+                        <EventDetailedView event={selected_event} analysts = {analysts}/>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="dark" onClick={handleClose}>
