@@ -2,6 +2,9 @@ import * as React from 'react'
 import HelpImage from '../assets/help.png'
 import Button from 'react-bootstrap/Button';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
+import DatePicker from "react-datepicker";   // Need to udate npm install: npm install react-datepicker --save
+import "react-datepicker/dist/react-datepicker.css"; // For calendar function
+import { useState} from "react";//For calendar use
 
 function getCurrentDate(separator = '') {
     let newDate = new Date()
@@ -9,7 +12,6 @@ function getCurrentDate(separator = '') {
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
     let time = newDate.toTimeString()
-    let check = '';
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
 }
 class taskDetailedView extends React.Component {
@@ -84,6 +86,13 @@ class taskDetailedView extends React.Component {
     }
 
     render() {
+        const Picker = () => {
+            const [startDate, setStartDate] = useState(new Date());
+            return (
+              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+            );
+          };
+
         const analysts = [
             { label: 'Analyst 1', value: 1},
             { label: 'Analyst 2', value: 2},
@@ -162,7 +171,8 @@ class taskDetailedView extends React.Component {
                         <div className="right">
                             <label htmlFor="taskDueDate">
                                 Due Date:<br/>
-                                <input value={this.props.task.taskDueDate} onChange={this.onChange} type="date" id="due-date" name="taskDueDate" />
+                                <Picker input value={this.props.task.taskDueDate} onChange={this.onChange} type="date" id="due-date" name="taskDueDate" />
+                                {/* <input value={this.props.task.taskDueDate} onChange={this.onChange} type="date" id="due-date" name="taskDueDate" /> */}
                             </label><br/>
                             <label htmlFor="taskAnalysts">
                                 Analyst(s):<br/>

@@ -2,7 +2,9 @@ import * as React from 'react';
 import HelpImage from '../assets/help.png';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import Button from 'react-bootstrap/Button';
-
+import DatePicker from "react-datepicker";   // Need to udate npm install: npm install react-datepicker --save
+import "react-datepicker/dist/react-datepicker.css"; // For calendar function
+import { useState} from "react";
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -119,60 +121,69 @@ class subtaskDetailedView extends React.Component {
             { label: 'Attachment 4', value: 4 },
             { label: 'Attachment 5', value: 5 },
         ];
+        const Picker = () => {
+            const [startDate, setStartDate] = useState(new Date());
+            return (
+              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+            );
+          };
+          
         return (
             <div>
                 <div>
-                    <form onSubmit={this.onSubmit} className="subtask-form">
-                        <div className="left">
-                            <input type="image" src={HelpImage} alt="Help button" />
-                            <label htmlFor="subtaskTitle">
-                                Title:<br />
-                                <input type="text" value={this.props.subtask.subtaskTitle} onChange={this.onChange} name="subtaskTitle" id="subtask-title" className="subtask-data" />
-                            </label><br />
-                            <label htmlFor="subtaskDescription">
-                                Description:<br />
-                                <input type="text" value={this.props.subtask.subtaskDescription} onChange={this.onChange} name="subtaskDescription" id="description" className="subtask-data" />
-                            </label><br />
-                            <label htmlFor="subtaskProgress">
-                                Progress:<br />
-                                <select value={this.props.subtask.subtaskProgress} onChange={this.onChange} name="subtaskProgress" id="progress-dropdown" className="subtask-data">
-                                    <option value="default" selected="selected"></option>
-                                    <option value="notStarted">Not started</option>
-                                    <option value="assigned">Assigned</option>
-                                    <option value="transfered">Transfered</option>
-                                    <option value="inProgress">In progress</option>
-                                    <option value="complete">Complete</option>
-                                    <option value="notApplicable">Not applicable</option>
-                                </select>
-                            </label><br />
-                            <label htmlFor="subtaskDuedate">
-                                Due Date:<br />
-                                <input type="date" id="due-date" value={this.props.subtask.subtaskDueDate} onChange={this.onChange} name="subtaskDueDate" className="subtask-data" />
-                            </label><br />
+                    <form onSubmit={this.onSubmit} >
+                        <div className="subtask-form">
+                            <div className="left">
+                                <input type="image" src={HelpImage} alt="Help button" />
+                                <label htmlFor="subtaskTitle">
+                                    Title:<br />
+                                    <input type="text" value={this.props.subtask.subtaskTitle} onChange={this.onChange} name="subtaskTitle" id="subtask-title" className="subtask-data" />
+                                </label><br />
+                                <label htmlFor="subtaskDescription">
+                                    Description:<br />
+                                    <input type="text" value={this.props.subtask.subtaskDescription} onChange={this.onChange} name="subtaskDescription" id="description" className="subtask-data" />
+                                </label><br />
+                                <label htmlFor="subtaskProgress">
+                                    Progress:<br />
+                                    <select value={this.props.subtask.subtaskProgress} onChange={this.onChange} name="subtaskProgress" id="progress-dropdown" className="subtask-data">
+                                        <option value="default" selected="selected"></option>
+                                        <option value="notStarted">Not started</option>
+                                        <option value="assigned">Assigned</option>
+                                        <option value="transfered">Transfered</option>
+                                        <option value="inProgress">In progress</option>
+                                        <option value="complete">Complete</option>
+                                        <option value="notApplicable">Not applicable</option>
+                                    </select>
+                                </label><br />
+                                <label htmlFor="subtaskDuedate">
+                                    Due Date:<br />
+                                    <input type="date" id="due-date" value={this.props.subtask.subtaskDueDate} onChange={this.onChange} name="subtaskDueDate" className="subtask-data" />
+                                </label><br />
+                            </div>
+                            <div className="right">
+                                <label htmlFor="subtaskAnalysts">
+                                    Analyst(s):<br />
+                                    <ReactMultiSelectCheckboxes options={analysts} width="100%"  name="analysts" />
+                                </label>
+                                <label htmlFor="subtaskCollaborators">
+                                    Collaborator(s):<br />
+                                    <ReactMultiSelectCheckboxes options={collaborators} width="100%"  name="collaborators" />
+                                </label><br />
+                                <label htmlFor="tasks">
+                                    Related task(s):<br />
+                                    <ReactMultiSelectCheckboxes options={tasks} width="100%"  name="relatedTask" />
+                                </label><br />
+                                <label htmlFor="subtasks">
+                                    Subtask(s):<br />
+                                    <ReactMultiSelectCheckboxes options={subtasks} width="100%"  name="subtasks" />
+                                </label><br />
+                                <label htmlFor="attachments">
+                                    Attachments:<br />
+                                    <ReactMultiSelectCheckboxes options={attachments} width="100%"  name="attachments" />
+                                </label><br />
+                            </div>
                         </div>
-                        <div className="right">
-                            <label htmlFor="subtaskAnalysts">
-                                Analyst(s):<br />
-                                <ReactMultiSelectCheckboxes options={analysts} width="100%"  name="analysts" />
-                            </label>
-                            <label htmlFor="subtaskCollaborators">
-                                Collaborator(s):<br />
-                                <ReactMultiSelectCheckboxes options={collaborators} width="100%"  name="collaborators" />
-                            </label><br />
-                            <label htmlFor="tasks">
-                                Related task(s):<br />
-                                <ReactMultiSelectCheckboxes options={tasks} width="100%"  name="relatedTask" />
-                            </label><br />
-                            <label htmlFor="subtasks">
-                                Subtask(s):<br />
-                                <ReactMultiSelectCheckboxes options={subtasks} width="100%"  name="subtasks" />
-                            </label><br />
-                            <label htmlFor="attachments">
-                                Attachments:<br />
-                                <ReactMultiSelectCheckboxes options={attachments} width="100%"  name="attachments" />
-                            </label><br />
-                        </div>
-                        <div class="button-input-group">
+                        <div className="button-input-group">
                             <form onSubmit>
                                 <Button variant="outline-dark" type="submit" class="btn cancel">Cancel </Button>
                             </form>

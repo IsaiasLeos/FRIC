@@ -49,12 +49,12 @@ function GeneralView() {
                         <li className="nav-item">
                             <a className="nav-link" href="/Help">Help</a>
                         </li>
-                        <li class="nav-item">
-                            <div class="nav-link" onClick={viewNote}> Notification </div>
-                        </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/Notify"> EX </a>
+                            <div className="nav-link" onClick={viewNote}> Notification </div>
                         </li>
+                        {/* <li className="nav-item">
+                            <a className="nav-link" href="/Notify"> EX </a>
+                        </li> */}
                     </ul>
                     <form className="form-inline my-2 my-md-0">
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
