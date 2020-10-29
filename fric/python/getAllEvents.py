@@ -54,7 +54,7 @@ def eventsOverview():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"findingID": f["id"], "hostName": f["host_name"]})
     num_finds = len(findings_json)
 
     systems_json = []
