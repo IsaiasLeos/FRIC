@@ -1,127 +1,113 @@
 import * as React from 'react'
-import { useState } from "react";
 import Table from 'react-bootstrap/Table'
 import './systemView.css'
-import SortImage from '../assets/updownarrow.png'
-import GeneralView from '../generalView/generalView'
-import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import SystemDetailedView from './systemDetailedView'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import Tree from '../eventTree/eventTree'
-import { useEffect } from "react";
-
-
+import { useEffect, useState } from "react";
+import { Modal } from 'react-bootstrap';
 function getCurrentDate(separator = '') {
-    let newDate = new Date()
-    let day = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
-    let time = newDate.toTimeString()
-    let check = '';
-    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+  let newDate = new Date()
+  let day = newDate.getDate();
+  let month = newDate.getMonth() + 1;
+  let year = newDate.getFullYear();
+  let time = newDate.toTimeString()
+  return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
 }
 
-function SystemContentView() {
+export default function SystemContentView(props) {
 
-    const [systems, setSystems] = useState([{ name: '', num_task: '', num_findings: '', prog: '' }])
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const [selected_system, selectedSystem] = useState({ name: '', num_task: '', num_findings: '', prog: '' });
+  const [selected_system, selectedSystem] = useState();
 
-    useEffect(() => {
-        fetch('/systems').then(
-            response => response.json()).then(data => setSystems(data))
-    }, []);
+  const [dialogOpen, handleDialog] = React.useState(false)
+  function handleDialogOpen(state) {
+    sendLog("system dialog open");
+    handleDialog(true)
+    console.log(state)
+    selectedSystem(state)
+  }
 
-    function viewSystem(system) {
-        sendLog("view system");
-        selectedSystem(system);
-        handleShow();
+  function handleDialogClose() {
+    sendLog("system dialog close")
+    handleDialog(false)
+  }
+  function sendLog(a) {
+    let action = {
+      date: getCurrentDate("/"),
+      action: a,
+      analyst: ""
     }
+    console.log(action)
+    fetch('/addlog', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(action),
+    }).then(response => response.json())
+      .then(data => {
+        console.log("Success", data);
+      })
+      .catch(error => {
+        console.error('Error', error)
+      });
+  }
 
-    function sendLog(a) {
-        let action = {
-            date: getCurrentDate("/"),
-            action: a,
-            analyst: ""
-        }
-        fetch('/addlog', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(action),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-    }
+  useEffect(() => {
+    props.updateData();
+  });
 
-    function addSystem() {
-        sendLog("add system");
-        selectedSystem(0);
-        handleShow();
-    }
-    return (
-        <div >
-            <GeneralView />
-            <div className="main">
-                <div className="SystemContentView">
-                    <div id="systemTable">
-                        <div className="title-buttons">
-                            <h2>System Overview Table</h2>
-                            <ButtonGroup dialogClassName="title-system-buttons">
-                                <Button variant="dark" >Archive</Button>
-                                <Button variant="dark" onClick={addSystem}>Add</Button>
-                            </ButtonGroup>
-                        </div>
-                        <Table bordered hover striped>
-                            <thead className="thead-grey">
-                                <tr>
-                                    <th>Select</th>
-                                    <th>System<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
-                                    <th>No. of Task<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
-                                    <th>No. Findings<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
-                                    <th>Progress<input type="image" src={SortImage} alt="Sort Button" className="sort-button" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {systems.map((system) => (
-                                    <tr>
-                                        <td><input type="checkbox" id="cb1" value="system" /></td>
-                                        <td><Button variant="outline-dark" onClick={() => { viewSystem(system) }}>{system.sysInfo}</Button></td>
-                                        <td>{system.num_task}</td>
-                                        <td>{system.num_findings}</td>
-                                        <td>{system.prog}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
-                    </div>
-                </div>
+  return (
+    <div >
 
-                <Modal show={show} onHide={handleClose} >
-                    <Modal.Header closeButton>
-                        <Modal.Title>
-                            System Detailed View
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <SystemDetailedView system={selected_system} />
-                    </Modal.Body>
-                </Modal>
+      <div className="main">
+        <div className="SystemContentView">
+          <div id="systemTable" update={props.updateSystemData}>
+            <div className="title-buttons">
+              <h2>System Overview Table</h2>
+
+
+              <ButtonGroup dialogclassname="title-system-buttons">
+                <Button variant="dark" >Archive</Button>
+                <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
+              </ButtonGroup>
+              <Modal show={dialogOpen} onHide={handleDialogClose} >
+                <Modal.Header>
+                  <Modal.Title>
+                    System Detailed View
+                                </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <SystemDetailedView system={selected_system} closeDetailAction={handleDialogClose} />
+                </Modal.Body>
+              </Modal>
+
             </div>
-            <div class="right-tree">
-                <Tree />
-            </div>
+            <Table bordered hover striped>
+              <thead className="thead-grey">
+                <tr>
+                  <th>Select</th>
+                  <th>System</th>
+                  <th>No. of Task</th>
+                  <th>No. Findings</th>
+                  <th>Progress</th>
+                </tr>
+              </thead>
+              <tbody>
+                {props.data.map((state) => (
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.sysInfo}</Button></td>
+                    <td>{state.num_task}</td>
+                    <td>{state.num_findings}</td>
+                    <td>{state.prog}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         </div>
-
-    );
+      </div>
+    </div>
+  );
 }
-
-export default SystemContentView;

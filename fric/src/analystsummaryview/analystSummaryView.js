@@ -1,10 +1,46 @@
 import * as React from 'react'
-import Table from 'react-bootstrap/Table'
+// import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
-import SortImage from '../assets/updownarrow.png'
+// import SortImage from '../assets/updownarrow.png'
+// import Tree from '../eventTree/eventTree'
+import SystemContentView from '../systemcontentview/systemContentView'
 import GeneralView from '../generalView/generalView'
-import Tree from '../eventTree/eventTree'
+import TaskContentView from '../taskcontentview/taskContentView'
+import SubtaskContentView from '../subtaskContentView/subtaskContentView'
+import FindingContentView from '../findingscontentview/findingContentView'
+
 class analystSummaryView extends React.Component {
+    constructor() {
+        super();
+        this.flag = false;
+        this.state = {
+            data: [],
+            sysInfo: "",
+            sysDesc: "",
+            sysLoc: "",
+            sysRouter: "",
+            sysSwitch: "",
+            sysRoom: "",
+            sysTestPlan: "",
+            Confidentiality: "",
+            Integrity: "",
+            Availability: "",
+            num_task: "",
+            num_findings: "",
+            progress: "",
+        };
+
+        this.updateData = this.updateData.bind(this);
+    }
+
+    updateData() {
+        fetch('/getsystem').then(
+            response => response.json()).then(data => this.setState({
+                data: data
+            })).catch(error => console.error(error));
+    }
+
+
     render() {
         return (
             <div>
@@ -12,273 +48,29 @@ class analystSummaryView extends React.Component {
                 <div className="main">
                     <div id="tableSummary">
                         <h1>Analyst Progress Summary View</h1>
-                        <div id="systemTable"></div>
-                        <h2>System Table</h2>
-                        <Table striped bordered hover>
-                            <thead class="thead-grey">
-                                <tr>
-                                    <th>Select</th>
-                                    <th>System<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>No. of Task<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th> 
-                                    <th>No. Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td>Wells Fargo ATM</td>
-                                    <td>2</td>
-                                    <td>8</td>
-                                    <td>Assigned</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td>Walmart Cashier Machine</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>Assigned</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td>UTEP CS Computers</td>
-                                    <td>2</td>
-                                    <td>0</td>
-                                    <td>Not Started</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td>Best Buy</td>
-                                    <td>3</td>
-                                    <td>20</td>
-                                    <td>Completeed</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </div>
+                        <div id="systemTable">
+                            <SystemContentView
+                                data={this.state.data}
+                                updateData={this.updateData}
+                            />
+                        </div>
 
-                    <div id="taskTable">
-                        <h2>Task Table</h2>
-                        <Table striped bordered hover>
-                            <thead class="thead-grey">
-                                <tr>
-                                    <th>Select<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>Title<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>System<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>Priority<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>No. of Subtasks<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td class="column2">Title 1</td>
-                                    <td class="column3">Wells Fargo</td>
-                                    <td class="column4">Analyst 1</td>
-                                    <td class="column5">Low</td>
-                                    <td class="column6">Not started</td>
-                                    <td class="column7">1</td>
-                                    <td class="column8">1</td>
-                                    <td class="column9">30/09/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td class="column2">Title 2</td>
-                                    <td class="column3">Wells Fargo</td>
-                                    <td class="column4">Analyst 2</td>
-                                    <td class="column5">Medium</td>
-                                    <td class="column6">Assigned</td>
-                                    <td class="column7">2</td>
-                                    <td class="column8">1</td>
-                                    <td class="column9">27/09/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td class="column2">Title 3</td>
-                                    <td class="column3">Walmart Cashier Machine</td>
-                                    <td class="column4">Analyst 3</td>
-                                    <td class="column5">High</td>
-                                    <td class="column6">In progress</td>
-                                    <td class="column7">2</td>
-                                    <td class="column8">2</td>
-                                    <td class="column9">23/09/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td class="column2">Title 5</td>
-                                    <td class="column3">Utep CS Computers</td>
-                                    <td class="column4">Analyst 5</td>
-                                    <td class="column5">Low</td>
-                                    <td class="column6">Complete</td>
-                                    <td class="column7">3</td>
-                                    <td class="column8">1</td>
-                                    <td class="column9">15/09/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td class="column2">Title 6</td>
-                                    <td class="column3">Best Buy</td>
-                                    <td class="column4">Analyst 6</td>
-                                    <td class="column5">Low</td>
-                                    <td class="column6">Not applicable</td>
-                                    <td class="column7">1</td>
-                                    <td class="column8">1</td>
-                                    <td class="column9">30/10/2020</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </div>
-                    <div id="subtaskTable">
-                        <h2>Subtask Table</h2>
+                        <div id="taskTable">
+                            <TaskContentView
+                            />
+                        </div>
+                        <div id="subtaskTable">
+                            <SubtaskContentView />
+                        </div>
 
-                        <Table striped bordered hover>
-                            <thead class="thead-grey">
-                                <tr>
-                                    <th>Select<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>Title<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>Task<input type="image" src={SortImage} className="sort-button" alt="sort button" alt="Sort button"/></th>
-                                    <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" alt="Sort button"/></th>
-                                    <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                    <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="Sort button"/></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="subtask1" name="subtask1" value="1"/></td>
-                                    <td class="column2">Title 1</td>
-                                    <td class="column3">Task 1</td>
-                                    <td class="column4">Analyst 1</td>
-                                    <td class="column5">Not started</td>
-                                    <td class="column6">1</td>
-                                    <td class="column7">25/09/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="subtask2" name="subtask2" value="2"/></td>
-                                    <td class="column2">Title 2</td>
-                                    <td class="column3">Task 2</td>
-                                    <td class="column4">Analyst 2</td>
-                                    <td class="column5">Complete</td>
-                                    <td class="column6">1</td>
-                                    <td class="column7">22/09/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="subtask3" name="subtask3" value="3"/></td>
-                                    <td class="column2">Title 3</td>
-                                    <td class="column3">Task 3</td>
-                                    <td class="column4">Analyst 3</td>
-                                    <td class="column5">In progress</td>
-                                    <td class="column6">3</td>
-                                    <td class="column7">18/09/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="subtask3" name="subtask3" value="4"/></td>
-                                    <td class="column2">Title 4</td>
-                                    <td class="column3">Task 4</td>
-                                    <td class="column4">Analyst 4</td>
-                                    <td class="column5">transfered</td>
-                                    <td class="column6">0</td>
-                                    <td class="column7">21/10/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="subtask5" name="subtask5" value="5"/></td>
-                                    <td class="column2">Title 5</td>
-                                    <td class="column3">Task 5</td>
-                                    <td class="column4">Analyst 5</td>
-                                    <td class="column5">Completed</td>
-                                    <td class="column6">1</td>
-                                    <td class="column7">10/09/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="subtask6" name="subtask1" value="6"/></td>
-                                    <td class="column2">Title 6</td>
-                                    <td class="column3">Task 6</td>
-                                    <td class="column4">Analyst 6</td>
-                                    <td class="column5">Not applicable</td>
-                                    <td class="column6">2</td>
-                                    <td class="column7">25/10/2020</td>
-                                </tr>
-                            </tbody>
-                        </Table>
+                        <div id="findingTable">
+                            <FindingContentView />
+                        </div>
                     </div>
-
-                    <div id="findingTable">
-                        <h2>Finding Table</h2>
-                        <Table striped bordered hover>
-                            <thead class="thead-grey">
-                                <tr>
-                                    <th>Select<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>ID<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>Title<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>System<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>Task<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>Status<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>Classification<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>Type<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                    <th>Risk<input type="image" src={SortImage} className="sort-button" alt="sort button"/></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td>123</td>
-                                    <td>Title 1</td>
-                                    <td>System W</td>
-                                    <td>Task 1 and Task 2</td>
-                                    <td>N/A</td>
-                                    <td>Alex Vasquez</td>
-                                    <td>Open</td>
-                                    <td>Classification</td>
-                                    <td>Vulnerability</td>
-                                    <td>Physical Security</td>
-                                    <td>VL</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td>123</td>
-                                    <td>Title 1</td>
-                                    <td>System W</td>
-                                    <td>Task 1 and Task 2</td>
-                                    <td>N/A</td>
-                                    <td>Alex Vasquez</td>
-                                    <td>Open</td>
-                                    <td>Classification</td>
-                                    <td>Vulnerability</td>
-                                    <td>Physical Security</td>
-                                    <td>VL</td>
-                                </tr>
-                                <tr>
-                                    <td class="column1"><input type="checkbox" id="" name="" value="1"/></td>
-                                    <td>123</td>
-                                    <td>Title 1</td>
-                                    <td>System W</td>
-                                    <td>Task 1 and Task 2</td>
-                                    <td>N/A</td>
-                                    <td>Alex Vasquez</td>
-                                    <td>Open</td>
-                                    <td>Classification</td>
-                                    <td>Vulnerability</td>
-                                    <td>Physical Security</td>
-                                    <td>VL</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </div>
-                </div>
-                <div class="right-tree">
-                    <Tree />
+                    
                 </div>
             </div>
         );
     }
 }
-
 export default analystSummaryView;

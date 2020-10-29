@@ -11,16 +11,16 @@ import SubtaskDetailedView from './subtaskDetailedView';
 import './subtaskView.css';
 import Tree from '../eventTree/eventTree';
 
-function getCurrentDate(separator = '') {
-    let newDate = new Date()
-    let day = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();  
-    let time = newDate.toTimeString()
-    let check = '';
-    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
-}
+
 function SubtaskContentView() {
+    function getCurrentDate(separator = '') {
+        let newDate = new Date()
+        let day = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();  
+        let time = newDate.toTimeString()
+        return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+    }
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -79,6 +79,79 @@ function SubtaskContentView() {
         selectedSubtask(0);
         handleShow();
     }
+    // const useSortableData = (items, config = null) => {
+    //     const [sortConfig, setSortConfig] = React.useState(config);
+      
+    //     const sortedItems = React.useMemo(() => {
+    //       let sortableItems = [...items];
+    //       if (sortConfig !== null) {
+    //         sortableItems.sort((a, b) => {
+    //           if (a[sortConfig.key] < b[sortConfig.key]) {
+    //             return sortConfig.direction === 'ascending' ? -1 : 1;
+    //           }
+    //           if (a[sortConfig.key] > b[sortConfig.key]) {
+    //             return sortConfig.direction === 'ascending' ? 1 : -1;
+    //           }
+    //           return 0;
+    //         });
+    //       }
+    //       return sortableItems;
+    //     }, [items, sortConfig]);
+      
+    //     const requestSort = (key) => {
+    //       let direction = 'ascending';
+    //       if (
+    //         sortConfig &&
+    //         sortConfig.key === key &&
+    //         sortConfig.direction === 'ascending'
+    //       ) {
+    //         direction = 'descending';
+    //       }
+    //       setSortConfig({ key, direction });
+    //     };
+      
+    //     return { items: sortedItems, requestSort, sortConfig };
+    //   };
+      
+    //   const ProductTable = (props) => {
+    //     const { items, requestSort, sortConfig } = useSortableData(props.products);
+    //     const getClassNamesFor = (name) => {
+    //       if (!sortConfig) {
+    //         return;
+    //       }
+    //       return sortConfig.key === name ? sortConfig.direction : undefined;
+    //     };
+    //     return (
+            
+
+    //       <table>
+    //         <thead>
+    //           <tr>
+    //             <th>
+    //               <button
+    //                 type="button"
+    //                 onClick={() => requestSort('subtaskTitle')}
+    //                 className={getClassNamesFor('subtaskTitle')}
+    //               >
+    //                 Name
+    //               </button>
+    //             </th>
+    //           </tr>
+    //         </thead>
+    //         <tbody>
+    //           {items.map((item) => (
+    //             <tr key={item.id}>
+    //               <td>{item.s}</td>
+    //             </tr>
+    //           ))}
+    //         </tbody>
+    //       </table>
+
+          
+
+
+    //     );
+    // };
 
 
     return (
@@ -90,7 +163,7 @@ function SubtaskContentView() {
                     <ButtonGroup>
                         <Button variant="dark">Archive</Button>
                         <Button variant="dark">Promote</Button>
-                        <Button variant="dark" onClick={addSubtask}>Add </Button>
+                        <Button variant="dark" onClick={addSubtask}>Add</Button>
                     </ButtonGroup>
                 </div>
 
@@ -124,7 +197,7 @@ function SubtaskContentView() {
                 <Modal show={show} onHide={handleClose} dialogClassName="subtask-modal">
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Subtask Detailed View {console.log("Here", selected_subtask)}
+                            Subtask Detailed View 
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
