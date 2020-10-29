@@ -51,7 +51,8 @@ class findingDetailedView extends React.Component {
             findingIFIS: '',
             findingAFIS: '',
             impactScore: '',
-            activeTasks: ''
+            activeTasks: '',
+            findingFiles: ''
         };
 
         this.action = {
@@ -268,7 +269,7 @@ class findingDetailedView extends React.Component {
                         <label for="fileName">
                             File:
                             <br></br>
-                            <input type="text" name="activeTasks" value={this.props.finding.activeTasks} id="filename" class="browser-default mr-3" />
+                            <input type="file" name="findingFiles"  id="findingFiles" class="browser-default mr-3" />
                             
                         </label><br />
 
@@ -287,7 +288,12 @@ class findingDetailedView extends React.Component {
                         <label for="activeTaskFields">
                             Task(s):
                             <br></br>
-                            <ReactMultiSelectCheckboxes options={null} width="100%" name="activeTaskFields"/>
+                            <select name="findingTask" value={this.props.finding.findingTask} onChange={this.onChange} id="findingTask" class="browser-default custom-select mr-3">
+                                <option value="default" selected="selected"></option>
+                                <option value="Task A">Task A</option>
+                                <option value="Task B">Task B</option>
+                                <option value="Task C">Task C</option>
+                            </select>
                         </label>
                         &nbsp;
                         &nbsp;
