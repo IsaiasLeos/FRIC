@@ -84,10 +84,9 @@ def systems():
     for f in myFindingCollection.find():
         findings_json.append(
             {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
-        num_finds = len(findings_json)
+    num_finds = len(findings_json)
     task_json = []
     for f in myTaskCollection.find():
-
         task_json.append(
             {"taskTitle": f["Task_title"], "taskDescription": f["Task_Description"]})
     num_tasks = len(task_json)
@@ -127,18 +126,55 @@ def findings():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient['FRIC']  # Database name
     mycollection = mydb['finding']  # Collection Name
+    myTaskCollection = mydb['task']
     finding_json = []
+    active_tasks = [] 
+
+    for e in myTaskCollection.distinct("Task_title"):
+        active_tasks.append(e)
+
+    testing = active_tasks
+
+    
+        
+
 
     for e in mycollection.find():
         finding_json.append({
             "findingID": e['Finding_ID'], 
             "hostName": e['Host_Name'],
-            "ipPort": e['IP_Port'], 
-            "description": e['Description'],
-            "findingID": e['Finding_ID'], 
-            "hostName": e['Host_Name'],
-            "ipPort": e['IP_Port'], 
-            "description": e['Description']
+            "ip_port" : e['IP_Port'],
+            "description": e['Description'], 
+            "longDescription": e['Long_Description'],
+            "findingStatus" : e['Finding_Status'],
+            "findingType": e['Finding_Type'], 
+            "findingClassification": e['Finding_Classification'],
+            "findingSystem" : e['Finding_System'],
+            "findingTask" : e['Finding_Task'],
+            "findingSubtask": e['Finding_Subtask'], 
+            "relatedFindings": e['Related_Findings'],
+            "findingConfidentiality" : e['Finding_Confidentiality'],
+            "findingIntegrity" : e['Finding_Integrity'],
+            "findingAvailability": e['Finding_Availability'], 
+            "findingAnalyst": e['Finding_Analyst'],
+            "findingCollaborators" : e['Finding_Collaborators'],
+            "findingPosture" : e['Finding_Posture'],
+            "mitigationDesc": e['Mitigation_Desc'], 
+            "mitigationLongDesc": e['Mitigation_Long_Desc'],
+            "threatRelevence" : e['Threat_Relevence'],
+            "countermeasure" : e['Countermeasure'],
+            "impactDesc": e['Impact_Desc'], 
+            "findingImpact": e['Finding_Impact'],
+            "severityCategoryScore" : e['Severity_Score'],
+            "vulnerabilityScore" : e['Vulnerability_Score'],
+            "quantitativeScore": e['Quantitative_Score'], 
+            "findingRisk": e['Finding_Risk'],
+            "findingLikelihood" : e['Finding_Likelihood'],
+            "findingCFIS" : e['Finding_CFIS'],
+            "findingIFIS": e['Finding_IFIS'], 
+            "findingAFIS": e['Finding_AFIS'],
+            "impactScore" : e['Impact_Score'],
+            "activeTasks" : testing
             })
     return jsonify(finding_json)  # return what was found in the collection
 
@@ -151,11 +187,43 @@ def addFindings():
     req = request.get_json() 
     finding = {
         "Finding_ID": req['findingID'],
-        "Host_Name": req['hostName']
+        "Host_Name": req['hostName'],
+        "IP_Port": req['ip_port'],
+        "Description": req['description'],
+        "Long_Description": req['longDescription'],
+        "Finding_Status": req['findingStatus'],
+        "Finding_Type": req['findingType'],
+        "Finding_Classification": req['findingClassification'],
+        "Finding_System": req['findingSystem'],
+        "Finding_Task": req['findingTask'],
+        "Finding_Subtask": req['findingSubtask'],
+        "Related_Findings": req['relatedFindings'],
+        "Finding_Confidentiality": req['findingConfidentiality'],
+        "Finding_Integrity": req['findingIntegrity'],
+        "Finding_Availability": req['findingAvailability'],
+        "Finding_Analyst": req['findingAnalyst'],
+        "Finding_Collaborators": req['findingCollaborators'],
+        "Finding_Posture": req['findingPosture'],
+        "Mitigation_Desc": req['mitigationDesc'],
+        "Mitigation_Long_Desc": req['mitigationLongDesc'],
+        "Threat_Relevence": req['threatRelevence'],
+        "Countermeasure": req['countermeasure'],
+        "Impact_Desc": req['impactDesc'],
+        "Finding_Impact": req['findingImpact'],
+        "Severity_Score": req['severityCategoryScore'],
+        "Vulnerability_Score": req['vulnerabilityScore'],
+        "Quantitative_Score": req['quantitativeScore'],
+        "Finding_Risk": req['findingRisk'],
+        "Finding_Likelihood": req['findingLikelihood'],
+        "Finding_CFIS": req['findingCFIS'],
+        "Finding_IFIS": req['findingIFIS'],
+        "Finding_AFIS": req['findingAFIS'],
+        "Impact_Score": req['impactScore'],
+        
+
     }
 
     mycollection.insert_one(finding)  # Send information to collection
-
 
 @app.route('/subtasks')
 def subtasks():
@@ -212,7 +280,7 @@ def addSubtasks():
     }
     mycollection.insert_one(subtask)
 
-
+    
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
