@@ -5,6 +5,41 @@ from flask import Flask, jsonify, request, make_response
 
 app = Flask(__name__)
 
+# @app.route('/analystInEvent', methods=['POST'])
+# def analystList():
+#     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+#     mydb = myclient["FRIC"]
+#     analysts = []
+#     myAnalystCollection = mydb["event_analyst"]
+#     req = request.get_json()
+#     for a in myAnalystCollection.find({"event_id":req["event_id"]}):
+#         analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
+#     return jsonify(analysts)
+
+@app.route('/analystInEvent',)
+def analystList():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    analysts = []
+    myAnalystCollection = mydb["event_analyst"]
+    req = request.get_json()
+    for a in myAnalystCollection.find():
+        analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
+    return jsonify(analysts)
+
+
+# Returns all analysts #
+@app.route('/analysts')
+def analysts():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    analysts = []
+    myAnalystCollection = mydb["analyst"]
+
+    for a in myAnalystCollection.find():
+        analysts.append({"isLead": a["isLead"],"initials":a["initials"]})
+    return jsonify(analysts)
+
 @app.route('/eventsOverview')
 def eventsOverview():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")

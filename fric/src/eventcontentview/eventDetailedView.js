@@ -19,30 +19,41 @@ function getCurrentDate(separator = '') {
 class eventDetailedView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { id: this.props.event.id, name: this.props.event.name, desc: this.props.event.desc, type: this.props.event.type, vers: this.props.event.version, assess_date: this.props.event.assess_date, org_name: this.props.event.org_name, event_class: this.props.event.event_class, declass_date: this.props.event.declass_date, customer_name:this.props.event.customer}; // State var to hold selected event // 
+        this.state = { 
+            id: this.props.event.id, 
+            name: this.props.event.name, 
+            desc: this.props.event.desc, 
+            type: this.props.event.type, 
+            vers: this.props.event.version, 
+            assess_date: this.props.event.assess_date, 
+            org_name: this.props.event.org_name, 
+            event_class: this.props.event.event_class, 
+            declass_date: this.props.event.declass_date, 
+            customer_name:this.props.event.customer,
+            analysts: [{event_id:'',analyst:''}]
+            
+            }
+              
         this.action = {
             date: "",
             action: "",
             analyst: ""
         };
     }
-    // Get value from event type select tag //
-    handleEventType(e) {
-        console.log(e.target.name); 
-
-
-    }
-    // Get value from event class select tag // 
-    handleEventClass(e) {
-        console.log(e.target.name); 
-    }
+    // test(){
+    //     getAnalysts();
+    //     console.log(state.analysts);
+    // }
+    
+    //ComponentDIDMount() = function that runs on runtime // Reminder// 
     // Update state var if a field is changed // 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
-    // Handle "Sync" // 
+    
+    // Handle "Sync" Button // 
     onSubmitEvent = (e) => {
-        
+        console.log("Submit Event")
         if(this.state.name == null){
             console.log("Add event"); // debugging
             // Add a new event // 
@@ -61,7 +72,7 @@ class eventDetailedView extends React.Component {
                 });
         }else {
             console.log("Edit event",this.state); // Edit exisitng event // debugging 
-            // Edit Event // TO:DO
+            // Edit Event 
             fetch('/editevent', {
                 method: 'POST',
                 headers: {
@@ -125,6 +136,29 @@ class eventDetailedView extends React.Component {
                 value: "Type C"
             },
         ];
+        const test = () => {
+            this.getAnalysts();
+            console.log(this.state.analysts);
+            console.log("Hereeeee");
+        }
+        const getAnalysts = () => {
+            fetch('/analystInEvent').then(response => response.json()).then(data => this.setState({analysts: data}));
+    
+            // fetch('/analystInEvent', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(this.state.id), //Pass event ID to select event// 
+            // }).then(response => response.json())
+            //     .then(data => {
+            //         this.analysts = data
+            //         console.log("Success", data);
+            //     })
+            //     .catch(error => {
+            //         console.error('Error', error)
+            //     });
+        }
         return (
             <div>
                 <div className="event-information-team">
@@ -186,7 +220,7 @@ class eventDetailedView extends React.Component {
 
                     <div className="event-team">
                         <h2>Team Information</h2>
-                        <div >
+                        <div>
                             <div className="title-buttons">
                                 <h3>Lead Analysts</h3>
                                 <div className="add-dropdown">
@@ -200,26 +234,21 @@ class eventDetailedView extends React.Component {
                                     </form>
                                 </div>
                             </div>
-
-
-                            <Table bordered dialogClassName="lead-analyst-table">
+                            <Button onClick={this.test}>Show Analysts</Button>
+                            <Table>
                                 <tr>
-                                    <th></th>
-                                    <th>Analysts</th>
+                                    <th>Select</th>
+                                    <th>Analsyst</th>
                                 </tr>
-                                <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                    <td><a href="/AnalystSummary">AC</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                    <td>LS</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                    <td>JP</td>
-                                </tr>
+                                {this.state.analysts.map((analyst) => (
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" /></td>
+                                        <td>{analyst.analyst}</td>
+                                    </tr>
+                                ))}
                             </Table>
+
+                            
                         </div>
                         <div className="analyst-table">
                             <div className="title-buttons">
