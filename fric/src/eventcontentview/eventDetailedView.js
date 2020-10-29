@@ -75,7 +75,7 @@ class eventDetailedView extends React.Component {
                     console.error('Error', error)
                 });
         }else {
-            console.log("Edit event",this.state); // Edit exisitng event // debugging 
+            console.log("Edit event",this.state.id); // Edit exisitng event // debugging 
             // Edit Event 
             fetch('/editevent', {
                 method: 'POST',
