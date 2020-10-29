@@ -66,12 +66,12 @@ def eventsOverview():
 
     # Event Overview Information
     for e in myEventCollection.find():
-        events_json.append({"id":e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],
+        events_json.append({"id": "3","name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],
                             "event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress']})
 
     return jsonify(events_json)
 
-
+#TO:DO Event ID Increment
 @app.route('/addevent', methods=['POST'])
 def addEvent():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -79,9 +79,10 @@ def addEvent():
     mycollection = mydb["event"]
 
     req = request.get_json()
-
-    event = {"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
+    print(req)
+    event = {"Event_name": req['name'], "Description": req['description'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
              "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}
+    
     mycollection.insert_one(event)
 
 
@@ -381,3 +382,4 @@ def addLog():
     req = request.get_json()
     log = {"Date_Time": req['date'],"Action_Performed": req['action'], "Analyst": req['analyst']}
     mycollection.insert_one(log)
+    return

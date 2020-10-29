@@ -24,16 +24,16 @@ class eventDetailedView extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            id: this.props.event.id, 
-            name: this.props.event.name, 
-            desc: this.props.event.desc, 
-            type: this.props.event.type, 
-            vers: this.props.event.version, 
-            assess_date: this.props.event.assess_date, 
-            org_name: this.props.event.org_name, 
-            event_class: this.props.event.event_class, 
-            declass_date: this.props.event.declass_date, 
-            customer_name:this.props.event.customer,
+            id: this.props.event.id ? this.props.event.id : '', 
+            name: this.props.event.name ? this.props.event.id : '', 
+            description: this.props.event.desc ? this.props.event.id : '', 
+            type: this.props.event.type ? this.props.event.id : '', 
+            vers: this.props.event.version ? this.props.event.id : '', 
+            assess_date: this.props.event.assess_date ? this.props.event.id : '', 
+            org_name: this.props.event.org_name ? this.props.event.id : '', 
+            event_class: this.props.event.event_class ? this.props.event.id : '', 
+            declass_date: this.props.event.declass_date ? this.props.event.id : '', 
+            customer_name:this.props.event.customer ? this.props.event.id : '',
             analysts: [{event_id:'',analyst:''}]
             
             }
@@ -57,9 +57,9 @@ class eventDetailedView extends React.Component {
     
     // Handle "Sync" Button // 
     onSubmitEvent = (e) => {
-        console.log("Submit Event")
-        if(this.state.name == null){
-            console.log("Add event"); // debugging
+        console.log("Submit Event", this.state); 
+        if(this.state.id == ''){
+            console.log("Add event", this.state); // debugging
             // Add a new event // 
             fetch('/addevent', {
                 method: 'POST',
