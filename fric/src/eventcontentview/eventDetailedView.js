@@ -55,7 +55,7 @@ class eventDetailedView extends React.Component {
     onSubmitEvent = (e) => {
         // console.log("Submit Event", this.state); //Debugging
         if(this.state.id == ''){
-            // console.log("Add event", this.state); // debugging
+            console.log("Add event", this.state); // debugging
             // Add a new event // 
             fetch('/addevent', {
                 method: 'POST',

@@ -98,7 +98,7 @@ def addEvent():
 
     req = request.get_json()
     print(req)
-    event = {"id":str(random.randint(1,30)),"Event_name": req['name'], "Description": req['description'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
+    event = {"id":str(random.randint(1,30)),"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
              "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}
     
     mycollection.insert_one(event)
