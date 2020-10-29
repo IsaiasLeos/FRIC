@@ -232,7 +232,7 @@ class eventDetailedView extends React.Component {
                                     <tr>
                                         <td><input type="checkbox" id="cb1" /></td>
                                         <td>{analyst.is_lead == "1" ? analyst.analyst : null}</td>
-                                        <td>{analyst.is_lead == "1" ? analyst.progress : null}%</td>
+                                        <td>{analyst.is_lead == "1" ? analyst.progress * 100 : null}%</td>
                                     </tr>
                                 ))}
                             </Table>
@@ -263,7 +263,7 @@ class eventDetailedView extends React.Component {
                                     <tr>
                                         <td><input type="checkbox" id="cb1" /></td>
                                         <td>{analyst.is_lead == "0" ? analyst.analyst : null}</td>
-                                        <td>{analyst.is_lead == "0" ? analyst.progress : null}%</td>
+                                        <td>{analyst.is_lead == "0" ? analyst.progress * 100 : null}%</td>
                                     </tr>
                                 ))}
                             </Table>
