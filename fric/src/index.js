@@ -6,10 +6,18 @@ import * as serviceWorker from './serviceWorker';
 import eventContentView from './eventcontentview/eventContentView';
 import eventDetailedView from './eventcontentview/eventDetailedView';
 import analystSummaryView from './analystsummaryview/analystSummaryView';
+
+
 import systemContentView from './systemcontentview/systemContentView';
 import systemDetailedView from './systemcontentview/systemDetailedView';
 import systemMaster from './systemcontentview/systemMaster';
+
+
 import findingContentView from './findingscontentview/findingContentView';
+import findingDetailedView from './findingscontentview/findingDetailedView';
+import findingMaster from './findingscontentview/findingMaster';
+
+
 import subtaskContentView from './subtaskContentView/subtaskContentView';
 import archiveContentView from './archivecontentview/archiveContentView';
 import configurationContentView from './configurationcontentview/configurationContentView';
@@ -38,10 +46,15 @@ ReactDOM.render(
     <Route exact path="/Subtask" component={subtaskContentView} />
     <Route exact path="/SubtaskDetails" component={subtaskDetailedView} />
     <Route exact path="/AnalystSummary" component={analystSummaryView} />
+
     <Route exact path="/SystemContent" component={systemContentView} />
     <Route exact path="/SystemDetailed" component={systemDetailedView} />
     <Route exact path="/SystemMaster" component={systemMaster} />
-    <Route exact path="/Findings" component={findingContentView} />
+
+    <Route exact path="/FindingContent" component={findingContentView} />
+    <Route exact path="/FindingDetailed" component={findingDetailedView} />
+    <Route exact path="/FindingMaster" component={findingMaster} />
+
     <Route exact path="/Archive" component={archiveContentView} />
     <Route exact path="/Configuration" component={configurationContentView} />
     <Route exact path="/Setup" component={setupContentView} />

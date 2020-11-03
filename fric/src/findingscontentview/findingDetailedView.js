@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 import Button from 'react-bootstrap/Button'
-import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
+import { useState, } from 'react';
 
 function getCurrentDate(separator = '') {
     let newDate = new Date()
@@ -9,100 +9,141 @@ function getCurrentDate(separator = '') {
     let year = newDate.getFullYear();
     let time = newDate.toTimeString()
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
-
 }
 
-class findingDetailedView extends React.Component {
+function FindingDetailedView(props) {
 
-    constructor() {
-        super();
-        this.state = {
-            findingID: '',
-            hostName: '',
-            ip_port: '',
-            description: '',
-            longDescription: '',
-            findingStatus: '',
-            findingType: '',
-            findingClassification: '',
-            findingSystem: '',
-            findingTask: '',
-            findingSubtask: '',
-            relatedFindings: '',
-            findingConfidentiality: '',
-            findingIntegrity: '',
-            findingAvailability: '',
-            findingAnalyst: '',
-            findingCollaborators: '',
-            findingPosture: '',
-            mitigationDesc: '',
-            mitigationLongDesc: '',
-            threatRelevence: '',
-            countermeasure: '',
-            impactDesc: '',
-            findingImpact: '',
-            severityCategoryScore: '',
-            vulnerabilityScore: '',
-            quantitativeScore: '',
-            findingRisk: '',
-            findingLikelihood: '',
-            findingCFIS: '',
-            findingIFIS: '',
-            findingAFIS: '',
-            impactScore: '',
-            activeTasks: '',
-            findingFiles: ''
-        };
+    const [findingID, setID] = useState('');
+    const [host_Name, setHostName] = useState('');
+    const [ip_Port, setIpPort] = useState('');
 
-        this.action = {
-            date: " ",
-            action: " ",
-            analyst: " "
-        };
+    const [description, setDescription] = useState('');
+    const [longDescription, setLongDescription] = useState('');
+    const [findingStatus, setStatus] = useState('');
 
-        
+    const [findingType, setFindingType] = useState('');
+    const [findingClassification, setFindingClassification] = useState('');
+    const [findingSystem, setFindingSystem] = useState('');
 
-     
-    }
+    const [findingTask, setFindingTask] = useState('');
+    const [findingSubtask, setFindingSubtask] = useState('');
+    const [relatedFindings, setRelatedFindings] = useState('');
+
+    const [findingConfidentiality, setfindingConfidentiality] = useState('');
+    const [findingIntegrity, setFindingIntegrity] = useState('');
+    const [findingAvailability, setFindingAvailability] = useState('');
+
+    const [findingAnalyst, setfindingAnalyst] = useState('');
+    const [findingCollaborators, setFindingCollaborators] = useState('');
+    const [findingPosture, setFindingPosture] = useState('');
+
+    const [mitigationDesc, setMitigationDesc] = useState('');
+    const [mitigationLongDesc, setMitigationLongDesc] = useState('');
+    const [threatRelevence, setThreatRelevence] = useState('');
+
+    const [countermeasure, setCountermeasure] = useState('');
+    const [impactDesc, setImpactDesc] = useState('');
+    const [findingImpact, setFindingImpact] = useState('');
+
+    const [severityCategoryScore, setSeverityCategoryScore] = useState('');
+    const [vulnerabilityScore, setVulnerabilityScore] = useState('');
+    const [quantitativeScore, setQuantitativeScore] = useState('');
+
+    const [findingRisk, setFindingRisk] = useState('');
+    const [findingLikelihood, setFindingLikelihood] = useState('');
+    const [findingCFIS, setFindingCFIS] = useState('');
+
+    const [findingAFIS, setFindingAFIS] = useState('');
+    const [findingIFIS, setFindingIFIS] = useState('');
+
+    const [impactScore, setImpactScore] = useState('');
+    const [findingFiles, setFindingFiles] = useState('');
+    
 
     
-    handleEventType(e) {
-        console.log(e.target.value);
+    
+
+    let state = {
+        findingID: findingID,
+        hostName: host_Name,
+        ip_port: ip_Port,
+        description: description,
+        longDescription: longDescription,
+        findingStatus: findingStatus,
+        findingType: findingType,
+        findingClassification: findingClassification,
+        findingSystem: findingSystem,
+        findingTask: findingTask,
+        findingSubtask: findingSubtask,
+        relatedFindings: relatedFindings,
+        findingConfidentiality: findingConfidentiality,
+        findingIntegrity: findingIntegrity,
+        findingAvailability: findingAvailability,
+        findingAnalyst: findingAnalyst,
+        findingCollaborators: findingCollaborators,
+        findingPosture: findingPosture,
+        mitigationDesc: mitigationDesc,
+        mitiagtionLongDesc: mitigationLongDesc,
+        threatRelevence: threatRelevence,
+        countermeasure: countermeasure,
+        impactDesc: impactDesc,
+        findingImpact: findingImpact,
+        severityVategoryScore: severityCategoryScore,
+        vulnerabilityScore: vulnerabilityScore,
+        quantitativeScore: quantitativeScore,
+        findingRisk: findingRisk,
+        findingLikelihood: findingLikelihood,
+        findingCFIS: findingCFIS,
+        findingAFIS: findingAFIS,
+        findingIFIS: findingIFIS,
+        impactScore: impactScore,
+        findingFiles: findingFiles,
+        
+        
+    };
+    let action = {
+        date: "",
+        action: "",
+        analyst: ""
     }
 
-    handleEventClass(e) {
-        console.log(e.target.value);
-    }
-    onChange = (e) => { //call on modification
-        this.setState({ [e.target.name]: e.target.value });
-    }
-
-    onSubmit = (e) => {
-        this.action.action = "submit finding";
-        this.action.date = getCurrentDate("/");
-        this.action.analyst = "";
+    function SendData(e) {
+        console.log(props.finding)
         e.preventDefault();
+        if (state.name == null) {
+            fetch('/addfinding', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(state),
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+            SendLog(e);
+            props.closeDetailAction();
+        } 
+    }
 
-        fetch('/addfinding', {
+    function closeOnCancel() {
+        props.closeDetailAction()
+    }
+
+    function SendLog(e) {
+        e.preventDefault();
+        action.action = "submit system";
+        action.date = getCurrentDate("/");
+        action.analyst = "";
+        fetch('/addlog', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-
-        fetch('/addlog', {//Logging information
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.action),
+            body: JSON.stringify(action),
         }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
@@ -112,431 +153,36 @@ class findingDetailedView extends React.Component {
             });
     }
 
+    return (
+        <div>
+            <div className="systemDetailedTable" id="systemDetailedTable">
+                <div className="title-buttons"></div>
 
-    
-    render() {
-        const findingStatusType = [
-            {
-                label: "Open",
-                value: "Open"
-            },
-            {
-                label: "Closed",
-                value: "Closed"
-            },
-        ];
+                <h3>Finding Information</h3>
+                <div className="input-group">
+                    <form className="input-form" onSubmit={SendData} >
 
-       const activeTaskFields = this.props.finding.activeTasks; //array holding all of the task titles to use as dropdown
-
-        const findingType = [
-            {
-                label: "Manufactuerer Default Creds",
-                value: "Manufactuerer Default Creds"
-            },
-            {
-                label: "Lack of Authentication",
-                value: "Lack of Authentication"
-            },
-            {
-                label: "Plain Text Protocol",
-                value: "Plain Text Protocol"
-            },
-            {
-                label: "Plain Text Web Login",
-                value: "Plain Text Web Login"
-            },
-            {
-                label: "Encryption",
-                value: "Encryption"
-            },
-            {
-                label: "Authentication Bypass",
-                value: "Authentication Bypass"
-            },
-            {
-                label: "Port Security",
-                value: "Port Security"
-            },
-            {
-                label: "Access Control",
-                value: "Access Control"
-            },
-            {
-                label: "Least Privilege",
-                value: "Least Privilege"
-            },
-            {
-                label: "Privilege Escalation",
-                value: "Privilege Escalation"
-            },
-            {
-                label: "Missing Patches",
-                value: "Missing Patches"
-            },
-            {
-                label: "Physical Security",
-                value: "Physical Security"
-            },
-            {
-                label: "Information Disclosure",
-                value: "Information Disclosure"
-            },
-        ];
-        
-        
-        
-
-
-        return (
-            <div>
-                <div>
-                    <form onSubmit={this.onSubmit} className= "finding-form">
-                        <h4>Finding Information</h4>
-                        <label for="ID">
-                            ID:
-                            <br></br><input type="text" value={this.props.finding.findingID} onChange={this.onChange} name="findingID" id="ID" />
-                        </label><br></br>
-
-                        <label htmlFor="hostName">
-                            Host Name:
-                            <br></br>
-                            <input type="text" value={this.props.finding.hostName} onChange={this.onChange} name = "hostName" id="host-name" className="finding-data"/>
-                        </label><br />
-                        <label for="IP-Port">
-                            IP Port:
-                            <br></br>
-                            <input type="text" value={this.props.finding.ip_port} onChange={this.onChange}  name="ip_port" id="ipPort" class="browser-default  mr-3" />
-                        </label><br></br>
-                        <label for="Description">
-                            Description:
-                            <br></br>
-                            <input type="text" value={this.props.finding.description} onChange={this.onChange} name="description" id="description" class="browser-default  mr-3" />
-                        </label><br />
-
-                        <label for="LongDescription">
-                            Long Description:
-                            <br></br>
-                            <textarea name="longDescription" value={this.props.finding.longDescription} onChange={this.onChange} id="longDescription" cols="45" rows="5" class="browser-default  mr-3"></textarea>
-                        </label><br />
-
-                        <label for="Status">
-                            Status:
-                            <br></br>
-                            <select name="findingStatus" defaultValue={this.props.finding.findingStatus} onChange={this.onChange} id="findingStatus" class="browser-default custom-select mr-3">
-                                <option value="Open">Open</option>
-                                <option value="Closed">Closed</option>
-                                
-                                
-                            </select>
-                        </label>
-                        &nbsp;
-                        &nbsp;
-                        <label for="Type">
-                            Type:
-                            <br></br>
-                            <select name="findingType" defaultValue={this.props.finding.findingType} onChange={this.onChange} id="findingType" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Manufacturer Default Creds">Manufacturer Default Creds</option>
-                                <option value="Lack of Authentication">Lack of Authentication</option>
-                                <option value="Plain Text Protocol">Plain Text Protocol</option>
-                                <option value="Plain Text Web Login">Plain Text Web Login</option>
-                                <option value="Encryption">Encryption</option>
-                                <option value="Authentication Bypass">Authentication Bypass</option>
-                                <option value="Port Security">Port Security</option>
-                                <option value="Access Control">Access Control</option>
-                                <option value="Least Privilege">Least Privilege</option>
-                                <option value="Privilege Escalation">Privilege Escalation</option>
-                                <option value="Missing Patches">Missing Patches</option>
-                                <option value="Physical Security">Physical Security</option>
-                                <option value="Information Disclosure">Information Disclosure</option>
-
-                            </select>
-                        </label>
-                        &nbsp;
-                        &nbsp;
-                        <label for="Classification">
-                            Classification:
-                            <br></br>
-                            <select name="findingClassification" value={this.props.finding.findingClassification} onChange={this.onChange} id="findingClassification" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                
-                                <option value="Vulnerability">Vulnerability</option>
-                                <option value="Information">Information</option>
-                            </select>
-                        </label><br />
-
-                        <label for="fileName">
-                            File:
-                            <br></br>
-                            <input type="file" name="findingFiles"  id="findingFiles" class="browser-default mr-3" />
+                        <input type="text" onChange={e => setID(e.target.value)} name="findingID" defaultValue={props.finding.findingID} className="form-control browser-default mr-3" placeholder="System Information" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
+                            &nbsp;
+                            <textarea type="text" onChange={e => setHostName(e.target.value)} name="hostName" defaultValue={props.finding.hostName} className="form-control mr-3" placeholder="System Description" aria-label="System Description" aria-describedby="basic-addon2"></textarea>
+                            &nbsp;
+                            <input type="text" onChange={e => setIpPort(e.target.value)} name="ip_port" defaultValue={props.finding.ip_port} className="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
                             
-                        </label><br />
-
-                        <label for="system">
-                            System:
-                            <br></br>
-                            <select name="findingSystem" value={this.props.finding.findingSystem} onChange={this.onChange} id="findingSystem" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="System A">System A</option>
-                                <option value="System B">System B</option>  
-                                <option value="System C">System C</option>
-                            </select>
-                        </label>
-                        &nbsp;
-                        &nbsp;
-                        <label for="activeTaskFields">
-                            Task(s):
-                            <br></br>
-                            <select name="findingTask" value={this.props.finding.findingTask} onChange={this.onChange} id="findingTask" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Task A">Task A</option>
-                                <option value="Task B">Task B</option>
-                                <option value="Task C">Task C</option>
-                            </select>
-                        </label>
-                        &nbsp;
-                        &nbsp;
-                        <label for="Subtask">
-                            Subtask(s):
-                            <br></br>
-                            <select name="findingSubtask" value={this.props.finding.findingSubtask} onChange={this.onChange} id="findingSubtask" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Subtask A">Subtask A</option>
-                                <option value="Subtask B">Subtask B</option>
-                                <option value="Subtask C">Subtask C</option>
-                            </select>
-                        </label>
-                        &nbsp;
-                        &nbsp;
-                        <br></br>
-                        <label for="relatedFindings">
-                            Related Finding(s):
-                            <br></br>
-                            <select name="relatedFindings" value={this.props.finding.relatedFindings} onChange={this.onChange} id="relatedFindings" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Finding 1">Finding 1</option>
-                                <option value="Finding 2">Finding 2</option>
-                                <option value="Finding 3">Finding 3</option>
-                            </select>
-                        </label>
-
-                        <h4>Finding Impact</h4>
-                        <label for="Confidentiality">
-                            Confidentiality:
-                            <br></br>
-                            <select name="findingConfidentiality" value={this.props.finding.findingConfidentiality} onChange={this.onChange} id="findingConfidentiality" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                                <option value="Information">Information</option>
-                            </select>
-                        </label>
-                        &nbsp;
-                        &nbsp;
-                        <label for="Integrity">
-                            Integrity:
-                            <br></br>
-                            <select name="findingIntegrity" value={this.props.finding.findingIntegrity} onChange={this.onChange} id="findingIntegrity" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                                <option value="Information">Information</option>
-                            </select>
-                        </label>
-                        &nbsp;
-                        &nbsp;
-                        <label for="Availability">
-                            Availability:
-                            <br></br>
-                            <select name="findingAvailability" value={this.props.finding.findingAvailability} onChange={this.onChange} id="findingAvailability" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                                <option value="Information">Information</option>
-                            </select>
-                        </label>
-
-                        <h4>Analyst Information</h4>
-
-                        <label for="AnalystInformation">
-                            Analyst:
-                            <br></br>
-                            <select name="findingAnalyst" value={this.props.finding.findingAnalyst} onChange={this.onChange} id="findingAnalyst" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Alex Vasquez">Alex Vasquez</option>
-                                <option value="Jacob Padilla">Jacob Padilla</option>
-                                <option value="Luis Soto">Luis Soto</option>
-
-                            </select>
-                        </label>
-                        &nbsp;
-                        &nbsp;
-                        <label for="CollaboratorInformation">
-                            Collaborator(s):
-                            <br></br>
-                            <select name="findingCollaborators" value={this.props.finding.findingCollaborators} onChange={this.onChange} id="findingCollaborators" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Alex Vasquez">Alex Vasquez</option>
-                                <option value="Jacob Padilla">Jacob Padilla</option>
-                                <option value="Luis Soto">Luis Soto</option>
-
-                            </select>
-                        </label><br></br>
-                        <label for="Posture">
-                            Posture:
-                            <br></br>
-                            <select name="findingPosture" value={this.props.finding.findingPosture} onChange={this.onChange} id="findingPosture" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Insider">Insider</option>
-                                <option value="Insider-Nearsider">Insider-Nearsider</option>
-                                <option value="Outsider">Outsider</option>
-                                <option value="Nearsider">Nearsider</option>
-                                <option value="Nearsider-Outsider">Nearsider-Outsider</option>
-                            </select>
-                        </label>
-                        &nbsp;
-                        &nbsp;
+                            
                         
-                        <h4>Mitigation</h4>
-                        <label for="MitigationDescription">
-                            Brief Description:
-                            <br></br>
-                            <input type="text" name="mitigationDesc" value={this.props.finding.mitigationDesc} onChange={this.onChange} id="mitigationDesc" class="browser-default  mr-3" />
-                        </label><br />
-                        <label for="LongDescription">
-                            Long Description:
-                            <br></br>
-                            <textarea name="mitigationLongDesc" value={this.props.finding.mitigationLongDesc} onChange={this.onChange} id="mitigationLongDesc" cols="45" rows="5" class="browser-default  mr-3"></textarea>
-                        </label><br />
-
-                        <h4>Threat Relevence</h4>
-                        <label for="Relevence">
-                            Threat Relevence:
-                            <br></br>
-                            <select name="threatRelevence" value={this.props.finding.threatRelevence} onChange={this.onChange} id="threatRelevence" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Confirmed">Confirmed</option>
-                                <option value="Expected">Expected</option>
-                                <option value="Anticpated">Anticipated</option>
-                                <option value="Predicted">Predicted</option>
-                                <option value="Possible">Possible</option>
-                            </select>
-                        </label>
-
-                        <h4>Countermeasure</h4>
-                        <label for="Countermeasure">
-                            Countermeasure:
-                            <br></br>
-                            <select name="countermeasure" value={this.props.finding.countermeasure} onChange={this.onChange} id="countermeasure" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Very High (10)">Very High (10)</option>
-                                <option value="High">High (7-9)</option>
-                                <option value="Moderate">Moderate (4-6)</option>
-                                <option value="Low">Low (1-3)</option>
-                                <option value="Very Low">Very Low (0)</option>
-                            </select>
-                        </label>
-
-                        <h4>Impact</h4>
-                        <label for="ImpactDescription">
-                            Impact Description:
-                            <br></br>
-                            <input type="text" name="impactDesc" value={this.props.finding.impactDesc} onChange={this.onChange} id="impactDesc" class="browser-default  mr-3" />
-                        </label>
-                        &nbsp;
-                        &nbsp;
-                        <label for="Impact">
-                            Impact:
-                            <br></br>
-                            <select name="findingImpact" value={this.props.finding.findingImpact} onChange={this.onChange} id="findingImpact" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="VH">VH</option>
-                                <option value="H">H</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="VL">VL</option>
-                            </select>
-                        </label>
-
-                        <h4>Severity</h4>
-
-                        <label for="SeverityCategoryScore">
-                            Severity Category Score:
-                            <br></br>
-                            <input type="text" name="severityCategoryScore" value={this.props.finding.severityCategoryScore} onChange={this.onChange} id="severityCategoryScore" class="browser-default  mr-3" />
-                        </label><br></br>
-
-                        <label for="VulnerabilitySeverityDescription">
-                            Vulnerability Severity:
-                            <br></br>
-                            <input type="text" value={this.props.finding.vulnerabilityScore} onChange={this.onChange} name="vulnerabilityScore" id="vulnerabilityScore" class="browser-default  mr-3" />
-                        </label><br></br>
-
-                        <label for="QuantitativeVulnerabilityDescription">
-                            Quantitative Vulnerability Severity:
-                            <br></br>
-                            <input type="text" name="quantitativeScore" value={this.props.finding.quantitativeScore} onChange={this.onChange} id="quantitativeScore" class="browser-default mr-3" />
-                        </label><br></br>
-
-                        <h4>Risk</h4>
-
-                        <label for="RiskDescription">
-                            Risk:
-                            <br></br>
-                            <input type="text" name="findingRisk" value={this.props.finding.findingRisk} onChange={this.onChange} id="findingRisk" class="browser-default  mr-3" />
-                        </label><br></br>
-
-                        <label for="LikelihoodDescription">
-                            Likelihood:
-                            <br></br>
-                            <input type="text" name="findingLikelihood" value={this.props.finding.findingLikelihood} onChange={this.onChange} id="findingLikelihood" class="browser-default  mr-3" />
-                        </label><br></br>
-
-                        <h4>Finding System Level Impact</h4>
-
-                        <label for="CFISDescription">
-                            Confidentiality Finding Impact on System:
-                            <br></br>
-                            <input type="text" name="findingCFIS" value={this.props.finding.findingCFIS} onChange={this.onChange} id="findingCFIS" class="browser-default  mr-3" />
-                        </label><br></br>
-
-                        <label for="IFISDescription">
-                            Integrity Finding Impact on System:
-                            <br></br>
-                            <input type="text" name="findingIFIS" value={this.props.finding.findingIFIS} onChange={this.onChange} id="findingIFIS" class="browser-default  mr-3" />
-                        </label><br></br>
-
-                        <label for="AFISDescription">
-                            Availability Finding Impact on System:
-                            <br></br>
-                            <input type="text" name="findingAFIS" value={this.props.finding.findingAFIS} onChange={this.onChange} id="findingAFIS" class="browser-default  mr-3" />
-                        </label><br></br>
-
-                        
-
-                        <label for="ImpactScoreDescription">
-                            Impact Score:
-                            <br></br>
-                            <input type="text" name="impactDesc" value={this.props.finding.impactDesc} onChange={this.onChange} id="impactDesc" class="browser-default  mr-3" />
-                        </label><br></br>
-
-                        
-                        <div class="button-input-group">
-                                <form onSubmit> {/*For some reason, this closes the modal*/}
-                                    <Button variant="outline-dark" type="submit" class="btn cancel">Cancel </Button>
-                                </form>
-                                <Button variant="outline-dark" type="submit" class="btn">Submit </Button>
-                            </div>
+                        <div className="button-input-group">
+                            <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
+                            <Button variant="outline-dark" type="submit" className="btn">Submit </Button>
+                        </div>
                     </form>
                 </div>
 
             </div>
 
-        );
-    }
+        </div>
+
+    );
+
 }
 
-export default findingDetailedView;
+export default FindingDetailedView;
