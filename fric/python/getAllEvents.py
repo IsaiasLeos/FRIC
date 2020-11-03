@@ -226,7 +226,8 @@ def findings():
             "findingIFIS": e['Finding_IFIS'], 
             "findingAFIS": e['Finding_AFIS'],
             "impactScore" : e['Impact_Score'],
-            "activeTasks" : testing
+            "activeTasks" : testing,
+            "findingFiles": e['Finding_Files']
             })
     return jsonify(finding_json)  # return what was found in the collection
 
@@ -271,6 +272,7 @@ def addFindings():
         "Finding_IFIS": req['findingIFIS'],
         "Finding_AFIS": req['findingAFIS'],
         "Impact_Score": req['impactScore'],
+        "Finding_Files": req['findingFiles']
         
 
     }
