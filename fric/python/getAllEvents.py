@@ -1,5 +1,6 @@
 import json
 import pymongo
+import random
 from flask import Flask, jsonify, request, make_response
 
 
@@ -16,15 +17,32 @@ app = Flask(__name__)
 #         analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
 #     return jsonify(analysts)
 
-@app.route('/analystInEvent',)
+#Given Analyst return progress # tasks completed / # of tasks 
+def calculateProgress(analyst): 
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    myTaskCollection = mydb["task"]
+    tasks = []
+    tasks_completed = 0 
+    for t in myTaskCollection.find({"Task_Analysts": analyst}):
+        tasks.append(t)
+        if(t["Task_Progress"]== "complete"):
+            tasks_completed += 1
+    if(len(tasks) == 0 ):
+        return 0
+    return tasks_completed / len(tasks) 
+    
+
+# Given event, return analsysts from that event # 
+@app.route('/analystsInEvent',methods=['POST'])
 def analystList():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     analysts = []
     myAnalystCollection = mydb["event_analyst"]
     req = request.get_json()
-    for a in myAnalystCollection.find():
-        analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
+    for a in myAnalystCollection.find({"event_id": req[0]}): # Using '0' bc there is oly only POST variable # 
+        analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
     return jsonify(analysts)
 
 
@@ -71,19 +89,7 @@ def eventsOverview():
 
     return jsonify(events_json)
 
-@app.route('/editevent',methods=['POST'])
-def editEvent():
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["event"]
-    
-    req = request.get_json()
-    query = {"id":req["id"]}
-    event = {"$set" : {"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
-             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}}
-    mycollection.update_one(query,event)
-    return jsonify(event)
-
+#TO:DO Event ID Increment
 @app.route('/addevent', methods=['POST'])
 def addEvent():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -91,9 +97,10 @@ def addEvent():
     mycollection = mydb["event"]
 
     req = request.get_json()
-
-    event = {"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
+    print(req)
+    event = {"id":str(random.randint(1,30)),"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
              "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}
+    
     mycollection.insert_one(event)
 
 
@@ -143,6 +150,18 @@ def addSystems():
               "Test_Plan": req['sysTestPlan'], "Confidentiality": req['Confidentiality'], "Integrity": req['Integrity'], "Availability": req['Availability'], "Num_Task": 13, "Num_Findings": 10, "Progress": "Assigned", "Event": "Event 1"}
     mycollection.insert_one(system)
 
+@app.route('/editevent',methods=['POST'])
+def editEvent():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["event"]
+    
+    req = request.get_json()
+    query = {"id":req["id"]}
+    event = {"$set" : {"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
+             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}}
+    mycollection.update_one(query,event)
+    return jsonify(event)
 
 @app.route('/editsystem',methods=['POST'])
 def editSystem():
@@ -393,3 +412,4 @@ def addLog():
     req = request.get_json()
     log = {"Date_Time": req['date'],"Action_Performed": req['action'], "Analyst": req['analyst']}
     mycollection.insert_one(log)
+    return
