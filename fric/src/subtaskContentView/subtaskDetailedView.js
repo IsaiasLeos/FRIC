@@ -11,6 +11,7 @@ function getCurrentDate(separator = '') {
     let time = newDate.toTimeString()
     return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
 }
+
 class subtaskDetailedView extends React.Component {
     constructor() {
         super();
