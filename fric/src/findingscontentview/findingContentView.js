@@ -64,14 +64,14 @@ export default function FindingContentView(props) {
         <div className="SystemContentView">
           <div id="systemTable" update={props.updateSystemData}>
             <div className="title-buttons">
-              <h2>System Overview Table</h2>
+              <h2>Findings Overview Table</h2>
 
 
               <ButtonGroup dialogclassname="title-system-buttons">
                 <Button variant="dark" >Archive</Button>
                 <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
               </ButtonGroup>
-              <Modal show={dialogOpen} onHide={handleDialogClose} >
+              <Modal show={dialogOpen} onHide={handleDialogClose} size = 'lg'>
                 <Modal.Header>
                   <Modal.Title>
                     Finding Detailed View
@@ -100,22 +100,22 @@ export default function FindingContentView(props) {
                 </tr>
               </thead>
               <tbody>
-              {props.data.map((state) => (
-                  <tr>
-                     <td><input type="checkbox" /></td>
-                     <td>{state.findingID}</td>
-                     <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
-                     <td>{state.findingSystem}</td>
-                     <td>{state.findingTask}k</td>
-                     <td>{state.findingSubtask}</td>
-                     <td>{state.findingAnalyst}</td>
-                     <td>{state.findingStatus}</td>
-                     <td>{state.findingClassification}</td>
-                     <td>{state.findingType}</td>
-                     <td>{state.findingRisk}</td>
-                     
-                  </tr>
-                ))}
+                {props.data.map((state) => (
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>{state.findingID}</td>
+                        <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
+                        <td>{state.findingSystem}</td>
+                        <td>{state.findingTask}k</td>
+                        <td>{state.findingSubtask}</td>
+                        <td>{state.findingAnalyst}</td>
+                        <td>{state.findingStatus}</td>
+                        <td>{state.findingClassification}</td>
+                        <td>{state.findingType}</td>
+                        <td>{state.findingRisk}</td>
+                        
+                    </tr>
+                    ))}
               </tbody>
             </Table>
           </div>
