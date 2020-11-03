@@ -19,7 +19,7 @@ function FindingContentView() {
         let month = newDate.getMonth() + 1;
         let year = newDate.getFullYear();
         let time = newDate.toTimeString()
-        let check = '';
+        
         return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
     }
 
@@ -28,9 +28,42 @@ function FindingContentView() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     
-    const [findings, setFindings] = useState([{
+    const [findings, setFindings] = useState([{ //define findings
          findingID: '',
-         hostName: '' 
+         hostName: '',
+         ip_port: '',
+         description: '',
+         longDescription: '',
+         findingStatus: '',
+         findingType: '',
+         findingClassification: '',
+         findingSystem: '',
+         findingTask: '',
+         findingSubtask: '',
+         relatedFindings: '',
+         findingConfidentiality: '',
+         findingIntegrity: '',
+         findingAvailability: '',
+         findingAnalyst: '',
+         findingCollaborators: '',
+         findingPosture: '',
+         mitigationDesc: '',
+         mitigationLongDesc: '',
+         threatRelevence: '',
+         countermeasure: '',
+         impactDesc: '',
+         findingImpact: '',
+         severityCategoryScore: '',
+         vulnerabilityScore: '',
+         quantitativeScore: '',
+         findingRisk: '',
+         findingLikelihood: '',
+         findingCFIS: '',
+         findingIFIS: '',
+         findingAFIS: '',
+         impactScore: '',
+         activeTasks: ''
+
     }])
 
     useEffect(() => {
@@ -42,12 +75,56 @@ function FindingContentView() {
     const [selected_finding, selectedFinding] = useState({
         findingID: '',
         hostName: '',
+        ip_port: '',
+        description: '',
+        longDescription: '',
+        findingStatus: '',
+        findingType: '',
+        findingClassification: '',
+        findingSystem: '',
+        findingTask: '',
+        findingSubtask: '',
+        relatedFindings: '',
+        findingConfidentiality: '',
+        findingIntegrity: '',
+        findingAvailability: '',
+        findingAnalyst: '',
+        findingCollaborators: '',
+        findingPosture: '',
+        mitigationDesc: '',
+        mitigationLongDesc: '',
+        threatRelevence: '',
+        countermeasure: '',
+        impactDesc: '',
+        findingImpact: '',
+        severityCategoryScore: '',
+        vulnerabilityScore: '',
+        quantitativeScore: '',
+        findingRisk: '',
+        findingLikelihood: '',
+        findingCFIS: '',
+        findingIFIS: '',
+        findingAFIS: '',
+        impactScore: '',
+        activeTasks: ''
+        
     });
+
+
+
+    
+     
+   // var obj = this.props.finding.activeTasks;
+    //var arr = Object.keys(obj).map(function(key){return obj[key];});
 
     function viewFinding(finding) { //When we press title button
         sendLog("view finding");
         selectedFinding(finding);
         handleShow();
+    }
+    function setActiveTasks(finding){
+        
+        
     }
 
     function sendLog(a) { //action that is going to be recorded
@@ -77,6 +154,8 @@ function FindingContentView() {
         handleShow();
     }
 
+    
+ 
     return (
         <div>
             <GeneralView />
@@ -87,7 +166,7 @@ function FindingContentView() {
                          
                         <Button variant="dark">Delete</Button>
                         <Button variant="dark">Cancel</Button>
-                        <Button variant="dark" onClick={addFinding}>Add</Button>
+                        <Button variant="dark" onClick={addFinding}>Add</Button> 
                         
                     </ButtonGroup>
                 </div>
@@ -106,6 +185,7 @@ function FindingContentView() {
                             <th>Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             <th>Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             <th>Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            <th>TEST<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,6 +194,17 @@ function FindingContentView() {
                                 <td><input type="checkbox" id="cb1" value="" /></td>
                                 <td>{finding.findingID}</td>
                                 <td><Button variant="outline-dark" onClick={() => {viewFinding(finding)}}>{finding.hostName}</Button></td>
+                                <td>{finding.findingSystem}</td>
+                                <td>{finding.findingTask}k</td>
+                                <td>{finding.findingSubtask}</td>
+                                <td>{finding.findingAnalyst}</td>
+                                <td>{finding.findingStatus}</td>
+                                <td>{finding.findingClassification}</td>
+                                <td>{finding.findingType}</td>
+                                <td></td>
+                                
+                                
+                                
                                
                             </tr>
                         ))}

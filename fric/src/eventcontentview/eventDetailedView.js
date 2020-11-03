@@ -6,7 +6,11 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import '../assets/css/bootstrap.css';
 import './eventView.css';
+import DatePicker from "react-datepicker";   // Need to udate npm install: npm install react-datepicker --save
+import "react-datepicker/dist/react-datepicker.css"; // For calendar function
+import { useState} from "react";//For calendar use
 
+//Note: Check state vars maybe not all of them are needed // Use props only // 
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -19,32 +23,39 @@ function getCurrentDate(separator = '') {
 class eventDetailedView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { id: this.props.event.id, name: this.props.event.name, desc: this.props.event.desc, type: this.props.event.type, vers: this.props.event.version, assess_date: this.props.event.assess_date, org_name: this.props.event.org_name, event_class: this.props.event.event_class, declass_date: this.props.event.declass_date, customer_name:this.props.event.customer}; // State var to hold selected event // 
+        this.state = { 
+            id: this.props.event.id ? this.props.event.id : '', 
+            name: this.props.event.name ? this.props.event.id : '', 
+            desc: this.props.event.desc ? this.props.event.id : '', 
+            type: this.props.event.type ? this.props.event.id : '', 
+            vers: this.props.event.version ? this.props.event.id : '', 
+            assess_date: this.props.event.assess_date ? this.props.event.id : '', 
+            org_name: this.props.event.org_name ? this.props.event.id : '', 
+            event_class: this.props.event.event_class ? this.props.event.id : '', 
+            declass_date: this.props.event.declass_date ? this.props.event.id : '', 
+            customer_name:this.props.event.customer ? this.props.event.id : '',
+            analysts: this.props.analysts
+            
+            }
+              
         this.action = {
             date: "",
             action: "",
             analyst: ""
         };
     }
-    // Get value from event type select tag //
-    handleEventType(e) {
-        console.log(e.target.name); 
 
-
-    }
-    // Get value from event class select tag // 
-    handleEventClass(e) {
-        console.log(e.target.name); 
-    }
+    //ComponentDIDMount() = function that runs on runtime // Reminder// 
     // Update state var if a field is changed // 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
-    // Handle "Sync" // 
+
+    // Handle "Sync" Button // 
     onSubmitEvent = (e) => {
-        
-        if(this.state.name == null){
-            console.log("Add event"); // debugging
+        // console.log("Submit Event", this.state); //Debugging
+        if(this.state.id == ''){
+            console.log("Add event", this.state); // debugging
             // Add a new event // 
             fetch('/addevent', {
                 method: 'POST',
@@ -60,8 +71,8 @@ class eventDetailedView extends React.Component {
                     console.error('Error', error)
                 });
         }else {
-            console.log("Edit event",this.state); // Edit exisitng event // debugging 
-            // Edit Event // TO:DO
+            // console.log("Edit event",this.state.id); // debugging 
+            // Edit Event 
             fetch('/editevent', {
                 method: 'POST',
                 headers: {
@@ -97,6 +108,13 @@ class eventDetailedView extends React.Component {
     }
 
     render() {
+        const Picker = () => {
+            const [startDate, setStartDate] = useState(new Date());
+            return (
+              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+            );
+          };
+
         const eventTypes = [
             {
                 label: "Type A",
@@ -125,11 +143,12 @@ class eventDetailedView extends React.Component {
                 value: "Type C"
             },
         ];
+
         return (
             <div>
                 <div className="event-information-team">
                     <div className="event-information">
-                        <h2>Basic Information</h2>
+                    <h2>Basic Information{console.log("Analysts", this.props.analysts)}</h2>
                         <input type="image" src={HelpImage} alt="help button" />
                         <form onSubmit={this.onSubmitEvent}>
                             <label>
@@ -172,7 +191,8 @@ class eventDetailedView extends React.Component {
 
                             <label>
                                 Declassification Date:<br />
-                                <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" defaultValue={this.props.event.declass_date} />
+                                <Picker name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" defaultValue={this.props.event.declass_date}/>
+                                {/* <input type="text" name="declass_date" onChange={this.onChange} id="event-declass-date" className="event-data" defaultValue={this.props.event.declass_date} /> */}
                             </label><br />
                             <label>
                                 Customer Name:<br />
@@ -186,7 +206,7 @@ class eventDetailedView extends React.Component {
 
                     <div className="event-team">
                         <h2>Team Information</h2>
-                        <div >
+                        <div>
                             <div className="title-buttons">
                                 <h3>Lead Analysts</h3>
                                 <div className="add-dropdown">
@@ -200,26 +220,24 @@ class eventDetailedView extends React.Component {
                                     </form>
                                 </div>
                             </div>
+                                
+                            <Table>
+                                <tr>
+                                    <th>Select</th>
+                                    <th>Analyst</th>
+                                    <th>Progress</th>
+                                </tr>
 
-
-                            <Table bordered dialogClassName="lead-analyst-table">
-                                <tr>
-                                    <th></th>
-                                    <th>Analysts</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                    <td><a href="/AnalystSummary">AC</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                    <td>LS</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                    <td>JP</td>
-                                </tr>
+                                {this.props.analysts.map((analyst) => (
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" /></td>
+                                        <td>{analyst.is_lead == "1" ? analyst.analyst : null}</td>
+                                        <td>{analyst.is_lead == "1" ? analyst.progress * 100 : null}%</td>
+                                    </tr>
+                                ))}
                             </Table>
+
+                            
                         </div>
                         <div className="analyst-table">
                             <div className="title-buttons">
@@ -239,19 +257,15 @@ class eventDetailedView extends React.Component {
                                 <tr>
                                     <th></th>
                                     <th>Analysts</th>
+                                    <th>Progress</th>
                                 </tr>
-                                <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                    <td>IL</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                    <td>AV</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" id="cb1" value="event" /></td>
-                                    <td>JP</td>
-                                </tr>
+                                {this.props.analysts.map((analyst) => (
+                                    <tr>
+                                        <td><input type="checkbox" id="cb1" /></td>
+                                        <td>{analyst.is_lead == "0" ? analyst.analyst : null}</td>
+                                        <td>{analyst.is_lead == "0" ? analyst.progress * 100 : null}%</td>
+                                    </tr>
+                                ))}
                             </Table>
                         </div>
                     </div>

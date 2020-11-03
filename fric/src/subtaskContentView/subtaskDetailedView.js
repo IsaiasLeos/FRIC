@@ -2,7 +2,9 @@ import * as React from 'react';
 import HelpImage from '../assets/help.png';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import Button from 'react-bootstrap/Button';
-
+import DatePicker from "react-datepicker";   // Need to udate npm install: npm install react-datepicker --save
+import "react-datepicker/dist/react-datepicker.css"; // For calendar function
+import { useState} from "react";
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -120,6 +122,13 @@ class subtaskDetailedView extends React.Component {
             { label: 'Attachment 4', value: 4 },
             { label: 'Attachment 5', value: 5 },
         ];
+        const Picker = () => {
+            const [startDate, setStartDate] = useState(new Date());
+            return (
+              <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+            );
+          };
+          
         return (
             <div>
                 <div>
