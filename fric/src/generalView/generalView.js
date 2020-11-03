@@ -29,7 +29,7 @@ function GeneralView() {
                             <a className="nav-link" href="/SystemMaster">System</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/Findings">Findings</a>
+                            <a className="nav-link" href="/FindingMaster">Findings</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/Task">Task</a>
