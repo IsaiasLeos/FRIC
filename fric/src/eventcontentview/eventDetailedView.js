@@ -146,6 +146,7 @@ class eventDetailedView extends React.Component {
 
         return (
             <div>
+                
                 <div className="event-information-team">
                     <div className="event-information">
                     <h2>Basic Information{console.log("Analysts", this.props.analysts)}</h2>

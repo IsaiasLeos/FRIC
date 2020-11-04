@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request, make_response
 
 
 app = Flask(__name__)
+#TO:DO Dont allow empty event variables
 
 # @app.route('/analystInEvent', methods=['POST'])
 # def analystList():
