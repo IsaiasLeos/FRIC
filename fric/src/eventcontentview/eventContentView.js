@@ -9,6 +9,7 @@ import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal';
 import EventDetailedView from './eventDetailedView';
 
+
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -90,6 +91,7 @@ function EventContentView() {
     return (
         <div>
             <GeneralView /> {/* Tab Bar */}
+    {/* <h1>Test{console.log(localStorage.getItem('analyst'))}</h1> HERE IS HOW YOU GET THE "LOGGED IN ANALYSTS*/} 
             <div class="main">
                 <div class="title-buttons">
                     <h2>Event Overview Table</h2>

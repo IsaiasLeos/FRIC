@@ -14,7 +14,7 @@ import Button from 'react-bootstrap/Button';
   class setupContentView extends React.Component {
     constructor() {
       super();
-      this.state = { name: '',date: '', customer_name: '' };
+      this.state = { name:'', desc: '', type: '', vers:'', assess_date:'', org_name:'',event_class:'',declass_date: '', customer_name:'',analyst:''};
       this.action = { date: "", action: "", analyst: "" };
       
     }
@@ -23,12 +23,13 @@ import Button from 'react-bootstrap/Button';
       this.setState({ [e.target.name]: e.target.value });
     }
     onSubmit = (e) => {
-      
+      console.log("Logging in: ", this.state.analyst)
+      localStorage.setItem('analyst',this.state.analyst)
       e.preventDefault();
       this.action.action = "submit event"; //Logging information
       this.action.date = getCurrentDate("/");
       this.action.analyst = "";
-      this.props.history.push('/Event'); //Used for submit button, will navigate to page and push to the DB
+      // this.props.history.push('/Event'); //Used for submit button, will navigate to page and push to the DB // 
   
       //send logging information to DB
       fetch('/addlog', {
@@ -45,7 +46,7 @@ import Button from 'react-bootstrap/Button';
           console.error('Error', error)
         });
 
-            // Add a new event // 
+        // Add a new event // 
       fetch('/addevent', {
         method: 'POST',
         headers: {
@@ -64,12 +65,13 @@ import Button from 'react-bootstrap/Button';
     //Checks for avaiable events in the DB 
     checkEvent () {
       fetch('/eventsOverview').then(
-        response => response.json()).then(data => this.setState(data))
-      if (!this.state.name){
-        return <h4 style={{ textAlign: "center" }}> No Events</h4>
+        response => response.json()).then(data => this.setState(data)) 
+      if (this.state[0] == null){
+        return <div style={{ textAlign: "center" }}><h6>There is no existing event in your system, please create an event. </h6>
+        <input type="text" placeholder="e.g. Event 1" name="name" onChange={this.onChange} id="event-title" className="event-data" /></div>
       }
       else{
-        return <h4 style={{ textAlign: "center" }}> Events</h4>
+        return 
       }
       
     }
@@ -80,20 +82,14 @@ import Button from 'react-bootstrap/Button';
           <GeneralView /><br />
           <h1 style={{ textAlign: "center" }}> Finding and Reporting Information Console (FRIC) </h1> <br />
           <div>
-            {/* <h4 style={{ textAlign: "center" }} > Checking...</h4> */}
             {this.checkEvent()}
           </div>
           <form style={{ textAlign: "center" }} onSubmit={this.onSubmit} ><br /><br />
             <label>
-              <h6>There is no existing event in your system </h6>
-              <input type="text" placeholder="e.g. Event1" name="name" onChange={this.onChange} id="event-title" className="event-data" />
-            </label> <br /><br />
-            <label>
               <h6>Please enter your intials</h6>
-              <input type="text" placeholder="e.g. AC:" name="customer_name" onChange={this.onChange} id="event-customer-name" className="event-data" />
-            </label><br /><br />
-  
-            <Button type="submit" className="btn" variant="outline-dark" >Submit</Button> <br /><br />
+              <input type="text" placeholder="e.g. AC" name="analyst" onChange={this.onChange} id="analyst" className="event-data" />
+            </label><br/><br/>
+            <Button type="submit" className="btn" variant="outline-dark">Submit</Button> <br/><br/>
           </form>
         </div>
       );
