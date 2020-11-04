@@ -84,8 +84,8 @@ def eventsOverview():
 
     # Event Overview Information
     for e in myEventCollection.find():
-        events_json.append({"id": e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],
-                            "event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress']})
+
+        events_json.append({"id": e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],"event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress']})
 
     return jsonify(events_json)
 
@@ -104,6 +104,16 @@ def addEvent():
     mycollection.insert_one(event)
 
 
+
+@app.route('/getprogress')
+def getProgress():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mySystemCollection = mydb["task"]
+    task_progress = []
+    for e in mySystemCollection.find():
+        task_progress.append({"taskProgress": e['Task_Progress']})
+    return jsonify(task_progress)
 
 @app.route('/getsystem')
 def systems():
@@ -219,7 +229,8 @@ def findings():
             "findingIFIS": e['Finding_IFIS'], 
             "findingAFIS": e['Finding_AFIS'],
             "impactScore" : e['Impact_Score'],
-            "activeTasks" : testing
+            "activeTasks" : testing,
+            "findingFiles": e['Finding_Files']
             })
     return jsonify(finding_json)  # return what was found in the collection
 
@@ -264,6 +275,7 @@ def addFindings():
         "Finding_IFIS": req['findingIFIS'],
         "Finding_AFIS": req['findingAFIS'],
         "Impact_Score": req['impactScore'],
+        "Finding_Files": req['findingFiles']
         
 
     }

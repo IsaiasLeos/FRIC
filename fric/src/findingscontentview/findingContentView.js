@@ -62,7 +62,8 @@ function FindingContentView() {
          findingIFIS: '',
          findingAFIS: '',
          impactScore: '',
-         activeTasks: ''
+         activeTasks: '',
+         findingFiles: ''
 
     }])
 
@@ -106,7 +107,8 @@ function FindingContentView() {
         findingIFIS: '',
         findingAFIS: '',
         impactScore: '',
-        activeTasks: ''
+        activeTasks: '',
+        findingFiles:''
         
     });
 
@@ -185,7 +187,7 @@ function FindingContentView() {
                             <th>Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             <th>Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                             <th>Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                            <th>TEST<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -201,7 +203,7 @@ function FindingContentView() {
                                 <td>{finding.findingStatus}</td>
                                 <td>{finding.findingClassification}</td>
                                 <td>{finding.findingType}</td>
-                                <td></td>
+                                <td>{finding.findingRisk}</td>
                                 
                                 
                                 
