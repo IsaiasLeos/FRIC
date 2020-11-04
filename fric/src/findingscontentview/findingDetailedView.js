@@ -109,8 +109,9 @@ function FindingDetailedView(props) {
 
     function SendData(e) {
         console.log(props.finding)
-        e.preventDefault();
-        if (state.name == null) {
+        //e.preventDefault();
+        if (state.id == '') {
+            console.log(state.findingID)
             fetch('/addfinding', {
                 method: 'POST',
                 headers: {
@@ -126,7 +127,26 @@ function FindingDetailedView(props) {
                 });
             SendLog(e);
             props.closeDetailAction();
-        } 
+        }else{     
+            console.log("Edit Finding"); // debugging 
+            console.log(state.findingID);
+            // Edit Event 
+            fetch('/editfinding', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(state), 
+            }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+            SendLog(e);
+            props.closeDetailAction();
+        }
     }
 
     function closeOnCancel() {
@@ -496,7 +516,10 @@ function FindingDetailedView(props) {
                             
                         
                         <div className="button-input-group">
+                            
+                            &nbsp;
                             <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
+                            &nbsp;
                             <Button variant="outline-dark" type="submit" className="btn">Submit </Button>
                         </div>
                     </form>

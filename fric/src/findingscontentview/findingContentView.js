@@ -20,6 +20,7 @@ export default function FindingContentView(props) {
   const [selected_finding, selectedFinding] = useState();
 
   const [dialogOpen, handleDialog] = React.useState(false)
+  
   function handleDialogOpen(state) {
     sendLog("finding dialog open");
     handleDialog(true)
