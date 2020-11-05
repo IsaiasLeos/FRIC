@@ -88,7 +88,9 @@ def eventsOverview():
 
         events_json.append({"id": e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],"event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress'],"created_by": e["Created_By"]})
 
+
     return jsonify(events_json)
+
 
 #TO:DO Event ID Increment
 @app.route('/addevent', methods=['POST'])
@@ -193,6 +195,7 @@ def findings():
 
     for e in mycollection.find():
         finding_json.append({
+            "id": e['id'],
             "findingID": e['Finding_ID'], 
             "hostName": e['Host_Name'],
             "ip_port" : e['IP_Port'],
@@ -226,11 +229,9 @@ def findings():
             "findingIFIS": e['Finding_IFIS'], 
             "findingAFIS": e['Finding_AFIS'],
             "impactScore" : e['Impact_Score'],
-            "activeTasks" : testing,
             "findingFiles": e['Finding_Files']
             })
     return jsonify(finding_json)  # return what was found in the collection
-
 
 @app.route('/addfinding', methods=['POST'])
 def addFindings():
@@ -239,6 +240,7 @@ def addFindings():
     mycollection = mydb["finding"]  
     req = request.get_json() 
     finding = {
+        "id":str(random.randint(1,30)),
         "Finding_ID": req['findingID'],
         "Host_Name": req['hostName'],
         "IP_Port": req['ip_port'],
@@ -273,11 +275,60 @@ def addFindings():
         "Finding_AFIS": req['findingAFIS'],
         "Impact_Score": req['impactScore'],
         "Finding_Files": req['findingFiles']
-        
+    }
+    mycollection.insert_one(finding)  # Send information to collection
 
+@app.route('/editfinding',methods=['POST'])
+def editFinding():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["finding"]
+    
+    req = request.get_json()
+
+    query = {"id":req["id"]}
+
+    finding = {"$set" : {
+
+        "Finding_ID": req['findingID'],
+        "Host_Name": req['hostName'],
+        "IP_Port": req['ip_port'],
+        "Description": req['description'],
+        "Long_Description": req['longDescription'],
+        "Finding_Status": req['findingStatus'],
+        "Finding_Type": req['findingType'],
+        "Finding_Classification": req['findingClassification'],
+        "Finding_System": req['findingSystem'],
+        "Finding_Task": req['findingTask'],
+        "Finding_Subtask": req['findingSubtask'],
+        "Related_Findings": req['relatedFindings'],
+        "Finding_Confidentiality": req['findingConfidentiality'],
+        "Finding_Integrity": req['findingIntegrity'],
+        "Finding_Availability": req['findingAvailability'],
+        "Finding_Analyst": req['findingAnalyst'],
+        "Finding_Collaborators": req['findingCollaborators'],
+        "Finding_Posture": req['findingPosture'],
+        "Mitigation_Desc": req['mitigationDesc'],
+        "Mitigation_Long_Desc": req['mitigationLongDesc'],
+        "Threat_Relevence": req['threatRelevence'],
+        "Countermeasure": req['countermeasure'],
+        "Impact_Desc": req['impactDesc'],
+        "Finding_Impact": req['findingImpact'],
+        "Severity_Score": req['severityCategoryScore'],
+        "Vulnerability_Score": req['vulnerabilityScore'],
+        "Quantitative_Score": req['quantitativeScore'],
+        "Finding_Risk": req['findingRisk'],
+        "Finding_Likelihood": req['findingLikelihood'],
+        "Finding_CFIS": req['findingCFIS'],
+        "Finding_IFIS": req['findingIFIS'],
+        "Finding_AFIS": req['findingAFIS'],
+        "Impact_Score": req['impactScore'],
+        "Finding_Files": req['findingFiles']
+        }
     }
 
-    mycollection.insert_one(finding)  # Send information to collection
+    mycollection.update_one(query,finding)
+    return jsonify(finding)
 
 @app.route('/subtasks')
 def subtasks():
@@ -338,10 +389,10 @@ def addSubtasks():
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
-    myFindingCollection = mydb["finding"]
-    mySubtaskCollection = mydb["subtask"]
+    mydb = myclient['FRIC']
+    mycollection = mydb['task']
+    myFindingCollection = mydb['finding']
+    mySubtaskCollection = mydb['subtask']
     task_json = []
 
     findings_json = []
@@ -361,6 +412,7 @@ def tasks():
     for e in mycollection.find():
 
         task_json.append({
+            "id": e['id'],
             "taskTitle": e['Task_title'],
             "taskDescription": e['Task_Description'],
             "system": e['System'],
@@ -380,10 +432,11 @@ def tasks():
 @app.route('/addtask', methods=['POST'])
 def addTasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
+    mydb = myclient['FRIC']
+    mycollection = mydb['task']
     req = request.get_json()
     task = {
+        "id":str(random.randint(1,30)),
         "Task_title": req['taskTitle'],
         "Task_Description": req['taskDescription'],
         "System": req['system'],
@@ -397,8 +450,31 @@ def addTasks():
         "Num_subtask": 0,
         "Num_finding": 13
     }
-    mycollection.insert_one(task)
+    mycollection.insert_one(task) #send info to collection
 
+@app.route('/edittask',methods=['POST'])
+def editTask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient['FRIC']
+    mycollection = mydb['task']
+    
+    req = request.get_json()
+    query = {"id":req["id"]}
+
+    task = {"$set" : {
+        "Task_title": req['taskTitle'],
+        "Task_Description": req['taskDescription'],
+        "System": req['system'],
+        "Task_Priority": req['taskPriority'],
+        "Task_Progress": req['taskProgress'],
+        "Task_Due_Date": req['taskDueDate'],
+        "Task_Analysts": req['taskAnalysts'],
+        "Task_Collaborators": req['taskCollaborators'],
+        "Related_Tasks": req['relatedTasks'],
+        "Attachments": req['attachments']
+    }}
+    mycollection.update_one(query, task)
+    return jsonify(task)
 
 @app.route('/addlog', methods=['POST'])
 def addLog():

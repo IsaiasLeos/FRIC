@@ -12,6 +12,7 @@ function getCurrentDate(separator = '') {
 
 function SystemDetailedView(props) {
 
+    //Used to set the information when the given set---- method is called.
     const [sysInfo, setName] = useState('');
     const [sysDesc, setDesc] = useState('');
     const [sysLoc, setLocation] = useState('');
@@ -23,6 +24,7 @@ function SystemDetailedView(props) {
     const [integrity, setIntegrity] = useState('');
     const [availability, setAvailability] = useState('');
 
+    //Save all the information into a variable to then send to the system collection.
     let state = {
         sysInfo: sysInfo,
         sysDesc: sysDesc,
@@ -38,15 +40,13 @@ function SystemDetailedView(props) {
         num_findings: "",
         progress: ""
     };
-    let action = {
-        date: "",
-        action: "",
-        analyst: ""
-    }
 
+
+    //Send the selected system obtained from the content view to the system collection.
     function SendData(e) {
         console.log(props.system)
         e.preventDefault();
+        //Check if there was a already given system to differentiate editing or adding a system.
         if (state.name == null) {
             fetch('/addsystem', {
                 method: 'POST',
@@ -64,6 +64,7 @@ function SystemDetailedView(props) {
             SendLog(e);
             props.closeDetailAction();
         } else {
+            //Re-send the information to the selected system.
             fetch('/editsystem', {
                 method: 'POST',
                 headers: {
@@ -80,12 +81,19 @@ function SystemDetailedView(props) {
         }
     }
 
+    //Close the modal when called.
     function closeOnCancel() {
         props.closeDetailAction()
     }
 
+    //Logging function that will save the data,analyst, and action done.
     function SendLog(e) {
         e.preventDefault();
+        var action = {
+            date: "",
+            action: "",
+            analyst: ""
+        }
         action.action = "submit system";
         action.date = getCurrentDate("/");
         action.analyst = "";
