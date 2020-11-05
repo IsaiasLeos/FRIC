@@ -64,8 +64,8 @@ export default function TaskContentView(props) {
     return (
         <div>
             <div className="main">
-                <div className="SystemContentView">
-                    <div id="systemTable" update={props.updateSystemData}>
+                <div className="TaskContentView">
+                    <div id="systemTable" >
                         <div className="title-buttons">
                             <div className="name">
                                 <h2>Task Overview Table</h2>
