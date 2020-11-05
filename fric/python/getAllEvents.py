@@ -412,7 +412,7 @@ def tasks():
     for e in mycollection.find():
 
         task_json.append({
-            "id": e['id']
+            "id": e['id'],
             "taskTitle": e['Task_title'],
             "taskDescription": e['Task_Description'],
             "system": e['System'],
