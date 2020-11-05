@@ -116,6 +116,7 @@ export default function TaskContentView(props) {
                                             <td>{state.taskDueDate}</td>
                                         </tr>
                                     ))}
+        
                                 </tbody>
                             </Table>
                         </div>
