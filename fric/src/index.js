@@ -23,6 +23,7 @@ import archiveContentView from './archivecontentview/archiveContentView';
 import configurationContentView from './configurationcontentview/configurationContentView';
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
+import taskMaster from './taskcontentview/taskMaster'
 import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'
 import setupContentView from './setupContentView/setupContentView.js';
 import helpView from './helpView/helpView.js';
@@ -43,6 +44,7 @@ ReactDOM.render(
     <Route exact path="/EventDetailed" component={eventDetailedView} />
     <Route exact path="/Task" component={taskContentView} />
     <Route exact path="/TaskDetails" component={taskDetailedView} />
+    <Route exact path="/TaskMaster" component={taskMaster} />
     <Route exact path="/Subtask" component={subtaskContentView} />
     <Route exact path="/SubtaskDetails" component={subtaskDetailedView} />
     <Route exact path="/AnalystSummary" component={analystSummaryView} />
