@@ -1,9 +1,11 @@
 import json
 import pymongo
+import random
 from flask import Flask, jsonify, request, make_response
 
 
 app = Flask(__name__)
+#TO:DO Dont allow empty event variables
 
 # @app.route('/analystInEvent', methods=['POST'])
 # def analystList():
@@ -16,15 +18,32 @@ app = Flask(__name__)
 #         analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
 #     return jsonify(analysts)
 
-@app.route('/analystInEvent',)
+#Given Analyst return progress # tasks completed / # of tasks 
+def calculateProgress(analyst): 
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    myTaskCollection = mydb["task"]
+    tasks = []
+    tasks_completed = 0 
+    for t in myTaskCollection.find({"Task_Analysts": analyst}):
+        tasks.append(t)
+        if(t["Task_Progress"]== "complete"):
+            tasks_completed += 1
+    if(len(tasks) == 0 ):
+        return 0
+    return tasks_completed / len(tasks) 
+    
+
+# Given event, return analsysts from that event # 
+@app.route('/analystsInEvent',methods=['POST'])
 def analystList():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     analysts = []
     myAnalystCollection = mydb["event_analyst"]
     req = request.get_json()
-    for a in myAnalystCollection.find():
-        analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
+    for a in myAnalystCollection.find({"event_id": req[0]}): # Using '0' bc there is only one POST variable # 
+        analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
     return jsonify(analysts)
 
 
@@ -66,24 +85,12 @@ def eventsOverview():
 
     # Event Overview Information
     for e in myEventCollection.find():
-        events_json.append({"id": e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],
-                            "event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress']})
+
+        events_json.append({"id": e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],"event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress'],"created_by": e["Created_By"]})
 
     return jsonify(events_json)
 
-@app.route('/editevent',methods=['POST'])
-def editEvent():
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["event"]
-    
-    req = request.get_json()
-    query = {"id":req["id"]}
-    event = {"$set" : {"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
-             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}}
-    mycollection.update_one(query,event)
-    return jsonify(event)
-
+#TO:DO Event ID Increment
 @app.route('/addevent', methods=['POST'])
 def addEvent():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -91,10 +98,11 @@ def addEvent():
     mycollection = mydb["event"]
 
     req = request.get_json()
-
-    event = {"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
-             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}
+    event = {"id":str(random.randint(1,30)),"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
+             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Created_By": req['created_by'],"Num_systems": 13, "Num_findings": 10, "Progress": "33%"}
+    
     mycollection.insert_one(event)
+    return
 
 
 
@@ -152,7 +160,7 @@ def editEvent():
     req = request.get_json()
     query = {"id":req["id"]}
     event = {"$set" : {"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
-             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}}
+             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'],"Created_By": req['created_by'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}}
     mycollection.update_one(query,event)
     return jsonify(event)
 
@@ -182,10 +190,6 @@ def findings():
         active_tasks.append(e)
 
     testing = active_tasks
-
-    
-        
-
 
     for e in mycollection.find():
         finding_json.append({
@@ -222,7 +226,8 @@ def findings():
             "findingIFIS": e['Finding_IFIS'], 
             "findingAFIS": e['Finding_AFIS'],
             "impactScore" : e['Impact_Score'],
-            "activeTasks" : testing
+            "activeTasks" : testing,
+            "findingFiles": e['Finding_Files']
             })
     return jsonify(finding_json)  # return what was found in the collection
 
@@ -267,6 +272,7 @@ def addFindings():
         "Finding_IFIS": req['findingIFIS'],
         "Finding_AFIS": req['findingAFIS'],
         "Impact_Score": req['impactScore'],
+        "Finding_Files": req['findingFiles']
         
 
     }
@@ -403,3 +409,4 @@ def addLog():
     req = request.get_json()
     log = {"Date_Time": req['date'],"Action_Performed": req['action'], "Analyst": req['analyst']}
     mycollection.insert_one(log)
+    return
