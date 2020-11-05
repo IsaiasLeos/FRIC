@@ -34,6 +34,7 @@ class eventDetailedView extends React.Component {
             event_class: this.props.event.event_class ? this.props.event.id : '', 
             declass_date: this.props.event.declass_date ? this.props.event.id : '', 
             customer_name:this.props.event.customer ? this.props.event.id : '',
+            created_by:this.props.event.created_by ? this.props.event.created_by: '',
             analysts: this.props.analysts
             
             }
@@ -56,7 +57,8 @@ class eventDetailedView extends React.Component {
         // console.log("Submit Event", this.state); //Debugging
         if(this.state.id == ''){
             console.log("Add event", this.state); // debugging
-            // Add a new event // 
+            // Add a new event //
+            this.state.created_by = localStorage.getItem('analyst'); 
             fetch('/addevent', {
                 method: 'POST',
                 headers: {
@@ -146,10 +148,12 @@ class eventDetailedView extends React.Component {
 
         return (
             <div>
+                
                 <div className="event-information-team">
                     <div className="event-information">
                     <h2>Basic Information{console.log("Analysts", this.props.analysts)}</h2>
                         <input type="image" src={HelpImage} alt="help button" />
+                        <h4>Derived By:{this.props.event.created_by}</h4>
                         <form onSubmit={this.onSubmitEvent}>
                             <label>
                                 Title:<br />

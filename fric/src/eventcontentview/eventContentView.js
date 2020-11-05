@@ -9,6 +9,7 @@ import GeneralView from '../generalView/generalView';
 import Modal from 'react-bootstrap/Modal';
 import EventDetailedView from './eventDetailedView';
 
+
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -34,7 +35,7 @@ function EventContentView() {
     const [analysts,setAnalysts] = useState([]); 
 
     function getAnalysts(event_id){    
-        console.log("Fetching analysts for event #", event_id)
+        // console.log("Fetching analysts for event #", event_id) // Debugging
         fetch('/analystsInEvent', {
             method: 'POST',
             headers: {
@@ -44,7 +45,7 @@ function EventContentView() {
         }).then(response => response.json())
             .then(data => {
                 setAnalysts(data)
-                console.log("Success", data);
+                console.log("Success");
             })
             .catch(error => {
                 console.error('Error', error)
@@ -90,6 +91,7 @@ function EventContentView() {
     return (
         <div>
             <GeneralView /> {/* Tab Bar */}
+    {/* <h1>Test{console.log(localStorage.getItem('analyst'))}</h1> HERE IS HOW YOU GET THE "LOGGED IN ANALYSTS*/} 
             <div class="main">
                 <div class="title-buttons">
                     <h2>Event Overview Table</h2>
