@@ -35,7 +35,7 @@ function EventContentView() {
     const [analysts,setAnalysts] = useState([]); 
 
     function getAnalysts(event_id){    
-        console.log("Fetching analysts for event #", event_id)
+        // console.log("Fetching analysts for event #", event_id) // Debugging
         fetch('/analystsInEvent', {
             method: 'POST',
             headers: {
@@ -45,7 +45,7 @@ function EventContentView() {
         }).then(response => response.json())
             .then(data => {
                 setAnalysts(data)
-                console.log("Success", data);
+                console.log("Success");
             })
             .catch(error => {
                 console.error('Error', error)

@@ -42,7 +42,7 @@ def analystList():
     analysts = []
     myAnalystCollection = mydb["event_analyst"]
     req = request.get_json()
-    for a in myAnalystCollection.find({"event_id": req[0]}): # Using '0' bc there is oly only POST variable # 
+    for a in myAnalystCollection.find({"event_id": req[0]}): # Using '0' bc there is only one POST variable # 
         analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
     return jsonify(analysts)
 
@@ -86,7 +86,7 @@ def eventsOverview():
     # Event Overview Information
     for e in myEventCollection.find():
 
-        events_json.append({"id": e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],"event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress']})
+        events_json.append({"id": e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],"event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress'],"created_by": e["Created_By"]})
 
     return jsonify(events_json)
 
@@ -98,11 +98,11 @@ def addEvent():
     mycollection = mydb["event"]
 
     req = request.get_json()
-    print(req)
     event = {"id":str(random.randint(1,30)),"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
-             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}
+             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Created_By": req['created_by'],"Num_systems": 13, "Num_findings": 10, "Progress": "33%"}
     
     mycollection.insert_one(event)
+    return
 
 
 
@@ -160,7 +160,7 @@ def editEvent():
     req = request.get_json()
     query = {"id":req["id"]}
     event = {"$set" : {"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
-             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}}
+             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'],"Created_By": req['created_by'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}}
     mycollection.update_one(query,event)
     return jsonify(event)
 
@@ -190,10 +190,6 @@ def findings():
         active_tasks.append(e)
 
     testing = active_tasks
-
-    
-        
-
 
     for e in mycollection.find():
         finding_json.append({
