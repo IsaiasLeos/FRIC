@@ -5,6 +5,8 @@ import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
 import Tree from '../eventTree/eventTree';
 import Button from 'react-bootstrap/Button';
+import './configuration.css';
+
 class configurationContentView extends React.Component { 
     render() {
         return (
@@ -13,7 +15,7 @@ class configurationContentView extends React.Component {
                 <div className="main">
                     <div class="ConfigureView">
                         <h2>Configuration view</h2>
-                    </div> <br/><br/>
+                    </div> <br/>
                     <div>
                         <h3> Finding Information Table </h3>
                         <Table bordered hover striped responsive>

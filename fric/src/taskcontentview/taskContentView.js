@@ -86,7 +86,7 @@ export default function TaskContentView(props) {
                                     <TaskDetailedView task={selected_task} closeDetailAction={handleDialogClose} />
                                 </Modal.Body>
                             </Modal>
-                        </div><br/>
+                        </div>
                         <div className="tablestyle">
                             <Table striped bordered hover style={{textAlign:'center'}}>
                                 <thead class="thead-grey">
