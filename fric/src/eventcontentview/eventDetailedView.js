@@ -57,7 +57,8 @@ class eventDetailedView extends React.Component {
         // console.log("Submit Event", this.state); //Debugging
         if(this.state.id == ''){
             console.log("Add event", this.state); // debugging
-            // Add a new event // 
+            // Add a new event //
+            this.state.created_by = localStorage.getItem('analyst'); 
             fetch('/addevent', {
                 method: 'POST',
                 headers: {
