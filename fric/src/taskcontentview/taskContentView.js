@@ -22,16 +22,47 @@ export default function TaskContentView(props) {
     const [selected_task, selectedTask] = useState();
     const [dialogOpen, handleDialog] = React.useState(false);
 
+    // Function used to open handle dialog
     function handleDialogOpen(state) {
         sendLog("Task dialog open");
         handleDialog(true)
         console.log(state)
         selectedTask(state)
-      }
-    
-      function handleDialogClose() {
+    }
+
+    // Function used to close handle dialog
+    function handleDialogClose() {
         sendLog("Task dialog close")
         handleDialog(false)
+    }
+    // Function used perform sorting in asscending order
+    function compareByAsc(key) {
+        return function(a, b) {
+            if (a[key] < b[key]) return -1;
+            if (a[key] > b[key]) return 1;
+            return 0;
+        };
+    }
+
+    // Function used perform sorting in desscending order
+    function compareByDesc(key) {
+        return function(a, b) {
+          if (a[key] < b[key]) return 1;
+          if (a[key] > b[key]) return -1;
+          return 0;
+        };
+    }
+
+    // Function used as a toggle to switch between sorting operations
+    function sortBy(key) {
+        let arrayCopy = [...props.data];
+        const arrInStr = JSON.stringify(arrayCopy);
+        arrayCopy.sort(this.compareByAsc(key));
+        const arrInStr1 = JSON.stringify(arrayCopy);
+        if (arrInStr === arrInStr1) {
+          arrayCopy.sort(this.compareByDesc(key));
+        }
+        props.setState({ data: arrayCopy });
       }
 
     // Handles logging information
@@ -57,15 +88,18 @@ export default function TaskContentView(props) {
             });
     }
 
+    // updates the task data
     useEffect(() => {
         props.updateData();
       });
-    
+
+      
+    //Return displays the task content view 
     return (
         <div>
             <div className="main">
-                <div className="SystemContentView">
-                    <div id="systemTable" update={props.updateSystemData}>
+                <div className="TaskContentView">
+                    <div id="systemTable" >
                         <div className="title-buttons">
                             <div className="name">
                                 <h2>Task Overview Table</h2>

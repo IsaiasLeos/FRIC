@@ -3,8 +3,8 @@ import TaskContentView from './taskContentView';
 import Tree from '../eventTree/eventTree'
 import GeneralView from '../generalView/generalView'
 class TaskMaster extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.flag = false;
         this.state = {
             data: [],
@@ -22,8 +22,12 @@ class TaskMaster extends React.Component {
 
         this.updateData = this.updateData.bind(this);
     }
+    sleep(milliseconds) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds));
+    }
 
-    updateData() {
+    async updateData() {
+        await this.sleep(3000);
         fetch('/tasks').then(
             response => response.json()).then(data => this.setState({
                 data: data
