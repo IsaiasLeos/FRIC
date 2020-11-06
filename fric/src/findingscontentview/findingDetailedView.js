@@ -110,7 +110,7 @@ function FindingDetailedView(props) {
         console.log(props.finding, "original finding") //debugging
         e.preventDefault();
 
-        if(props.finding.id == null){ 
+        if(props.finding.id == null){ //works
             
             console.log("ADDING NEW HERE") //debugging
             console.log(state) //debugging
@@ -120,7 +120,7 @@ function FindingDetailedView(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(state),
+                body: JSON.stringify(state),  
             }).then(response => response.json())
                 .then(data => {
                     console.log("Success", data);
@@ -132,7 +132,7 @@ function FindingDetailedView(props) {
             //console.log(state.uniqueID, "<-- FindingID")
             SendLog(e);
             props.closeDetailAction();
-        }else{ //it exists  if(state.uniqueID != '')
+        }else{ //it exists  debugging : if(state.uniqueID != '')
             console.log("TRYING TO EDIT HERE"); // debugging 
             console.log(props.finding.id)
             // Edit Event 
@@ -141,7 +141,7 @@ function FindingDetailedView(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(state), 
+                body: JSON.stringify(state), //if i change this to props.finding the edited information is not saved. If at 'state' the edited information is saved however not the rest of the finding info
             }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
