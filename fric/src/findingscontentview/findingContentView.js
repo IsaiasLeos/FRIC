@@ -98,6 +98,7 @@ export default function FindingContentView(props) {
                   <th>Classification</th>
                   <th>Type</th>
                   <th>Risk</th>
+                  <th>IDID</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,6 +115,7 @@ export default function FindingContentView(props) {
                         <td>{state.findingClassification}</td>
                         <td>{state.findingType}</td>
                         <td>{state.findingRisk}</td>
+                        <td>{state.id}</td>
                         
                     </tr>
                     ))}

@@ -38,24 +38,24 @@ export default function SystemContentView(props) {
 
   //Function to send a log given the parameter (action).
   function sendLog(a) {
-    var action = {//Create the action that you'll send.
-      date: getCurrentDate("/"),//get current date.
-      action: a,
-      analyst: ""
-    }
-    fetch('/addlog', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(action),
-    }).then(response => response.json())
-      .then(data => {
-        console.log("Success", data);
-      })
-      .catch(error => {
-        console.error('Error', error)
-      });
+    // var action = {//Create the action that you'll send.
+    //   date: getCurrentDate("/"),//get current date.
+    //   action: a,
+    //   analyst: ""
+    // }
+    // fetch('/addlog', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(action),
+    // }).then(response => response.json())
+    //   .then(data => {
+    //     console.log("Success", data);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error', error)
+    //   });
   }
 
   //Update the information inside the state.
@@ -106,7 +106,7 @@ export default function SystemContentView(props) {
               <tbody>
                 {props.data.map((state) => (
                   //Map the given information of data.
-                  <tr>
+                  <tr id={state.id}>
                     <td><input type="checkbox" /></td>
                     <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.sysInfo}</Button></td>
                     <td>{state.num_task}</td>

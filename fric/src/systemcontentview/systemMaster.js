@@ -8,19 +8,20 @@ class SystemMaster extends React.Component {
         //This will be used to hold the information that will later be updated in content view.
         this.state = {
             data: [],
-            sysInfo: "",
-            sysDesc: "",
-            sysLoc: "",
-            sysRouter: "",
-            sysSwitch: "",
-            sysRoom: "",
-            sysTestPlan: "",
-            Confidentiality: "",
-            Integrity: "",
-            Availability: "",
-            num_task: "",
-            num_findings: "",
-            progress: "",
+            id: '',
+            sysInfo: '',
+            sysDesc: '',
+            sysLoc: '',
+            sysRouter: '',
+            sysSwitch: '',
+            sysRoom: '',
+            sysTestPlan: '',
+            Confidentiality: '',
+            Integrity: '',
+            Availability: '',
+            num_task: '',
+            num_findings: '',
+            progress: '',
         };
 
         this.updateData = this.updateData.bind(this);
@@ -32,7 +33,7 @@ class SystemMaster extends React.Component {
     }
 
     //Fetch data from the System Collection
-    async updateData() { 
+    async updateData() {
         await this.sleep(3000);
         fetch('/getsystem').then(
             response => response.json()).then(data => this.setState({
@@ -43,7 +44,7 @@ class SystemMaster extends React.Component {
     render() {
         return (
             <div>
-                <GeneralView /> 
+                <GeneralView />
                 <SystemContentView
                     //Send data to update it in content view and update data method to call it to re-send information
                     data={this.state.data}

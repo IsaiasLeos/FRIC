@@ -9,6 +9,7 @@ class FindingMaster extends React.Component {
         this.flag = false;
         this.state = {
             data: [],
+            id: '', 
             findingID: '',
             hostName: '',
             ip_port: '',
