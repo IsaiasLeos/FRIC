@@ -24,8 +24,8 @@ export default function FindingContentView(props) {
   function handleDialogOpen(state) {
     sendLog("finding dialog open");
     handleDialog(true)
-    // console.log(state)
     selectedFinding(state)
+    
   }
 
   function handleDialogClose() {

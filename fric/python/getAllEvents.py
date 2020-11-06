@@ -292,6 +292,7 @@ def findings():
             })
     return jsonify(finding_json)  # return what was found in the collection
 
+
 @app.route('/addfinding', methods=['POST'])
 def addFindings():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")  # Connect to the DB Client
@@ -299,7 +300,7 @@ def addFindings():
     mycollection = mydb["finding"] 
 
     req = request.get_json()
-    print(req) 
+    print("Add finding", req) 
 
     finding = {
         "id":str(random.randint(1,30)),
@@ -339,6 +340,7 @@ def addFindings():
         "Finding_Files": req['findingFiles']
     }
     mycollection.insert_one(finding)  # Send information to collection
+    return "OK"
 
 @app.route('/editfinding',methods=['POST'])
 def editFinding():
