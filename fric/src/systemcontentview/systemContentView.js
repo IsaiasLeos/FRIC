@@ -25,37 +25,30 @@ export default function SystemContentView(props) {
 
   //Action to be done when opening the dialog. Giving a parameter allows view/editing the system.
   function handleDialogOpen(state) {
-    sendLog("system dialog open");//Log
     handleDialog(true)//Open the modal
     selectedSystem(state)//Remeber the system that you selected to view.
   }
 
   //Action to be done when closing the dialog.
   function handleDialogClose() {
-    sendLog("system dialog close")//Log
     handleDialog(false)//Close the modal
   }
 
   //Function to send a log given the parameter (action).
-  function sendLog(a) {
-    // var action = {//Create the action that you'll send.
-    //   date: getCurrentDate("/"),//get current date.
-    //   action: a,
-    //   analyst: ""
-    // }
-    // fetch('/addlog', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(action),
-    // }).then(response => response.json())
-    //   .then(data => {
-    //     console.log("Success", data);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error', error)
-    //   });
+  function SendLog(e) {
+    var action = {
+      date: getCurrentDate("/"),
+      action: e,
+      analyst: ""
+    }
+    action.analyst = "";
+    fetch('/addlog', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(action),
+    }).then(response => response.json());
   }
 
   //Update the information inside the state.
@@ -106,7 +99,7 @@ export default function SystemContentView(props) {
               <tbody>
                 {props.data.map((state) => (
                   //Map the given information of data.
-                  <tr id={state.id}>
+                  <tr key={state.id}>
                     <td><input type="checkbox" /></td>
                     <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.sysInfo}</Button></td>
                     <td>{state.num_task}</td>

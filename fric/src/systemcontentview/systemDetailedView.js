@@ -50,7 +50,7 @@ function SystemDetailedView(props) {
         setID(props.system.id);
         console.log(props.system.id);
         //Check if there was a already given system to differentiate editing or adding a system.
-        if (props.system.id == undefined) {
+        if (props.system.id === undefined) {
             console.log("System: Add");
             fetch('/addsystem', {
                 method: 'POST',
@@ -65,6 +65,7 @@ function SystemDetailedView(props) {
                 .catch(error => {
                     console.error('Error', error)
                 });
+            SendLog("Adding System");
         } else {
             //Re-send the information to the selected system.
             console.log("System: Edit");
@@ -81,9 +82,10 @@ function SystemDetailedView(props) {
                 .catch(error => {
                     console.error('Error', error)
                 });
+            SendLog("Editing System: " + props.system.id);
         }
         props.closeDetailAction();
-        SendLog(e);
+
     }
 
     //Close the modal when called.
@@ -93,28 +95,19 @@ function SystemDetailedView(props) {
 
     //Logging function that will save the data,analyst, and action done.
     function SendLog(e) {
-        // e.preventDefault();
-        // var action = {
-        //     date: "",
-        //     action: "",
-        //     analyst: ""
-        // }
-        // action.action = "submit system";
-        // action.date = getCurrentDate("/");
-        // action.analyst = "";
-        // fetch('/addlog', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(action),
-        // }).then(response => response.json())
-        //     .then(data => {
-        //         console.log("Success", data);
-        //     })
-        //     .catch(error => {
-        //         console.error('Error', error)
-        //     });
+        var action = {
+            date: getCurrentDate("/"),
+            action: e,
+            analyst: ""
+        }
+        action.analyst = "";
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action),
+        }).then(response => response.json());
     }
 
     return (
