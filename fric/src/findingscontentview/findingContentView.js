@@ -20,17 +20,18 @@ export default function FindingContentView(props) {
   const [selected_finding, selectedFinding] = useState();
 
   const [dialogOpen, handleDialog] = React.useState(false)
-  
+
   function handleDialogOpen(state) {
     sendLog("finding dialog open");
     handleDialog(true)
     selectedFinding(state)
-    
+
   }
 
   function handleDialogClose() {
     sendLog("finding dialog close")
     handleDialog(false)
+    props.updateData();
   }
   function sendLog(a) {
     let action = {
@@ -66,14 +67,14 @@ export default function FindingContentView(props) {
           <div id="systemTable" update={props.updateSystemData}>
             <div className="title-buttons">
               <h2>Findings Overview Table</h2>
-  <h2>{console.log()}</h2>
+              <h2>{console.log()}</h2>
 
 
               <ButtonGroup dialogclassname="title-system-buttons">
                 <Button variant="dark" >Archive</Button>
                 <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
               </ButtonGroup>
-              <Modal show={dialogOpen} onHide={handleDialogClose} size = 'lg'>
+              <Modal show={dialogOpen} onHide={handleDialogClose} size='lg'>
                 <Modal.Header>
                   <Modal.Title>
                     Finding Detailed View
@@ -104,22 +105,22 @@ export default function FindingContentView(props) {
               </thead>
               <tbody>
                 {props.data.map((state) => (
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>{state.findingID}</td>
-                        <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
-                        <td>{state.findingSystem}</td>
-                        <td>{state.findingTask}k</td>
-                        <td>{state.findingSubtask}</td>
-                        <td>{state.findingAnalyst}</td>
-                        <td>{state.findingStatus}</td>
-                        <td>{state.findingClassification}</td>
-                        <td>{state.findingType}</td>
-                        <td>{state.findingRisk}</td>
-                        <td>{state.id}</td>
-                        
-                    </tr>
-                    ))}
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>{state.findingID}</td>
+                    <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
+                    <td>{state.findingSystem}</td>
+                    <td>{state.findingTask}k</td>
+                    <td>{state.findingSubtask}</td>
+                    <td>{state.findingAnalyst}</td>
+                    <td>{state.findingStatus}</td>
+                    <td>{state.findingClassification}</td>
+                    <td>{state.findingType}</td>
+                    <td>{state.findingRisk}</td>
+                    <td>{state.id}</td>
+
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </div>
