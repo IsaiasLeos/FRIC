@@ -13,7 +13,7 @@ function getCurrentDate(separator = '') {
 function SystemDetailedView(props) {
 
     //Used to set the information when the given set---- method is called.
-    const [id, setID] = useState('');
+    const [id, setID] = useState(props.system.id);
     const [sysInfo, setName] = useState('');
     const [sysDesc, setDesc] = useState('');
     const [sysLoc, setLocation] = useState('');
