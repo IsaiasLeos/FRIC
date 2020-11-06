@@ -474,7 +474,7 @@ def tasks():
             {"subtaskTitle": s["Subtask_Title"], "subtaskDescription": s["Subtask_Description"]})
     num_subtask = len(subtask_json)
 
-    for e in mycollection.find():
+    for e in mycollection.aggregate():
 
         task_json.append({
             "id": e['id'],

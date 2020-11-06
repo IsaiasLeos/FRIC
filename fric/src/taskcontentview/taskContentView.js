@@ -22,6 +22,10 @@ export default function TaskContentView(props) {
     const [selected_task, selectedTask] = useState();
     const [dialogOpen, handleDialog] = React.useState(false);
 
+    const [demoteselected_task, demoteselectedTask] = useState();
+    const [demotedialogOpen, demotehandleDialog] = React.useState(false);
+
+
     // Function used to open handle dialog
     function handleDialogOpen(state) {
         sendLog("Task dialog open");
@@ -35,6 +39,21 @@ export default function TaskContentView(props) {
         sendLog("Task dialog close")
         handleDialog(false)
     }
+
+    //Function used to open demote handle dialog
+    function demotehandleDialogOpen(state) {
+        sendLog("Demote dialog open");
+        demotehandleDialog(true)
+        console.log(state)
+        demoteselectedTask(state)
+    }
+
+    // Function used to close demote handle dialog
+    function demotehandleDialogClose() {
+        sendLog("Demote dialog close")
+        demotehandleDialog(false)
+    }
+
     // Function used perform sorting in asscending order
     function compareByAsc(key) {
         return function(a, b) {
@@ -107,7 +126,7 @@ export default function TaskContentView(props) {
                             <ButtonGroup dialogClassName="title-system-buttons">
                                 <Button variant="dark">Archive</Button>
                                 <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
-                                <Button variant="dark">Demote</Button>
+                                <Button variant="dark" onClick={demotehandleDialogOpen}>Demote</Button>
                             </ButtonGroup>
 
                             <Modal show={dialogOpen} onHide={handleDialogClose}>
@@ -118,6 +137,21 @@ export default function TaskContentView(props) {
                                 </Modal.Header>
                                 <Modal.Body>
                                     <TaskDetailedView task={selected_task} closeDetailAction={handleDialogClose} />
+                                </Modal.Body>
+                            </Modal>
+
+
+                            <Modal show={demotedialogOpen} onHide={demotehandleDialogClose}>
+                                <Modal.Header>
+                                    <Modal.Title>
+                                        Demote Task View
+                                    </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <div className="button-input-group">
+                                        <Button variant="outline-dark" className="btn cancel" onClick={demotehandleDialogClose}> Cancel </Button>
+                                        <Button variant="outline-dark" type="submit" className="btn">Submit </Button>
+                                    </div>  
                                 </Modal.Body>
                             </Modal>
                         </div>
