@@ -42,7 +42,7 @@ class eventDetailedView extends React.Component {
         this.action = {
             date: "",
             action: "",
-            analyst: ""
+            analyst: "" 
         };
     }
 

@@ -24,7 +24,7 @@ export default function FindingContentView(props) {
   function handleDialogOpen(state) {
     sendLog("finding dialog open");
     handleDialog(true)
-    console.log(state)
+    // console.log(state)
     selectedFinding(state)
   }
 
@@ -38,7 +38,7 @@ export default function FindingContentView(props) {
       action: a,
       analyst: ""
     }
-    console.log(action)
+    // console.log(action)
     fetch('/addlog', {
       method: 'POST',
       headers: {
@@ -66,6 +66,7 @@ export default function FindingContentView(props) {
           <div id="systemTable" update={props.updateSystemData}>
             <div className="title-buttons">
               <h2>Findings Overview Table</h2>
+  <h2>{console.log()}</h2>
 
 
               <ButtonGroup dialogclassname="title-system-buttons">

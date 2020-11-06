@@ -107,7 +107,10 @@ function FindingDetailedView(props) {
     }
 
     function SendData(e) {
-        console.log(props.finding, "original finding") //debugging
+        // console.log(props.finding, "original finding") //debugging
+        console.log(this.state);
+        this.state.id = this.props.id; // The state variable resets 
+        
         e.preventDefault();
 
         if(props.finding.id == null){ //works
@@ -131,17 +134,17 @@ function FindingDetailedView(props) {
 
             //console.log(state.uniqueID, "<-- FindingID")
             SendLog(e);
-            props.closeDetailAction();
+            // props.closeDetailAction();
         }else{ //it exists  debugging : if(state.uniqueID != '')
             console.log("TRYING TO EDIT HERE"); // debugging 
-            console.log(props.finding.id)
+            console.log(state)
             // Edit Event 
             fetch('/editfinding', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(state), //if i change this to props.finding the edited information is not saved. If at 'state' the edited information is saved however not the rest of the finding info
+                body: JSON.stringify(state), // if i change this to props.finding the edited information is not saved. If at 'state' the edited information is saved however not the rest of the finding info
             }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
@@ -150,13 +153,13 @@ function FindingDetailedView(props) {
                 console.error('Error', error)
             });
             
-            props.closeDetailAction();
+            // props.closeDetailAction();
         }
         
     }
 
     function closeOnCancel() {
-    props.closeDetailAction()
+        // props.closeDetailAction()
     }
 
     function SendLog(e) {
@@ -526,7 +529,7 @@ function FindingDetailedView(props) {
                             &nbsp;
                             <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
                             &nbsp;
-                            <Button variant="outline-dark" type="submit" className="btn">Submit </Button>
+                            <Button variant="outline-dark" type="submit" className="btn">Submit</Button>
                         </div>
                     </form>
                 </div>
