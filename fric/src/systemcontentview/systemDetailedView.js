@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Button from 'react-bootstrap/Button'
 import { useState, } from 'react';
+
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -27,7 +28,7 @@ function SystemDetailedView(props) {
 
     //Save all the information into a variable to then send to the system collection.
     let state = {
-        id: props.system.id ? props.system.id : '',
+        id: id ? id : '',
         sysInfo: sysInfo ? sysInfo : '',
         sysDesc: sysDesc ? sysDesc : '',
         sysLoc: sysLoc ? sysLoc : '',
@@ -93,14 +94,13 @@ function SystemDetailedView(props) {
         props.closeDetailAction()
     }
 
-    //Logging function that will save the data,analyst, and action done.
+    //Logging function that will save the data, analyst, and action done.
     function SendLog(e) {
         var action = {
             date: getCurrentDate("/"),
             action: e,
-            analyst: ""
+            analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA"
         }
-        action.analyst = "";
         fetch('/addlog', {
             method: 'POST',
             headers: {
@@ -114,7 +114,7 @@ function SystemDetailedView(props) {
         <div>
             <div className="systemDetailedTable" id="systemDetailedTable">
                 <div className="title-buttons"></div>
-
+                <h1>Test{console.log(localStorage.getItem('analyst'))}</h1>
                 <h3>System Information</h3>
                 <div className="input-group">
                     <form className="input-form" onSubmit={SendData} >
