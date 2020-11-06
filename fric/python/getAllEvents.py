@@ -243,7 +243,7 @@ def findings():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient['FRIC']  # Database name
     mycollection = mydb['finding']  # Collection Name
-    myTaskCollection = mydb['task']
+    
     finding_json = []
     active_tasks = [] 
 
@@ -296,8 +296,10 @@ def findings():
 def addFindings():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")  # Connect to the DB Client
     mydb = myclient["FRIC"]
-    mycollection = mydb["finding"]  
+    mycollection = mydb["finding"] 
+
     req = request.get_json() 
+
     finding = {
         "id":str(random.randint(1,30)),
         "Finding_ID": req['findingID'],
@@ -342,13 +344,14 @@ def editFinding():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["finding"]
+    finding = []
     
     req = request.get_json()
+    
 
     query = {"id":req["id"]}
 
     finding = {"$set" : {
-
         "Finding_ID": req['findingID'],
         "Host_Name": req['hostName'],
         "IP_Port": req['ip_port'],
@@ -382,12 +385,15 @@ def editFinding():
         "Finding_IFIS": req['findingIFIS'],
         "Finding_AFIS": req['findingAFIS'],
         "Impact_Score": req['impactScore'],
-        "Finding_Files": req['findingFiles']
+        "Finding_Files": req['findingFiles'],
         }
     }
 
+    print(finding)
     mycollection.update_one(query,finding)
+    
     return jsonify(finding)
+
 
 @app.route('/subtasks')
 def subtasks():
