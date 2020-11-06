@@ -5,9 +5,9 @@ import GeneralView from '../generalView/generalView'
 class TaskMaster extends React.Component {
     constructor(props) {
         super(props);
-        this.flag = false;
         this.state = {
             data: [],
+            id: '',
             taskTitle: '', 
             taskDescription: '', 
             system: '', 
@@ -27,7 +27,7 @@ class TaskMaster extends React.Component {
     }
 
     async updateData() {
-        await this.sleep(3000);
+        await this.sleep(1000);
         fetch('/tasks').then(
             response => response.json()).then(data => this.setState({
                 data: data

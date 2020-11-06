@@ -26,20 +26,20 @@ import {useState, } from "react";
         const [relatedTasks, setrelatedTasks] = useState('');
         const [attachments, setattachments] = useState('');
         
-        const [id, setUniqueID] = useState(props.task.id);
+        const [id, setID] = useState(props.task.id);
 
         let state = { 
-            id: id,
-            taskTitle: taskTitle, 
-            taskDescription: taskDescription, 
-            system: system, 
-            taskPriority: taskPriority, 
-            taskProgress: taskProgress, 
-            taskDueDate: taskDueDate, 
-            taskAnalysts: taskAnalysts, 
-            taskCollaborators: taskCollaborators, 
-            relatedTasks: relatedTasks, 
-            attachments: attachments 
+            id: props.task.id ? props.task.id : '',
+            taskTitle: taskTitle ? taskTitle : '', 
+            taskDescription: taskDescription ? taskDescription : '', 
+            system: system ? system : '', 
+            taskPriority: taskPriority ? taskPriority : '', 
+            taskProgress: taskProgress ? taskProgress : '', 
+            taskDueDate: taskDueDate ? taskDueDate : '', 
+            taskAnalysts: taskAnalysts ? taskAnalysts : '', 
+            taskCollaborators: taskCollaborators ? taskCollaborators : '', 
+            relatedTasks: relatedTasks ? relatedTasks : '', 
+            attachments: attachments ? attachments : ''
         };
         let action = {
             date: "",
@@ -47,13 +47,13 @@ import {useState, } from "react";
             analyst: ""
         }
         function SendData(e) {
-            console.log(this.state);
-            this.state.id = this.props.id;
-
             e.preventDefault();
-
+            setID(props.task.id);
+            console.log(props.task.id);
+            
+            //Check to edit or add a task
             if (props.task.id == undefined) {
-
+                console.log("Task: Add");
                 fetch('/addtask', {
                     method: 'POST',
                     headers: {
@@ -67,9 +67,8 @@ import {useState, } from "react";
                     .catch(error => {
                         console.error('Error', error)
                     });
-                SendLog(e);
-                //props.closeDetailAction();
             } else {
+                console.log("Task: Edit");
                 fetch('/edittask', {
                     method: 'POST',
                     headers: {
@@ -85,6 +84,7 @@ import {useState, } from "react";
                     });
             }
             props.closeDetailAction();
+            SendLog(e);
         }
 
         function closeOnCancel() {
@@ -124,20 +124,14 @@ import {useState, } from "react";
                 <div className="taskDetailedTable" id="taskDetailedTable">
                     <div className="title-buttons"></div>
 
-                    <h3 > Task Information </h3>
                     <div className="input-group">
                         <form className="input-form" onSubmit={SendData} >
+                            <h3 > Task Information </h3>
 
-                            <label for="ID">
-                                ID:
-                                <br></br><input type="text" onChange={e => setUniqueID(e.target.value)} name="ID" defaultValue={props.task.id} className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" />
-                            </label><br></br>
-
-                            {/* <input type="image" src={HelpImage} alt="Help button" /> &nbsp; */}
                             <label htmlFor="taskTitke">
                                 Task Title:<br/>
                                 <input type="text"  id="task-title" onChange={e => setTitle(e.target.value)} name="taskTitle" defaultValue={props.task.taskTitle} className="form-control mr-3" placeholder="Task Title" aria-label="Task Title" aria-describedby="basic-addon2"></input>
-                            </label>
+                            </label><br/>
                             
                             <label htmlFor="description">
                                 Description:<br/>

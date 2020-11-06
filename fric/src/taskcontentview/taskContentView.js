@@ -22,9 +22,6 @@ export default function TaskContentView(props) {
     const [selected_task, selectedTask] = useState();
     const [dialogOpen, handleDialog] = React.useState(false);
 
-    const [demoteselected_task, demoteselectedTask] = useState();
-    const [demotedialogOpen, demotehandleDialog] = React.useState(false);
-
 
     // Function used to open handle dialog
     function handleDialogOpen(state) {
@@ -40,19 +37,6 @@ export default function TaskContentView(props) {
         handleDialog(false)
     }
 
-    //Function used to open demote handle dialog
-    function demotehandleDialogOpen(state) {
-        sendLog("Demote dialog open");
-        demotehandleDialog(true)
-        console.log(state)
-        demoteselectedTask(state)
-    }
-
-    // Function used to close demote handle dialog
-    function demotehandleDialogClose() {
-        sendLog("Demote dialog close")
-        demotehandleDialog(false)
-    }
 
     // Function used perform sorting in asscending order
     function compareByAsc(key) {
@@ -126,7 +110,7 @@ export default function TaskContentView(props) {
                             <ButtonGroup dialogClassName="title-system-buttons">
                                 <Button variant="dark">Archive</Button>
                                 <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
-                                <Button variant="dark" onClick={demotehandleDialogOpen}>Demote</Button>
+                                <Button variant="dark" >Demote</Button>
                             </ButtonGroup>
 
                             <Modal show={dialogOpen} onHide={handleDialogClose}>
@@ -140,20 +124,6 @@ export default function TaskContentView(props) {
                                 </Modal.Body>
                             </Modal>
 
-
-                            <Modal show={demotedialogOpen} onHide={demotehandleDialogClose}>
-                                <Modal.Header>
-                                    <Modal.Title>
-                                        Demote Task View
-                                    </Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <div className="button-input-group">
-                                        <Button variant="outline-dark" className="btn cancel" onClick={demotehandleDialogClose}> Cancel </Button>
-                                        <Button variant="outline-dark" type="submit" className="btn">Submit </Button>
-                                    </div>  
-                                </Modal.Body>
-                            </Modal>
                         </div>
                         <div className="tablestyle">
                             <Table striped bordered hover style={{textAlign:'center'}}>
@@ -172,8 +142,8 @@ export default function TaskContentView(props) {
                                 </thead>
                                 <tbody>
                                     {props.data.map((state) => (
-                                        <tr>
-                                            <td><input type="checkbox" id="cb1"/></td>
+                                        <tr id={state.id}>
+                                            <td><input type="checkbox"/></td>
                                             <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.taskTitle}</Button></td>
                                             <td>{state.system}</td>
                                             <td>{state.taskAnalysts}</td>
