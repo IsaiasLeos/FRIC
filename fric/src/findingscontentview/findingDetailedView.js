@@ -59,11 +59,10 @@ function FindingDetailedView(props) {
     const [impactScore, setImpactScore] = useState('');
     const [findingFiles, setFindingFiles] = useState('');
     
-
-    
-    
+    const [id, setUniqueID] = useState('');
 
     let state = {
+        id: id,
         findingID: findingID,
         hostName: host_Name,
         ip_port: ip_Port,
@@ -108,10 +107,14 @@ function FindingDetailedView(props) {
     }
 
     function SendData(e) {
-        console.log(props.finding)
-        //e.preventDefault();
-        if (state.id == '') {
-            console.log(state.findingID)
+        console.log(props.finding, "original finding") //debugging
+        e.preventDefault();
+
+        if(props.finding.id == null){ 
+            
+            console.log("ADDING NEW HERE") //debugging
+            console.log(state) //debugging
+            
             fetch('/addfinding', {
                 method: 'POST',
                 headers: {
@@ -125,11 +128,13 @@ function FindingDetailedView(props) {
                 .catch(error => {
                     console.error('Error', error)
                 });
+
+            //console.log(state.uniqueID, "<-- FindingID")
             SendLog(e);
             props.closeDetailAction();
-        }else{     
-            console.log("Edit Finding"); // debugging 
-            console.log(state.findingID);
+        }else{ //it exists  if(state.uniqueID != '')
+            console.log("TRYING TO EDIT HERE"); // debugging 
+            console.log(props.finding.id)
             // Edit Event 
             fetch('/editfinding', {
                 method: 'POST',
@@ -144,13 +149,14 @@ function FindingDetailedView(props) {
             .catch(error => {
                 console.error('Error', error)
             });
-            SendLog(e);
+            
             props.closeDetailAction();
         }
+        
     }
 
     function closeOnCancel() {
-        props.closeDetailAction()
+    props.closeDetailAction()
     }
 
     function SendLog(e) {
@@ -394,7 +400,7 @@ function FindingDetailedView(props) {
                         <label for="MitigationDescription">
                             Brief Description:
                             <br></br>
-                            <input type="text" name="mitigationDesc"  onChange={e => setMitigationDesc(e.target.value)} defaultValue={props.finding.mitigationDesc} id="mitigationDesc" class="browser-default  mr-3" />
+                            <input type="text" name="mitigationDesc"  onChange={e => setMitigationDesc(e.target.value)} defaultValue={props.finding.id} id="mitigationDesc" class="browser-default  mr-3" />
                         </label><br />
                         <label for="LongDescription">
                             Long Description:
@@ -510,7 +516,7 @@ function FindingDetailedView(props) {
                         <label for="ImpactScoreDescription">
                             Impact Score:
                             <br></br>
-                            <input type="text" name="impactDesc" onChange={e => setImpactScore(e.target.value)} defaultValue={props.finding.impactDesc} id="impactDesc" class="browser-default  mr-3" />
+                            <input type="text" name="impactScoreDesc" onChange={e => setImpactScore(e.target.value)} defaultValue={props.finding.impactDesc} id="impactScoreDesc" class="browser-default  mr-3" />
                         </label><br></br>
     
                             
