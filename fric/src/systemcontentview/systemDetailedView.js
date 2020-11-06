@@ -14,30 +14,30 @@ function SystemDetailedView(props) {
 
     //Used to set the information when the given set---- method is called.
     const [id, setID] = useState(props.system.id);
-    const [sysInfo, setName] = useState('');
-    const [sysDesc, setDesc] = useState('');
-    const [sysLoc, setLocation] = useState('');
-    const [sysRouter, setRouter] = useState('');
-    const [sysSwitch, setSwitch] = useState('');
-    const [sysRoom, setRoom] = useState('');
-    const [sysTestPlan, setTestPlan] = useState('');
-    const [confidentiality, setConfidentiality] = useState('');
-    const [integrity, setIntegrity] = useState('');
-    const [availability, setAvailability] = useState('');
+    const [sysInfo, setName] = useState(props.system.sysInfo);
+    const [sysDesc, setDesc] = useState(props.system.sysDesc);
+    const [sysLoc, setLocation] = useState(props.system.sysLoc);
+    const [sysRouter, setRouter] = useState(props.system.sysRouter);
+    const [sysSwitch, setSwitch] = useState(props.system.sysSwitch);
+    const [sysRoom, setRoom] = useState(props.system.sysRoom);
+    const [sysTestPlan, setTestPlan] = useState(props.system.sysTestPlan);
+    const [confidentiality, setConfidentiality] = useState(props.system.confidentiality);
+    const [integrity, setIntegrity] = useState(props.system.integrity);
+    const [availability, setAvailability] = useState(props.system.availability);
 
     //Save all the information into a variable to then send to the system collection.
     let state = {
-        id: id,
-        sysInfo: sysInfo,
-        sysDesc: sysDesc,
-        sysLoc: sysLoc,
-        sysRouter: sysRouter,
-        sysSwitch: sysSwitch,
-        sysRoom: sysRoom,
-        sysTestPlan: sysTestPlan,
-        Confidentiality: confidentiality,
-        Integrity: integrity,
-        Availability: availability,
+        id: props.system.id ? props.system.id : '',
+        sysInfo: sysInfo ? sysInfo : '',
+        sysDesc: sysDesc ? sysDesc : '',
+        sysLoc: sysLoc ? sysLoc : '',
+        sysRouter: sysRouter ? sysRouter : '',
+        sysSwitch: sysSwitch ? sysSwitch : '',
+        sysRoom: sysRoom ? sysRoom : '',
+        sysTestPlan: sysTestPlan ? sysTestPlan : '',
+        Confidentiality: confidentiality ? confidentiality : '',
+        Integrity: integrity ? integrity : '',
+        Availability: availability ? availability : '',
         num_task: '',
         num_findings: '',
         progress: ''
