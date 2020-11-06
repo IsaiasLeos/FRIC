@@ -12,6 +12,8 @@ function getCurrentDate(separator = '') {
 
 function SystemDetailedView(props) {
 
+    //Used to set the information when the given set---- method is called.
+    const [id, setID] = useState('');
     const [sysInfo, setName] = useState('');
     const [sysDesc, setDesc] = useState('');
     const [sysLoc, setLocation] = useState('');
@@ -23,7 +25,9 @@ function SystemDetailedView(props) {
     const [integrity, setIntegrity] = useState('');
     const [availability, setAvailability] = useState('');
 
+    //Save all the information into a variable to then send to the system collection.
     let state = {
+        id: id,
         sysInfo: sysInfo,
         sysDesc: sysDesc,
         sysLoc: sysLoc,
@@ -34,20 +38,20 @@ function SystemDetailedView(props) {
         Confidentiality: confidentiality,
         Integrity: integrity,
         Availability: availability,
-        num_task: "",
-        num_findings: "",
-        progress: ""
+        num_task: '',
+        num_findings: '',
+        progress: ''
     };
-    let action = {
-        date: "",
-        action: "",
-        analyst: ""
-    }
 
+
+    //Send the selected system obtained from the content view to the system collection.
     function SendData(e) {
-        console.log(props.system)
         e.preventDefault();
-        if (state.name == null) {
+        setID(props.system.id);
+        console.log(props.system.id);
+        //Check if there was a already given system to differentiate editing or adding a system.
+        if (props.system.id == '') {
+            console.log("System: Add");
             fetch('/addsystem', {
                 method: 'POST',
                 headers: {
@@ -61,9 +65,9 @@ function SystemDetailedView(props) {
                 .catch(error => {
                     console.error('Error', error)
                 });
-            SendLog(e);
-            props.closeDetailAction();
         } else {
+            //Re-send the information to the selected system.
+            console.log("System: Edit");
             fetch('/editsystem', {
                 method: 'POST',
                 headers: {
@@ -78,30 +82,39 @@ function SystemDetailedView(props) {
                     console.error('Error', error)
                 });
         }
+        props.closeDetailAction();
+        SendLog(e);
     }
 
+    //Close the modal when called.
     function closeOnCancel() {
         props.closeDetailAction()
     }
 
+    //Logging function that will save the data,analyst, and action done.
     function SendLog(e) {
-        e.preventDefault();
-        action.action = "submit system";
-        action.date = getCurrentDate("/");
-        action.analyst = "";
-        fetch('/addlog', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(action),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
+        // e.preventDefault();
+        // var action = {
+        //     date: "",
+        //     action: "",
+        //     analyst: ""
+        // }
+        // action.action = "submit system";
+        // action.date = getCurrentDate("/");
+        // action.analyst = "";
+        // fetch('/addlog', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(action),
+        // }).then(response => response.json())
+        //     .then(data => {
+        //         console.log("Success", data);
+        //     })
+        //     .catch(error => {
+        //         console.error('Error', error)
+        //     });
     }
 
     return (
@@ -116,7 +129,7 @@ function SystemDetailedView(props) {
                             &nbsp;
                             <textarea type="text" onChange={e => setDesc(e.target.value)} name="sysDesc" defaultValue={props.system.sysDesc} className="form-control mr-3" placeholder="System Description" aria-label="System Description" aria-describedby="basic-addon2"></textarea>
                             &nbsp;
-                            <input type="text" onChange={e => setLocation(e.target.value)} name="sysLoc" defaultValue={props.system.sysInfo} className="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
+                            <input type="text" onChange={e => setLocation(e.target.value)} name="sysLoc" defaultValue={props.system.sysLoc} className="form-control mr-3" placeholder="System Location" aria-label="System Location" aria-describedby="basic-addon2"></input>
                             &nbsp;
                             <input type="text" onChange={e => setRouter(e.target.value)} name="sysRouter" defaultValue={props.system.sysRouter} className="form-control mr-3" placeholder="System Router" aria-label="System Router" aria-describedby="basic-addon2"></input>
                             &nbsp;

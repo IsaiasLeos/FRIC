@@ -88,7 +88,9 @@ def eventsOverview():
 
         events_json.append({"id": e["id"],"name": e["Event_name"], "desc": e["Description"], "type": e["Type"], "version": e["Version"], "assess_date": e["Assessment_date"], "org_name": e["Org_name"],"event_class": e["Event_class"], "declass_date": e["Declass_date"], "customer": e["Customer_name"], "num_sys": num_sys, "num_findings": num_finds, "prog": e['Progress'],"created_by": e["Created_By"]})
 
+
     return jsonify(events_json)
+
 
 #TO:DO Event ID Increment
 @app.route('/addevent', methods=['POST'])
@@ -135,8 +137,22 @@ def systems():
             {"taskTitle": f["Task_title"], "taskDescription": f["Task_Description"]})
     num_tasks = len(task_json)
     for e in mySystemCollection.find():
-        system_json.append({"sysInfo": e['System_Info'], "sysDesc": e['System_Description'], "sysLoc": e['System_Location'], "sysRouter": e['System_Router'], "sysSwitch": e['System_Switch'],  "sysRoom": e['System_Room'],
-                            "sysTestPlan": e['Test_Plan'], "Confidentiality": e['Confidentiality'], "Integrity": e['Integrity'], "Availability": e['Availability'], "num_task": num_tasks, "num_findings": num_finds, "prog": e['Progress']})
+        system_json.append({
+            "id": e["id"],
+            "sysInfo": e['System_Info'],
+            "sysDesc": e['System_Description'],
+            "sysLoc": e['System_Location'],
+            "sysRouter": e['System_Router'],
+            "sysSwitch": e['System_Switch'],
+            "sysRoom": e['System_Room'],
+            "sysTestPlan": e['Test_Plan'],
+            "Confidentiality": e['Confidentiality'],
+            "Integrity": e['Integrity'],
+            "Availability": e['Availability'],
+            "num_task": num_tasks,
+            "num_findings": num_finds,
+            "prog": e['Progress']
+        })
     return jsonify(system_json)
 
 
@@ -147,9 +163,52 @@ def addSystems():
     mycollection = mydb["system"]
 
     req = request.get_json()
-    system = {"System_Info": req['sysInfo'], "System_Description": req['sysDesc'], "System_Location": req['sysLoc'], "System_Router": req['sysRouter'], "System_Switch": req['sysSwitch'], "System_Room": req['sysRoom'],
-              "Test_Plan": req['sysTestPlan'], "Confidentiality": req['Confidentiality'], "Integrity": req['Integrity'], "Availability": req['Availability'], "Num_Task": 13, "Num_Findings": 10, "Progress": "Assigned", "Event": "Event 1"}
+    system = {
+        "id": str(random.randint(1, 30)),
+        "System_Info": req['sysInfo'],
+        "System_Description": req['sysDesc'],
+        "System_Location": req['sysLoc'],
+        "System_Router": req['sysRouter'],
+        "System_Switch": req['sysSwitch'],
+        "System_Room": req['sysRoom'],
+        "Test_Plan": req['sysTestPlan'],
+        "Confidentiality": req['Confidentiality'],
+        "Integrity": req['Integrity'],
+        "Availability": req['Availability'],
+        "Num_Task": 13, "Num_Findings": 10,
+        "Progress": "0%",
+        "Event": "Event 1"
+    }
     mycollection.insert_one(system)
+    return
+
+
+@app.route('/editsystem', methods=['POST'])
+def editSystem():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["system"]
+    req = request.get_json()
+    query = {"id": req["id"]}
+    system = {
+        "$set": {
+            "System_Info": req['sysInfo'],
+            "System_Description": req['sysDesc'],
+            "System_Location": req['sysLoc'],
+            "System_Router": req['sysRouter'],
+            "System_Switch": req['sysSwitch'],
+            "System_Room": req['sysRoom'],
+            "Test_Plan": req['sysTestPlan'],
+            "Confidentiality": req['Confidentiality'],
+            "Integrity": req['Integrity'],
+            "Availability": req['Availability'],
+            "Num_Task": 13, "Num_Findings": 10,
+            "Progress": "0%",
+            "Event": ""
+        }
+    }
+    mycollection.update_one(query, system)
+    return jsonify(system)
 
 @app.route('/editevent',methods=['POST'])
 def editEvent():
@@ -159,23 +218,25 @@ def editEvent():
     
     req = request.get_json()
     query = {"id":req["id"]}
-    event = {"$set" : {"Event_name": req['name'], "Description": req['desc'], "Type": req['type'], "Version": req['vers'], "Assessment_date": req['assess_date'], "Org_name": req['org_name'],
-             "Event_class": req['event_class'], "Declass_date": req['declass_date'], "Customer_name": req['customer_name'],"Created_By": req['created_by'], "Num_systems": 13, "Num_findings": 10, "Progress": "33%"}}
+    event = {
+        "$set" : {
+            "Event_name": req['name'],
+            "Description": req['desc'],
+            "Type": req['type'],
+            "Version": req['vers'],
+            "Assessment_date": req['assess_date'],
+            "Org_name": req['org_name'],
+            "Event_class": req['event_class'], 
+            "Declass_date": req['declass_date'], 
+            "Customer_name": req['customer_name'],
+            "Created_By": req['created_by'], 
+            "Num_systems": 13, "Num_findings": 10, 
+            "Progress": "33%"
+            }
+        }
     mycollection.update_one(query,event)
     return jsonify(event)
 
-@app.route('/editsystem',methods=['POST'])
-def editSystem():
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["system"]
-    
-    req = request.get_json()
-    query = {"id":req["id"]}
-    system = {"System_Info": req['sysInfo'], "System_Description": req['sysDesc'], "System_Location": req['sysLoc'], "System_Router": req['sysRouter'], "System_Switch": req['sysSwitch'], "System_Room": req['sysRoom'],
-              "Test_Plan": req['sysTestPlan'], "Confidentiality": req['Confidentiality'], "Integrity": req['Integrity'], "Availability": req['Availability'], "Num_Task": 13, "Num_Findings": 10, "Progress": "Assigned", "Event": "Event 1"}
-    mycollection.update_one(query,system)
-    return jsonify(system)
 
 @app.route('/findings')  # path used in JS to call this
 def findings():
@@ -395,10 +456,10 @@ def addSubtasks():
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
-    myFindingCollection = mydb["finding"]
-    mySubtaskCollection = mydb["subtask"]
+    mydb = myclient['FRIC']
+    mycollection = mydb['task']
+    myFindingCollection = mydb['finding']
+    mySubtaskCollection = mydb['subtask']
     task_json = []
 
     findings_json = []
@@ -418,6 +479,7 @@ def tasks():
     for e in mycollection.find():
 
         task_json.append({
+            "id": e['id'],
             "taskTitle": e['Task_title'],
             "taskDescription": e['Task_Description'],
             "system": e['System'],
@@ -437,10 +499,11 @@ def tasks():
 @app.route('/addtask', methods=['POST'])
 def addTasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
+    mydb = myclient['FRIC']
+    mycollection = mydb['task']
     req = request.get_json()
     task = {
+        "id":str(random.randint(1,30)),
         "Task_title": req['taskTitle'],
         "Task_Description": req['taskDescription'],
         "System": req['system'],
@@ -454,8 +517,31 @@ def addTasks():
         "Num_subtask": 0,
         "Num_finding": 13
     }
-    mycollection.insert_one(task)
+    mycollection.insert_one(task) #send info to collection
 
+@app.route('/edittask',methods=['POST'])
+def editTask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient['FRIC']
+    mycollection = mydb['task']
+    
+    req = request.get_json()
+    query = {"id":req["id"]}
+
+    task = {"$set" : {
+        "Task_title": req['taskTitle'],
+        "Task_Description": req['taskDescription'],
+        "System": req['system'],
+        "Task_Priority": req['taskPriority'],
+        "Task_Progress": req['taskProgress'],
+        "Task_Due_Date": req['taskDueDate'],
+        "Task_Analysts": req['taskAnalysts'],
+        "Task_Collaborators": req['taskCollaborators'],
+        "Related_Tasks": req['relatedTasks'],
+        "Attachments": req['attachments']
+    }}
+    mycollection.update_one(query, task)
+    return jsonify(task)
 
 @app.route('/addlog', methods=['POST'])
 def addLog():

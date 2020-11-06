@@ -17,42 +17,48 @@ function getCurrentDate(separator = '') {
 
 export default function SystemContentView(props) {
 
+  //Used to save the selected system and pass it to the detailed view.
   const [selected_system, selectedSystem] = useState();
 
+  //Used to close or open the modal dialog.
   const [dialogOpen, handleDialog] = React.useState(false)
+
+  //Action to be done when opening the dialog. Giving a parameter allows view/editing the system.
   function handleDialogOpen(state) {
-    sendLog("system dialog open");
-    handleDialog(true)
-    console.log(state)
-    selectedSystem(state)
+    sendLog("system dialog open");//Log
+    handleDialog(true)//Open the modal
+    selectedSystem(state)//Remeber the system that you selected to view.
   }
 
+  //Action to be done when closing the dialog.
   function handleDialogClose() {
-    sendLog("system dialog close")
-    handleDialog(false)
-  }
-  function sendLog(a) {
-    let action = {
-      date: getCurrentDate("/"),
-      action: a,
-      analyst: ""
-    }
-    console.log(action)
-    fetch('/addlog', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(action),
-    }).then(response => response.json())
-      .then(data => {
-        console.log("Success", data);
-      })
-      .catch(error => {
-        console.error('Error', error)
-      });
+    sendLog("system dialog close")//Log
+    handleDialog(false)//Close the modal
   }
 
+  //Function to send a log given the parameter (action).
+  function sendLog(a) {
+    // var action = {//Create the action that you'll send.
+    //   date: getCurrentDate("/"),//get current date.
+    //   action: a,
+    //   analyst: ""
+    // }
+    // fetch('/addlog', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(action),
+    // }).then(response => response.json())
+    //   .then(data => {
+    //     console.log("Success", data);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error', error)
+    //   });
+  }
+
+  //Update the information inside the state.
   useEffect(() => {
     props.updateData();
   });
@@ -62,7 +68,7 @@ export default function SystemContentView(props) {
 
       <div className="main">
         <div className="SystemContentView">
-          <div id="systemTable" update={props.updateSystemData}>
+          <div id="systemTable">
             <div className="title-buttons">
               <h2>System Overview Table</h2>
 
@@ -78,6 +84,10 @@ export default function SystemContentView(props) {
                                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                  {/**Call the detailed view.
+                   * Send the selected system (to edit or view the system).
+                   * Send the function that will close the modal.
+                   */}
                   <SystemDetailedView system={selected_system} closeDetailAction={handleDialogClose} />
                 </Modal.Body>
               </Modal>
@@ -95,7 +105,8 @@ export default function SystemContentView(props) {
               </thead>
               <tbody>
                 {props.data.map((state) => (
-                  <tr>
+                  //Map the given information of data.
+                  <tr id={state.id}>
                     <td><input type="checkbox" /></td>
                     <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.sysInfo}</Button></td>
                     <td>{state.num_task}</td>
