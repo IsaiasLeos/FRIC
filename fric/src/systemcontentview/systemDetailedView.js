@@ -27,7 +27,7 @@ function SystemDetailedView(props) {
     const [availability, setAvailability] = useState(props.system.availability);
 
     //Save all the information into a variable to then send to the system collection.
-    let state = {
+    let state = {//To prevent lose of data when editing.
         id: id ? id : '',
         sysInfo: sysInfo ? sysInfo : '',
         sysDesc: sysDesc ? sysDesc : '',
@@ -99,7 +99,7 @@ function SystemDetailedView(props) {
         var action = {
             date: getCurrentDate("/"),
             action: e,
-            analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA"
+            analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA" // Get current Analyst
         }
         fetch('/addlog', {
             method: 'POST',
