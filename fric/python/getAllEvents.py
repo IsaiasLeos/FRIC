@@ -237,7 +237,8 @@ def addFindings():
     mydb = myclient["FRIC"]
     mycollection = mydb["finding"] 
 
-    req = request.get_json() 
+    req = request.get_json()
+    print(req) 
 
     finding = {
         "id":str(random.randint(1,30)),
@@ -286,6 +287,7 @@ def editFinding():
     finding = []
     
     req = request.get_json()
+    print(req)
     
 
     query = {"id":req["id"]}
