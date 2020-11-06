@@ -247,7 +247,7 @@ def findings():
     finding_json = []
     active_tasks = [] 
 
-    for e in myTaskCollection.distinct("Task_title"):
+    for e in mycollection.distinct("Task_title"):
         active_tasks.append(e)
 
     testing = active_tasks
@@ -292,13 +292,15 @@ def findings():
             })
     return jsonify(finding_json)  # return what was found in the collection
 
+
 @app.route('/addfinding', methods=['POST'])
 def addFindings():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")  # Connect to the DB Client
     mydb = myclient["FRIC"]
     mycollection = mydb["finding"] 
 
-    req = request.get_json() 
+    req = request.get_json()
+    print("Add finding", req) 
 
     finding = {
         "id":str(random.randint(1,30)),
@@ -338,6 +340,7 @@ def addFindings():
         "Finding_Files": req['findingFiles']
     }
     mycollection.insert_one(finding)  # Send information to collection
+    return "OK"
 
 @app.route('/editfinding',methods=['POST'])
 def editFinding():
@@ -347,6 +350,7 @@ def editFinding():
     finding = []
     
     req = request.get_json()
+    print(req)
     
 
     query = {"id":req["id"]}
@@ -550,4 +554,4 @@ def addLog():
     req = request.get_json()
     log = {"Date_Time": req['date'],"Action_Performed": req['action'], "Analyst": req['analyst']}
     mycollection.insert_one(log)
-    return
+    return "OK"

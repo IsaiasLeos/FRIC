@@ -59,7 +59,7 @@ function FindingDetailedView(props) {
     const [impactScore, setImpactScore] = useState('');
     const [findingFiles, setFindingFiles] = useState('');
     
-    const [id, setUniqueID] = useState('');
+    const [id, setUniqueID] = useState(props.finding.id);
 
     let state = {
         id: id,
@@ -107,10 +107,12 @@ function FindingDetailedView(props) {
     }
 
     function SendData(e) {
-        console.log(props.finding, "original finding") //debugging
+        // console.log(props.finding, "original finding") //debugging
+        setUniqueID(props.finding.id);
+        console.log("State",state);   
         e.preventDefault();
 
-        if(props.finding.id == null){ 
+        if(props.finding.id == ''){ //works
             
             console.log("ADDING NEW HERE") //debugging
             console.log(state) //debugging
@@ -120,7 +122,7 @@ function FindingDetailedView(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(state),
+                body: JSON.stringify(state),  
             }).then(response => response.json())
                 .then(data => {
                     console.log("Success", data);
@@ -130,18 +132,18 @@ function FindingDetailedView(props) {
                 });
 
             //console.log(state.uniqueID, "<-- FindingID")
-            SendLog(e);
-            props.closeDetailAction();
-        }else{ //it exists  if(state.uniqueID != '')
+            // SendLog(e);
+            // props.closeDetailAction();
+        }else{ //it exists  debugging : if(state.uniqueID != '')
             console.log("TRYING TO EDIT HERE"); // debugging 
-            console.log(props.finding.id)
+            console.log(state)
             // Edit Event 
             fetch('/editfinding', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(state), 
+                body: JSON.stringify(state), // if i change this to props.finding the edited information is not saved. If at 'state' the edited information is saved however not the rest of the finding info
             }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
@@ -150,13 +152,13 @@ function FindingDetailedView(props) {
                 console.error('Error', error)
             });
             
-            props.closeDetailAction();
+            // props.closeDetailAction();
         }
         
     }
 
     function closeOnCancel() {
-    props.closeDetailAction()
+        // props.closeDetailAction()
     }
 
     function SendLog(e) {
@@ -186,6 +188,7 @@ function FindingDetailedView(props) {
 
                 <h3>Finding Information</h3>
                 <div className="input-group">
+    <h3>{console.log("Selected",props.finding.id)}</h3>
                     <form className="input-form" onSubmit={SendData} >
 
                         <h4>Finding Information</h4>
@@ -526,7 +529,7 @@ function FindingDetailedView(props) {
                             &nbsp;
                             <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
                             &nbsp;
-                            <Button variant="outline-dark" type="submit" className="btn">Submit </Button>
+                            <Button variant="outline-dark" type = "submit" onClick = {SendData}className="btn">Submit</Button>
                         </div>
                     </form>
                 </div>

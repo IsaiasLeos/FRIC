@@ -13,7 +13,7 @@ function getCurrentDate(separator = '') {
 function SystemDetailedView(props) {
 
     //Used to set the information when the given set---- method is called.
-    const [id, setID] = useState('');
+    const [id, setID] = useState(props.system.id);
     const [sysInfo, setName] = useState('');
     const [sysDesc, setDesc] = useState('');
     const [sysLoc, setLocation] = useState('');
@@ -50,7 +50,7 @@ function SystemDetailedView(props) {
         setID(props.system.id);
         console.log(props.system.id);
         //Check if there was a already given system to differentiate editing or adding a system.
-        if (props.system.id == '') {
+        if (props.system.id == undefined) {
             console.log("System: Add");
             fetch('/addsystem', {
                 method: 'POST',

@@ -77,7 +77,7 @@ export default function SystemContentView(props) {
                 <Button variant="dark" >Archive</Button>
                 <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
               </ButtonGroup>
-              <Modal show={dialogOpen} onHide={handleDialogClose} >
+              <Modal dialogClassName="event-modal" show={dialogOpen} onHide={handleDialogClose} >
                 <Modal.Header>
                   <Modal.Title>
                     System Detailed View
