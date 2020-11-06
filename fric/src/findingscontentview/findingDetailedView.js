@@ -161,25 +161,25 @@ function FindingDetailedView(props) {
         // props.closeDetailAction()
     }
 
-    function SendLog(e) {
-        e.preventDefault();
-        action.action = "submit system";
-        action.date = getCurrentDate("/");
-        action.analyst = "";
-        fetch('/addlog', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(action),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-    }
+    // function SendLog(e) {
+    //     e.preventDefault();
+    //     action.action = "submit system";
+    //     action.date = getCurrentDate("/");
+    //     action.analyst = "";
+    //     fetch('/addlog', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(action),
+    //     }).then(response => response.json())
+    //         .then(data => {
+    //             console.log("Success", data);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error', error)
+    //         });
+    // }
 
     return (
         <div>
@@ -529,7 +529,7 @@ function FindingDetailedView(props) {
                             &nbsp;
                             <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
                             &nbsp;
-                            <Button variant="outline-dark" type = "submit" onClick = {SendData}className="btn">Submit</Button>
+                            <Button variant="outline-dark" onClick = {SendData}className="btn">Submit</Button>
                         </div>
                     </form>
                 </div>
