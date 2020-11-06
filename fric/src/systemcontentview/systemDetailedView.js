@@ -50,7 +50,7 @@ function SystemDetailedView(props) {
         setID(props.system.id);
         console.log(props.system.id);
         //Check if there was a already given system to differentiate editing or adding a system.
-        if (props.system.id == '') {
+        if (props.system.id == undefined) {
             console.log("System: Add");
             fetch('/addsystem', {
                 method: 'POST',
