@@ -59,7 +59,7 @@ function FindingDetailedView(props) {
     const [impactScore, setImpactScore] = useState('');
     const [findingFiles, setFindingFiles] = useState('');
     
-    const [id, setUniqueID] = useState('');
+    const [id, setUniqueID] = useState(props.finding.id);
 
     let state = {
         id: id,
@@ -108,12 +108,11 @@ function FindingDetailedView(props) {
 
     function SendData(e) {
         // console.log(props.finding, "original finding") //debugging
-        console.log(this.state);
-        this.state.id = this.props.id; // The state variable resets 
-        
+        setUniqueID(props.finding.id);
+        console.log("State",state);   
         e.preventDefault();
 
-        if(props.finding.id == null){ //works
+        if(props.finding.id == ''){ //works
             
             console.log("ADDING NEW HERE") //debugging
             console.log(state) //debugging
@@ -133,7 +132,7 @@ function FindingDetailedView(props) {
                 });
 
             //console.log(state.uniqueID, "<-- FindingID")
-            SendLog(e);
+            // SendLog(e);
             // props.closeDetailAction();
         }else{ //it exists  debugging : if(state.uniqueID != '')
             console.log("TRYING TO EDIT HERE"); // debugging 
@@ -162,25 +161,25 @@ function FindingDetailedView(props) {
         // props.closeDetailAction()
     }
 
-    function SendLog(e) {
-        e.preventDefault();
-        action.action = "submit system";
-        action.date = getCurrentDate("/");
-        action.analyst = "";
-        fetch('/addlog', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(action),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-    }
+    // function SendLog(e) {
+    //     e.preventDefault();
+    //     action.action = "submit system";
+    //     action.date = getCurrentDate("/");
+    //     action.analyst = "";
+    //     fetch('/addlog', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(action),
+    //     }).then(response => response.json())
+    //         .then(data => {
+    //             console.log("Success", data);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error', error)
+    //         });
+    // }
 
     return (
         <div>
@@ -189,6 +188,7 @@ function FindingDetailedView(props) {
 
                 <h3>Finding Information</h3>
                 <div className="input-group">
+    <h3>{console.log("Selected",props.finding.id)}</h3>
                     <form className="input-form" onSubmit={SendData} >
 
                         <h4>Finding Information</h4>
@@ -529,7 +529,7 @@ function FindingDetailedView(props) {
                             &nbsp;
                             <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
                             &nbsp;
-                            <Button variant="outline-dark" type="submit" className="btn">Submit</Button>
+                            <Button variant="outline-dark" onClick = {SendData}className="btn">Submit</Button>
                         </div>
                     </form>
                 </div>
