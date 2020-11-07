@@ -62,7 +62,7 @@ function FindingDetailedView(props) {
     const [id, setUniqueID] = useState(props.finding.id);
 
     let state = {
-        id: id,
+        id: props.finding.id ? props.finding.id : '',
         findingID: findingID,
         hostName: host_Name,
         ip_port: ip_Port,
@@ -109,10 +109,10 @@ function FindingDetailedView(props) {
     function SendData(e) {
         // console.log(props.finding, "original finding") //debugging
         setUniqueID(props.finding.id);
-        console.log("State",state);   
+        //console.log("State",state);   
         e.preventDefault();
 
-        if(props.finding.id == ''){ //works
+        if(props.finding.id == undefined){ //works
             
             console.log("ADDING NEW HERE") //debugging
             console.log(state) //debugging
@@ -130,10 +130,7 @@ function FindingDetailedView(props) {
                 .catch(error => {
                     console.error('Error', error)
                 });
-
-            //console.log(state.uniqueID, "<-- FindingID")
-            // SendLog(e);
-            // props.closeDetailAction();
+                props.closeDetailAction();
         }else{ //it exists  debugging : if(state.uniqueID != '')
             console.log("TRYING TO EDIT HERE"); // debugging 
             console.log(state)
@@ -152,13 +149,13 @@ function FindingDetailedView(props) {
                 console.error('Error', error)
             });
             
-            // props.closeDetailAction();
+            props.closeDetailAction();
         }
         
     }
 
     function closeOnCancel() {
-        // props.closeDetailAction()
+         props.closeDetailAction()
     }
 
     function SendLog(e) {
@@ -188,7 +185,6 @@ function FindingDetailedView(props) {
 
                 <h3>Finding Information</h3>
                 <div className="input-group">
-    <h3>{console.log("Selected",props.finding.id)}</h3>
                     <form className="input-form" onSubmit={SendData} >
 
                         <h4>Finding Information</h4>
@@ -529,7 +525,7 @@ function FindingDetailedView(props) {
                             &nbsp;
                             <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
                             &nbsp;
-                            <Button variant="outline-dark" type = "submit" onClick = {SendData}className="btn">Submit</Button>
+                            <Button variant="outline-dark" type = "submit" className="btn">Submit</Button>
                         </div>
                     </form>
                 </div>

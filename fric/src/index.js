@@ -20,7 +20,7 @@ import findingMaster from './findingscontentview/findingMaster';
 
 import subtaskContentView from './subtaskContentView/subtaskContentView';
 import archiveContentView from './archivecontentview/archiveContentView';
-import configurationContentView from './configurationContentView/configurationContentView';
+import configurationContentView from './configurationcontentview/configurationContentView';
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import taskMaster from './taskcontentview/taskMaster'

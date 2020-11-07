@@ -66,8 +66,6 @@ export default function FindingContentView(props) {
           <div id="systemTable" update={props.updateSystemData}>
             <div className="title-buttons">
               <h2>Findings Overview Table</h2>
-  <h2>{console.log()}</h2>
-
 
               <ButtonGroup dialogclassname="title-system-buttons">
                 <Button variant="dark" >Archive</Button>
@@ -99,7 +97,7 @@ export default function FindingContentView(props) {
                   <th>Classification</th>
                   <th>Type</th>
                   <th>Risk</th>
-                  <th>IDID</th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -116,13 +114,20 @@ export default function FindingContentView(props) {
                         <td>{state.findingClassification}</td>
                         <td>{state.findingType}</td>
                         <td>{state.findingRisk}</td>
-                        <td>{state.id}</td>
+                        
                         
                     </tr>
                     ))}
               </tbody>
             </Table>
           </div>
+          <ButtonGroup>
+            <Button variant="dark">Generate ERB</Button>
+             &nbsp;
+            <Button variant="dark">Generate Risk Matrix</Button>
+            &nbsp;
+            <Button variant="dark">Generate Final Report</Button>
+          </ButtonGroup>
         </div>
       </div>
     </div>
