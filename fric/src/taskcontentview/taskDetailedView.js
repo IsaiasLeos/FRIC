@@ -120,11 +120,15 @@ import {useState, } from "react";
                         <form className="input-form" onSubmit={SendData} >
 
                             {/* <input type="image" src={HelpImage} alt="Help button" /> &nbsp; */}
-
-                            <textarea type="text"  id="task-title" onChange={e => setTitle(e.target.value)} name="taskTitle" defaultValue={props.task.taskTitle} className="form-control mr-3" placeholder="Task Title" aria-label="Task Title" aria-describedby="basic-addon2"></textarea>
-                            &nbsp;
-                            <textarea type="text"  id="description" onChange={e => setDescription(e.target.value)} name="taskDescription" defaultValue={props.task.taskDescription} className="form-control mr-3" placeholder="Description" aria-label="Description" aria-describedby="basic-addon2"></textarea>
-                            &nbsp;
+                            <label>
+                                Task Title:<br/>
+                                <input type="text"  id="task-title" onChange={e => setTitle(e.target.value)} name="taskTitle" defaultValue={props.task.taskTitle} className="form-control mr-3" placeholder="Task Title" aria-label="Task Title" aria-describedby="basic-addon2"></input>
+                            </label>
+                            
+                            <label htmlFor="description">
+                                Description:<br/>
+                                <textarea type="text"  id="description" onChange={e => setDescription(e.target.value)} name="taskDescription" defaultValue={props.task.taskDescription} className="form-control mr-3" placeholder="Description" aria-label="Description" aria-describedby="basic-addon2"></textarea>
+                            </label><br/>
 
                             <label htmlFor="taskSystem">
                                 System:<br/>
@@ -139,12 +143,7 @@ import {useState, } from "react";
 
                             <label htmlFor="taskPriority">
                                 Priority:<br/>
-                                <select name="taskPriority" id="priority-dropdown" onChange={e => setPriority(e.target.value)} defaultValue={props.task.taskPriority}  class="browser-default custom-select mr-3">
-                                    <option value="default" selected="selected"></option>
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">Hight</option>
-                                </select>
+                                <input type="text"  id="priority" onChange={e => setPriority(e.target.value)} name="taskPriority" defaultValue={props.task.taskPriority} className="form-control mr-3" placeholder="1-100" aria-label="1-100" aria-describedby="basic-addon2"></input>
                             </label><br/>
 
                             <label htmlFor="taskProgress">

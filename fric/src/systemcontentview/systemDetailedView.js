@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Button from 'react-bootstrap/Button'
 import { useState, } from 'react';
+
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -13,31 +14,31 @@ function getCurrentDate(separator = '') {
 function SystemDetailedView(props) {
 
     //Used to set the information when the given set---- method is called.
-    const [id, setID] = useState('');
-    const [sysInfo, setName] = useState('');
-    const [sysDesc, setDesc] = useState('');
-    const [sysLoc, setLocation] = useState('');
-    const [sysRouter, setRouter] = useState('');
-    const [sysSwitch, setSwitch] = useState('');
-    const [sysRoom, setRoom] = useState('');
-    const [sysTestPlan, setTestPlan] = useState('');
-    const [confidentiality, setConfidentiality] = useState('');
-    const [integrity, setIntegrity] = useState('');
-    const [availability, setAvailability] = useState('');
+    const [id, setID] = useState(props.system.id);
+    const [sysInfo, setName] = useState(props.system.sysInfo);
+    const [sysDesc, setDesc] = useState(props.system.sysDesc);
+    const [sysLoc, setLocation] = useState(props.system.sysLoc);
+    const [sysRouter, setRouter] = useState(props.system.sysRouter);
+    const [sysSwitch, setSwitch] = useState(props.system.sysSwitch);
+    const [sysRoom, setRoom] = useState(props.system.sysRoom);
+    const [sysTestPlan, setTestPlan] = useState(props.system.sysTestPlan);
+    const [confidentiality, setConfidentiality] = useState(props.system.confidentiality);
+    const [integrity, setIntegrity] = useState(props.system.integrity);
+    const [availability, setAvailability] = useState(props.system.availability);
 
     //Save all the information into a variable to then send to the system collection.
-    let state = {
-        id: id,
-        sysInfo: sysInfo,
-        sysDesc: sysDesc,
-        sysLoc: sysLoc,
-        sysRouter: sysRouter,
-        sysSwitch: sysSwitch,
-        sysRoom: sysRoom,
-        sysTestPlan: sysTestPlan,
-        Confidentiality: confidentiality,
-        Integrity: integrity,
-        Availability: availability,
+    let state = {//To prevent lose of data when editing.
+        id: id ? id : '',
+        sysInfo: sysInfo ? sysInfo : '',
+        sysDesc: sysDesc ? sysDesc : '',
+        sysLoc: sysLoc ? sysLoc : '',
+        sysRouter: sysRouter ? sysRouter : '',
+        sysSwitch: sysSwitch ? sysSwitch : '',
+        sysRoom: sysRoom ? sysRoom : '',
+        sysTestPlan: sysTestPlan ? sysTestPlan : '',
+        Confidentiality: confidentiality ? confidentiality : '',
+        Integrity: integrity ? integrity : '',
+        Availability: availability ? availability : '',
         num_task: '',
         num_findings: '',
         progress: ''
@@ -50,7 +51,7 @@ function SystemDetailedView(props) {
         setID(props.system.id);
         console.log(props.system.id);
         //Check if there was a already given system to differentiate editing or adding a system.
-        if (props.system.id == '') {
+        if (props.system.id === undefined) {
             console.log("System: Add");
             fetch('/addsystem', {
                 method: 'POST',
@@ -65,6 +66,7 @@ function SystemDetailedView(props) {
                 .catch(error => {
                     console.error('Error', error)
                 });
+            SendLog("Adding System");
         } else {
             //Re-send the information to the selected system.
             console.log("System: Edit");
@@ -81,9 +83,10 @@ function SystemDetailedView(props) {
                 .catch(error => {
                     console.error('Error', error)
                 });
+            SendLog("Editing System: " + props.system.id);
         }
         props.closeDetailAction();
-        SendLog(e);
+
     }
 
     //Close the modal when called.
@@ -91,37 +94,27 @@ function SystemDetailedView(props) {
         props.closeDetailAction()
     }
 
-    //Logging function that will save the data,analyst, and action done.
+    //Logging function that will save the data, analyst, and action done.
     function SendLog(e) {
-        // e.preventDefault();
-        // var action = {
-        //     date: "",
-        //     action: "",
-        //     analyst: ""
-        // }
-        // action.action = "submit system";
-        // action.date = getCurrentDate("/");
-        // action.analyst = "";
-        // fetch('/addlog', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(action),
-        // }).then(response => response.json())
-        //     .then(data => {
-        //         console.log("Success", data);
-        //     })
-        //     .catch(error => {
-        //         console.error('Error', error)
-        //     });
+        var action = {
+            date: getCurrentDate("/"),
+            action: e,
+            analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA" // Get current Analyst
+        }
+        fetch('/addlog', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action),
+        }).then(response => response.json());
     }
 
     return (
         <div>
             <div className="systemDetailedTable" id="systemDetailedTable">
                 <div className="title-buttons"></div>
-
+                <h1>Test{console.log(localStorage.getItem('analyst'))}</h1>
                 <h3>System Information</h3>
                 <div className="input-group">
                     <form className="input-form" onSubmit={SendData} >

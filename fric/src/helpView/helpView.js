@@ -27,26 +27,26 @@ facilitate the collection of evidence on existing vulnerabilities, and generatio
                 </blockquote>
                 <div align="center">
                     <p>
-                    <img alt="Bootstrap" src={BootstrapVersion} />
-                    <img alt="Nodejs" src={NodejsVersion} />
-                    <img alt="React" src={ReactVersion} />
-                    <img alt="fric" src={FRICVersion} />
-                </p></div>
+                        <img alt="Bootstrap" src={BootstrapVersion} />
+                        <img alt="Nodejs" src={NodejsVersion} />
+                        <img alt="React" src={ReactVersion} />
+                        <img alt="fric" src={FRICVersion} />
+                    </p></div>
 
                 <h3 id="-homepage-https-github-com-isaiasleos-fric-"><span role="img" aria-label="emoji">🏠</span><a href="https://github.com/IsaiasLeos/FRIC">Homepage</a></h3>
                 <h2 id="install">Install</h2>
-                <pre><code class="lang-sh">cd FRIC/fric <span class="hljs-keyword"></span>
+                <pre><code className="lang-sh">cd FRIC/fric <span className="hljs-keyword"></span>
                 </code></pre>
-                <pre><code class="lang-sh">npm <span class="hljs-keyword">install</span>
+                <pre><code className="lang-sh">npm <span className="hljs-keyword">install</span>
                 </code></pre>
                 <h2 id="usage">Usage</h2>
-                <pre><code class="lang-sh">npm <span class="hljs-keyword">run </span><span class="bash">start-flask-api</span>
+                <pre><code className="lang-sh">npm <span className="hljs-keyword">run </span><span className="bash">start-flask-api</span>
                 </code></pre>
-                
-                <pre><code class="lang-sh">npm <span class="hljs-keyword">run </span><span class="bash">start</span>
+
+                <pre><code className="lang-sh">npm <span className="hljs-keyword">run </span><span className="bash">start</span>
                 </code></pre>
                 <h2 id="run-tests">Run tests</h2>
-                <pre><code class="lang-sh">npm <span class="hljs-keyword">run</span><span class="bash"> <span class="hljs-built_in">test</span></span>
+                <pre><code className="lang-sh">npm <span className="hljs-keyword">run</span><span className="bash"> <span className="hljs-built_in">test</span></span>
                 </code></pre>
                 <h2 id="author">Author</h2>
                 <p>

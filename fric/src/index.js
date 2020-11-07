@@ -19,12 +19,16 @@ import findingMaster from './findingscontentview/findingMaster';
 
 
 import subtaskContentView from './subtaskContentView/subtaskContentView';
+import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'
+import subtaskMaster from './subtaskContentView/subtaskMaster';
+
+
 import archiveContentView from './archivecontentview/archiveContentView';
 import configurationContentView from './configurationContentView/configurationContentView';
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import taskMaster from './taskcontentview/taskMaster'
-import subtaskDetailedView from './subtaskContentView/subtaskDetailedView.js'
+
 import setupContentView from './setupContentView/setupContentView.js';
 import helpView from './helpView/helpView.js';
 import eventTree from './eventTree/eventTree';
@@ -43,8 +47,7 @@ ReactDOM.render(
     <Route exact path="/Task" component={taskContentView} />
     <Route exact path="/TaskDetails" component={taskDetailedView} />
     <Route exact path="/TaskMaster" component={taskMaster} />
-    <Route exact path="/Subtask" component={subtaskContentView} />
-    <Route exact path="/SubtaskDetails" component={subtaskDetailedView} />
+
     <Route exact path="/AnalystSummary" component={analystSummaryView} />
 
     <Route exact path="/SystemContent" component={systemContentView} />
@@ -54,6 +57,10 @@ ReactDOM.render(
     <Route exact path="/FindingContent" component={findingContentView} />
     <Route exact path="/FindingDetailed" component={findingDetailedView} />
     <Route exact path="/FindingMaster" component={findingMaster} />
+
+    <Route exact path="/Subtask" component={subtaskContentView} />
+    <Route exact path="/SubtaskDetails" component={subtaskDetailedView} />
+    <Route exact path="/SubtaskMaster" component={subtaskMaster} />
 
     <Route exact path="/Archive" component={archiveContentView} />
     <Route exact path="/Configuration" component={configurationContentView} />
