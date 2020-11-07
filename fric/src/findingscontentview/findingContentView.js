@@ -20,17 +20,18 @@ export default function FindingContentView(props) {
   const [selected_finding, selectedFinding] = useState();
 
   const [dialogOpen, handleDialog] = React.useState(false)
-  
+
   function handleDialogOpen(state) {
     sendLog("finding dialog open");
     handleDialog(true)
     selectedFinding(state)
-    
+
   }
 
   function handleDialogClose() {
     sendLog("finding dialog close")
     handleDialog(false)
+    props.updateData();
   }
   function sendLog(a) {
     let action = {
@@ -71,7 +72,7 @@ export default function FindingContentView(props) {
                 <Button variant="dark" >Archive</Button>
                 <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
               </ButtonGroup>
-              <Modal show={dialogOpen} onHide={handleDialogClose} size = 'lg'>
+              <Modal show={dialogOpen} onHide={handleDialogClose} size='lg'>
                 <Modal.Header>
                   <Modal.Title>
                     Finding Detailed View
