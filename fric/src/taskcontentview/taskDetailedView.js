@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {useState, } from "react";
+//import SortableTable from 'react-sortable-table';
 
     function getCurrentDate(separator = '') {
         let newDate = new Date()
@@ -52,7 +53,7 @@ import {useState, } from "react";
             console.log(props.task.id);
             
             //Check to edit or add a task
-            if (props.task.id == undefined) {
+            if (props.task.id === undefined) {
                 console.log("Task: Add");
                 fetch('/addtask', {
                     method: 'POST',
@@ -146,6 +147,7 @@ import {useState, } from "react";
                                     <option value="System2">System 2</option>
                                     <option value="System3">System 3</option>
                                     <option value="System4">System 4</option>
+                                    {/* {props.data.map((state) => (  <option value="sys"> {state.system} </option>))} */}
                                 </select>
                             </label><br/>
 

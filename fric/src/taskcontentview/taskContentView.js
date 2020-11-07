@@ -60,12 +60,12 @@ export default function TaskContentView(props) {
     function sortBy(key) {
         let arrayCopy = [...props.data];
         const arrInStr = JSON.stringify(arrayCopy);
-        arrayCopy.sort(this.compareByAsc(key));
+        arrayCopy.sort(compareByAsc(key));
         const arrInStr1 = JSON.stringify(arrayCopy);
         if (arrInStr === arrInStr1) {
-          arrayCopy.sort(this.compareByDesc(key));
+          arrayCopy.sort(compareByDesc(key));
         }
-        props.setState({ data: arrayCopy });
+        props.data.setState(arrayCopy );
       }
 
     // Handles logging information
@@ -131,7 +131,7 @@ export default function TaskContentView(props) {
                                     <tr>
                                         <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></input></th>
                                         <th>Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                                        <th>System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                                        <th>System<input type="image" src={SortImage} className="sort-button" alt="sort button" onClick={() => sortBy('system')} /></th>
                                         <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /> </th>
                                         <th>Priority<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                                         <th>Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
