@@ -13,90 +13,90 @@ function getCurrentDate(separator = '') {
 
 function FindingDetailedView(props) {
 
-    const [findingID, setID] = useState('');
-    const [host_Name, setHostName] = useState('');
-    const [ip_Port, setIpPort] = useState('');
+    const [findingID, setID] = useState(props.finding.findingID);
+    const [host_Name, setHostName] = useState(props.finding.hostName);
+    const [ip_Port, setIpPort] = useState(props.finding.ip_port);
 
-    const [description, setDescription] = useState('');
-    const [longDescription, setLongDescription] = useState('');
-    const [findingStatus, setStatus] = useState('');
+    const [description, setDescription] = useState(props.finding.description);
+    const [longDescription, setLongDescription] = useState(props.finding.longDescription);
+    const [findingStatus, setStatus] = useState(props.finding.findingStatus);
 
-    const [findingType, setFindingType] = useState('');
-    const [findingClassification, setFindingClassification] = useState('');
-    const [findingSystem, setFindingSystem] = useState('');
+    const [findingType, setFindingType] = useState(props.finding.findingType);
+    const [findingClassification, setFindingClassification] = useState(props.finding.findingClassification);
+    const [findingSystem, setFindingSystem] = useState(props.finding.findingSystem);
 
-    const [findingTask, setFindingTask] = useState('');
-    const [findingSubtask, setFindingSubtask] = useState('');
-    const [relatedFindings, setRelatedFindings] = useState('');
+    const [findingTask, setFindingTask] = useState(props.finding.findingTask);
+    const [findingSubtask, setFindingSubtask] = useState(props.finding.findingSubtask);
+    const [relatedFindings, setRelatedFindings] = useState(props.finding.relatedFindings);
 
-    const [findingConfidentiality, setfindingConfidentiality] = useState('');
-    const [findingIntegrity, setFindingIntegrity] = useState('');
-    const [findingAvailability, setFindingAvailability] = useState('');
+    const [findingConfidentiality, setfindingConfidentiality] = useState(props.finding.findingConfidentiality);
+    const [findingIntegrity, setFindingIntegrity] = useState(props.finding.findingIntegrity);
+    const [findingAvailability, setFindingAvailability] = useState(props.finding.findingAvailability);
 
-    const [findingAnalyst, setfindingAnalyst] = useState('');
-    const [findingCollaborators, setFindingCollaborators] = useState('');
-    const [findingPosture, setFindingPosture] = useState('');
+    const [findingAnalyst, setfindingAnalyst] = useState(props.finding.findingAnalyst);
+    const [findingCollaborators, setFindingCollaborators] = useState(props.finding.findingCollaborators);
+    const [findingPosture, setFindingPosture] = useState(props.finding.findingPosture);
 
-    const [mitigationDesc, setMitigationDesc] = useState('');
-    const [mitigationLongDesc, setMitigationLongDesc] = useState('');
-    const [threatRelevence, setThreatRelevence] = useState('');
+    const [mitigationDesc, setMitigationDesc] = useState(props.finding.mitigationDesc);
+    const [mitigationLongDesc, setMitigationLongDesc] = useState(props.finding.mitigationLongDesc);
+    const [threatRelevence, setThreatRelevence] = useState(props.finding.threatRelevence);
 
-    const [countermeasure, setCountermeasure] = useState('');
-    const [impactDesc, setImpactDesc] = useState('');
-    const [findingImpact, setFindingImpact] = useState('');
+    const [countermeasure, setCountermeasure] = useState(props.finding.countermeasure);
+    const [impactDesc, setImpactDesc] = useState(props.finding.impactDesc);
+    const [findingImpact, setFindingImpact] = useState(props.finding.findingImpact);
 
-    const [severityCategoryScore, setSeverityCategoryScore] = useState('');
-    const [vulnerabilityScore, setVulnerabilityScore] = useState('');
-    const [quantitativeScore, setQuantitativeScore] = useState('');
+    const [severityCategoryScore, setSeverityCategoryScore] = useState(props.finding.severityCategoryScore);
+    const [vulnerabilityScore, setVulnerabilityScore] = useState(props.finding.vulnerabilityScore);
+    const [quantitativeScore, setQuantitativeScore] = useState(props.finding.quantitativeScore);
 
-    const [findingRisk, setFindingRisk] = useState('');
-    const [findingLikelihood, setFindingLikelihood] = useState('');
-    const [findingCFIS, setFindingCFIS] = useState('');
+    const [findingRisk, setFindingRisk] = useState(props.finding.findingRisk);
+    const [findingLikelihood, setFindingLikelihood] = useState(props.finding.findingLikelihood);
+    const [findingCFIS, setFindingCFIS] = useState(props.finding.findingCFIS);
 
-    const [findingAFIS, setFindingAFIS] = useState('');
-    const [findingIFIS, setFindingIFIS] = useState('');
+    const [findingAFIS, setFindingAFIS] = useState(props.finding.findingAFIS);
+    const [findingIFIS, setFindingIFIS] = useState(props.finding.findingIFIS);
 
-    const [impactScore, setImpactScore] = useState('');
+    const [impactScore, setImpactScore] = useState(props.finding.impactScore);
     const [findingFiles, setFindingFiles] = useState('');
     
     const [id, setUniqueID] = useState(props.finding.id);
 
     let state = {
         id: props.finding.id ? props.finding.id : '',
-        findingID: findingID,
-        hostName: host_Name,
-        ip_port: ip_Port,
-        description: description,
-        longDescription: longDescription,
-        findingStatus: findingStatus,
-        findingType: findingType,
-        findingClassification: findingClassification,
-        findingSystem: findingSystem,
-        findingTask: findingTask,
-        findingSubtask: findingSubtask,
-        relatedFindings: relatedFindings,
-        findingConfidentiality: findingConfidentiality,
-        findingIntegrity: findingIntegrity,
-        findingAvailability: findingAvailability,
-        findingAnalyst: findingAnalyst,
-        findingCollaborators: findingCollaborators,
-        findingPosture: findingPosture,
-        mitigationDesc: mitigationDesc,
-        mitigationLongDesc: mitigationLongDesc,
-        threatRelevence: threatRelevence,
-        countermeasure: countermeasure,
-        impactDesc: impactDesc,
-        findingImpact: findingImpact,
-        severityCategoryScore: severityCategoryScore,
-        vulnerabilityScore: vulnerabilityScore,
-        quantitativeScore: quantitativeScore,
-        findingRisk: findingRisk,
-        findingLikelihood: findingLikelihood,
-        findingCFIS: findingCFIS,
-        findingAFIS: findingAFIS,
-        findingIFIS: findingIFIS,
-        impactScore: impactScore,
-        findingFiles: findingFiles,
+        findingID: findingID ? findingID : '',
+        hostName: host_Name ? host_Name: '',
+        ip_port: ip_Port ? ip_Port: '',
+        description: description ? description: '',
+        longDescription: longDescription ? longDescription: '',
+        findingStatus: findingStatus ? findingStatus :'',
+        findingType: findingType ? findingType: '',
+        findingClassification: findingClassification ? findingClassification: '',
+        findingSystem: findingSystem ? findingSystem: '',
+        findingTask: findingTask ? findingTask: ' ',
+        findingSubtask: findingSubtask ? findingSubtask :'',
+        relatedFindings: relatedFindings ? relatedFindings: '',
+        findingConfidentiality: findingConfidentiality ? findingConfidentiality: '',
+        findingIntegrity: findingIntegrity ? findingIntegrity: '',
+        findingAvailability: findingAvailability? findingAvailability: '',
+        findingAnalyst: findingAnalyst ? findingAnalyst : '',
+        findingCollaborators: findingCollaborators ? findingCollaborators: '',
+        findingPosture: findingPosture ? findingPosture: '',
+        mitigationDesc: mitigationDesc ? mitigationDesc: '',
+        mitigationLongDesc: mitigationLongDesc ? mitigationLongDesc: '',
+        threatRelevence: threatRelevence ? threatRelevence: '',
+        countermeasure: countermeasure ? countermeasure: '',
+        impactDesc: impactDesc ? impactDesc: '',
+        findingImpact: findingImpact ? findingImpact: '',
+        severityCategoryScore: severityCategoryScore ? severityCategoryScore: '',
+        vulnerabilityScore: vulnerabilityScore ? vulnerabilityScore: '',
+        quantitativeScore: quantitativeScore ? quantitativeScore: '',
+        findingRisk: findingRisk ? findingRisk: '',
+        findingLikelihood: findingLikelihood ? findingLikelihood: '',
+        findingCFIS: findingCFIS ? findingCFIS: '',
+        findingAFIS: findingAFIS ? findingAFIS: '',
+        findingIFIS: findingIFIS ? findingIFIS: '',
+        impactScore: impactScore ? impactScore: '',
+        findingFiles: findingFiles ? findingFiles: '',
         
         
     };
