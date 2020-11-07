@@ -13,81 +13,117 @@ function getCurrentDate(separator = '') {
 }
 
 function SubtaskDetailedView(props){
-    const [subtaskTitle, setSubtaskTitle] = useState('');
-    const [subtaskDescription, setSubtaskDescription] = useState('');
-    const [subtaskProgress, setSubtaskProgress ] = useState('');
-    const [subtaskDueDate, setSubtaskDueDate ] = useState('');
-    const [analysts, setAnalysts ] = useState('');
-    const [collaborators, setCollaborators ] = useState('');
-    const [relatedTask, setRelatedTask ] = useState('');
-    const [subtasks, setSubtasks ] = useState('');
-    const [attachments, setAttachments ] = useState('');
-    const [numFindings, setNumFindings ] = useState('');
-    const [analyst,setAnalyst ] = useState('');
-    const [task, setTask ] = useState('');
+    const [id, setID] = useState(props.subtask.id);
+    const [subtaskTitle, setSubtaskTitle] = useState(props.subtask.subtaskTitle);
+    const [subtaskDescription, setSubtaskDescription] = useState(props.subtask.subtaskDescription);
+    const [subtaskProgress, setSubtaskProgress ] = useState(props.subtask.subtaskProgress);
+    const [subtaskDueDate, setSubtaskDueDate ] = useState(props.subtask.subtaskDueDate);
+    const [analysts, setAnalysts ] = useState(props.subtask.analysts);
+    const [collaborators, setCollaborators ] = useState(props.subtask.collaborators);
+    const [relatedTask, setRelatedTask ] = useState(props.subtask.relatedTask);
+    const [subtasks, setSubtasks ] = useState(props.subtask.subtasks);
+    const [attachments, setAttachments ] = useState(props.subtask.attachments);
+    const [numFindings, setNumFindings ] = useState(props.subtask.numFindings);
+    const [analyst,setAnalyst ] = useState(props.subtask.analyst);
+    const [task, setTask ] = useState(props.subtask.task);
     let state = {
-        subtaskTitle: subtaskTitle,
-        subtaskDescription: subtaskDescription,
-        subtaskProgress: subtaskProgress,
-        subtaskDueDate: subtaskDueDate,
-        analysts: analysts,
-        collaborators: collaborators,
-        relatedTask: relatedTask,
-        subtasks: subtasks,
-        attachments: attachments,
+        id: id ? id : '',
+        subtaskTitle: subtaskTitle ? subtaskTitle : '',
+        subtaskDescription: subtaskDescription ? subtaskDescription : '',
+        subtaskProgress: subtaskProgress ? subtaskProgress : '',
+        subtaskDueDate: subtaskDueDate ? subtaskDueDate: '',
+        analysts: analysts ? analysts : '',
+        collaborators: collaborators ? collaborators : '',
+        relatedTask: relatedTask ? relatedTask: '',
+        subtasks: subtasks ? subtasks: '',
+        attachments: attachments ? attachments: '',
         numFindings: "",
         analyst: "",
         task: ""
     };
 
     function SendData(e) {
-        console.log(props.subtask)
         e.preventDefault();
-        fetch('/addsubtask', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(state),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-        SendLog(e);
+        setID(props.subtask.id);
+        console.log(props.subtask.id);
+        if (props.subtask.id === undefined) {
+            fetch('/addsubtask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(state),
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+            SendLog("Adding subtask");
+        }else {
+            //Re-send the information to the selected system.
+            console.log("Subtask: Edit");
+            fetch('/editsubtask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(state),
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+            SendLog("Editing Subtask: " + props.subtask.id);
+        }
         props.closeDetailAction();   
     }
     
     function closeOnCancel() {
         props.closeDetailAction()
     }
-
     function SendLog(e) {
-        e.preventDefault();
         var action = {
-            date: "",
-            action: "",
-            analyst: ""
+            date: getCurrentDate("/"),
+            action: e,
+            analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA" // Get current Analyst
         }
-        action.action = "submit subtask";
-        action.date = getCurrentDate("/");
-        action.analyst = "";
         fetch('/addlog', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(action),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
+        }).then(response => response.json());
     }
+
+    // function SendLog(e) {
+    //     e.preventDefault();
+    //     var action = {
+    //         date: "",
+    //         action: "",
+    //         analyst: ""
+    //     }
+    //     action.action = "submit subtask";
+    //     action.date = getCurrentDate("/");
+    //     action.analyst = "";
+    //     fetch('/addlog', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(action),
+    //     }).then(response => response.json())
+    //         .then(data => {
+    //             console.log("Success", data);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error', error)
+    //         });
+    // }
 
         const analystsList = [
             { label: 'Analyst 1', value: 1 },
@@ -129,10 +165,10 @@ function SubtaskDetailedView(props){
         return (
             <div>
                 <div>
+                <input type="image" src={HelpImage} alt="Help button" />
                     <form onSubmit={SendData} >
                         <div className="subtask-form">
                             <div className="left">
-                                <input type="image" src={HelpImage} alt="Help button" />
                                 <label htmlFor="subtaskTitle">
                                     Title:<br />
                                     <input type="text" onChange={e => setSubtaskTitle(e.target.value)} defaultValue={props.subtask.subtaskTitle} name="subtaskTitle" id="subtask-title" className="subtask-data" />
