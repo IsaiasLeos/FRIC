@@ -119,30 +119,34 @@ class eventDetailedView extends React.Component {
 
         const eventTypes = [
             {
-                label: "Type A",
-                value: "Type A"
+                label: "Cooperative Vulnerability Penetration Assessment (CVPA)",
+                value: "Cooperative Vulnerability Penetration Assessment (CVPA)"
             },
             {
-                label: "Type B",
-                value: "Type B"
+                label: "Cooperative Vulnerability Investigation (CVI)",
+                value: "Cooperative Vulnerability Investigation (CVI)"
             },
             {
-                label: "Type C",
-                value: "Type C"
+                label: "Verification Of Fixes (VOF)",
+                value: "Verification Of Fixes (VOF)"
             },
         ];
         const eventClasses = [
             {
-                label: "Type A",
-                value: "Type A"
+                label: "Top Secret",
+                value: "Top Secret"
             },
             {
-                label: "Type B",
-                value: "Type B"
+                label: "Secret",
+                value: "Secret"
             },
             {
-                label: "Type C",
-                value: "Type C"
+                label: "Confidential",
+                value: "Confidential"
+            },
+            {
+                label: "Unclassified",
+                value: "Unclassified"
             },
         ];
 
@@ -164,10 +168,10 @@ class eventDetailedView extends React.Component {
                                 <input type="text" name="desc" onChange={this.onChange} id="event-desc" className="event-data" defaultValue={this.props.event.desc} />
                             </label><br />
 
-                            <label for="eventType">Event Type:</label>
+                            <label htmlFor="eventType">Event Type:</label>
                             <select name = "type" onChange={this.onChange} defaultValue={this.props.event.type}>
                                 {eventTypes.map(eventType => (
-                                    <option value={eventType.value}>{eventType.label}</option>
+                                    <option key ={eventType.value} value={eventType.value}>{eventType.label}</option>
                                 ))}
                             </select><br />
                             <label>
@@ -185,10 +189,10 @@ class eventDetailedView extends React.Component {
                                 <input type="text" name="org_name" onChange={this.onChange} id="event-org-name" className="event-data" defaultValue={this.props.event.org_name} />
                             </label><br />
 
-                            <label for="eventClass">Event Classification:</label>
+                            <label htmlFor="eventClass">Event Classification:</label>
                             <select name= "event_class"onChange={this.onChange} defaultValue={this.props.event.event_class}>
                                 {eventClasses.map(eventClass => (
-                                    <option value={eventClass.value}>{eventClass.label}</option>
+                                    <option key = {eventClass.value} value={eventClass.value}>{eventClass.label}</option>
                                 ))}
 
                             </select><br />
@@ -209,12 +213,12 @@ class eventDetailedView extends React.Component {
                     <div className="vertical-line"></div>
 
                     <div className="event-team">
-                        <h2>Team Information</h2>
+                                <h2>Team Information</h2>
                         <div>
                             <div className="title-buttons">
                                 <h3>Lead Analysts</h3>
                                 <div className="add-dropdown">
-                                    <input type="image" src={AddImage} onclick="openForm()" alt="Add button" />
+                                    <input type="image" src={AddImage} alt="Add button" />
                                     <form action="">
                                         <select name="eventType" className="res-dropdown">
                                             <option value="a">Remove</option>
@@ -226,19 +230,22 @@ class eventDetailedView extends React.Component {
                             </div>
                                 
                             <Table>
+                                <thead>
                                 <tr>
                                     <th>Select</th>
                                     <th>Analyst</th>
                                     <th>Progress</th>
                                 </tr>
-
+                                </thead>
+                                <tbody>
                                 {this.props.analysts.map((analyst) => (
-                                    <tr>
+                                    <tr key = {analyst.analyst}>
                                         <td><input type="checkbox" id="cb1" /></td>
                                         <td>{analyst.is_lead == "1" ? analyst.analyst : null}</td>
                                         <td>{analyst.is_lead == "1" ? analyst.progress * 100 : null}%</td>
                                     </tr>
                                 ))}
+                                </tbody>
                             </Table>
 
                             
@@ -247,7 +254,7 @@ class eventDetailedView extends React.Component {
                             <div className="title-buttons">
                                 <h3>Analysts</h3>
                                 <div className="add-dropdown">
-                                    <input type="image" src={AddImage} onclick="openForm()" alt="Add button" />
+                                    <input type="image" src={AddImage} alt="Add button" />
                                     <form action="">
                                         <select name="eventType" className="res-dropdown">
                                             <option value="a">Remove</option>
@@ -258,11 +265,14 @@ class eventDetailedView extends React.Component {
                                 </div>
                             </div>
                             <Table bordered>
+                                <thead>
                                 <tr>
                                     <th></th>
                                     <th>Analysts</th>
                                     <th>Progress</th>
                                 </tr>
+                                </thead>
+                                <tbody>
                                 {this.props.analysts.map((analyst) => (
                                     <tr>
                                         <td><input type="checkbox" id="cb1" /></td>
@@ -270,6 +280,7 @@ class eventDetailedView extends React.Component {
                                         <td>{analyst.is_lead == "0" ? analyst.progress * 100 : null}%</td>
                                     </tr>
                                 ))}
+                                </tbody>
                             </Table>
                         </div>
                     </div>
@@ -322,11 +333,14 @@ class eventDetailedView extends React.Component {
                         </select>
 
                         <Table bordered>
+                            <thead>
                             <tr>
                                 <th>Delete</th>
                                 <th>Analysts</th>
                                 <th>IP Address</th>
                             </tr>
+                            </thead>
+                            <tbody>
                             <tr>
                                 <td><input type="checkbox" id="cb1" value="event" ></input></td>
                                 <td>IL</td>
@@ -345,6 +359,7 @@ class eventDetailedView extends React.Component {
                                 <td>127.0.0.2</td>
 
                             </tr>
+                            </tbody>
                         </Table>
 
                         <Button variant="outline-dark" type="submit" class="btn">Sync</Button>
