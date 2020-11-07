@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from 'react-bootstrap/Button'
-import { useState, } from 'react';
+import { useState, useEffect } from 'react';
 
 function getCurrentDate(separator = '') {
     let newDate = new Date()
@@ -13,6 +13,15 @@ function getCurrentDate(separator = '') {
 
 function SystemDetailedView(props) {
 
+    const [events, setEvents] = useState([{ name: '', num_sys: '', num_findings: '', prog: '' }])
+
+    useEffect(() => {
+        fetch('/eventsOverview').then(
+            response => response.json()).then(data => setEvents(data)) // Get info for Event Overview Table // 
+    }, []);
+
+    const [selected_event, selectEvent] = useState(); // Set selected event
+
     //Used to set the information when the given set---- method is called.
     const [id, setID] = useState(props.system.id);
     const [sysInfo, setName] = useState(props.system.sysInfo);
@@ -22,9 +31,10 @@ function SystemDetailedView(props) {
     const [sysSwitch, setSwitch] = useState(props.system.sysSwitch);
     const [sysRoom, setRoom] = useState(props.system.sysRoom);
     const [sysTestPlan, setTestPlan] = useState(props.system.sysTestPlan);
-    const [confidentiality, setConfidentiality] = useState(props.system.confidentiality);
-    const [integrity, setIntegrity] = useState(props.system.integrity);
-    const [availability, setAvailability] = useState(props.system.availability);
+    const [confidentiality, setConfidentiality] = useState(props.system.Confidentiality);
+    const [integrity, setIntegrity] = useState(props.system.Integrity);
+    const [availability, setAvailability] = useState(props.system.Availability);
+    const [eventID, setEventID] = useState(props.system.eventID);
 
     //Save all the information into a variable to then send to the system collection.
     let state = {//To prevent lose of data when editing.
@@ -36,9 +46,10 @@ function SystemDetailedView(props) {
         sysSwitch: sysSwitch ? sysSwitch : '',
         sysRoom: sysRoom ? sysRoom : '',
         sysTestPlan: sysTestPlan ? sysTestPlan : '',
-        Confidentiality: confidentiality ? confidentiality : '',
-        Integrity: integrity ? integrity : '',
-        Availability: availability ? availability : '',
+        Confidentiality: confidentiality,
+        Integrity: integrity,
+        Availability: availability,
+        eventID: eventID ? eventID : '',
         num_task: '',
         num_findings: '',
         progress: ''
@@ -50,6 +61,7 @@ function SystemDetailedView(props) {
         e.preventDefault();
         setID(props.system.id);
         console.log(props.system.id);
+        console.log(eventID);
         //Check if there was a already given system to differentiate editing or adding a system.
         if (props.system.id === undefined) {
             console.log("System: Add");
@@ -155,6 +167,14 @@ function SystemDetailedView(props) {
                                 <option >Low</option>
                                 <option >Medium</option>
                                 <option >High</option>
+                            </select>
+                        </div>
+                        <div className="btn-group">
+                            <select className="browser-default custom-select mr-3" name="eventID" onChange={e => setEventID(e.target.value)} >
+                                <option defaultValue>Set Events</option>
+                                {events.map((event) => (
+                                    <option value={event.id}>{event.name}</option>
+                                ))}
                             </select>
                         </div>
                         <div className="button-input-group">
