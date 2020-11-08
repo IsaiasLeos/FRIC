@@ -155,7 +155,7 @@ class eventDetailedView extends React.Component {
                 
                 <div className="event-information-team">
                     <div className="event-information">
-                    <h2>Basic Information{console.log("Analysts", this.props.analysts)}</h2>
+                    <h2>Basic Information{console.log("Analysts Detail View", this.props.analysts)}</h2>
                         <input type="image" src={HelpImage} alt="help button" />
                         <h4>Derived By:{this.props.event.created_by}</h4>
                         <form onSubmit={this.onSubmitEvent}>
@@ -242,7 +242,7 @@ class eventDetailedView extends React.Component {
                                     <tr key = {analyst.analyst}>
                                         <td><input type="checkbox" id="cb1" /></td>
                                         <td>{analyst.is_lead == "1" ? analyst.analyst : null}</td>
-                                        <td>{analyst.is_lead == "1" ? analyst.progress * 100 : null}%</td>
+                                        <td>{analyst.is_lead == "1" ? analyst.progress: null}%</td>
                                     </tr>
                                 ))}
                                 </tbody>
@@ -277,7 +277,7 @@ class eventDetailedView extends React.Component {
                                     <tr>
                                         <td><input type="checkbox" id="cb1" /></td>
                                         <td>{analyst.is_lead == "0" ? analyst.analyst : null}</td>
-                                        <td>{analyst.is_lead == "0" ? analyst.progress * 100 : null}%</td>
+                                        <td>{analyst.is_lead == "0" ? analyst.progress: null}%</td>
                                     </tr>
                                 ))}
                                 </tbody>

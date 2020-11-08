@@ -24,14 +24,13 @@ def calculateProgress(analyst):
     mydb = myclient["FRIC"]
     myTaskCollection = mydb["task"]
     tasks = []
-    tasks_completed = 0 
+    progress = 0
     for t in myTaskCollection.find({"Task_Analysts": analyst}):
         tasks.append(t)
-        if(t["Task_Progress"]== "complete"):
-            tasks_completed += 1
+        progress += int(t["Task_Progress"])
     if(len(tasks) == 0 ):
         return 0
-    return tasks_completed / len(tasks) 
+    return progress / len(tasks) 
     
 
 # Given event, return analsysts from that event # 
@@ -42,8 +41,9 @@ def analystList():
     analysts = []
     myAnalystCollection = mydb["event_analyst"]
     req = request.get_json()
-    for a in myAnalystCollection.find({"event_id": req[0]}): # Using '0' bc there is only one POST variable # 
+    for a in myAnalystCollection.find({"event_id": req}):  
         analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
+    
     return jsonify(analysts)
 
 

@@ -34,7 +34,7 @@ function EventContentView() {
     const [selected_event, selectEvent] = useState(); // Set selected event 
     const [analysts,setAnalysts] = useState([]); 
 
-    function getAnalysts(event_id){    
+     function getAnalysts(event_id){    
         // console.log("Fetching analysts for event #", event_id) // Debugging
         fetch('/analystsInEvent', {
             method: 'POST',
@@ -45,7 +45,7 @@ function EventContentView() {
         }).then(response => response.json())
             .then(data => {
                 setAnalysts(data)
-                console.log("Success");
+                // console.log("Success");
             })
             .catch(error => {
                 console.error('Error', error)
@@ -92,6 +92,7 @@ function EventContentView() {
         <div>
             <GeneralView /> {/* Tab Bar */}
     {/* <h1>Test{console.log(localStorage.getItem('analyst'))}</h1> HERE IS HOW YOU GET THE "LOGGED IN ANALYSTS*/} 
+    
             <div class="main">
                 <div class="title-buttons">
                     <h2>Event Overview Table</h2>
