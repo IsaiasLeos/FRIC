@@ -564,6 +564,8 @@ def editFinding():
 
 #--------------- END OF FINDING API ---------------#
 
+
+#---------------START OF SUBTASK API ---------------#
 @app.route('/subtasks')
 def subtasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -593,7 +595,8 @@ def subtasks():
             "attachments": e['Attachments'],
             "numFindings": num_finds,
             "analyst": e['Analyst'],
-            "task": e['Task']
+            "task": e['Task'],
+            "taskID": e['Task_ID']
         })
     return jsonify(subtask_json)
 
@@ -617,7 +620,8 @@ def addSubtasks():
         "Attachments": req['attachments'],
         "Num_Findings": 0,
         "Analyst": "Analyst 0",
-        "Task": "Task 0"
+        "Task": "Task 0",
+        "Task_ID": req['taskID']
     }
     mycollection.insert_one(subtask)
 
@@ -641,11 +645,14 @@ def editSubtask():
             "Attachments": req['attachments'],
             "Num_Findings": 0,
             "Analyst": "Analyst 0",
-            "Task": "Task 0"
+            "Task": "Task 0",
+            "Task_ID": req['taskID']
         }
     }
     mycollection.update_one(query, subtask)
     return jsonify(subtask)
+
+#--------------- END OF FINDING API ---------------#
     
 @app.route('/tasks')
 def tasks():

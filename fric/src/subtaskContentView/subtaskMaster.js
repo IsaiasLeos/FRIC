@@ -19,6 +19,7 @@ class SubtaskMaster extends React.Component {
             numFindings: "",
             analyst: "",
             task: "",
+            taskID: ""
         };
         this.updateData = this.updateData.bind(this);
     }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import HelpImage from '../assets/help.png';
 import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 import Button from 'react-bootstrap/Button';
-import { useState} from "react";
+import { useEffect, useState} from "react";
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -13,6 +13,13 @@ function getCurrentDate(separator = '') {
 }
 
 function SubtaskDetailedView(props){
+    const [tasks, setTasks] = useState([{ taskTitle: '', taskDescription: '', system: '', taskPriority: '' }]);
+    useEffect(() => {
+        fetch('/tasks').then(
+            response => response.json()).then(data => setTasks(data)) // Get info for Event Overview Table // 
+    }, []);
+    const [selected_task, selectTask] = useState();
+
     const [id, setID] = useState(props.subtask.id);
     const [subtaskTitle, setSubtaskTitle] = useState(props.subtask.subtaskTitle);
     const [subtaskDescription, setSubtaskDescription] = useState(props.subtask.subtaskDescription);
@@ -25,13 +32,10 @@ function SubtaskDetailedView(props){
     const [attachments, setAttachments ] = useState(props.subtask.attachments);
     const [numFindings, setNumFindings ] = useState(props.subtask.numFindings);
     const [analyst,setAnalyst ] = useState(props.subtask.analyst);
+    const [taskID, setTaskID] = useState(props.subtask.taskID);
     const [task, setTask ] = useState(props.subtask.task);
 
-    // const [tasks, setTasks] = useState([{ name: '', num_sys: '', num_findings: '', prog: '' }]);
-    // useEffect(() => {
-    //     fetch('/tasks').then(
-    //         response => response.json()).then(data => setEvents(data)) // Get info for Event Overview Table // 
-    // }, []);
+
 
     let state = {
         id: id ? id : '',
@@ -44,6 +48,7 @@ function SubtaskDetailedView(props){
         relatedTask: relatedTask ? relatedTask: '',
         subtasks: subtasks ? subtasks: '',
         attachments: attachments ? attachments: '',
+        taskID: taskID ? taskID : '',
         numFindings: "",
         analyst: "",
         task: ""
@@ -133,12 +138,11 @@ function SubtaskDetailedView(props){
     // }
 
         const analystsList = [
-            { label: 'Analyst 1', value: 1 },
-            { label: 'Analyst 2', value: 2 },
-            { label: 'Analyst 3', value: 3 },
-            { label: 'Analyst 4', value: 4 },
-            { label: 'Analyst 5', value: 5 },
-        ];
+        { label: 'Collaborator 1', value: 1 },
+        { label: 'Collaborator 2', value: 2 },
+        { label: 'Collaborator 3', value: 3 },
+        { label: 'Collaborator 4', value: 4 },
+        { label: 'Collaborator 5', value: 5 },];
         const collaboratorsList = [
             { label: 'Collaborator 1', value: 1 },
             { label: 'Collaborator 2', value: 2 },
@@ -211,7 +215,13 @@ function SubtaskDetailedView(props){
                                     <ReactMultiSelectCheckboxes onChange={e => setCollaborators(e.target.value)} defaultValue={props.subtask.collaborators} options={collaboratorsList} width="100%"  name="collaborators" />
                                 </label><br />
                                 <label htmlFor="tasks">
-                                    Related task(s):<br />
+                                    Related task:<br />
+                                    <select  name="taskID" onChange={e => setTaskID(e.target.value)} >
+                                        <option defaultValue></option>
+                                            {tasks.map((task) => (
+                                                <option value={task.id}>{task.name}</option>
+                                            ))}
+                                    </select>
                                     <ReactMultiSelectCheckboxes onChange={e => setRelatedTask(e.target.value)} defaultValue={props.subtask.relatedTask} options={tasksList} width="100%"  name="relatedTask" />
                                 </label><br />
                                 <label htmlFor="subtasks">
