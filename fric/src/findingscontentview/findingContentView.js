@@ -105,7 +105,7 @@ export default function FindingContentView(props) {
                 {props.data.map((state) => (
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td>{state.findingID}</td>
+                        <td>{state.id}</td>
                         <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
                         <td>{state.findingSystem}</td>
                         <td>{state.findingTask}k</td>
