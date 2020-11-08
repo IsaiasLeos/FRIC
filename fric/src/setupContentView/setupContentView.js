@@ -14,7 +14,7 @@ import Button from 'react-bootstrap/Button';
   class setupContentView extends React.Component {
     constructor() {
       super();
-      this.state = { name:'', desc: '', type: '', vers:'', assess_date:'', org_name:'',event_class:'',declass_date: '', customer_name:'',analyst:''};
+      this.state = { name:'', desc: '', type: '', vers:'', assess_date:'', org_name:'',event_class:'',declass_date: '', customer_name:'',analyst:'',created_by:''};
       this.action = { date: "", action: "", analyst: "" };
       
     }
@@ -24,6 +24,7 @@ import Button from 'react-bootstrap/Button';
     }
     onSubmit = (e) => {
       console.log("Logging in: ", this.state.analyst)
+      this.state.created_by = this.state.analyst;
       localStorage.setItem('analyst',this.state.analyst)
       e.preventDefault();
       this.action.action = "submit event"; //Logging information
