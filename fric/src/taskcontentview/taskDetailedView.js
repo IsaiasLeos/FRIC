@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {useState, } from "react";
+//import SortableTable from 'react-sortable-table';
 
     function getCurrentDate(separator = '') {
         let newDate = new Date()
@@ -25,18 +26,21 @@ import {useState, } from "react";
         const [taskCollaborators, setCollaborators] = useState('');
         const [relatedTasks, setrelatedTasks] = useState('');
         const [attachments, setattachments] = useState('');
+        
+        const [id, setID] = useState(props.task.id);
 
         let state = { 
-            taskTitle: taskTitle, 
-            taskDescription: taskDescription, 
-            system: system, 
-            taskPriority: taskPriority, 
-            taskProgress: taskProgress, 
-            taskDueDate: taskDueDate, 
-            taskAnalysts: taskAnalysts, 
-            taskCollaborators: taskCollaborators, 
-            relatedTasks: relatedTasks, 
-            attachments: attachments 
+            id: props.task.id ? props.task.id : '',
+            taskTitle: taskTitle ? taskTitle : '', 
+            taskDescription: taskDescription ? taskDescription : '', 
+            system: system ? system : '', 
+            taskPriority: taskPriority ? taskPriority : '', 
+            taskProgress: taskProgress ? taskProgress : '', 
+            taskDueDate: taskDueDate ? taskDueDate : '', 
+            taskAnalysts: taskAnalysts ? taskAnalysts : '', 
+            taskCollaborators: taskCollaborators ? taskCollaborators : '', 
+            relatedTasks: relatedTasks ? relatedTasks : '', 
+            attachments: attachments ? attachments : ''
         };
         let action = {
             date: "",
@@ -44,9 +48,13 @@ import {useState, } from "react";
             analyst: ""
         }
         function SendData(e) {
-            console.log(props.task)
             e.preventDefault();
-            if (state.name == null) {
+            setID(props.task.id);
+            console.log(props.task.id);
+            
+            //Check to edit or add a task
+            if (props.task.id === undefined) {
+                console.log("Task: Add");
                 fetch('/addtask', {
                     method: 'POST',
                     headers: {
@@ -60,9 +68,8 @@ import {useState, } from "react";
                     .catch(error => {
                         console.error('Error', error)
                     });
-                SendLog(e);
-                props.closeDetailAction();
             } else {
+                console.log("Task: Edit");
                 fetch('/edittask', {
                     method: 'POST',
                     headers: {
@@ -77,7 +84,10 @@ import {useState, } from "react";
                         console.error('Error', error)
                     });
             }
+            props.closeDetailAction();
+            SendLog(e);
         }
+
         function closeOnCancel() {
             props.closeDetailAction()
         }
@@ -115,15 +125,14 @@ import {useState, } from "react";
                 <div className="taskDetailedTable" id="taskDetailedTable">
                     <div className="title-buttons"></div>
 
-                    <h3 > Task Information </h3>
                     <div className="input-group">
                         <form className="input-form" onSubmit={SendData} >
+                            <h3 > Task Information </h3>
 
-                            {/* <input type="image" src={HelpImage} alt="Help button" /> &nbsp; */}
-                            <label>
+                            <label htmlFor="taskTitke">
                                 Task Title:<br/>
                                 <input type="text"  id="task-title" onChange={e => setTitle(e.target.value)} name="taskTitle" defaultValue={props.task.taskTitle} className="form-control mr-3" placeholder="Task Title" aria-label="Task Title" aria-describedby="basic-addon2"></input>
-                            </label>
+                            </label><br/>
                             
                             <label htmlFor="description">
                                 Description:<br/>
@@ -138,25 +147,23 @@ import {useState, } from "react";
                                     <option value="System2">System 2</option>
                                     <option value="System3">System 3</option>
                                     <option value="System4">System 4</option>
+                                    {/* {props.data.map((state) => (  <option value="sys"> {state.system} </option>))} */}
                                 </select>
                             </label><br/>
 
                             <label htmlFor="taskPriority">
                                 Priority:<br/>
-                                <input type="text"  id="priority" onChange={e => setPriority(e.target.value)} name="taskPriority" defaultValue={props.task.taskPriority} className="form-control mr-3" placeholder="1-100" aria-label="1-100" aria-describedby="basic-addon2"></input>
+                                <select name="taskPriority" id="priority-dropdown" onChange={e => setPriority(e.target.value)} defaultValue={props.task.taskPriority}  class="browser-default custom-select mr-3">
+                                    <option value="default" selected="selected"></option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
                             </label><br/>
 
                             <label htmlFor="taskProgress">
                                 Progress:<br/>
-                                <select name="taskProgress" id="progress-dropdown" onChange={e => setProgress(e.target.value)} defaultValue={props.task.taskProgress}  class="browser-default custom-select mr-3">
-                                    <option value="default" selected="selected"></option>
-                                    <option value="notStarted">Not started</option>
-                                    <option value="assigned">Assigned</option>
-                                    <option value="transfered">Transfered</option>
-                                    <option value="inProgress">In progress</option>
-                                    <option value="complete">Complete</option>
-                                    <option value="notApplicable">Not applicable</option>
-                                </select>
+                                <input type="text"  id="progress" onChange={e => setProgress(e.target.value)} name="taskProgress" defaultValue={props.task.taskProgress} className="form-control mr-3" placeholder="1-100" aria-label="1-100" aria-describedby="basic-addon2"></input>
                             </label><br/>
 
                             <label htmlFor="taskDueDate">

@@ -9,6 +9,7 @@ import SortImage from '../assets/updownarrow.png';
 // import Modal from 'react-bootstrap/Modal';
 import { Modal } from 'react-bootstrap';
 
+// Get current information about the date for log purpose
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -19,99 +20,45 @@ function getCurrentDate(separator = '') {
 }
 export default function TaskContentView(props) {
 
-    const [selected_task, selectedTask] = useState();
-    const [dialogOpen, handleDialog] = React.useState(false);
-
-    const [demoteselected_task, demoteselectedTask] = useState();
-    const [demotedialogOpen, demotehandleDialog] = React.useState(false);
-
+    const [selected_task, selectedTask] = useState(); //select a task to send to modal
+    const [dialogOpen, handleDialog] = React.useState(false); //control of modal
+    
 
     // Function used to open handle dialog
     function handleDialogOpen(state) {
-        sendLog("Task dialog open");
+        SendLog("Task dialog open");
         handleDialog(true)
-        console.log(state)
         selectedTask(state)
     }
 
     // Function used to close handle dialog
     function handleDialogClose() {
-        sendLog("Task dialog close")
+        SendLog("Task dialog close")
         handleDialog(false)
     }
 
-    //Function used to open demote handle dialog
-    function demotehandleDialogOpen(state) {
-        sendLog("Demote dialog open");
-        demotehandleDialog(true)
-        console.log(state)
-        demoteselectedTask(state)
-    }
-
-    // Function used to close demote handle dialog
-    function demotehandleDialogClose() {
-        sendLog("Demote dialog close")
-        demotehandleDialog(false)
-    }
-
-    // Function used perform sorting in asscending order
-    function compareByAsc(key) {
-        return function(a, b) {
-            if (a[key] < b[key]) return -1;
-            if (a[key] > b[key]) return 1;
-            return 0;
-        };
-    }
-
-    // Function used perform sorting in desscending order
-    function compareByDesc(key) {
-        return function(a, b) {
-          if (a[key] < b[key]) return 1;
-          if (a[key] > b[key]) return -1;
-          return 0;
-        };
-    }
-
-    // Function used as a toggle to switch between sorting operations
-    function sortBy(key) {
-        let arrayCopy = [...props.data];
-        const arrInStr = JSON.stringify(arrayCopy);
-        arrayCopy.sort(this.compareByAsc(key));
-        const arrInStr1 = JSON.stringify(arrayCopy);
-        if (arrInStr === arrInStr1) {
-          arrayCopy.sort(this.compareByDesc(key));
-        }
-        props.setState({ data: arrayCopy });
-      }
-
     // Handles logging information
-    function sendLog(a) {
-        let action = {
-            date: getCurrentDate("/"),
-            action: a,
-            analyst: ""
+    function SendLog(e) {
+        var action = {
+          date: getCurrentDate("/"),
+          action: e,
+          analyst: ""
         }
-        console.log(action)
+        action.analyst = "";
         fetch('/addlog', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(action),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-    }
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(action),
+        }).then(response => response.json());
+      }
 
     // updates the task data
     useEffect(() => {
         props.updateData();
+        
       });
-
       
     //Return displays the task content view 
     return (
@@ -126,7 +73,7 @@ export default function TaskContentView(props) {
                             <ButtonGroup dialogClassName="title-system-buttons">
                                 <Button variant="dark">Archive</Button>
                                 <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
-                                <Button variant="dark" onClick={demotehandleDialogOpen}>Demote</Button>
+                                <Button variant="dark" >Demote</Button>
                             </ButtonGroup>
 
                             <Modal show={dialogOpen} onHide={handleDialogClose}>
@@ -140,20 +87,6 @@ export default function TaskContentView(props) {
                                 </Modal.Body>
                             </Modal>
 
-
-                            <Modal show={demotedialogOpen} onHide={demotehandleDialogClose}>
-                                <Modal.Header>
-                                    <Modal.Title>
-                                        Demote Task View
-                                    </Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <div className="button-input-group">
-                                        <Button variant="outline-dark" className="btn cancel" onClick={demotehandleDialogClose}> Cancel </Button>
-                                        <Button variant="outline-dark" type="submit" className="btn">Submit </Button>
-                                    </div>  
-                                </Modal.Body>
-                            </Modal>
                         </div>
                         <div className="tablestyle">
                             <Table striped bordered hover style={{textAlign:'center'}}>
@@ -172,8 +105,8 @@ export default function TaskContentView(props) {
                                 </thead>
                                 <tbody>
                                     {props.data.map((state) => (
-                                        <tr>
-                                            <td><input type="checkbox" id="cb1"/></td>
+                                        <tr id={state.id}>
+                                            <td><input type="checkbox"/></td>
                                             <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.taskTitle}</Button></td>
                                             <td>{state.system}</td>
                                             <td>{state.taskAnalysts}</td>
@@ -184,7 +117,6 @@ export default function TaskContentView(props) {
                                             <td>{state.taskDueDate}</td>
                                         </tr>
                                     ))}
-        
                                 </tbody>
                             </Table>
                         </div>

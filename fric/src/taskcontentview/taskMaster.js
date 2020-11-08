@@ -5,9 +5,10 @@ import GeneralView from '../generalView/generalView'
 class TaskMaster extends React.Component {
     constructor(props) {
         super(props);
-        this.flag = false;
+        //Used to hold information about taskContentVIew
         this.state = {
             data: [],
+            id: '',
             taskTitle: '', 
             taskDescription: '', 
             system: '', 
@@ -17,17 +18,22 @@ class TaskMaster extends React.Component {
             taskAnalysts: '', 
             taskCollaborators: '', 
             relatedTasks: '', 
-            attachments: '' 
+            attachments: '',
+            findID:'',
+            subtaskID:''
         };
 
         this.updateData = this.updateData.bind(this);
     }
+
+    
     sleep(milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
-
+    
+    //Fetches information about current task content
     async updateData() {
-        await this.sleep(3000);
+        await this.sleep(1000);
         fetch('/tasks').then(
             response => response.json()).then(data => this.setState({
                 data: data

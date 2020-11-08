@@ -461,10 +461,10 @@ def addSubtasks():
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient['FRIC']
-    mycollection = mydb['task']
-    myFindingCollection = mydb['finding']
-    mySubtaskCollection = mydb['subtask']
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
+    myFindingCollection = mydb["finding"]
+    mySubtaskCollection = mydb["subtask"]
     task_json = []
 
     findings_json = []
@@ -481,8 +481,7 @@ def tasks():
             {"subtaskTitle": s["Subtask_Title"], "subtaskDescription": s["Subtask_Description"]})
     num_subtask = len(subtask_json)
 
-    for e in mycollection.aggregate():
-
+    for e in mycollection.find():
         task_json.append({
             "id": e['id'],
             "taskTitle": e['Task_title'],
@@ -504,8 +503,8 @@ def tasks():
 @app.route('/addtask', methods=['POST'])
 def addTasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient['FRIC']
-    mycollection = mydb['task']
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
     req = request.get_json()
     task = {
         "id":str(random.randint(1,30)),
@@ -519,17 +518,18 @@ def addTasks():
         "Task_Collaborators": req['taskCollaborators'],
         "Related_Tasks": req['relatedTasks'],
         "Attachments": req['attachments'],
-        "Num_subtask": 0,
-        "Num_finding": 13
+        "Num_subtask": 0, "Num_finding": 13,
+        "Progress": "0%",
+        "Event": "Event 1"
     }
     mycollection.insert_one(task) #send info to collection
+    return "OK"
 
 @app.route('/edittask',methods=['POST'])
 def editTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient['FRIC']
-    mycollection = mydb['task']
-    
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
     req = request.get_json()
     query = {"id":req["id"]}
 
@@ -543,7 +543,10 @@ def editTask():
         "Task_Analysts": req['taskAnalysts'],
         "Task_Collaborators": req['taskCollaborators'],
         "Related_Tasks": req['relatedTasks'],
-        "Attachments": req['attachments']
+        "Attachments": req['attachments'],
+        "Num_subtask": 0, "Num_finding": 13,
+        "Progress": "0%",
+        "Event": ""
     }}
     mycollection.update_one(query, task)
     return jsonify(task)
