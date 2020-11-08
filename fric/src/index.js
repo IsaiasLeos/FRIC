@@ -24,7 +24,7 @@ import subtaskMaster from './subtaskContentView/subtaskMaster';
 
 
 import archiveContentView from './archivecontentview/archiveContentView';
-import configurationContentView from './configurationcontentview/configurationContentView';
+import configurationContentView from './configurationContentView/configurationContentView';  //IF error happens capitalize the C and V or lowercase
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import taskMaster from './taskcontentview/taskMaster'

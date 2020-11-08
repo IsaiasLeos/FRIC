@@ -14,7 +14,7 @@ function getCurrentDate(separator = '') {
 function FindingDetailedView(props) {
 
     //ALL attributes of a Finding
-    const [findingID, setID] = useState(props.finding.findingID);
+    
     const [host_Name, setHostName] = useState(props.finding.hostName);
     const [ip_Port, setIpPort] = useState(props.finding.ip_port);
     const [description, setDescription] = useState(props.finding.description);
@@ -37,7 +37,7 @@ function FindingDetailedView(props) {
     const [threatRelevence, setThreatRelevence] = useState(props.finding.threatRelevence);
     const [countermeasure, setCountermeasure] = useState(props.finding.countermeasure);
     const [impactDesc, setImpactDesc] = useState(props.finding.impactDesc);
-    const [findingImpact, setFindingImpact] = useState(props.finding.findingImpact);
+    const [impactLevel, setImpactLevel] = useState(props.finding.impactLevel);
     const [severityCategoryScore, setSeverityCategoryScore] = useState(props.finding.severityCategoryScore);
     const [vulnerabilityScore, setVulnerabilityScore] = useState(props.finding.vulnerabilityScore);
     const [quantitativeScore, setQuantitativeScore] = useState(props.finding.quantitativeScore);
@@ -49,11 +49,12 @@ function FindingDetailedView(props) {
     const [impactScore, setImpactScore] = useState(props.finding.impactScore);
     const [findingFiles, setFindingFiles] = useState(''); //Files that can be attached to a finding. Still need to rework
     
+    const [severityCategoryCode, setSeverityCategoryCode] = useState(props.finding.severityCategoryScore);
     const [id, setUniqueID] = useState(props.finding.id); //Each finding will have a unique ID
 
     let state = { //If 
         id: props.finding.id ? props.finding.id : '', //if attribute does not have value, set to '' 
-        findingID: findingID ? findingID : '',
+
         hostName: host_Name ? host_Name: '',
         ip_port: ip_Port ? ip_Port: '',
         description: description ? description: '',
@@ -76,7 +77,7 @@ function FindingDetailedView(props) {
         threatRelevence: threatRelevence ? threatRelevence: '',
         countermeasure: countermeasure ? countermeasure: '',
         impactDesc: impactDesc ? impactDesc: '',
-        findingImpact: findingImpact ? findingImpact: '',
+        impactLevel: impactLevel ? impactLevel: '',
         severityCategoryScore: severityCategoryScore ? severityCategoryScore: '',
         vulnerabilityScore: vulnerabilityScore ? vulnerabilityScore: '',
         quantitativeScore: quantitativeScore ? quantitativeScore: '',
@@ -87,6 +88,7 @@ function FindingDetailedView(props) {
         findingIFIS: findingIFIS ? findingIFIS: '',
         impactScore: impactScore ? impactScore: '',
         findingFiles: findingFiles ? findingFiles: '',
+        severityCategoryCode :  severityCategoryCode ? severityCategoryCode: '',
     };
 
     let action = { //used for logging actions on page
@@ -175,7 +177,7 @@ function FindingDetailedView(props) {
                         <h4>Finding Information</h4>
                         <label for="ID">
                             ID:
-                            <br></br><input type="text" onChange={e => setID(e.target.value)} name="findingID" defaultValue={props.finding.findingID} className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                            <br></br><input type="text" name="id" defaultValue={props.finding.id} className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
                         </label><br></br>
 
                         <label htmlFor="hostName">
@@ -197,7 +199,7 @@ function FindingDetailedView(props) {
                         <label for="LongDescription">
                             Long Description:
                             <br></br>
-                            <textarea name="longDescription" onChange={e => setLongDescription(e.target.value)} defaultValue={props.finding.longDescription} cols="45" rows="5" class="browser-default  mr-3"></textarea>
+                            <textarea name="longDescription" onChange={e => setLongDescription(e.target.value)} defaultValue={props.finding.longDescription} cols="30" rows="5" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2"></textarea>
                         </label><br />
 
                         <label for="Status">
@@ -246,7 +248,7 @@ function FindingDetailedView(props) {
                         </label><br />
 
                         <label for="fileName">
-                            File:
+                            Evidence:
                             <br></br>
                             <input type="file" name="findingFiles"  id="findingFiles" class="browser-default mr-3" />
                             
@@ -290,7 +292,7 @@ function FindingDetailedView(props) {
                         &nbsp;
                         <br></br>
                         <label for="relatedFindings">
-                            Related Finding(s):
+                            Associated Finding(s):
                             <br></br>
                             <select name="relatedFindings"  onChange={e => setRelatedFindings(e.target.value)} defaultValue={props.finding.relatedFindings} id="relatedFindings" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
@@ -342,7 +344,7 @@ function FindingDetailedView(props) {
                         <h4>Analyst Information</h4>
 
                         <label for="AnalystInformation">
-                            Analyst:
+                            Analyst: (Analyst who created the finding)
                             <br></br>
                             <select name="findingAnalyst"  onChange={e => setfindingAnalyst(e.target.value)} defaultValue={props.finding.findingAnalyst} id="findingAnalyst" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
@@ -384,12 +386,12 @@ function FindingDetailedView(props) {
                         <label for="MitigationDescription">
                             Brief Description:
                             <br></br>
-                            <input type="text" name="mitigationDesc"  onChange={e => setMitigationDesc(e.target.value)} defaultValue={props.finding.id} id="mitigationDesc" class="browser-default  mr-3" />
+                            <input type="text" name="mitigationDesc"  onChange={e => setMitigationDesc(e.target.value)} defaultValue={props.finding.mitigationDesc} id="mitigationDesc" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" />
                         </label><br />
                         <label for="LongDescription">
                             Long Description:
                             <br></br>
-                            <textarea name="mitigationLongDesc"  onChange={e => setMitigationLongDesc(e.target.value)} defaultValue={props.finding.mitigationLongDesc} id="mitigationLongDesc" cols="45" rows="5" class="browser-default  mr-3"></textarea>
+                            <textarea name="mitigationLongDesc"  onChange={e => setMitigationLongDesc(e.target.value)} defaultValue={props.finding.mitigationLongDesc} id="mitigationLongDesc" cols="30" rows="5" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2"></textarea>
                         </label><br />
 
                         <h4>Threat Relevence</h4>
@@ -408,15 +410,21 @@ function FindingDetailedView(props) {
 
                         <h4>Countermeasure</h4>
                         <label for="Countermeasure">
-                            Countermeasure:
+                            Effectiveness Rating:
                             <br></br>
-                            <select name="countermeasure"  onChange={e => setCountermeasure(e.target.value)} defaultValue={props.finding.countermeasure} id="countermeasure" class="browser-default custom-select mr-3">
+                            <select type = "number" min= '0' max = '10' name="countermeasure"  onChange={e => setCountermeasure(e.target.value)} defaultValue={props.finding.countermeasure} id="countermeasure" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
-                                <option value="Very High (10)">Very High (10)</option>
-                                <option value="High">High (7-9)</option>
-                                <option value="Moderate">Moderate (4-6)</option>
-                                <option value="Low">Low (1-3)</option>
-                                <option value="Very Low">Very Low (0)</option>
+                                <option value= "10" >Very High (10)</option>
+                                <option value="9">High (9)</option>
+                                <option value="8">High (8)</option>
+                                <option value="7">High (7)</option>
+                                <option value="6">Moderate (6)</option>
+                                <option value="5">Moderate (5)</option>
+                                <option value="4">Moderate (4)</option>
+                                <option value="3">Low (3)</option>
+                                <option value="2">Low (2)</option>
+                                <option value="1">Low (1)</option>
+                                <option value="0">Very Low (0)</option>
                             </select>
                         </label>
 
@@ -424,14 +432,15 @@ function FindingDetailedView(props) {
                         <label for="ImpactDescription">
                             Impact Description:
                             <br></br>
-                            <input type="text" name="impactDesc"  onChange={e => setImpactDesc(e.target.value)} defaultValue={props.finding.impactDesc} id="impactDesc" class="browser-default  mr-3" />
+                            <input type="text" name="impactDesc"  onChange={e => setImpactDesc(e.target.value)} defaultValue={props.finding.impactDesc} id="impactDesc" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" />
                         </label>
                         &nbsp;
                         &nbsp;
-                        <label for="Impact">
-                            Impact:
+                        <br></br>
+                        <label for="ImpactLevel">
+                            Impact Level:
                             <br></br>
-                            <select name="findingImpact"  onChange={e => setFindingImpact(e.target.value)} defaultValue={props.finding.findingImpact} id="findingImpact" class="browser-default custom-select mr-3">
+                            <select name="impactLevel"  onChange={e => setImpactLevel(e.target.value)} defaultValue={props.finding.impactLevel} id="impactLevel" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
                                 <option value="VH">VH</option>
                                 <option value="H">H</option>
@@ -443,36 +452,52 @@ function FindingDetailedView(props) {
 
                         <h4>Severity</h4>
 
-                        <label for="SeverityCategoryScore">
-                            Severity Category Score:
+                        <label for="SeverityCategoryCode">
+                            Severity Category Code:
                             <br></br>
-                            <input type="text" name="severityCategoryScore"  onChange={e => setSeverityCategoryScore(e.target.value)} defaultValue={props.finding.severityCategoryScore} id="severityCategoryScore" class="browser-default  mr-3" />
+                            <select name="severityCategoryCode" onChange={e => setSeverityCategoryCode(e.target.value)} defaultValue={props.finding.severityCategoryCode} id="severityCategoryCode" class="browser-default custom-select mr-3">
+                                <option value="default" selected="selected"></option>
+                                <option value="I">I</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                            </select>
+                        </label>
+                        <br></br>
+                        
+                        <label for="SeverityCategoryScore">
+                            Severity Category Score (DERIVED #):
+                            <br></br>
+                            <input type="text" name="severityCategoryScore" defaultValue={props.finding.severityCategoryScore} id="severityCategoryScore" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
+                            
                         </label><br></br>
 
                         <label for="VulnerabilitySeverityDescription">
-                            Vulnerability Severity:
+                            Vulnerability Severity (DERIVED #):
                             <br></br>
-                            <input type="text" name="vulnerabilityScore"  onChange={e => setVulnerabilityScore(e.target.value)} defaultValue={props.finding.vulnerabilityScore}  id="vulnerabilityScore" class="browser-default  mr-3" />
+                            <input type="text" name="vulnerabilityScore" defaultValue={props.finding.vulnerabilityScore}  id="vulnerabilityScore" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
+                            
                         </label><br></br>
 
                         <label for="QuantitativeVulnerabilityDescription">
-                            Quantitative Vulnerability Severity:
+                            Quantitative Vulnerability Severity (DERIVED STRING):
                             <br></br>
-                            <input type="text" name="quantitativeScore" onChange={e => setQuantitativeScore(e.target.value)} defaultValue={props.finding.quantitativeScore} id="quantitativeScore" class="browser-default mr-3" />
+                            <input type="text" name="quantitativeScore" defaultValue={props.finding.quantitativeScore} id="quantitativeScore" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
                         </label><br></br>
 
                         <h4>Risk</h4>
 
                         <label for="RiskDescription">
-                            Risk:
+                            Risk: (DERIVED STRING)
                             <br></br>
-                            <input type="text" name="findingRisk" onChange={e => setFindingRisk(e.target.value)} defaultValue={props.finding.findingRisk} id="findingRisk" class="browser-default  mr-3" />
+                            <input type="text" name="findingRisk" defaultValue={props.finding.findingRisk} id="findingRisk" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
+                        
                         </label><br></br>
 
                         <label for="LikelihoodDescription">
-                            Likelihood:
+                            Likelihood: (DERIVED STRING)
                             <br></br>
-                            <input type="text" name="findingLikelihood" onChange={e => setFindingLikelihood(e.target.value)} defaultValue={props.finding.findingLikelihood} id="findingLikelihood" class="browser-default  mr-3" />
+                            <input type="text" name="findingLikelihood" defaultValue={props.finding.findingLikelihood} id="findingLikelihood" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
+                            
                         </label><br></br>
 
                         <h4>Finding System Level Impact</h4>
@@ -480,27 +505,46 @@ function FindingDetailedView(props) {
                         <label for="CFISDescription">
                             Confidentiality Finding Impact on System:
                             <br></br>
-                            <input type="text" name="findingCFIS" onChange={e => setFindingCFIS(e.target.value)} defaultValue={props.finding.findingCFIS} id="findingCFIS" class="browser-default  mr-3" />
+                            <select name="findingCFIS" onChange={e => setFindingCFIS(e.target.value)} defaultValue={props.finding.findingCFIS} id="findingCFIS" class="browser-default custom-select mr-3">
+                                <option value="default" selected="selected"></option>
+                                <option value="L">Low</option>
+                                <option value="M">Medium</option>
+                                <option value="H">High</option>
+                                <option value="X">X</option>
+                            </select>
                         </label><br></br>
 
                         <label for="IFISDescription">
                             Integrity Finding Impact on System:
                             <br></br>
-                            <input type="text" name="findingIFIS" onChange={e => setFindingIFIS(e.target.value)} defaultValue={props.finding.findingIFIS} id="findingIFIS" class="browser-default  mr-3" />
+                            <select name="findingIFIS" onChange={e => setFindingIFIS(e.target.value)} defaultValue={props.finding.findingIFIS} id="findingIFIS" class="browser-default custom-select mr-3">
+                                <option value="default" selected="selected"></option>
+                                <option value="L">Low</option>
+                                <option value="M">Medium</option>
+                                <option value="H">High</option>
+                                <option value="X">X</option>
+                            </select>
                         </label><br></br>
 
                         <label for="AFISDescription">
                             Availability Finding Impact on System:
                             <br></br>
-                            <input type="text" name="findingAFIS" onChange={e => setFindingAFIS(e.target.value)} defaultValue={props.finding.findingAFIS} id="findingAFIS" class="browser-default  mr-3" />
+                            <select name="findingAFIS" onChange={e => setFindingAFIS(e.target.value)} defaultValue={props.finding.findingAFIS} id="findingAFIS" class="browser-default custom-select mr-3">
+                                <option value="default" selected="selected"></option>
+                                <option value="L">Low</option>
+                                <option value="M">Medium</option>
+                                <option value="H">High</option>
+                                <option value="X">X</option>
+                            </select>
                         </label><br></br>
 
                         
 
-                        <label for="ImpactScoreDescription">
-                            Impact Score:
+                        <label for="ImpactScore">
+                            Impact Score (Derived):
                             <br></br>
-                            <input type="text" name="impactScoreDesc" onChange={e => setImpactScore(e.target.value)} defaultValue={props.finding.impactDesc} id="impactScoreDesc" class="browser-default  mr-3" />
+                            <input type="text" name="impactScore" defaultValue={props.finding.impactScore} id="impactScore" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled />
+                            
                         </label><br></br>
     
                             

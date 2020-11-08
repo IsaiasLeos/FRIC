@@ -10,7 +10,6 @@ class FindingMaster extends React.Component {
         this.state = {
             data: [],
             id: '', 
-            findingID: '',
             hostName: '',
             ip_port: '',
             description: '',
@@ -33,7 +32,7 @@ class FindingMaster extends React.Component {
             threatRelevence: '',
             countermeasure: '',
             impactDesc: '',
-            findingImpact: '',
+            impactLevel: '',
             severityCategoryScore: '',
             vulnerabilityScore: '',
             quantitativeScore: '',
@@ -44,7 +43,8 @@ class FindingMaster extends React.Component {
             findingAFIS: '',
             impactScore: '',
             activeTasks: '',
-            findingFiles:''
+            findingFiles:'',
+            severityCategoryCode: '',
         };
 
         this.updateData = this.updateData.bind(this);
@@ -59,7 +59,7 @@ class FindingMaster extends React.Component {
     }
 
     async updateData() {
-        await this.sleep(1000);
+        await this.sleep(3000);
         fetch('/findings').then(
             response => response.json()).then(data => this.setState({
                 data: data
