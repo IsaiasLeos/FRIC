@@ -15,29 +15,28 @@ import {useState, useEffect} from "react";
     }
     function TaskDetailedView(props){
 
-        const [subtask, setSubTask] = useState([{ subTaskTile: '', num_sys: '', num_findings: '', prog: '' }])
-
+        const [subtask, setSubTasks] = useState([{ subtaskTitle: '', subtaskDescription: '', system: '', subtaskPriority: '' }]);
         useEffect(() => {
             fetch('/subtasks').then(
-                response => response.json()).then(data => setSubTask(data)) // Get info for subtask Overview Table 
+                response => response.json()).then(data => setSubTasks(data)) // Get info for Event Overview Table // 
         }, []);
 
-        const [taskTitle, setTitle] = useState('');
-        const [taskDescription, setDescription] = useState('');
-        const [system, setsystem] = useState('');
-        const [taskPriority, setPriority] = useState('');
-        const [taskProgress, setProgress] = useState('');
-        const [taskDueDate, setDueDate] = useState('');
-        const [taskAnalysts, setAnalysts] = useState('');
-        const [taskCollaborators, setCollaborators] = useState('');
-        const [relatedTasks, setrelatedTasks] = useState('');
-        const [attachments, setattachments] = useState('');
-        
         const [id, setID] = useState(props.task.id);
+        const [taskTitle, setTitle] = useState(props.task.taskTitle);
+        const [taskDescription, setDescription] = useState(props.task.taskDescription);
+        const [system, setsystem] = useState(props.task.system);
+        const [taskPriority, setPriority] = useState(props.task.taskPriority);
+        const [taskProgress, setProgress] = useState(props.task.taskProgress);
+        const [taskDueDate, setDueDate] = useState(props.task.taskDueDate);
+        const [taskAnalysts, setAnalysts] = useState(props.task.taskAnalysts);
+        const [taskCollaborators, setCollaborators] = useState(props.task.taskCollaborators);
+        const [relatedTasks, setrelatedTasks] = useState(props.task.relatedTasks);
+        const [attachments, setattachments] = useState(props.task.attachments);
+       
         const [subtaskID, setSubTaskID] = useState(props.task.subtaskID);
-
+        
         let state = { 
-            id: props.task.id ? props.task.id : '',
+            id: id ? id : '',
             taskTitle: taskTitle ? taskTitle : '', 
             taskDescription: taskDescription ? taskDescription : '', 
             system: system ? system : '', 
@@ -48,7 +47,10 @@ import {useState, useEffect} from "react";
             taskCollaborators: taskCollaborators ? taskCollaborators : '', 
             relatedTasks: relatedTasks ? relatedTasks : '', 
             attachments: attachments ? attachments : '',
-            subtaskID: subtaskID ? subtaskID : ''
+            subtaskID: subtaskID ? subtaskID : '',
+            numFindings: '',
+            analyst:'',
+            subtask:''
         };
         let action = {
             date: "",
@@ -201,7 +203,7 @@ import {useState, useEffect} from "react";
                                 </select>
                             </label><br/> 
 
-                            <label htmlFor="relatedTask">
+                            {/* <label htmlFor="relatedTask">
                                 Related Task:<br/>
                                 <select name="relatedTasks" id="related-task" onChange={e => setrelatedTasks(e.target.value)} defaultValue={props.task.relatedTasks}  class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
@@ -210,7 +212,7 @@ import {useState, useEffect} from "react";
                                     <option value="Task3">Task3</option>
                                     <option value="Task4">Task4</option>
                                 </select>
-                            </label><br/>  
+                            </label><br/>   */}
 
                             <label htmlFor="attachments">
                                 Attachments:<br/>
@@ -222,12 +224,15 @@ import {useState, useEffect} from "react";
                                 </select>
                             </label><br/>  
 
-                            <select className="browser-default custom-select mr-3" name="eventID" onChange={e => setSubTask(e.target.value)} >
-                                <option defaultValue>Set SubTask</option>
-                                {subtask.map((state) => (
-                                    <option value={state.id}>{state.subTaskTile}</option>
-                                ))}
-                            </select>
+                            <label htmlFor="attachments">
+                                Set SubTask:<br/>
+                                <select className="browser-default custom-select mr-3" name="subtaskID" onChange={e => setSubTaskID(e.target.value)} >
+                                    <option defaultValue></option>
+                                    {subtask.map((subtask) => (
+                                        <option value={subtask.id}>{subtask.name}</option>
+                                    ))}
+                                </select>
+                            </label><br/> 
 
                             <div className="button-input-group">
                                 <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>

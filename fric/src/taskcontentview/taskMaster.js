@@ -19,8 +19,8 @@ class TaskMaster extends React.Component {
             taskCollaborators: '', 
             relatedTasks: '', 
             attachments: '',
-            findID:'',
-            subtaskID:''
+            subtaskID:'',
+            subtask:''
         };
 
         this.updateData = this.updateData.bind(this);

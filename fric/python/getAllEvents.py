@@ -652,8 +652,13 @@ def editSubtask():
     mycollection.update_one(query, subtask)
     return jsonify(subtask)
 
-#--------------- END OF FINDING API ---------------#
+#--------------- END OF SUBTASK API ---------------#
     
+
+
+
+#---------------START OF TASK API ---------------#
+# Function used to get overview of tasks
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -680,41 +685,24 @@ def tasks():
     for e in mycollection.find():
 
         task_json.append({
-            "id": e['id'],
-            "taskTitle": e['Task_title'],
-            "taskDescription": e['Task_Description'],
-            "system": e['System'],
-            "taskPriority": e['Task_Priority'],
-            "taskProgress": e['Task_Progress'],
-            "taskDueDate": e['Task_Due_Date'],
-            "taskAnalysts": e['Task_Analysts'],
-            "taskCollaborators": e['Task_Collaborators'],
-            "relatedTasks": e['Related_Tasks'],
-            "attachments": e['Attachments'],
-            "num_subtask": num_subtask,
-            "num_finding": num_finds
-        })
+                "id": e['id'],
+                "taskTitle": e['Task_title'],
+                "taskDescription": e['Task_Description'],
+                "system": e['System'],
+                "taskPriority": e['Task_Priority'],
+                "taskProgress": e['Task_Progress'],
+                "taskDueDate": e['Task_Due_Date'],
+                "taskAnalysts": e['Task_Analysts'],
+                "taskCollaborators": e['Task_Collaborators'],
+                "relatedTasks": e['Related_Tasks'],
+                "attachments": e['Attachments'],
+                "num_subtask": num_subtask,
+                "num_finding": num_finds,
+                "subtaskID": e['SubTask_ID']
+            })
     return jsonify(task_json)
 
-        task_json.append({
-            "id": e['id'],
-            "taskTitle": e['Task_title'],
-            "taskDescription": e['Task_Description'],
-            "system": e['System'],
-            "taskPriority": e['Task_Priority'],
-            "taskProgress": e['Task_Progress'],
-            "taskDueDate": e['Task_Due_Date'],
-            "taskAnalysts": e['Task_Analysts'],
-            "taskCollaborators": e['Task_Collaborators'],
-            "relatedTasks": e['Related_Tasks'],
-            "attachments": e['Attachments'],
-            "num_subtask": num_subtask,
-            "num_finding": num_finds,
-            "subtaskID": e['SubTask_ID']
-        })
-    return jsonify(task_json)
-
-#                                                   Function used to add task 
+# Function used to add task 
 @app.route('/addtask', methods=['POST'])
 def addTasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -740,7 +728,7 @@ def addTasks():
     mycollection.insert_one(task) #send info to collection
     return "OK"
 
-#                                                   Function used to edit task 
+# Function used to edit task 
 @app.route('/edittask',methods=['POST'])
 def editTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -766,6 +754,12 @@ def editTask():
     }}
     mycollection.update_one(query, task)
     return jsonify(task)
+
+#--------------- END OF TASK API ---------------#
+
+
+
+
 
 @app.route('/addlog', methods=['POST'])
 def addLog():
