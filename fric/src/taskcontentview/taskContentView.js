@@ -9,6 +9,7 @@ import SortImage from '../assets/updownarrow.png';
 // import Modal from 'react-bootstrap/Modal';
 import { Modal } from 'react-bootstrap';
 
+// Get current information about the date for log purpose
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();
@@ -19,83 +20,45 @@ function getCurrentDate(separator = '') {
 }
 export default function TaskContentView(props) {
 
-    const [selected_task, selectedTask] = useState();
-    const [dialogOpen, handleDialog] = React.useState(false);
-
+    const [selected_task, selectedTask] = useState(); //select a task to send to modal
+    const [dialogOpen, handleDialog] = React.useState(false); //control of modal
+    
 
     // Function used to open handle dialog
     function handleDialogOpen(state) {
-        sendLog("Task dialog open");
+        SendLog("Task dialog open");
         handleDialog(true)
-        console.log(state)
         selectedTask(state)
     }
 
     // Function used to close handle dialog
     function handleDialogClose() {
-        sendLog("Task dialog close")
+        SendLog("Task dialog close")
         handleDialog(false)
     }
 
-
-    // Function used perform sorting in asscending order
-    function compareByAsc(key) {
-        return function(a, b) {
-            if (a[key] < b[key]) return -1;
-            if (a[key] > b[key]) return 1;
-            return 0;
-        };
-    }
-
-    // Function used perform sorting in desscending order
-    function compareByDesc(key) {
-        return function(a, b) {
-          if (a[key] < b[key]) return 1;
-          if (a[key] > b[key]) return -1;
-          return 0;
-        };
-    }
-
-    // Function used as a toggle to switch between sorting operations
-    function sortBy(key) {
-        let arrayCopy = [...props.data];
-        const arrInStr = JSON.stringify(arrayCopy);
-        arrayCopy.sort(compareByAsc(key));
-        const arrInStr1 = JSON.stringify(arrayCopy);
-        if (arrInStr === arrInStr1) {
-          arrayCopy.sort(compareByDesc(key));
-        }
-        props.data.setState(arrayCopy );
-      }
-
     // Handles logging information
-    function sendLog(a) {
-        let action = {
-            date: getCurrentDate("/"),
-            action: a,
-            analyst: ""
+    function SendLog(e) {
+        var action = {
+          date: getCurrentDate("/"),
+          action: e,
+          analyst: ""
         }
-        console.log(action)
+        action.analyst = "";
         fetch('/addlog', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(action),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-    }
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(action),
+        }).then(response => response.json());
+      }
 
     // updates the task data
     useEffect(() => {
         props.updateData();
+        
       });
-
       
     //Return displays the task content view 
     return (
@@ -131,7 +94,7 @@ export default function TaskContentView(props) {
                                     <tr>
                                         <th><input type="checkbox" id="all-tasks" name="all-tasks" value="0"></input></th>
                                         <th>Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                                        <th>System<input type="image" src={SortImage} className="sort-button" alt="sort button" onClick={() => sortBy('system')} /></th>
+                                        <th>System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                                         <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /> </th>
                                         <th>Priority<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                                         <th>Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
@@ -154,7 +117,6 @@ export default function TaskContentView(props) {
                                             <td>{state.taskDueDate}</td>
                                         </tr>
                                     ))}
-        
                                 </tbody>
                             </Table>
                         </div>

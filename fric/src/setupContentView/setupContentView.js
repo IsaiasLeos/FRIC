@@ -29,7 +29,7 @@ import Button from 'react-bootstrap/Button';
       this.action.action = "submit event"; //Logging information
       this.action.date = getCurrentDate("/");
       this.action.analyst = "";
-      // this.props.history.push('/Event'); //Used for submit button, will navigate to page and push to the DB // 
+      this.props.history.push('/Event'); //Used for submit button, will navigate to page and push to the DB // 
   
       //send logging information to DB
       fetch('/addlog', {

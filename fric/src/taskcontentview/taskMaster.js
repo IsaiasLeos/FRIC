@@ -5,6 +5,7 @@ import GeneralView from '../generalView/generalView'
 class TaskMaster extends React.Component {
     constructor(props) {
         super(props);
+        //Used to hold information about taskContentVIew
         this.state = {
             data: [],
             id: '',
@@ -17,15 +18,20 @@ class TaskMaster extends React.Component {
             taskAnalysts: '', 
             taskCollaborators: '', 
             relatedTasks: '', 
-            attachments: '' 
+            attachments: '',
+            findID:'',
+            subtaskID:''
         };
 
         this.updateData = this.updateData.bind(this);
     }
+
+    
     sleep(milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
-
+    
+    //Fetches information about current task content
     async updateData() {
         await this.sleep(1000);
         fetch('/tasks').then(
