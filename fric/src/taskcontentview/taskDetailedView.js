@@ -3,9 +3,8 @@ import HelpImage from '../assets/help.png'
 import Button from 'react-bootstrap/Button';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {useState, } from "react";
+import {useState, useEffect} from "react";
 //import SortableTable from 'react-sortable-table';
-
     function getCurrentDate(separator = '') {
         let newDate = new Date()
         let day = newDate.getDate();
@@ -15,6 +14,13 @@ import {useState, } from "react";
         return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
     }
     function TaskDetailedView(props){
+
+        const [subtask, setSubTask] = useState([{ subTaskTile: '', num_sys: '', num_findings: '', prog: '' }])
+
+        useEffect(() => {
+            fetch('/subtasks').then(
+                response => response.json()).then(data => setSubTask(data)) // Get info for subtask Overview Table 
+        }, []);
 
         const [taskTitle, setTitle] = useState('');
         const [taskDescription, setDescription] = useState('');
@@ -28,6 +34,7 @@ import {useState, } from "react";
         const [attachments, setattachments] = useState('');
         
         const [id, setID] = useState(props.task.id);
+        const [subtaskID, setSubTaskID] = useState(props.task.subtaskID);
 
         let state = { 
             id: props.task.id ? props.task.id : '',
@@ -40,7 +47,8 @@ import {useState, } from "react";
             taskAnalysts: taskAnalysts ? taskAnalysts : '', 
             taskCollaborators: taskCollaborators ? taskCollaborators : '', 
             relatedTasks: relatedTasks ? relatedTasks : '', 
-            attachments: attachments ? attachments : ''
+            attachments: attachments ? attachments : '',
+            subtaskID: subtaskID ? subtaskID : ''
         };
         let action = {
             date: "",
@@ -213,6 +221,13 @@ import {useState, } from "react";
                                     <option value="Attachment3">Attachment3</option>
                                 </select>
                             </label><br/>  
+
+                            <select className="browser-default custom-select mr-3" name="eventID" onChange={e => setSubTask(e.target.value)} >
+                                <option defaultValue>Set SubTask</option>
+                                {subtask.map((state) => (
+                                    <option value={state.id}>{state.subTaskTile}</option>
+                                ))}
+                            </select>
 
                             <div className="button-input-group">
                                 <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
