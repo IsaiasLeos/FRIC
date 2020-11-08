@@ -22,6 +22,7 @@ class SystemMaster extends React.Component {
             num_task: '',
             num_findings: '',
             progress: '',
+            eventID: ''
         };
 
         this.updateData = this.updateData.bind(this);

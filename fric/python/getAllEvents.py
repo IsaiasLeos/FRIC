@@ -107,7 +107,6 @@ def addEvent():
     return
 
 
-
 @app.route('/getprogress')
 def getProgress():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -127,15 +126,18 @@ def systems():
     myTaskCollection = mydb["task"]
     system_json = []
     findings_json = []
+
     for f in myFindingCollection.find():
         findings_json.append(
             {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
+
     task_json = []
     for f in myTaskCollection.find():
         task_json.append(
             {"taskTitle": f["Task_title"], "taskDescription": f["Task_Description"]})
     num_tasks = len(task_json)
+
     for e in mySystemCollection.find():
         system_json.append({
             "id": e["id"],
@@ -151,7 +153,8 @@ def systems():
             "Availability": e['Availability'],
             "num_task": num_tasks,
             "num_findings": num_finds,
-            "prog": e['Progress']
+            "prog": e['Progress'],
+            "eventID": e['Event_ID']
         })
     return jsonify(system_json)
 
@@ -177,7 +180,7 @@ def addSystems():
         "Availability": req['Availability'],
         "Num_Task": 13, "Num_Findings": 10,
         "Progress": "0%",
-        "Event": "Event 1"
+        "Event_ID": req["eventID"]
     }
     mycollection.insert_one(system)
     return
@@ -204,7 +207,7 @@ def editSystem():
             "Availability": req['Availability'],
             "Num_Task": 13, "Num_Findings": 10,
             "Progress": "0%",
-            "Event": ""
+            "Event_ID": req["eventID"]
         }
     }
     mycollection.update_one(query, system)
