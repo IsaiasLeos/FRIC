@@ -240,7 +240,9 @@ def editEvent():
     mycollection.update_one(query,event)
     return jsonify(event)
 
-#Function to assign index (for future mapping) based on the value of impact
+#---------------START OF FINDING API ---------------#
+
+#Function to assign index (for future mapping) based on the value of impact (FOR FINDING)
 def routeImpact(impact):
     impactIndices = { #Mapping of possible index
         'VL' : 0,
@@ -560,6 +562,7 @@ def editFinding():
     
     return jsonify(finding)
 
+#--------------- END OF FINDING API ---------------#
 
 @app.route('/subtasks')
 def subtasks():
