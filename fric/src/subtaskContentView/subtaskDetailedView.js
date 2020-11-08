@@ -26,6 +26,13 @@ function SubtaskDetailedView(props){
     const [numFindings, setNumFindings ] = useState(props.subtask.numFindings);
     const [analyst,setAnalyst ] = useState(props.subtask.analyst);
     const [task, setTask ] = useState(props.subtask.task);
+
+    // const [tasks, setTasks] = useState([{ name: '', num_sys: '', num_findings: '', prog: '' }]);
+    // useEffect(() => {
+    //     fetch('/tasks').then(
+    //         response => response.json()).then(data => setEvents(data)) // Get info for Event Overview Table // 
+    // }, []);
+
     let state = {
         id: id ? id : '',
         subtaskTitle: subtaskTitle ? subtaskTitle : '',

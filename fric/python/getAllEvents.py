@@ -73,7 +73,7 @@ def eventsOverview():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     systems_json = []
@@ -129,7 +129,7 @@ def systems():
 
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     task_json = []
@@ -463,7 +463,6 @@ def addFindings():
     mycollection = mydb["finding"] 
 
     req = request.get_json()
-     
 
     finding = {
         "id":str(random.randint(1,30)),
@@ -574,7 +573,7 @@ def subtasks():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     for e in mycollection.find():
@@ -658,7 +657,7 @@ def tasks():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     subtask_json = []
@@ -668,24 +667,24 @@ def tasks():
             {"subtaskTitle": s["Subtask_Title"], "subtaskDescription": s["Subtask_Description"]})
     num_subtask = len(subtask_json)
 
-    # for e in mycollection.aggregate():
+    for e in mycollection.find():
 
-    #     task_json.append({
-    #         "id": e['id'],
-    #         "taskTitle": e['Task_title'],
-    #         "taskDescription": e['Task_Description'],
-    #         "system": e['System'],
-    #         "taskPriority": e['Task_Priority'],
-    #         "taskProgress": e['Task_Progress'],
-    #         "taskDueDate": e['Task_Due_Date'],
-    #         "taskAnalysts": e['Task_Analysts'],
-    #         "taskCollaborators": e['Task_Collaborators'],
-    #         "relatedTasks": e['Related_Tasks'],
-    #         "attachments": e['Attachments'],
-    #         "num_subtask": num_subtask,
-    #         "num_finding": num_finds
-    #     })
-    # return jsonify(task_json)
+        task_json.append({
+            "id": e['id'],
+            "taskTitle": e['Task_title'],
+            "taskDescription": e['Task_Description'],
+            "system": e['System'],
+            "taskPriority": e['Task_Priority'],
+            "taskProgress": e['Task_Progress'],
+            "taskDueDate": e['Task_Due_Date'],
+            "taskAnalysts": e['Task_Analysts'],
+            "taskCollaborators": e['Task_Collaborators'],
+            "relatedTasks": e['Related_Tasks'],
+            "attachments": e['Attachments'],
+            "num_subtask": num_subtask,
+            "num_finding": num_finds
+        })
+    return jsonify(task_json)
 
 
 @app.route('/addtask', methods=['POST'])
