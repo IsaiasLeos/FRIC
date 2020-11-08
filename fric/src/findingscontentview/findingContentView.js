@@ -67,8 +67,6 @@ export default function FindingContentView(props) {
           <div id="systemTable" update={props.updateSystemData}>
             <div className="title-buttons">
               <h2>Findings Overview Table</h2>
-              <h2>{console.log()}</h2>
-
 
               <ButtonGroup dialogclassname="title-system-buttons">
                 <Button variant="dark" >Archive</Button>
@@ -100,30 +98,37 @@ export default function FindingContentView(props) {
                   <th>Classification</th>
                   <th>Type</th>
                   <th>Risk</th>
-                  <th>IDID</th>
+                  
                 </tr>
               </thead>
               <tbody>
                 {props.data.map((state) => (
-                  <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>{state.findingID}</td>
-                    <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
-                    <td>{state.findingSystem}</td>
-                    <td>{state.findingTask}k</td>
-                    <td>{state.findingSubtask}</td>
-                    <td>{state.findingAnalyst}</td>
-                    <td>{state.findingStatus}</td>
-                    <td>{state.findingClassification}</td>
-                    <td>{state.findingType}</td>
-                    <td>{state.findingRisk}</td>
-                    <td>{state.id}</td>
-
-                  </tr>
-                ))}
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>{state.id}</td>
+                        <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
+                        <td>{state.findingSystem}</td>
+                        <td>{state.findingTask}k</td>
+                        <td>{state.findingSubtask}</td>
+                        <td>{state.findingAnalyst}</td>
+                        <td>{state.findingStatus}</td>
+                        <td>{state.findingClassification}</td>
+                        <td>{state.findingType}</td>
+                        <td>{state.findingRisk}</td>
+                        
+                        
+                    </tr>
+                    ))}
               </tbody>
             </Table>
           </div>
+          <ButtonGroup>
+            <Button variant="dark">Generate ERB</Button>
+             &nbsp;
+            <Button variant="dark">Generate Risk Matrix</Button>
+            &nbsp;
+            <Button variant="dark">Generate Final Report</Button>
+          </ButtonGroup>
         </div>
       </div>
     </div>

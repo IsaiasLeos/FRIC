@@ -10,7 +10,6 @@ class FindingMaster extends React.Component {
         this.state = {
             data: [],
             id: '', 
-            findingID: '',
             hostName: '',
             ip_port: '',
             description: '',
@@ -33,7 +32,7 @@ class FindingMaster extends React.Component {
             threatRelevence: '',
             countermeasure: '',
             impactDesc: '',
-            findingImpact: '',
+            impactLevel: '',
             severityCategoryScore: '',
             vulnerabilityScore: '',
             quantitativeScore: '',
@@ -44,14 +43,31 @@ class FindingMaster extends React.Component {
             findingAFIS: '',
             impactScore: '',
             activeTasks: '',
-            findingFiles:''
+            findingFiles:'',
+            severityCategoryCode: '',
         };
 
         this.updateData = this.updateData.bind(this);
+
+        this.system = {
+            data: [],
+            sysInfo: '',
+        }
+    }
+    sleep(milliseconds) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
 
-    updateData() {
+    async updateData() {
+        await this.sleep(3000);
         fetch('/findings').then(
+            response => response.json()).then(data => this.setState({
+                data: data
+            })).catch(error => console.error(error));
+    }
+
+    getSystems() {
+        fetch('/getsystem').then(
             response => response.json()).then(data => this.setState({
                 data: data
             })).catch(error => console.error(error));
@@ -64,6 +80,8 @@ class FindingMaster extends React.Component {
                 <FindingContentView
                     data={this.state.data}
                     updateData={this.updateData}
+                    getSystems = {this.getSystems}
+
                 />
                 <div className="right-tree">
                     <Tree />
