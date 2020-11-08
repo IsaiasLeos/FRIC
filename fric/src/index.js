@@ -24,7 +24,7 @@ import subtaskMaster from './subtaskContentView/subtaskMaster';
 
 
 import archiveContentView from './archivecontentview/archiveContentView';
-import configurationContentView from './configurationContentView/configurationContentView';  //IF error happens capitalize the C and V or lowercase
+import configurationContentView from './configurationContentView/configurationContentView';
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import taskMaster from './taskcontentview/taskMaster'
@@ -34,7 +34,6 @@ import helpView from './helpView/helpView.js';
 import eventTree from './eventTree/eventTree';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import notification from './notificationView/notification.js';
-import SelectEvent from './eventcontentview/EventTable'; // Event specific info
 
 ReactDOM.render(
   <Router>
@@ -44,7 +43,6 @@ ReactDOM.render(
       </React.StrictMode>,
     </Route>
     <Route exact path="/Event" component={eventContentView} />
-    <Route exact path="/SelectEvent" component={SelectEvent} />
     <Route exact path="/EventDetailed" component={eventDetailedView} />
     <Route exact path="/Task" component={taskContentView} />
     <Route exact path="/TaskDetails" component={taskDetailedView} />

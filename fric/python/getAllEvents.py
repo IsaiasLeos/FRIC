@@ -73,7 +73,7 @@ def eventsOverview():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     systems_json = []
@@ -129,7 +129,7 @@ def systems():
 
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     task_json = []
@@ -240,7 +240,9 @@ def editEvent():
     mycollection.update_one(query,event)
     return jsonify(event)
 
-#Function to assign index (for future mapping) based on the value of impact
+#---------------START OF FINDING API ---------------#
+
+#Function to assign index (for future mapping) based on the value of impact (FOR FINDING)
 def routeImpact(impact):
     impactIndices = { #Mapping of possible index
         'VL' : 0,
@@ -463,7 +465,6 @@ def addFindings():
     mycollection = mydb["finding"] 
 
     req = request.get_json()
-     
 
     finding = {
         "id":str(random.randint(1,30)),
@@ -561,7 +562,10 @@ def editFinding():
     
     return jsonify(finding)
 
+#--------------- END OF FINDING API ---------------#
 
+
+#---------------START OF SUBTASK API ---------------#
 @app.route('/subtasks')
 def subtasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -574,11 +578,12 @@ def subtasks():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     for e in mycollection.find():
         subtask_json.append({
+            "id": e["id"],
             "subtaskTitle": e['Subtask_Title'],
             "subtaskDescription": e['Subtask_Description'],
             "subtaskProgress": e['Subtask_Progress'],
@@ -590,7 +595,8 @@ def subtasks():
             "attachments": e['Attachments'],
             "numFindings": num_finds,
             "analyst": e['Analyst'],
-            "task": e['Task']
+            "task": e['Task'],
+            "taskID": e['Task_ID']
         })
     return jsonify(subtask_json)
 
@@ -602,6 +608,7 @@ def addSubtasks():
     mycollection = mydb["subtask"]
     req = request.get_json()
     subtask = {
+        "id": str(random.randint(1, 30)),
         "Subtask_Title": req['subtaskTitle'],
         "Subtask_Description": req['subtaskDescription'],
         "Subtask_Progress": req['subtaskProgress'],
@@ -613,11 +620,40 @@ def addSubtasks():
         "Attachments": req['attachments'],
         "Num_Findings": 0,
         "Analyst": "Analyst 0",
-        "Task": "Task 0"
+        "Task": "Task 0",
+        "Task_ID": req['taskID']
     }
     mycollection.insert_one(subtask)
 
-#                                                   Function used to see overview of task 
+@app.route('/editsubtask', methods=['POST'])
+def editSubtask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["subtask"]
+    req = request.get_json()
+    query = {"id": req["id"]}
+    subtask = {
+        "$set": {
+            "Subtask_Title": req['subtaskTitle'],
+            "Subtask_Description": req['subtaskDescription'],
+            "Subtask_Progress": req['subtaskProgress'],
+            "Subtask_Due_Date": req['subtaskDueDate'],
+            "Analysts": req['analysts'],
+            "Collaborators": req['collaborators'],
+            "Related_Task": req['relatedTask'],
+            "Subtasks": req['subtasks'],
+            "Attachments": req['attachments'],
+            "Num_Findings": 0,
+            "Analyst": "Analyst 0",
+            "Task": "Task 0",
+            "Task_ID": req['taskID']
+        }
+    }
+    mycollection.update_one(query, subtask)
+    return jsonify(subtask)
+
+#--------------- END OF FINDING API ---------------#
+    
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -631,7 +667,7 @@ def tasks():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     subtask_json = []
@@ -642,6 +678,23 @@ def tasks():
     num_subtask = len(subtask_json)
 
     for e in mycollection.find():
+
+        task_json.append({
+            "id": e['id'],
+            "taskTitle": e['Task_title'],
+            "taskDescription": e['Task_Description'],
+            "system": e['System'],
+            "taskPriority": e['Task_Priority'],
+            "taskProgress": e['Task_Progress'],
+            "taskDueDate": e['Task_Due_Date'],
+            "taskAnalysts": e['Task_Analysts'],
+            "taskCollaborators": e['Task_Collaborators'],
+            "relatedTasks": e['Related_Tasks'],
+            "attachments": e['Attachments'],
+            "num_subtask": num_subtask,
+            "num_finding": num_finds
+        })
+    return jsonify(task_json)
 
         task_json.append({
             "id": e['id'],

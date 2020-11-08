@@ -116,7 +116,7 @@ function EventContentView() {
                         {events.map((event) => (
                             <tr>
                                 <td><input type="checkbox" id="cb1" /></td>
-                                <td><Button variant="outline-dark" onClick={() => { viewEvent(event) }}>{event.name}</Button></td>
+                                <td><Button variant="outline-dark" key = {event.id} onClick={() => { viewEvent(event) }}>{event.name}</Button></td>
                                 <td>{event.num_sys}</td>
                                 <td>{event.num_findings}</td>
                                 <td>{event.prog}</td>
@@ -130,7 +130,7 @@ function EventContentView() {
                 <Modal show={show} onHide={handleClose} dialogClassName="event-modal" size="xl">
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Event Detailed View {console.log("Analysts For event", analysts)}
+                            Event Detailed View {/*console.log("Analysts For event",analysts)*/}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
