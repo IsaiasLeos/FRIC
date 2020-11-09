@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from 'react-bootstrap/Button'
-import { useState, } from 'react';
+import { useState, useEffect } from 'react';
 
 function getCurrentDate(separator = '') {
     let newDate = new Date()
@@ -13,8 +13,25 @@ function getCurrentDate(separator = '') {
 
 function FindingDetailedView(props) {
 
+    const[systems, setSystems ] = useState([{ sysInfo : ''}])
+    const[tasks, setTasks] = useState([{ taskTitle : ''}])
+    const[subtasks, setSubtasks] = useState([{ subtaskTitle : ''}])
+
+    useEffect(() => {
+        fetch('/getsystem').then(
+            response => response.json()).then(data => setSystems(data))
+    }, []);
+    useEffect(() => {
+        fetch('/tasks').then(
+            response => response.json()).then(data => setTasks(data))
+    }, []);
+    useEffect(() => {
+        fetch('/subtasks').then(
+            response => response.json()).then(data => setSubtasks(data))
+    }, []);
+
+
     //ALL attributes of a Finding
-    
     const [host_Name, setHostName] = useState(props.finding.hostName);
     const [ip_Port, setIpPort] = useState(props.finding.ip_port);
     const [description, setDescription] = useState(props.finding.description);
@@ -61,7 +78,6 @@ function FindingDetailedView(props) {
 
     let state = { //If 
         id: props.finding.id ? props.finding.id : '', //if attribute does not have value, set to '' 
-
         hostName: host_Name ? host_Name: '',
         ip_port: ip_Port ? ip_Port: '',
         description: description ? description: '',
@@ -96,6 +112,9 @@ function FindingDetailedView(props) {
         impactScore: impactScore ? impactScore: '',
         findingFiles: findingFiles ? findingFiles: '',
         severityCategoryCode :  severityCategoryCode ? severityCategoryCode: '',
+        systemID: systemID ? systemID: '',
+        taskID: taskID ? taskID: '',
+        subtaskID: subtaskID ? subtaskID: '',
     };
 
     let action = { //used for logging actions on page
@@ -266,11 +285,11 @@ function FindingDetailedView(props) {
                         <label for="system">
                             System:
                             <br></br>
-                            <select name="findingSystem"  onChange={e => setFindingSystem(e.target.value)} defaultValue={props.finding.findingSystem} id="findingSystem" class="browser-default custom-select mr-3">
+                            <select name= "systemID" onChange={e => setSystemID(e.target.value)}  defaultValue={props.finding.systemID} class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
-                                <option value="System A">System A</option>
-                                <option value="System B">System B</option>  
-                                <option value="System C">System C</option>
+                                {systems.map((system) => (
+                                    <option value={system.id}>{system.sysInfo}</option>
+                                ))}
                             </select>
                         </label>
                         &nbsp;
@@ -278,11 +297,11 @@ function FindingDetailedView(props) {
                         <label for="activeTaskFields">
                             Task(s):
                             <br></br>
-                            <select name="findingTask"  onChange={e => setFindingTask(e.target.value)} defaultValue={props.finding.findingTask} id="findingTask" class="browser-default custom-select mr-3">
+                            <select name="findingTask"  onChange={e => setTaskID(e.target.value)} defaultValue={props.finding.taskID} id="findingTask" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
-                                <option value="Task A">Task A</option>
-                                <option value="Task B">Task B</option>
-                                <option value="Task C">Task C</option>
+                                {tasks.map((task) => (
+                                    <option value={task.id}>{task.taskTitle}</option>
+                                ))}
                             </select>
                         </label>
                         &nbsp;
@@ -290,11 +309,11 @@ function FindingDetailedView(props) {
                         <label for="Subtask">
                             Subtask(s):
                             <br></br>
-                            <select name="findingSubtask"  onChange={e => setFindingSubtask(e.target.value)} defaultValue={props.finding.findingSubtask} id="findingSubtask" class="browser-default custom-select mr-3">
+                            <select name="findingSubtask"  onChange={e => setSubtaskID(e.target.value)} defaultValue={props.finding.subtaskID} id="findingSubtask" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
-                                <option value="Subtask A">Subtask A</option>
-                                <option value="Subtask B">Subtask B</option>
-                                <option value="Subtask C">Subtask C</option>
+                                {subtasks.map((subtask) => (
+                                    <option value={subtask.id}>{subtask.subtaskTitle}</option>
+                                ))}
                             </select>
                         </label>
                         &nbsp;

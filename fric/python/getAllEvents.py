@@ -289,11 +289,14 @@ def findings():
             "impactScore" : e['Impact_Score'],
             "findingFiles": e['Finding_Files'],
             "severityCategoryCode" : e['Severity_Category_Code'],
+            "systemID" : e['System_ID'],
+            "taskID" : e['Task_ID'],
+            "subtaskID" : e['Subtask_ID'],
             
             })
     return jsonify(finding_json)  # return what was found in the collection
 
-#---------- HELPER FUNCTIONS TO DERIVE ATTRIBUTES ----------#
+#---------- HELPER FUNCTIONS TO DERIVE ATTRIBUTES OF FINDING ----------#
 
 # Map the Finding Severity Code to the Score
 def calculateSeverityScore(code):
@@ -491,6 +494,9 @@ def addFindings():
         "Impact_Score": req['impactScore'],
         "Finding_Files": req['findingFiles'],
         "Severity_Category_Code": req['severityCategoryCode'],
+        "System_ID" : req['systemID'],
+        "Task_ID" : req['taskID'],
+        "Subtask_ID" : req['subtaskID']
         
     }
 
@@ -556,9 +562,7 @@ def editFinding():
     finding = []
     
     req = request.get_json()
-    print(req)
     
-
     query = {"id":req["id"]}
 
     finding = {"$set" : {
@@ -596,6 +600,9 @@ def editFinding():
         "Impact_Score": req['impactScore'],
         "Finding_Files": req['findingFiles'],
         "Severity_Category_Code": req['severityCategoryCode'],
+        "System_ID" : req['systemID'],
+        "Task_ID" : req['taskID'],
+        "Subtask_ID" : req['subtaskID']
         
         }
     }

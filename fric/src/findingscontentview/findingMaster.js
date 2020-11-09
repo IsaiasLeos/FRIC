@@ -45,15 +45,13 @@ class FindingMaster extends React.Component {
             activeTasks: '',
             findingFiles:'',
             severityCategoryCode: '',
-            
+            systemID: '',
+            taskID: '',
+            subtaskID: '',
         };
 
         this.updateData = this.updateData.bind(this);
 
-        this.system = {
-            data: [],
-            sysInfo: '',
-        }
     }
     sleep(milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -62,13 +60,6 @@ class FindingMaster extends React.Component {
     async updateData() {
         await this.sleep(4000);
         fetch('/findings').then(
-            response => response.json()).then(data => this.setState({
-                data: data
-            })).catch(error => console.error(error));
-    }
-
-    getSystems() {
-        fetch('/getsystem').then(
             response => response.json()).then(data => this.setState({
                 data: data
             })).catch(error => console.error(error));
