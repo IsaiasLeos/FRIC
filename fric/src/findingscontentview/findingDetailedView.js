@@ -48,6 +48,13 @@ function FindingDetailedView(props) {
     const [findingIFIS, setFindingIFIS] = useState(props.finding.findingIFIS);
     const [impactScore, setImpactScore] = useState(props.finding.impactScore);
     const [findingFiles, setFindingFiles] = useState(''); //Files that can be attached to a finding. Still need to rework
+
+    
+    const [systemID, setSystemID] = useState(props.finding.systemID);
+    const [taskID, setTaskID] = useState(props.finding.taskID);
+    const [subtaskID, setSubtaskID] = useState(props.finding.subtaskID);
+    const [analystID, setAnalystID] = useState(props.finding.analystID);
+    
     
     const [severityCategoryCode, setSeverityCategoryCode] = useState(props.finding.severityCategoryScore);
     const [id, setUniqueID] = useState(props.finding.id); //Each finding will have a unique ID
@@ -164,6 +171,8 @@ function FindingDetailedView(props) {
                 console.error('Error', error)
             });
     }
+
+    
 
     return (
         <div>

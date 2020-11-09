@@ -45,6 +45,7 @@ class FindingMaster extends React.Component {
             activeTasks: '',
             findingFiles:'',
             severityCategoryCode: '',
+            
         };
 
         this.updateData = this.updateData.bind(this);
@@ -59,7 +60,7 @@ class FindingMaster extends React.Component {
     }
 
     async updateData() {
-        await this.sleep(3000);
+        await this.sleep(4000);
         fetch('/findings').then(
             response => response.json()).then(data => this.setState({
                 data: data
@@ -80,7 +81,6 @@ class FindingMaster extends React.Component {
                 <FindingContentView
                     data={this.state.data}
                     updateData={this.updateData}
-                    getSystems = {this.getSystems}
 
                 />
                 <div className="right-tree">
