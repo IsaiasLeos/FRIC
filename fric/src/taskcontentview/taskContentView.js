@@ -4,7 +4,7 @@ import TaskDetailedView from './taskDetailedView';
 import { useEffect, useState} from "react";
 import SortImage from '../assets/updownarrow.png';
 import {Modal, ButtonGroup, Button, Table} from 'react-bootstrap'
-import ReactTable from 'react-table';
+//import ReactTable from 'react-table';
 
 // Get current information about the date for log purpose
 function getCurrentDate(separator = '') {
@@ -107,7 +107,7 @@ export default function TaskContentView(props) {
                                         <tr id={state.id}>
                                             <td><input type="checkbox"/></td>
                                             <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.taskTitle}</Button></td>
-                                            <td>{state.system}</td>
+                                            <td>{state.systemInfo}</td>
                                             <td>{state.taskAnalysts}</td>
                                             <td>{state.taskPriority}</td>
                                             <td>{state.taskProgress}</td>

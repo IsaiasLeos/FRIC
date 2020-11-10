@@ -11,7 +11,7 @@ class TaskMaster extends React.Component {
             id: '',
             taskTitle: '', 
             taskDescription: '', 
-            system: '', 
+            systemInfo: '', 
             taskPriority: '', 
             taskProgress: '', 
             taskDueDate: '', 
