@@ -1,6 +1,7 @@
 import json
 import pymongo
 import random
+import openpyxl 
 from flask import Flask, jsonify, request, make_response
 
 
@@ -754,3 +755,5 @@ def addLog():
     log = {"Date_Time": req['date'],"Action_Performed": req['action'], "Analyst": req['analyst']}
     mycollection.insert_one(log)
     return "OK"
+
+

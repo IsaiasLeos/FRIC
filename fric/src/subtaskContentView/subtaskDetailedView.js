@@ -157,13 +157,10 @@ function SubtaskDetailedView(props){
             { label: 'Task 4', value: 4 },
             { label: 'Task 5', value: 5 },
         ];
-        const subtasksList = [
-            { label: 'Subtask 1', value: 1 },
-            { label: 'Subtask 2', value: 2 },
-            { label: 'Subtask 3', value: 3 },
-            { label: 'Subtask 4', value: 4 },
-            { label: 'Subtask 5', value: 5 },
-        ];
+        const subtasksList =Array.from( tasks.map((task) => (
+            {label:task.taskTitle , value: task.id}
+        )));
+        
 
         const attachmentsList = [
             { label: 'Attachment 1', value: 1 },
@@ -217,16 +214,16 @@ function SubtaskDetailedView(props){
                                 <label htmlFor="tasks">
                                     Related task:<br />
                                     <select  name="taskID" onChange={e => setTaskID(e.target.value)} >
-                                        <option defaultValue></option>
+                                        <option defaultValue> Select...</option>
                                             {tasks.map((task) => (
-                                                <option value={task.id}>{task.name}</option>
+                                                <option value={task.id}>{task.taskTitle}</option>
                                             ))}
                                     </select>
-                                    <ReactMultiSelectCheckboxes onChange={e => setRelatedTask(e.target.value)} defaultValue={props.subtask.relatedTask} options={tasksList} width="100%"  name="relatedTask" />
+                                    {/* <ReactMultiSelectCheckboxes onChange={e => setRelatedTask(e.target.value)} defaultValue={props.subtask.relatedTask} options={tasksList} width="100%"  name="relatedTask" /> */}
                                 </label><br />
                                 <label htmlFor="subtasks">
                                     Subtask(s):<br />
-                                    <ReactMultiSelectCheckboxes onChange={e => setSubtasks(e.target.value)} defaultValue={props.subtask.subtasks} options={subtasksList} width="100%"  name="subtasks" />
+                                    <ReactMultiSelectCheckboxes  onSubmit={e => setSubtasks(e.target.value)} defaultValue={props.subtask.subtasks} options={subtasksList} width="100%"  name="subtasks" searchable={false} />
                                 </label><br />
                                 <label htmlFor="attachments">
                                     Attachments:<br />
