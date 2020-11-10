@@ -1,13 +1,10 @@
 import * as React from 'react';
-import Table from 'react-bootstrap/Table';
 import './taskView.css';
-import Button from 'react-bootstrap/Button';
 import TaskDetailedView from './taskDetailedView';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useEffect, useState} from "react";
 import SortImage from '../assets/updownarrow.png';
-// import Modal from 'react-bootstrap/Modal';
-import { Modal } from 'react-bootstrap';
+import {Modal, ButtonGroup, Button, Table} from 'react-bootstrap'
+import ReactTable from 'react-table';
 
 // Get current information about the date for log purpose
 function getCurrentDate(separator = '') {
@@ -22,6 +19,7 @@ export default function TaskContentView(props) {
 
     const [selected_task, selectedTask] = useState(); //select a task to send to modal
     const [dialogOpen, handleDialog] = React.useState(false); //control of modal
+    
     
 
     // Function used to open handle dialog
@@ -59,6 +57,7 @@ export default function TaskContentView(props) {
         props.updateData();
         
       });
+    
       
     //Return displays the task content view 
     return (

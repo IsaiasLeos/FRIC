@@ -1,5 +1,5 @@
 import * as React from 'react'
-import HelpImage from '../assets/help.png'
+//import HelpImage from '../assets/help.png'
 import Button from 'react-bootstrap/Button';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -18,7 +18,7 @@ import {useState, useEffect} from "react";
         const [subtask, setSubTasks] = useState([{ subtaskTitle: '', subtaskDescription: '', system: '', subtaskPriority: '' }]);
         useEffect(() => {
             fetch('/subtasks').then(
-                response => response.json()).then(data => setSubTasks(data)) // Get info for Event Overview Table // 
+                response => response.json()).then(data => setSubTasks(data)) // Get info for subtask Table // 
         }, []);
 
         const [id, setID] = useState(props.task.id);
@@ -203,7 +203,7 @@ import {useState, useEffect} from "react";
                                 </select>
                             </label><br/> 
 
-                            {/* <label htmlFor="relatedTask">
+                            <label htmlFor="relatedTask">
                                 Related Task:<br/>
                                 <select name="relatedTasks" id="related-task" onChange={e => setrelatedTasks(e.target.value)} defaultValue={props.task.relatedTasks}  class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
@@ -212,7 +212,7 @@ import {useState, useEffect} from "react";
                                     <option value="Task3">Task3</option>
                                     <option value="Task4">Task4</option>
                                 </select>
-                            </label><br/>   */}
+                            </label><br/>  
 
                             <label htmlFor="attachments">
                                 Attachments:<br/>

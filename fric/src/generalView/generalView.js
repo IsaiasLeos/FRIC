@@ -3,15 +3,25 @@ import '../generalView/style.css'
 import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
 import Modal from 'react-bootstrap/Modal'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Button from 'react-bootstrap/Button'
 function GeneralView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    // Handles modal pop
     function viewNote() {
         handleShow();
     }
+    //TImer is currently going every 30 seconds on refresh
+    useEffect(() => {
+        const timer = setTimeout(() => {
+          viewNote();
+          return () => clearTimeout(timer);
+        }, 1000 * 30);
+      }, []);
+
     return (
         <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
