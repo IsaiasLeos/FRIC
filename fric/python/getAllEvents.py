@@ -243,6 +243,126 @@ def editEvent():
 
 #---------------START OF FINDING API ---------------#
 
+@app.route('/findings')  # path used in JS to call this
+def findings():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient['FRIC']  # Database name
+    mycollection = mydb['finding']  # Collection Name
+    
+    finding_json = []
+
+    
+    # Start of Finding    
+    for e in mycollection.find():
+        finding_json.append({
+            "id": e['id'], 
+            "hostName": e['Host_Name'],
+            "ip_port" : e['IP_Port'],
+            "description": e['Description'], 
+            "longDescription": e['Long_Description'],
+            "findingStatus" : e['Finding_Status'],
+            "findingType": e['Finding_Type'], 
+            "findingClassification": e['Finding_Classification'],
+            "findingSystem" : e['Finding_System'],
+            "findingTask" : e['Finding_Task'],
+            "findingSubtask": e['Finding_Subtask'], 
+            "relatedFindings": e['Related_Findings'],
+            "findingConfidentiality" : e['Finding_Confidentiality'],
+            "findingIntegrity" : e['Finding_Integrity'],
+            "findingAvailability": e['Finding_Availability'], 
+            "findingAnalyst": e['Finding_Analyst'],
+            "findingCollaborators" : e['Finding_Collaborators'],
+            "findingPosture" : e['Finding_Posture'],
+            "mitigationDesc": e['Mitigation_Desc'], 
+            "mitigationLongDesc": e['Mitigation_Long_Desc'],
+            "threatRelevence" : e['Threat_Relevence'],
+            "countermeasure" : e['Countermeasure'],
+            "impactDesc": e['Impact_Desc'], 
+            "impactLevel": e['Impact_Level'],
+            "severityCategoryScore" : e['Severity_Score'],
+            "vulnerabilityScore" : e['Vulnerability_Score'],
+            "quantitativeScore": e['Quantitative_Score'], 
+            "findingRisk": e['Finding_Risk'],
+            "findingLikelihood" : e['Finding_Likelihood'],
+            "findingCFIS" : e['Finding_CFIS'],
+            "findingIFIS": e['Finding_IFIS'], 
+            "findingAFIS": e['Finding_AFIS'],
+            "impactScore" : e['Impact_Score'],
+            "findingFiles": e['Finding_Files'],
+            "severityCategoryCode" : e['Severity_Category_Code'],
+            "systemID" : e['System_ID'],
+            "taskID" : e['Task_ID'],
+            "subtaskID" : e['Subtask_ID'],
+            
+            })
+    return jsonify(finding_json)  # return what was found in the collection
+
+#---------- HELPER FUNCTIONS TO DERIVE ATTRIBUTES OF FINDING ----------#
+
+# Map the Finding Severity Code to the Score
+def calculateSeverityScore(code):
+    severityCategoryScore = 0
+
+    if code == "I":
+        severityCategoryScore = 10
+    elif code == "II":
+        severityCategoryScore = 7
+    else:
+        severityCategoryScore = 4
+    
+    return severityCategoryScore
+
+#Function to calculate impact score based on the finding CFIS IFIS and AFIS
+def calculateImpactScore(CFIS, IFIS, AFIS):
+    findingSystemLevel = ""
+    impact_score = 0
+    findingSystemLevel += CFIS #Create combination string of the values
+    findingSystemLevel += IFIS
+    findingSystemLevel += AFIS
+    
+    systemlevelQuantitative = { #Map combo to value given in SRS
+        'HHH' : 10,
+        'HHX' : 9,
+        'HXX' : 8,
+        'MMM' : 7,
+        'MMX' : 6,
+        'MXX' : 5,
+        'LLL' : 4,
+        'LLX' : 3,
+        'LXX' : 2,
+        'XXX' : 0,
+    }
+
+    impact_score = systemlevelQuantitative.get(findingSystemLevel)
+    return impact_score
+
+#Function to calculate Vulnerability Severity based on countermeasure, impactscore, and severity category score
+def calculateVulnerabilitySeverity(countermeasure, impactScore, severityCategoryScore):
+    vulnerabilitySeverityScore = 0
+    countermeasureScore = 0
+
+    countermeasureScore = int(countermeasure)
+    vulnerabilitySeverityScore = (countermeasureScore * impactScore * severityCategoryScore) / 10 #Algorithm used in SRS to derive Severity Score
+
+    return vulnerabilitySeverityScore
+
+#Function to calculate QVS based on the vulnerability severity score
+def calcualteQuantitativeVulnerabilitySeverity(vulnerabilitySeverityScore):
+    quantitativeVulnerabilitySeverityScore = ''
+
+    if vulnerabilitySeverityScore >= 95 and vulnerabilitySeverityScore <= 100: #Assignment based on value 
+        quantitativeVulnerabilitySeverityScore = 'VH'
+    elif vulnerabilitySeverityScore >= 80 and vulnerabilitySeverityScore < 95:
+        quantitativeVulnerabilitySeverityScore = 'H'
+    elif vulnerabilitySeverityScore >= 20 and vulnerabilitySeverityScore < 80:
+        quantitativeVulnerabilitySeverityScore = 'M'
+    elif vulnerabilitySeverityScore >= 5 and vulnerabilitySeverityScore < 20:
+        quantitativeVulnerabilitySeverityScore = 'L'
+    else:
+        quantitativeVulnerabilitySeverityScore = 'VL'
+
+    return quantitativeVulnerabilitySeverityScore
+
 #Function to assign index (for future mapping) based on the value of impact (FOR FINDING)
 def routeImpact(impact):
     impactIndices = { #Mapping of possible index
@@ -306,6 +426,7 @@ def calculateLikelihood(relevenceOfThreat, vulnerabilitySeverity):
     threat = routeRelevenceOfThreat(relevenceOfThreat) #Get index 
     vulnerability = routeVulnerabilitySeverity(vulnerabilitySeverity) #Get index
 
+
     likelihood = likelihoodMap[threat][vulnerability] #Select value based on indices
     return likelihood
 
@@ -327,138 +448,6 @@ def calculateRisk(likelihood, impactLevel):
     return risk
 
 
-@app.route('/findings')  # path used in JS to call this
-def findings():
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient['FRIC']  # Database name
-    mycollection = mydb['finding']  # Collection Name
-    
-    finding_json = []
-
-    #START OF DERIVED VALUES
-
-    #Calculate Severity Category Score
-    severityCategoryScore = 0 #Derived from Severity Category Code
-    for e in mycollection.distinct("Severity_Category_Code"):
-        if e == "I":
-            severityCategoryScore = 10
-        elif e == "II":
-            severityCategoryScore = 7
-        else:
-            severityCategoryScore = 4
-
-    #Calculate Impact Score
-    findingSystemLevel = "" #Need combo of CFIS, IFIS, AFIS
-
-    for e in mycollection.distinct("Finding_CFIS"):
-        findingSystemLevel += e
-    for e in mycollection.distinct("Finding_IFIS"):
-        findingSystemLevel += e
-    for e in mycollection.distinct("Finding_AFIS"):
-        findingSystemLevel += e
-    
-    systemlevelQuantitative = { #Map combo to value given in SRS
-        'HHH' : 10,
-        'HHX' : 9,
-        'HXX' : 8,
-        'MMM' : 7,
-        'MMX' : 6,
-        'MXX' : 5,
-        'LLL' : 4,
-        'LLX' : 3,
-        'LXX' : 2,
-        'XXX' : 0,
-    }
-    impact_score = systemlevelQuantitative.get(findingSystemLevel) #derived value 
-
-    #Calculate Vulnerability Severity
-    
-    for e in mycollection.distinct("Countermeasure"):
-        countermeasureScore = int(e)
-
-    vulnerabilitySeverityScore = (countermeasureScore * impact_score * severityCategoryScore) / 10 #Algorithm used in SRS to derive Severity Score
-    
-    #Calculate Quantitative Vulnerability Severity 
-    if vulnerabilitySeverityScore >= 95 and vulnerabilitySeverityScore <= 100:
-        quantitativeVulnerabilitySeverityScore = 'VH'
-    elif vulnerabilitySeverityScore >= 80 and vulnerabilitySeverityScore < 95:
-        quantitativeVulnerabilitySeverityScore = 'H'
-    elif vulnerabilitySeverityScore >= 20 and vulnerabilitySeverityScore < 80:
-        quantitativeVulnerabilitySeverityScore = 'M'
-    elif vulnerabilitySeverityScore >= 5 and vulnerabilitySeverityScore < 20:
-        quantitativeVulnerabilitySeverityScore = 'L'
-    else:
-        quantitativeVulnerabilitySeverityScore = 'VL'
-        
-    #Calculate Likelihood
-    threat_relevence = ''
-    for e in mycollection.distinct("Threat_Relevence"): #Get threat relevence
-         threat_relevence = e
-
-    likelihood =''
-
-    if impact_score == 0: #Info if impact score is 0
-        likelihood = 'INFO'
-    else: #Map the values of threat relevence and severity score with function and return likelihood
-        likelihood = calculateLikelihood(threat_relevence ,quantitativeVulnerabilitySeverityScore)
-        
-
-    #Calculate Risk
-    impact_level = ''
-    for e in mycollection.distinct("Impact_Level"): #Get Impact Level
-         impact_level = e
-
-    risk = ''
-    if impact_score == 0: #Info if impact score is 0
-        risk = 'INFO'
-    else: #Map the values of likelihood and impact level with function and return the risk
-        risk = calculateRisk(likelihood, impact_level)
-
-    #End of Derived Values
-
-
-    # Start of Finding    
-    for e in mycollection.find():
-        finding_json.append({
-            "id": e['id'], 
-            "hostName": e['Host_Name'],
-            "ip_port" : e['IP_Port'],
-            "description": e['Description'], 
-            "longDescription": e['Long_Description'],
-            "findingStatus" : e['Finding_Status'],
-            "findingType": e['Finding_Type'], 
-            "findingClassification": e['Finding_Classification'],
-            "findingSystem" : e['Finding_System'],
-            "findingTask" : e['Finding_Task'],
-            "findingSubtask": e['Finding_Subtask'], 
-            "relatedFindings": e['Related_Findings'],
-            "findingConfidentiality" : e['Finding_Confidentiality'],
-            "findingIntegrity" : e['Finding_Integrity'],
-            "findingAvailability": e['Finding_Availability'], 
-            "findingAnalyst": e['Finding_Analyst'],
-            "findingCollaborators" : e['Finding_Collaborators'],
-            "findingPosture" : e['Finding_Posture'],
-            "mitigationDesc": e['Mitigation_Desc'], 
-            "mitigationLongDesc": e['Mitigation_Long_Desc'],
-            "threatRelevence" : e['Threat_Relevence'],
-            "countermeasure" : e['Countermeasure'],
-            "impactDesc": e['Impact_Desc'], 
-            "impactLevel": e['Impact_Level'],
-            "severityCategoryScore" :  severityCategoryScore,
-            "vulnerabilityScore" : vulnerabilitySeverityScore,
-            "quantitativeScore": quantitativeVulnerabilitySeverityScore, 
-            "findingRisk": risk,
-            "findingLikelihood" : likelihood,
-            "findingCFIS" : e['Finding_CFIS'],
-            "findingIFIS": e['Finding_IFIS'], 
-            "findingAFIS": e['Finding_AFIS'],
-            "impactScore" : impact_score,
-            "findingFiles": e['Finding_Files'],
-            "severityCategoryCode" : e['Severity_Category_Code'],
-            })
-    return jsonify(finding_json)  # return what was found in the collection
-
-
 @app.route('/addfinding', methods=['POST'])
 def addFindings():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")  # Connect to the DB Client
@@ -466,6 +455,9 @@ def addFindings():
     mycollection = mydb["finding"] 
 
     req = request.get_json()
+
+    #severityCategoryScore = 0 #Derived from Severity Category Code
+    
 
     finding = {
         "id":str(random.randint(1,30)),
@@ -503,7 +495,63 @@ def addFindings():
         "Impact_Score": req['impactScore'],
         "Finding_Files": req['findingFiles'],
         "Severity_Category_Code": req['severityCategoryCode'],
+        "System_ID" : req['systemID'],
+        "Task_ID" : req['taskID'],
+        "Subtask_ID" : req['subtaskID']
+        
     }
+
+    #----START OF DERIVED ATTRIBUTES----#
+    #Calculate Severity Category Score
+    severityCategoryScore = 0
+    severityCategoryCode = finding.get("Severity_Category_Code")
+    severityCategoryScore = calculateSeverityScore(severityCategoryCode)
+    finding.update({"Severity_Score": severityCategoryScore} )
+
+    #Calculate Impact Score
+    findingImpactScore = 0 
+    findingCFIS = finding.get("Finding_CFIS")
+    findingIFIS = finding.get("Finding_IFIS")
+    findingAFIS = finding.get("Finding_AFIS")
+    findingImpactScore = calculateImpactScore(findingCFIS,findingIFIS, findingAFIS)
+    finding.update({"Impact_Score" : findingImpactScore })
+
+    #Calculate Vulerability Severity=
+    vulnerabilitySeverityScore = 0 
+    counterMeasure = finding.get("Countermeasure")
+    vulnerabilitySeverityScore = calculateVulnerabilitySeverity(counterMeasure,findingImpactScore,severityCategoryScore)
+    finding.update({"Vulnerability_Score" : vulnerabilitySeverityScore})
+
+    #Calculate Quantitative Vulnerability Severity
+    QVS = ''
+    QVS = calcualteQuantitativeVulnerabilitySeverity(vulnerabilitySeverityScore)
+    finding.update({"Quantitative_Score" : QVS})
+
+    #Calculate Likelihood
+    threat_relevence = ''
+    threat_relevence = finding.get("Threat_Relevence")
+    likelihood = ''
+
+    if findingImpactScore == 0:
+        likelihood = 'INFO'
+    else:
+        likelihood = calculateLikelihood(threat_relevence,QVS)
+    
+    finding.update({"Finding_Likelihood": likelihood})
+
+    #Calculate Risk
+    impact_level = ''
+    impact_level = finding.get("Impact_Level")
+    risk = ''
+
+    if findingImpactScore == 0:
+        risk = 'INFO'
+    else:
+        risk = calculateRisk(likelihood,impact_level)
+    
+    finding.update({"Finding_Risk": risk})
+    #----END OF DERIVED ATTRIBUTES----#
+
     mycollection.insert_one(finding)  # Send information to collection
     return "OK"
 
@@ -515,9 +563,7 @@ def editFinding():
     finding = []
     
     req = request.get_json()
-    print(req)
     
-
     query = {"id":req["id"]}
 
     finding = {"$set" : {
@@ -555,11 +601,18 @@ def editFinding():
         "Impact_Score": req['impactScore'],
         "Finding_Files": req['findingFiles'],
         "Severity_Category_Code": req['severityCategoryCode'],
+        "System_ID" : req['systemID'],
+        "Task_ID" : req['taskID'],
+        "Subtask_ID" : req['subtaskID']
+        
         }
     }
 
-    print(finding)
+    
     mycollection.update_one(query,finding)
+
+    
+
     
     return jsonify(finding)
 
