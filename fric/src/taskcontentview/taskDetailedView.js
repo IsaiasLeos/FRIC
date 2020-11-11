@@ -14,19 +14,10 @@ import {useState, useEffect} from "react";
         return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
     }
     function TaskDetailedView(props){
-
-        const [subtasks, setSubtasks] = useState([{ subtaskTitle: ''}]);
-        
-        useEffect(() => {
-            fetch('/subtasks').then(
-                response => response.json()).then(data => setSubtasks(data)) // Get info for subtask Table // 
-        }, []);
-
-        
         const [id, setID] = useState(props.task.id);
         const [taskTitle, setTitle] = useState(props.task.taskTitle);
         const [taskDescription, setDescription] = useState(props.task.taskDescription);
-        const [systemInfo, setsystem] = useState(props.task.systemInfo);
+        //const [systemInfo, setsystem] = useState(props.task.systemInfo);
         const [taskPriority, setPriority] = useState(props.task.taskPriority);
         const [taskProgress, setProgress] = useState(props.task.taskProgress);
         const [taskDueDate, setDueDate] = useState(props.task.taskDueDate);
@@ -35,12 +26,33 @@ import {useState, useEffect} from "react";
         const [relatedTasks, setrelatedTasks] = useState(props.task.relatedTasks);
         const [attachments, setattachments] = useState(props.task.attachments);
         const [subtaskID, setSubtaskID] = useState(props.task.subtaskID);
+        const [systemID, setSystemID] = useState(props.task.systemID);
+        //const [taskID, setTaskID] = useState(props.task.taskID);
+        //const [analystID, setAnalystID] = useState(props.task.analystID);
+
+        const [subtasks, setSubtasks] = useState([{ subtaskTitle: ''}]);
+        //const [tasks, setTasks] = useState([{ taskTitle: ''}]);
+        const[systems, setSystems ] = useState([{ sysInfo : ''}])
+
+    
+
+        //Fetch info from subtask
+        useEffect(() => {
+            fetch('/subtasks').then(
+                response => response.json()).then(data => setSubtasks(data))
+        }, []);
+
+        // Fetch info from system
+        useEffect(() => {
+            fetch('/getsystem').then(
+                response => response.json()).then(data => setSystems(data))
+        }, []);
         
         let state = { 
             id: id ? id : '',
             taskTitle: taskTitle ? taskTitle : '', 
             taskDescription: taskDescription ? taskDescription : '', 
-            systemInfo: systemInfo ? systemInfo : '', 
+            //systemInfo: systemInfo ? systemInfo : '', 
             taskPriority: taskPriority ? taskPriority : '', 
             taskProgress: taskProgress ? taskProgress : '', 
             taskDueDate: taskDueDate ? taskDueDate : '', 
@@ -49,6 +61,7 @@ import {useState, useEffect} from "react";
             relatedTasks: relatedTasks ? relatedTasks : '', 
             attachments: attachments ? attachments : '',
             subtaskID: subtaskID ? subtaskID : '',
+            systemID: systemID ? systemID: '',
             numFindings: '',
             analyst:'',
         };
@@ -151,11 +164,15 @@ import {useState, useEffect} from "react";
 
                             <label htmlFor="taskSystem">
                                 System:<br/>
-                                <select name="system" id="system-dropdown" onChange={e => setsystem(e.target.value)} defaultValue={props.task.system}  class="browser-default custom-select mr-3">
+                                {/* <select name="system" id="system-dropdown" onChange={e => setsystem(e.target.value)} defaultValue={props.task.system}  class="browser-default custom-select mr-3"> */}
+                                <select name= "systemID" onChange={e => setSystemID(e.target.value)}  defaultValue={props.task.systemID} class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
-                                    <option value="System1">System1</option>
+                                    {/* <option value="System1">System1</option>
                                     <option value="System2">System2</option>
-                                    <option value="System3">System3</option>
+                                    <option value="System3">System3</option> */}
+                                    {systems.map((system) => (
+                                    <option value={system.id}>{system.sysInfo}</option>
+                                ))}
                                 </select>
                             </label><br/>
 
@@ -176,12 +193,12 @@ import {useState, useEffect} from "react";
 
                             <label htmlFor="taskDueDate">
                                 Due Date:<br/>
-                               <Picker  id="due-date" name="taskDueDate" onChange={e => setDueDate(e.target.value)} input value={props.task.taskDueDate}   class="browser-default custom-select mr-3"/>
+                               <Picker  id="due-date" name="taskDueDate" onChange={e => setDueDate(e.target.value)} input value={props.task.taskDueDate} class="browser-default custom-select mr-3"/>
                             </label><br/>
 
                             <label htmlFor="taskAnalyst">
                                 Analyst:<br/>
-                                <select name="taskAnalyst" id="task-analyst" onChange={e => setAnalysts(e.target.value)} defaultValue={props.task.taskAnalysts}  class="browser-default custom-select mr-3">
+                                <select name="taskAnalyst" id="task-analyst" onChange={e => setAnalysts(e.target.value)} defaultValue={props.task.taskAnalysts} class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
                                     <option value="Alex Vasquez">Alex Vasquez</option>
                                     <option value="Andrew Clanan">Andrew Clanan</option>

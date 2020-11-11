@@ -1,22 +1,21 @@
 import * as React from 'react';
-import './taskView.css';
 import TaskDetailedView from './taskDetailedView';
 import { useEffect, useState} from "react";
 import SortImage from '../assets/updownarrow.png';
-import {Modal, ButtonGroup, Button, Table} from 'react-bootstrap'
-//import ReactTable from 'react-table';
+import {Modal, ButtonGroup, Button, Table} from 'react-bootstrap';
+import './taskView.css';
 
-// Get current information about the date for log purpose
-function getCurrentDate(separator = '') {
-    let newDate = new Date()
-    let day = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
-    let time = newDate.toTimeString()
-    return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
-}
 export default function TaskContentView(props) {
-
+    // Get current information about the date for log purpose
+    function getCurrentDate(separator = '') {
+        let newDate = new Date()
+        let day = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();
+        let time = newDate.toTimeString()
+        return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
+    }
+    //Modal Implementation
     const [selected_task, selectedTask] = useState(); //select a task to send to modal
     const [dialogOpen, handleDialog] = React.useState(false); //control of modal
     
@@ -52,9 +51,8 @@ export default function TaskContentView(props) {
 
     // updates the task data
     useEffect(() => {
-        props.updateData();
-        
-      });
+        props.updateData();   
+    });
     
     //Return displays the task content view 
     return (
@@ -63,9 +61,9 @@ export default function TaskContentView(props) {
                 <div className="title-buttons">                    
                     <h2>Task Overview Table</h2> 
                     <ButtonGroup>
-                        <Button variant="dark">Archive</Button>
-                        <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
-                        <Button variant="dark" >Demote</Button>
+                        <Button variant="dark"> Archive </Button>
+                        <Button variant="dark"> Demote </Button>
+                        <Button variant="dark" onClick={handleDialogOpen}> Add </Button>
                     </ButtonGroup>
                 </div>
                 <Modal show={dialogOpen} onHide={handleDialogClose} dialogClassName="task-modal">

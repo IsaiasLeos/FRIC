@@ -662,12 +662,11 @@ def editSubtask():
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
-    myFindingCollection = mydb["finding"]
-    mySubtaskCollection = mydb["subtask"]
-    task_json = []
-
+    mydb = myclient['FRIC']
+    mycollection = mydb['task']
+    myFindingCollection = mydb['finding']
+    mySubtaskCollection = mydb['subtask']
+    
     findings_json = []
     # Get number of Findings
     for f in myFindingCollection.find():
@@ -682,6 +681,8 @@ def tasks():
             {"subtaskTitle": s["Subtask_Title"], "subtaskDescription": s["Subtask_Description"]})
     num_subtask = len(subtask_json)
 
+    task_json = []
+    # Start of task 
     for e in mycollection.find():
         task_json.append({
                 "id": e['id'],
@@ -697,7 +698,8 @@ def tasks():
                 "attachments": e['Attachments'],
                 "num_subtask": num_subtask,
                 "num_finding": num_finds,
-                "subtaskID": e['Subtask_ID']
+                "subtaskID": e['Subtask_ID'],
+                "systemID" : e['System_ID'],
             })
     return jsonify(task_json)
 
@@ -721,11 +723,11 @@ def addTasks():
         "Related_Tasks": req['relatedTasks'],
         "Attachments": req['attachments'],
         "Num_subtask": 0, "Num_finding": 13,
-        "Progress": "0%",
-        "Subtask_ID": req['subtaskID']
+        "Subtask_ID": req['subtaskID'],
+        "System_ID" : req['systemID'],
     }
     mycollection.insert_one(task) #send info to collection
-    # return "OK"
+    return "OK"
 
 # Function used to edit task 
 @app.route('/edittask',methods=['POST'])
@@ -733,6 +735,7 @@ def editTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["task"]
+
     req = request.get_json()
     query = {"id":req["id"]}
 
@@ -748,8 +751,9 @@ def editTask():
         "Related_Tasks": req['relatedTasks'],
         "Attachments": req['attachments'],
         "Num_subtask": 0, "Num_finding": 13,
-        "Progress": "0%",
-        "Subtask_ID": req['subtaskID']
+        "Subtask_ID": req['subtaskID'],
+        "System_ID" : req['systemID'],
+
     }}
     mycollection.update_one(query, task)
     return jsonify(task)
