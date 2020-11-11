@@ -906,13 +906,15 @@ def addLog():
 
 @app.route("/generatefinalreport", methods=["POST"])
 def generatefinalreport():
-    document = Document()
 
+    document = Document()  # Report Object
+    # Formatting
     TStyle = document.styles["Normal"]
-
+    # Font
     TStyle.font.name = "Calibri (Body)"
-
-    TStyle.font.size = Pt(20)
+    # Font Size
+    TStyle.font.size = Pt(12)
+    # How to add a Picture
     document.add_picture(
         "../src/assets/logo.png",
     )
@@ -923,25 +925,106 @@ def generatefinalreport():
         "Combat Capabilities Development Command (CCDC) Data & Analysis Center (DAC) Enter System Name Enter Event Type (e.g., CVPA, CVI, VoF, etc) Report"
     ).bold = True
 
-    sentence.add_run("by ")
+    # Specify all the analyst in the event.
+    sentence.add_run("by ").bold = True
+    sentence.add_run(
+        "Classified by: Enter Lead Analyst Name\nDerived from: Enter Title of System's Security Classification Guide\nDeclassify on: Enter Declassification Date (e.g., 04/20/2040)"
+    ).bold = True
+    document.add_page_break()
 
+    # Connect to the finding collection
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    analysts = []
-    myAnalystCollection = mydb["event_analyst"]
-    req = request.get_json()
+    mydb = myclient["FRIC"]  # Database name
+    mycollection = mydb["finding"]  # Collection Name
 
-    for a in myAnalystCollection.find({"event_id": req}):
-        analysts.append(
+    finding_json = []
+
+    # Start of Finding
+    for e in mycollection.find():
+        finding_json.append(
             {
-                "analyst": a["analyst"],
-                "event": a["event_id"],
-                "is_lead": a["is_lead"],
-                "progress": calculateProgress(a["analyst"]),
+                "id": e["id"],
+                "hostName": e["Host_Name"],
+                "ip_port": e["IP_Port"],
+                "description": e["Description"],
+                "longDescription": e["Long_Description"],
+                "findingStatus": e["Finding_Status"],
+                "findingType": e["Finding_Type"],
+                "findingClassification": e["Finding_Classification"],
+                "findingSystem": e["Finding_System"],
+                "findingTask": e["Finding_Task"],
+                "findingSubtask": e["Finding_Subtask"],
+                "relatedFindings": e["Related_Findings"],
+                "findingConfidentiality": e["Finding_Confidentiality"],
+                "findingIntegrity": e["Finding_Integrity"],
+                "findingAvailability": e["Finding_Availability"],
+                "findingAnalyst": e["Finding_Analyst"],
+                "findingCollaborators": e["Finding_Collaborators"],
+                "findingPosture": e["Finding_Posture"],
+                "mitigationDesc": e["Mitigation_Desc"],
+                "mitigationLongDesc": e["Mitigation_Long_Desc"],
+                "threatRelevence": e["Threat_Relevence"],
+                "countermeasure": e["Countermeasure"],
+                "impactDesc": e["Impact_Desc"],
+                "impactLevel": e["Impact_Level"],
+                "severityCategoryScore": e["Severity_Score"],
+                "vulnerabilityScore": e["Vulnerability_Score"],
+                "quantitativeScore": e["Quantitative_Score"],
+                "findingRisk": e["Finding_Risk"],
+                "findingLikelihood": e["Finding_Likelihood"],
+                "findingCFIS": e["Finding_CFIS"],
+                "findingIFIS": e["Finding_IFIS"],
+                "findingAFIS": e["Finding_AFIS"],
+                "impactScore": e["Impact_Score"],
+                "findingFiles": e["Finding_Files"],
+                "severityCategoryCode": e["Severity_Category_Code"],
+                "systemID": e["System_ID"],
+                "taskID": e["Task_ID"],
+                "subtaskID": e["Subtask_ID"],
             }
         )
 
-    print(analysts)
+    # Create the tables
+    for x in range(len(finding_json)):
+        tableDescription = document.add_paragraph()
+        finding = finding_json[x]
+        tableDescription.add_run(
+            "Table " + str(x + 1) + " describes the " + finding["description"] + " "
+        )
+        tableDescription.add_run(
+            "\nTable " + str(x + 1) + ". " + finding["description"]
+        ).bold = True
+        table = document.add_table(
+            rows=1, cols=8
+        )  # Specify Rows and Columns for the Table
+        table.autofit = True
+        hdr_cells = table.rows[0].cells
+        hdr_cells[0].text = "ID"
+        hdr_cells[1].text = finding["id"]
+        hdr_cells[3].text = "Impact Score"
+        hdr_cells[4].text = str(finding["impactScore"])
+        hdr_cells[5].text = "Status"
+        hdr_cells[6].text = finding["findingStatus"]
+        hdr_cells[7].text = "Posture"
+        row_cells = table.add_row().cells  # Add Row
+        row_cells[0].text = "Host Names"
+        row_cells[2].text = "IP:Port"
+        row_cells[3].text = "CAT"
+        row_cells[4].text = finding["severityCategoryCode"]
+        row_cells[5].text = "Likelihood"
+        row_cells[6].text = finding["findingLikelihood"]
+        row_cells[7].text = finding["findingPosture"]
+        row_cells = table.add_row().cells  # Add Row
+        row_cells[3].text = "CAT Score"
+        row_cells[4].text = str(finding["severityCategoryScore"])
+        row_cells[5].text = "Impact"
+        row_cells[6].text = finding["impactLevel"]
+        row_cells = table.add_row().cells  # Add Row
+        row_cells[3].text = "VS-Score"
+        row_cells[4].text = str(finding["vulnerabilityScore"])
+        row_cells[5].text = "Risk"
+        row_cells[6].text = finding["findingRisk"]
+        row_cells = table.add_row().cells  # Add Row
 
-    document.save("../src/finalreport.docx")
+    document.save("../src/reports/finalreport.docx")
     return "OK"

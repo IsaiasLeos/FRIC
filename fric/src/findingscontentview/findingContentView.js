@@ -61,7 +61,7 @@ export default function FindingContentView(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: null,
+      body: JSON.stringify(3),
     })
   }
 
@@ -137,7 +137,7 @@ export default function FindingContentView(props) {
              &nbsp;
             <Button variant="dark">Generate Risk Matrix</Button>
             &nbsp;
-            <Button variant="dark" onClick={() => generateFinalReport}>Generate Final Report</Button>
+            <Button variant="dark" onClick={() => generateFinalReport()}>Generate Final Report</Button>
           </ButtonGroup>
         </div>
       </div>
