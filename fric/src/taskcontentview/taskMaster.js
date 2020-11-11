@@ -11,7 +11,7 @@ class TaskMaster extends React.Component {
             id: '',
             taskTitle: '', 
             taskDescription: '', 
-            systemInfo: '', 
+            system: '', 
             taskPriority: '', 
             taskProgress: '', 
             taskDueDate: '', 
@@ -19,8 +19,7 @@ class TaskMaster extends React.Component {
             taskCollaborators: '', 
             relatedTasks: '', 
             attachments: '',
-            subtaskID:'',
-            subtask:''
+            subtaskID:''
         };
 
         this.updateData = this.updateData.bind(this);

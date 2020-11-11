@@ -15,12 +15,14 @@ import {useState, useEffect} from "react";
     }
     function TaskDetailedView(props){
 
-        const [subtasks, setSubtasks] = useState([{ subtaskTitle: '' }]);
+        const [subtasks, setSubtasks] = useState([{ subtaskTitle: ''}]);
+        
         useEffect(() => {
             fetch('/subtasks').then(
                 response => response.json()).then(data => setSubtasks(data)) // Get info for subtask Table // 
         }, []);
 
+        
         const [id, setID] = useState(props.task.id);
         const [taskTitle, setTitle] = useState(props.task.taskTitle);
         const [taskDescription, setDescription] = useState(props.task.taskDescription);
@@ -32,9 +34,7 @@ import {useState, useEffect} from "react";
         const [taskCollaborators, setCollaborators] = useState(props.task.taskCollaborators);
         const [relatedTasks, setrelatedTasks] = useState(props.task.relatedTasks);
         const [attachments, setattachments] = useState(props.task.attachments);
-       
         const [subtaskID, setSubtaskID] = useState(props.task.subtaskID);
-        // const [analystID, setAnalystID] = useState(props.finding.analystID);
         
         let state = { 
             id: id ? id : '',
@@ -51,7 +51,6 @@ import {useState, useEffect} from "react";
             subtaskID: subtaskID ? subtaskID : '',
             numFindings: '',
             analyst:'',
-            subtask:''
         };
         let action = {
             date: "",
@@ -102,7 +101,7 @@ import {useState, useEffect} from "react";
         function closeOnCancel() {
             props.closeDetailAction()
         }
-
+        //send logging information
         function SendLog(e) {
             e.preventDefault();
             action.action = "submit task";
@@ -154,12 +153,9 @@ import {useState, useEffect} from "react";
                                 System:<br/>
                                 <select name="system" id="system-dropdown" onChange={e => setsystem(e.target.value)} defaultValue={props.task.system}  class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
-                                    {/* {props.task.map((task) => (
-                                    <option value={task.systemInfo}>{task.systemInfo}</option>
-                                    ))} */}
-                                    <option value="system1"> System1</option>
-                                    <option value="system2"> System2</option>
-                                    <option value="system3"> System3</option>
+                                    <option value="System1">System1</option>
+                                    <option value="System2">System2</option>
+                                    <option value="System3">System3</option>
                                 </select>
                             </label><br/>
 
@@ -205,14 +201,11 @@ import {useState, useEffect} from "react";
 
                             <label htmlFor="relatedTask">
                                 Related Task:<br/>
-                                <select name="relatedTasks" id="related-task" onChange={e => setrelatedTasks(e.target.value)} defaultValue={props.task.relatedTasks}  class="browser-default custom-select mr-3">
+                                <select name="relatedTasks" id="related-task"  onChange={e => setrelatedTasks(e.target.value)} defaultValue={props.task.relatedTasks}  class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
-                                    {/* {tasks.map((tasks) => (
-                                    <option value={tasks.id}>{tasks.taskTitle}</option>
-                                ))} */}
-                                    <option value="task1">task1</option>
                                     <option value="task2">task2</option>
-                                    <option value="task3">task3</option>
+                                    <option value="task4">task4</option>
+                                    <option value="task6">task6</option>
                                 </select>
                             </label><br/>  
 

@@ -683,7 +683,6 @@ def tasks():
     num_subtask = len(subtask_json)
 
     for e in mycollection.find():
-
         task_json.append({
                 "id": e['id'],
                 "taskTitle": e['Task_title'],
@@ -726,7 +725,7 @@ def addTasks():
         "Subtask_ID": req['subtaskID']
     }
     mycollection.insert_one(task) #send info to collection
-    return "OK"
+    # return "OK"
 
 # Function used to edit task 
 @app.route('/edittask',methods=['POST'])
