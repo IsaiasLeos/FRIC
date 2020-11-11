@@ -65,6 +65,16 @@ export default function FindingContentView(props) {
     })
   }
 
+  function generateRiskMatrix() {
+    fetch('/createRiskMatrix', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(3),
+    })
+  }
+
   useEffect(() => {
     props.updateData();
   });
@@ -135,7 +145,7 @@ export default function FindingContentView(props) {
           <ButtonGroup>
             <Button variant="dark">Generate ERB</Button>
              &nbsp;
-            <Button variant="dark">Generate Risk Matrix</Button>
+            <Button variant="dark" onClick={() => generateRiskMatrix()}>Generate Risk Matrix</Button>
             &nbsp;
             <Button variant="dark" onClick={() => generateFinalReport()}>Generate Final Report</Button>
           </ButtonGroup>
