@@ -21,14 +21,12 @@ export default function TaskContentView(props) {
     
     // Function used to open handle dialog
     function handleDialogOpen(state) {
-        SendLog("Task dialog open");
         handleDialog(true)
         selectedTask(state)
     }
 
     // Function used to close handle dialog
     function handleDialogClose() {
-        SendLog("Task dialog close")
         handleDialog(false)
     }
 
@@ -92,7 +90,7 @@ export default function TaskContentView(props) {
                     </thead>
                     <tbody>
                         {props.data.map((state) => (
-                            <tr id={state.id}>
+                            <tr key={state.id}>
                                 <td><input type="checkbox"/></td>
                                 <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.taskTitle}</Button></td>
                                 <td>{state.system}</td>

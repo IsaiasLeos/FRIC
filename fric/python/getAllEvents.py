@@ -699,7 +699,7 @@ def tasks():
                 "num_subtask": num_subtask,
                 "num_finding": num_finds,
                 "subtaskID": e['Subtask_ID'],
-                "systemID" : e['System_ID'],
+                #"systemID" : e['System_ID'],
             })
     return jsonify(task_json)
 
@@ -724,7 +724,7 @@ def addTasks():
         "Attachments": req['attachments'],
         "Num_subtask": 0, "Num_finding": 13,
         "Subtask_ID": req['subtaskID'],
-        "System_ID" : req['systemID'],
+        #"System_ID" : req['systemID'],
     }
     mycollection.insert_one(task) #send info to collection
     return "OK"
@@ -752,7 +752,7 @@ def editTask():
         "Attachments": req['attachments'],
         "Num_subtask": 0, "Num_finding": 13,
         "Subtask_ID": req['subtaskID'],
-        "System_ID" : req['systemID'],
+        #"System_ID" : req['systemID'],
 
     }}
     mycollection.update_one(query, task)
