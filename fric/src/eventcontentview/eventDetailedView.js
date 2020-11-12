@@ -44,7 +44,8 @@ class eventDetailedView extends React.Component {
             analysts: this.props.analysts, 
             lead_analysts: this.props.lead_analysts,
             analyst:'',
-            is_lead:'Test'
+            is_lead:'',
+            // all_analysts: this.props.lead_analysts.push.apply(this.props.lead_analysts,this.props.analysts)
             }
         this.action = {
             date: "",
@@ -58,6 +59,49 @@ class eventDetailedView extends React.Component {
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
+    //Get that analysts findings and duplicate with the current analysts initials // 
+    onSync = (e) => {
+        var analysts = document.getElementsByClassName("syncwith");
+        var findings = {};
+        for (var i = 0; i < analysts.length; i++) {
+            // console.log(analysts[i].value) // debugging
+
+            fetch('/analystFindings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(analysts[i].value), 
+            }).then(response => response.json())
+                .then(data => {
+                    findings = findings.push(data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+
+          }
+          
+          for (var key in findings){
+            findings["analyst"] = localStorage.getItem('analyst');
+            fetch('/addfinding', { //if finding does not exist, add new one
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({key: findings[key]}),  
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+          }
+
+
+        
+    }
     onSubmitAnalyst = (e) => {
         //If editing and event you can add an analyst, if creating an event the analysts goes to that event // 
         if(document.getElementById("is_lead").checked == true){
@@ -67,8 +111,6 @@ class eventDetailedView extends React.Component {
             this.state.is_lead = "0"; 
             // this.setState({"is_lead": "0"})
         }
-        console.log("IS HE THE LEAD",this.state.is_lead);
-        console.log("Add this id",this.state.id);
         fetch('/addAnalystToEvent', {
             method: 'POST',
             headers: {
@@ -354,7 +396,7 @@ class eventDetailedView extends React.Component {
                 </div>
                 <div className="horizontal-line"></div>
                 <div >
-                    <form >
+                    <form onSubmit = {this.onSync}>
                         <h1>Sync</h1>
 
                         <label htmlFor="email"><b>From:</b></label>
@@ -363,36 +405,32 @@ class eventDetailedView extends React.Component {
                             <option value="b">LS</option>
                             <option value="c">JP</option>
                         </select>
-
-                        <Table bordered>
-                            <thead>
-                            <tr>
-                                <th>Delete</th>
-                                <th>Analysts</th>
-                                <th>IP Address</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                <td>IL</td>
-                                <td>127.0.0.0</td>
-
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                <td>AV</td>
-                                <td>127.0.0.1</td>
-
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" id="cb1" value="event" ></input></td>
-                                <td>JP</td>
-                                <td>127.0.0.2</td>
-
-                            </tr>
-                            </tbody>
-                        </Table>
+                                {/* <h1>{console.log("All bros",this.state.all_analysts)}</h1> */}
+                        <Table>
+                                <thead>
+                                <tr>
+                                    <th>Delete</th>
+                                    <th>analysts</th>
+                                    <th>IP Address</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {this.props.analysts.map((analyst) => (
+                                    <tr key = {analyst.analyst}>
+                                        <td><input type="checkbox" id="cb1" class = "syncwith" value = {analyst.analyst}/></td>
+                                        <td>{analyst.analyst}</td>
+                                        <td>127.0.0.0</td>
+                                    </tr>
+                                ))}
+                                {this.props.lead_analysts.map((analyst) => (
+                                    <tr key = {analyst.analyst}>
+                                        <td><input type="checkbox" id="cb1" class = "syncwith" value = {analyst.analyst}/></td>
+                                        <td>{analyst.analyst}</td>
+                                        <td>127.0.0.0</td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </Table>
 
                         <Button variant="outline-dark" type="submit" class="btn">Sync</Button>
                         <Button variant="outline-dark" class="btn cancel">Close</Button>

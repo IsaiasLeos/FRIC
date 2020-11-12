@@ -59,10 +59,25 @@ class FindingMaster extends React.Component {
 
     async updateData() {
         await this.sleep(1000);
-        fetch('/findings').then(
-            response => response.json()).then(data => this.setState({
-                data: data
-            })).catch(error => console.error(error));
+        // fetch('/analystFindings').then(
+        //     response => response.json()).then(data => this.setState({
+        //         data: data
+        //     })).catch(error => console.error(error));
+
+            fetch('/analystFindings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(localStorage.getItem('analyst')), 
+            }).then(response => response.json())
+                .then(data => {
+                    this.setState({data: data})
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
     }
 
     render() {

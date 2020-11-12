@@ -311,6 +311,64 @@ def editEvent():
 
 # ---------------START OF FINDING API ---------------#
 
+#Get the current analysts findings# 
+@app.route("/analystFindings",methods=["POST"])  # path used in JS to call this
+def analystFindings():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]  # Database name
+    mycollection = mydb["finding"]  # Collection Name
+    req = request.get_json()
+    
+    finding_json = []
+
+    # Start of Finding
+    for e in mycollection.find({"analyst": req}):
+        
+        finding_json.append(
+            {
+                "id": e["id"],
+                "hostName": e["Host_Name"],
+                "ip_port": e["IP_Port"],
+                "description": e["Description"],
+                "longDescription": e["Long_Description"],
+                "findingStatus": e["Finding_Status"],
+                "findingType": e["Finding_Type"],
+                "findingClassification": e["Finding_Classification"],
+                "findingSystem": e["Finding_System"],
+                "findingTask": e["Finding_Task"],
+                "findingSubtask": e["Finding_Subtask"],
+                "relatedFindings": e["Related_Findings"],
+                "findingConfidentiality": e["Finding_Confidentiality"],
+                "findingIntegrity": e["Finding_Integrity"],
+                "findingAvailability": e["Finding_Availability"],
+                "findingAnalyst": e["Finding_Analyst"],
+                "findingCollaborators": e["Finding_Collaborators"],
+                "findingPosture": e["Finding_Posture"],
+                "mitigationDesc": e["Mitigation_Desc"],
+                "mitigationLongDesc": e["Mitigation_Long_Desc"],
+                "threatRelevence": e["Threat_Relevence"],
+                "countermeasure": e["Countermeasure"],
+                "impactDesc": e["Impact_Desc"],
+                "impactLevel": e["Impact_Level"],
+                "severityCategoryScore": e["Severity_Score"],
+                "vulnerabilityScore": e["Vulnerability_Score"],
+                "quantitativeScore": e["Quantitative_Score"],
+                "findingRisk": e["Finding_Risk"],
+                "findingLikelihood": e["Finding_Likelihood"],
+                "findingCFIS": e["Finding_CFIS"],
+                "findingIFIS": e["Finding_IFIS"],
+                "findingAFIS": e["Finding_AFIS"],
+                "impactScore": e["Impact_Score"],
+                "findingFiles": e["Finding_Files"],
+                "severityCategoryCode": e["Severity_Category_Code"],
+                "systemID": e["System_ID"],
+                "taskID": e["Task_ID"],
+                "subtaskID": e["Subtask_ID"],
+            }
+        )
+        
+    return jsonify(finding_json)  # return what was found in the collection
+
 
 @app.route("/findings")  # path used in JS to call this
 def findings():
@@ -361,7 +419,7 @@ def findings():
                 "severityCategoryCode": e["Severity_Category_Code"],
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
-                "subtaskID": e["Subtask_ID"],
+                "subtaskID": e["Subtask_ID"]
             }
         )
     return jsonify(finding_json)  # return what was found in the collection
@@ -580,6 +638,7 @@ def addFindings():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
+        "analyst": req["analyst"]
     }
 
     # ----START OF DERIVED ATTRIBUTES----#
