@@ -962,7 +962,9 @@ def create_Risk_Matrix():
     )  # First row in the worksheet
     for finding in finding_json:  # Appending all of the findings to the worksheet
         ws.append(finding)
-    wb.save("riskMatrix.xlsx")  # Saving the file
+    wb.save("../src/reports/riskMatrix.xlsx")  #Saving the file
+
+
 
 
 @app.route("/generatefinalreport", methods=["POST"])
