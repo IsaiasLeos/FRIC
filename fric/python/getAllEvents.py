@@ -14,10 +14,6 @@ from pptx.chart.data import CategoryChartData
 from pptx.enum.chart import XL_CHART_TYPE 
 
 
-
-
-
-
 app = Flask(__name__)
 #TO:DO 
 # Add analyst
@@ -1258,9 +1254,164 @@ def generateERB():
     findingParagraph.font.size= Pt(30)
 
     #----- END SlIDE 3-----# 
+    
+    #----- START FINDINGS TABLES -----#
+    for x in range(len(finding_json)):
+        finding = finding_json[x]
+        slideFinding= ppt.slides.add_slide(ppt.slide_layouts[5])
+
+        x, y, cx, cy = Inches(0), Inches(2), Inches(10), Inches(4)
+
+        shape = slideFinding.shapes.add_table(10,7,x,y,cx,cy)
+        table = shape.table
+
+        cellID = table.cell(0,0)
+        cellID.text = "ID"
+        cellA = table.cell(0,1)
+        cellA.text = str(finding["id"])
+
+        cellB = table.cell(0,2)
+        cellB.text = "Impact Score"
+        cellC = table.cell(0,3)
+        cellC.text = str(finding['impactScore'])
+
+        cellD = table.cell(0,4)
+        cellD.text = "Status"
+        cellE = table.cell(0,5)
+        cellE.text = str(finding['findingStatus'])
+
+        cellF = table.cell(0,6)
+        cellF.text = 'Posture'
+        cellG = table.cell(1,6)
+        cellG.text = str(finding['findingPosture'])
+        #Row 2
+
+        cellH = table.cell(1,0)
+        cellH.text = "Host Names"
+        cellI= table.cell(1,1)
+        cellI.text = str(finding["hostName"])
+
+        cellJ = table.cell(2,0)
+        cellJ.text = "IP:PORT"
+        cellK = table.cell(2,1)
+        cellK.text = str(finding['ip_port'])
+
+        cellL = table.cell(1,2)
+        cellL.text = "CAT"
+
+        cellM = table.cell(1,3)
+        cellM.text = str(finding['severityCategoryCode'])
+
+        cellN= table.cell(1,4)
+        cellN.text = "Likelihood"
+
+        cellO = table.cell(1,5)
+        cellO.text = str(finding['findingLikelihood'])
+
+        cellP = table.cell(2,2)
+        cellP.text = "CAT Score"
+
+        cellq = table.cell(2,3)
+        cellq.text = str(finding['severityCategoryScore'])
+
+        cellR = table.cell(2,4)
+        cellR.text = "Impact"
+
+        cellS = table.cell(2,5)
+        cellS.text = str(finding['impactLevel'])
+
+        cellT = table.cell(3,0)
+        cellT.text = 'Vs Score'
+
+        cellU = table.cell(3,1)
+        cellU.text = str(finding['vulnerabilityScore'])
+
+        cellV = table.cell(3,2)
+        cellV.text = "Risk"
+
+        cellW = table.cell(3,3)
+        cellW.text = str(finding['findingRisk'])
+
+        cellX = table.cell(3,4)
+        cellX.text = "Vs"
+
+        cellY = table.cell(3,5)
+        cellY.text = str(finding['vulnerabilityScore'])
+
+        cellZ = table.cell(4,0)
+        cellZ.text = 'CM'
+
+        cellA1 = table.cell(4,1)
+        cellA1.text = str(finding['countermeasure'])
+
+        cellA2 = table.cell(4,2)
+        cellA2.text = 'C:'
+
+        cellA3 = table.cell(4,3)
+        cellA3.text = str(finding['findingCFIS'])
+
+        cellA4 = table.cell(4,4)
+        cellA4.text = 'I:'
+
+        cellA5 = table.cell(4,5)
+        cellA5.text = str(finding['findingIFIS'])
+
+        cellA6 = table.cell(5,0)
+        cellA6.text = 'A:'
+
+        cellA7 = table.cell(5,1)
+        cellA7.text = str(finding['findingAFIS'])
+
+        cellA8 = table.cell(5,2)
+        cellA8.text = 'Impact Rationale'
+
+        cellA9 = table.cell(5,3)
+        cellA9.text = str(finding['impactDesc'])
+
+        cellA10= table.cell(5,4)
+        cellA10.text = 'Finding Type'
+
+        cellA11 = table.cell(5,5)
+        cellA11.text = str(finding['findingType'])
+
+        cellA12 = table.cell(6,0)
+        cellA12.text = 'Description'
+
+        cellA13 = table.cell(6,1)
+        cellA13.text = str(finding['longDescription'])
+
+        cellA14 = table.cell(7,0)
+        cellA14.text = 'Mitigation'
+
+        cellA15 = table.cell(7,1)
+        cellA15.text = str(finding['mitigationLongDesc'])
+
+        #Add image
+        left = Inches(.5)
+        top = Inches(0)    
+        height = Inches(1)  
+        pic = slideFinding.shapes.add_picture(img_path, left, top, height = height)
+
+        left = Inches(8)
+        top = Inches(0)    
+        height = Inches(1.4)  
+        pic = slideFinding.shapes.add_picture(img_path2, left, top, height = height)
+
+        left= Inches(0)
+        top = Inches(1)
+        height = Inches(1) 
+        width = Inches(6)
+        findingTxtBox = slideFinding.shapes.add_textbox(left,top ,width,height)
+
+        findingTf = findingTxtBox.text_frame
+        findingTf.text = ""
+
+        findingParagraph = findingTf.add_paragraph()
+        findingParagraph.text = ("Finding-"+ finding['hostName'])
+        findingParagraph.font.size= Pt(30)
+
 
     #-----START HISTROGRAM SLIDE-----#
-
 
     slideHisto = ppt.slides.add_slide(ppt.slide_layouts[5])
 
