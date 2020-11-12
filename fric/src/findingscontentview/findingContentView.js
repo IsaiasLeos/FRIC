@@ -75,6 +75,16 @@ export default function FindingContentView(props) {
     })
   }
 
+  function generateERB() {
+    fetch('/generateERB', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(3),
+    })
+  }
+
   useEffect(() => {
     props.updateData();
   });
@@ -143,7 +153,7 @@ export default function FindingContentView(props) {
             </Table>
           </div>
           <ButtonGroup>
-            <Button variant="dark">Generate ERB</Button>
+            <Button variant="dark" onClick={() => generateERB() }>Generate ERB</Button>
              &nbsp;
             <Button variant="dark" onClick={() => generateRiskMatrix()}>Generate Risk Matrix</Button>
             &nbsp;
