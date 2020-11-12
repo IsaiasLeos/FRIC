@@ -61,7 +61,7 @@ export default function FindingContentView(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(3),
+      body: null,
     })
   }
 

@@ -1650,7 +1650,7 @@ def generatefinalreport():
         row_cells[0].text = "Host Names"
         row_cells[2].text = "IP:Port"
         row_cells[3].text = "CAT"
-        row_cells[4].text = finding["severityCategoryCode"]
+        row_cells[4].text = str(finding["severityCategoryCode"])
         row_cells[5].text = "Likelihood"
         row_cells[6].text = finding["findingLikelihood"]
         row_cells[7].text = finding["findingPosture"]
