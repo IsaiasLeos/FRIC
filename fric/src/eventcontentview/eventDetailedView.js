@@ -41,10 +41,11 @@ class eventDetailedView extends React.Component {
             declass_date: this.props.event.declass_date ? this.props.event.declass_date : '', 
             customer_name:this.props.event.customer ? this.props.event.customer_name : '',
             created_by:this.props.event.created_by ? this.props.event.created_by: '',
-            analysts: this.props.analysts
-            
+            analysts: this.props.analysts, 
+            lead_analysts: this.props.lead_analysts,
+            analyst:'',
+            is_lead:'Test'
             }
-              
         this.action = {
             date: "",
             action: "",
@@ -57,7 +58,32 @@ class eventDetailedView extends React.Component {
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
+    onSubmitAnalyst = (e) => {
+        //If editing and event you can add an analyst, if creating an event the analysts goes to that event // 
+        if(document.getElementById("is_lead").checked == true){
+            this.state.is_lead = "1"; 
+            // this.setState({"is_lead": "1"})
+        }else{
+            this.state.is_lead = "0"; 
+            // this.setState({"is_lead": "0"})
+        }
+        console.log("IS HE THE LEAD",this.state.is_lead);
+        console.log("Add this id",this.state.id);
+        fetch('/addAnalystToEvent', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state), 
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
 
+    }
     // Handle "Sync" Button // 
     onSubmitEvent = (e) => {
         // console.log("Submit Event", this.state); //Debugging
@@ -244,11 +270,11 @@ class eventDetailedView extends React.Component {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {this.props.analysts.map((analyst) => (
-                                    <tr key = {analyst.analyst}>
+                                {this.props.lead_analysts.map((lead_analyst) => (
+                                    <tr key = {lead_analyst.analyst}>
                                         <td><input type="checkbox" id="cb1" /></td>
-                                        <td>{analyst.is_lead == "1" ? analyst.analyst : null}</td>
-                                        <td>{analyst.is_lead == "1" ? analyst.progress: null}%</td>
+                                        <td>{lead_analyst.analyst}</td>
+                                        <td>{lead_analyst.progress}%</td>
                                     </tr>
                                 ))}
                                 </tbody>
@@ -291,33 +317,33 @@ class eventDetailedView extends React.Component {
                         </div>
                     </div>
                     <div class="analyst-data">
-                        <form action="">
+                        <form onSubmit={this.onSubmitAnalyst}>
                             <h2>Add/Edit</h2>
                             <div className="analyst-fields">
                                 <label htmlFor="leadAnalyst">
-                                    <input type="checkbox" />
-                                    Lead Analysts <br />
+                                    <input id = "is_lead" name = "is_lead" type="checkbox" />
+                                    Lead Analyst<br />
                                 </label>
 
                                 <label htmlFor="email">
                                     First Name:<br />
-                                    <input type="text" placeholder="" name="fname" required></input>
+                                    <input type="text" placeholder="" name="first_name" onChange={this.onChange} required></input>
                                 </label>
                                 <label htmlFor="psw">
                                     Last Name:<br />
-                                    <input type="text" placeholder="" name="lname" required></input>
+                                    <input type="text" placeholder="" name="last_name"  onChange={this.onChange}required></input>
                                 </label>
 
 
                                 <label htmlFor="email">
                                     Initial:<br />
-                                    <input type="text" placeholder="" name="initial" required></input>
+                                    <input type="text" placeholder="" name="analyst" onChange={this.onChange} required></input>
                                 </label>
 
 
                                 <label htmlFor="psw">
                                     Title:<br />
-                                    <input type="text" placeholder="" name="title" required></input>
+                                    <input type="text" placeholder="" name="title" onChange={this.onChange} required></input>
                                 </label>
                             </div>
 

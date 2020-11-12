@@ -33,6 +33,7 @@ function EventContentView() {
 
     const [selected_event, selectEvent] = useState(); // Set selected event 
     const [analysts,setAnalysts] = useState([]); 
+    const [lead_analysts,setLeadAnalysts] = useState([]); 
 
      function getAnalysts(event_id){    
         // console.log("Fetching analysts for event #", event_id) // Debugging
@@ -50,6 +51,22 @@ function EventContentView() {
             .catch(error => {
                 console.error('Error', error)
             });
+
+            //Fetch Lead analysts//
+            fetch('/leadAnalystsInEvent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(event_id), //Pass event ID to select event// 
+            }).then(response => response.json())
+                .then(data => {
+                    setLeadAnalysts(data)
+                    // console.log("Success");
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
     }
 
     // After event is chosen make it the selected event and the show modal // 
@@ -131,11 +148,11 @@ function EventContentView() {
                 <Modal show={show} onHide={handleClose} dialogClassName="event-modal" size="xl">
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Event Detailed View {/*console.log("Analysts For event",analysts)*/}
+                            Event Detailed View {console.log("Event",selected_event)}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <EventDetailedView event={selected_event} analysts = {analysts}/>
+                        <EventDetailedView event={selected_event} lead_analysts = {lead_analysts} analysts = {analysts}/>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="dark" onClick={handleClose}>

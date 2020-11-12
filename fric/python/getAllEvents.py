@@ -8,6 +8,18 @@ app = Flask(__name__)
 #TO:DO 
 # Add analyst
 # Dont allow empty events
+@app.route('/addAnalystToEvent',methods=['POST'])
+def addAnalyst():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    myAnalystCollection = mydb["event_analyst"]
+    req = request.get_json()
+
+    analyst = {"event_id":req["id"], "analyst": req["analyst"], "is_lead": req["is_lead"]}
+    myAnalystCollection.insert_one(analyst) 
+
+    return "OK"
+
 
 
 #Given Analyst return progress # tasks completed / # of tasks 
@@ -25,7 +37,7 @@ def calculateProgress(analyst):
     return progress / len(tasks) 
     
 
-# Given event, return analsysts from that event # 
+# Given event, return analysts from that event # 
 @app.route('/analystsInEvent',methods=['POST'])
 def analystList():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -33,8 +45,23 @@ def analystList():
     analysts = []
     myAnalystCollection = mydb["event_analyst"]
     req = request.get_json()
-    for a in myAnalystCollection.find({"event_id": req}):  
-        analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
+    for a in myAnalystCollection.find({"event_id": req}):
+        if a["is_lead"] == "0":
+            analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
+    
+    return jsonify(analysts)
+
+# Given event, return lead analysts from that event # 
+@app.route('/leadAnalystsInEvent',methods=['POST'])
+def leadAnalystList():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    analysts = []
+    myAnalystCollection = mydb["event_analyst"]
+    req = request.get_json()
+    for a in myAnalystCollection.find({"event_id": req}):
+        if a["is_lead"] == "1":
+            analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
     
     return jsonify(analysts)
 
