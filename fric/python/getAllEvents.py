@@ -3,6 +3,7 @@ import pymongo
 import random
 import docx
 import openpyxl
+from openpyxl.styles import PatternFill 
 from flask import Flask, jsonify, request, make_response
 from docx import Document
 from docx.shared import Inches, Pt
@@ -918,6 +919,9 @@ def create_Risk_Matrix():
     ws.append(("IP:PORT","DESCRIPTION", "STATUS", "TYPE",  "POSTURE", "C","I","A", "IMP. SCORE", "CAT", "CAT SCORE", "CM", "VS(n)", "VS(q)" , "RELEVANCE OF THREAT", "LIKELIHOOD", "IMPACT", "RISK"))   #First row in the worksheet
     for finding in finding_json:        #Appending all of the findings to the worksheet
         ws.append(finding)
+    for rows in ws.iter_rows(min_row=1, max_row=1, min_col=1):
+        for cell in rows:
+            cell.fill = PatternFill(bgColor="c6d9f0", patternType="gray0625")
     wb.save("../src/reports/riskMatrix.xlsx")  #Saving the file
 
 
