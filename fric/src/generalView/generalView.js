@@ -3,15 +3,58 @@ import '../generalView/style.css'
 import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
 import Modal from 'react-bootstrap/Modal'
-import { useState } from "react"
+import { useState, useEffect, useRef} from "react"
 import Button from 'react-bootstrap/Button'
+
 function GeneralView() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    // Handles modal pop
     function viewNote() {
         handleShow();
     }
+    //TImer is currently going every 1 min on refresh : use if the input implementation doesn't work
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //       viewNote();
+    //       return () => clearTimeout(timer);
+    //     }, (1000 * 60) );
+    //   }, []);
+   
+    //Timer implementation  to get user input
+    // const [delay, setDelay] = useState(1000);
+
+    // useInterval(() => {
+    //     // Your custom logic here
+    // }, delay);
+
+    // function handleDelayChange(e) {
+    //     setDelay(Number(e.target.value));
+    // }
+    
+    // //Custom hook to set and clear delay
+    // function useInterval(callback, delay) {
+    //     const savedCallback = useRef();
+      
+    //     // Remember the latest function.
+    //     useEffect(() => {
+    //       savedCallback.current = callback;
+    //     }, [callback]);
+      
+    //     // Set up the interval.
+    //     useEffect(() => {
+    //       if (delay !== null) {
+    //         let id = setInterval(delay);
+    //         return () => clearInterval(id);
+    //       }
+    //     }, [delay]);
+    //   }
+
+    
+    
+
     return (
         <div>
             <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -88,6 +131,11 @@ function GeneralView() {
                             SubTask Due Date:<br />
                             <input type="text" name="subtask-Due-Date" value="11/10/2020" />
                         </label><br />
+
+                        <label htmlFor="frequency">
+                                Frequency:<br/>
+                                {/* <input value={delay} onChange={handleDelayChange} placeholder="frequency in min" /> */}       
+                        </label><br/>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

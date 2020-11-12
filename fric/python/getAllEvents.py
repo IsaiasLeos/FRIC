@@ -15,18 +15,22 @@ from pptx.enum.chart import XL_CHART_TYPE
 
 
 app = Flask(__name__)
-# TO:DO Dont allow empty event variables
+#TO:DO 
+# Add analyst
+# Dont allow empty events
+@app.route('/addAnalystToEvent',methods=['POST'])
+def addAnalyst():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    myAnalystCollection = mydb["event_analyst"]
+    req = request.get_json()
 
-# @app.route('/analystInEvent', methods=['POST'])
-# def analystList():
-#     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-#     mydb = myclient["FRIC"]
-#     analysts = []
-#     myAnalystCollection = mydb["event_analyst"]
-#     req = request.get_json()
-#     for a in myAnalystCollection.find({"event_id":req["event_id"]}):
-#         analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
-#     return jsonify(analysts)
+    analyst = {"event_id":req["id"], "analyst": req["analyst"], "is_lead": req["is_lead"]}
+    myAnalystCollection.insert_one(analyst) 
+
+    return "OK"
+
+
 
 # Given Analyst return progress # tasks completed / # of tasks
 def calculateProgress(analyst):
@@ -43,8 +47,8 @@ def calculateProgress(analyst):
     return progress / len(tasks)
 
 
-# Given event, return analsysts from that event #
-@app.route("/analystsInEvent", methods=["POST"])
+# Given event, return analysts from that event # 
+@app.route('/analystsInEvent',methods=['POST'])
 def analystList():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -52,15 +56,23 @@ def analystList():
     myAnalystCollection = mydb["event_analyst"]
     req = request.get_json()
     for a in myAnalystCollection.find({"event_id": req}):
-        analysts.append(
-            {
-                "analyst": a["analyst"],
-                "event": a["event_id"],
-                "is_lead": a["is_lead"],
-                "progress": calculateProgress(a["analyst"]),
-            }
-        )
+        if a["is_lead"] == "0":
+            analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
+    
+    return jsonify(analysts)
 
+# Given event, return lead analysts from that event # 
+@app.route('/leadAnalystsInEvent',methods=['POST'])
+def leadAnalystList():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    analysts = []
+    myAnalystCollection = mydb["event_analyst"]
+    req = request.get_json()
+    for a in myAnalystCollection.find({"event_id": req}):
+        if a["is_lead"] == "1":
+            analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
+    
     return jsonify(analysts)
 
 
@@ -76,8 +88,8 @@ def analysts():
         analysts.append({"isLead": a["isLead"], "initials": a["initials"]})
     return jsonify(analysts)
 
-
-@app.route("/eventsOverview")
+#Return All events
+@app.route('/eventsOverview')
 def eventsOverview():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -785,12 +797,11 @@ def editSubtask():
 @app.route("/tasks")
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
-    myFindingCollection = mydb["finding"]
-    mySubtaskCollection = mydb["subtask"]
-    task_json = []
-
+    mydb = myclient['FRIC']
+    mycollection = mydb['task']
+    myFindingCollection = mydb['finding']
+    mySubtaskCollection = mydb['subtask']
+    
     findings_json = []
     # Get number of Findings
     for f in myFindingCollection.find():
@@ -808,6 +819,8 @@ def tasks():
         )
     num_subtask = len(subtask_json)
 
+    task_json = []
+    # Start of task 
     for e in mycollection.find():
 
         task_json.append(
@@ -865,6 +878,7 @@ def editTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["task"]
+
     req = request.get_json()
     query = {"id": req["id"]}
 
