@@ -10,7 +10,6 @@ from datetime import date
 
 
 app = Flask(__name__)
-# TO:DO Dont allow empty event variables
 
 # @app.route('/analystInEvent', methods=['POST'])
 # def analystList():
@@ -22,6 +21,10 @@ app = Flask(__name__)
 #     for a in myAnalystCollection.find({"event_id":req["event_id"]}):
 #         analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
 #     return jsonify(analysts)
+# TO:DO 
+# Add analyst
+# Dont allow empty events
+
 
 # Given Analyst return progress # tasks completed / # of tasks
 def calculateProgress(analyst):
@@ -71,8 +74,8 @@ def analysts():
         analysts.append({"isLead": a["isLead"], "initials": a["initials"]})
     return jsonify(analysts)
 
-
-@app.route("/eventsOverview")
+#Return All events
+@app.route('/eventsOverview')
 def eventsOverview():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
