@@ -497,8 +497,8 @@ class configurationContentView extends React.Component {
                             <tbody>
                                 <tr>
                                     <td> Task2</td>
-                                    <td> 2 weeks</td>
-                                    <td> 2 times a day</td> 
+                                    <td> 1 day </td>
+                                    <td> 2 min</td> 
                                     <td> <Button type="submit" className="btn" variant="outline-dark" > Submit </Button> </td>
                                 </tr>
                             </tbody>

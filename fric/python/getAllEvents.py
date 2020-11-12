@@ -784,7 +784,6 @@ def tasks():
     mycollection = mydb["task"]
     myFindingCollection = mydb["finding"]
     mySubtaskCollection = mydb["subtask"]
-    task_json = []
 
     findings_json = []
     # Get number of Findings
@@ -803,8 +802,9 @@ def tasks():
         )
     num_subtask = len(subtask_json)
 
+    task_json = []
+    # Start of task
     for e in mycollection.find():
-
         task_json.append(
             {
                 "id": e["id"],
@@ -820,7 +820,8 @@ def tasks():
                 "attachments": e["Attachments"],
                 "num_subtask": num_subtask,
                 "num_finding": num_finds,
-                "subtaskID": e["SubTask_ID"],
+                "subtaskID": e["Subtask_ID"],
+                "systemID": e["System_ID"],
             }
         )
     return jsonify(task_json)
@@ -847,8 +848,8 @@ def addTasks():
         "Attachments": req["attachments"],
         "Num_subtask": 0,
         "Num_finding": 13,
-        "Progress": "0%",
-        "SubTask_ID": req["subtaskID"],
+        "Subtask_ID": req["subtaskID"],
+        "System_ID": req["systemID"],
     }
     mycollection.insert_one(task)  # send info to collection
     return "OK"
@@ -860,6 +861,7 @@ def editTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["task"]
+
     req = request.get_json()
     query = {"id": req["id"]}
 
@@ -877,8 +879,8 @@ def editTask():
             "Attachments": req["attachments"],
             "Num_subtask": 0,
             "Num_finding": 13,
-            "Progress": "0%",
-            "SubTask_ID": req["subtaskID"],
+            "Subtask_ID": req["subtaskID"],
+            "System_ID": req["systemID"],
         }
     }
     mycollection.update_one(query, task)
@@ -903,24 +905,64 @@ def addLog():
     mycollection.insert_one(log)
     return "OK"
 
-@app.route('/createRiskMatrix', methods=['POST'])
+
+@app.route("/createRiskMatrix", methods=["POST"])
 def create_Risk_Matrix():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient['FRIC']
-    myFindingCollection = mydb['finding']
+    mydb = myclient["FRIC"]
+    myFindingCollection = mydb["finding"]
     finding_json = []
-    for f in myFindingCollection.find():    #Getting the findings in the db
+    for f in myFindingCollection.find():  # Getting the findings in the db
         finding_json.append(
-            (f["IP_Port"], f["Description"], f["Finding_Status"], f["Finding_Type"], f["Finding_Posture"], f["Finding_Confidentiality"], f["Finding_Integrity"], f["Finding_Availability"], f["Impact_Score"], f["Severity_Category_Code"], f["Severity_Score"], f["Countermeasure"], f["Vulnerability_Score"], f["Quantitative_Score"], f["Threat_Relevence"], f["Finding_Likelihood"], f["Impact_Level"], f["Finding_Risk"] ))
-    wb = openpyxl.Workbook()    #Opening the workbook
+            (
+                f["IP_Port"],
+                f["Description"],
+                f["Finding_Status"],
+                f["Finding_Type"],
+                f["Finding_Posture"],
+                f["Finding_Confidentiality"],
+                f["Finding_Integrity"],
+                f["Finding_Availability"],
+                f["Impact_Score"],
+                f["Severity_Category_Code"],
+                f["Severity_Score"],
+                f["Countermeasure"],
+                f["Vulnerability_Score"],
+                f["Quantitative_Score"],
+                f["Threat_Relevence"],
+                f["Finding_Likelihood"],
+                f["Impact_Level"],
+                f["Finding_Risk"],
+            )
+        )
+    wb = openpyxl.Workbook()  # Opening the workbook
     ws = wb.active  # Worksheet object
-    ws.title = "risk_matrix"    # Changing the title of the worksheet
-    ws.append(("IP:PORT","DESCRIPTION", "STATUS", "TYPE",  "POSTURE", "C","I","A", "IMP. SCORE", "CAT", "CAT SCORE", "CM", "VS(n)", "VS(q)" , "RELEVANCE OF THREAT", "LIKELIHOOD", "IMPACT", "RISK"))   #First row in the worksheet
-    for finding in finding_json:        #Appending all of the findings to the worksheet
+    ws.title = "risk_matrix"  # Changing the title of the worksheet
+    ws.append(
+        (
+            "IP:PORT",
+            "DESCRIPTION",
+            "STATUS",
+            "TYPE",
+            "POSTURE",
+            "C",
+            "I",
+            "A",
+            "IMP. SCORE",
+            "CAT",
+            "CAT SCORE",
+            "CM",
+            "VS(n)",
+            "VS(q)",
+            "RELEVANCE OF THREAT",
+            "LIKELIHOOD",
+            "IMPACT",
+            "RISK",
+        )
+    )  # First row in the worksheet
+    for finding in finding_json:  # Appending all of the findings to the worksheet
         ws.append(finding)
-    wb.save("riskMatrix.xlsx")  #Saving the file
-
-
+    wb.save("riskMatrix.xlsx")  # Saving the file
 
 
 @app.route("/generatefinalreport", methods=["POST"])
