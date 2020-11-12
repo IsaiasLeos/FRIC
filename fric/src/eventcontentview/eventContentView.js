@@ -148,7 +148,7 @@ function EventContentView() {
                 <Modal show={show} onHide={handleClose} dialogClassName="event-modal" size="xl">
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Event Detailed View {console.log("Event",selected_event)}
+                            Event Detailed View {console.log("Leads",lead_analysts)}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
