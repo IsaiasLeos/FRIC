@@ -462,7 +462,11 @@ def calculateImpactScore(CFIS, IFIS, AFIS):
         "XXX": 0,
     }
 
-    impact_score = systemlevelQuantitative.get(findingSystemLevel)
+    if systemlevelQuantitative.get(findingSystemLevel) == None:
+        impact_score == 0
+    else:
+        impact_score = systemlevelQuantitative.get(findingSystemLevel)
+        
     return impact_score
 
 
