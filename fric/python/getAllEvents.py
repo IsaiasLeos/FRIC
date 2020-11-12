@@ -918,7 +918,7 @@ def create_Risk_Matrix():
     ws.append(("IP:PORT","DESCRIPTION", "STATUS", "TYPE",  "POSTURE", "C","I","A", "IMP. SCORE", "CAT", "CAT SCORE", "CM", "VS(n)", "VS(q)" , "RELEVANCE OF THREAT", "LIKELIHOOD", "IMPACT", "RISK"))   #First row in the worksheet
     for finding in finding_json:        #Appending all of the findings to the worksheet
         ws.append(finding)
-    wb.save("riskMatrix.xlsx")  #Saving the file
+    wb.save("../src/reports/riskMatrix.xlsx")  #Saving the file
 
 
 
