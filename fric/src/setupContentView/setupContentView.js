@@ -48,19 +48,23 @@ import Button from 'react-bootstrap/Button';
         });
 
         // Add a new event // 
-      fetch('/addevent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.state), 
-        }).then(response => response.json())
-        .then(data => {
-          console.log("Success", data);
-        })
-        .catch(error => {
-          console.error('Error', error)
-        });
+        if(this.state[0] == null){ // Check if there are no events
+          fetch('/addevent', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state), 
+            }).then(response => response.json())
+            .then(data => {
+              console.log("Success", data);
+            })
+            .catch(error => {
+              console.error('Error', error)
+            });
+
+        }
+    
   
     }
     //Checks for avaiable events in the DB 

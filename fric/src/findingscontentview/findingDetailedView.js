@@ -70,7 +70,7 @@ function FindingDetailedView(props) {
     const [systemID, setSystemID] = useState(props.finding.systemID);
     const [taskID, setTaskID] = useState(props.finding.taskID);
     const [subtaskID, setSubtaskID] = useState(props.finding.subtaskID);
-    const [analystID, setAnalystID] = useState(props.finding.analystID);
+    const [analyst, setAnalyst] = useState(props.finding.analyst);
     
     
     const [severityCategoryCode, setSeverityCategoryCode] = useState(props.finding.severityCategoryScore);
@@ -115,6 +115,7 @@ function FindingDetailedView(props) {
         systemID: systemID ? systemID: '',
         taskID: taskID ? taskID: '',
         subtaskID: subtaskID ? subtaskID: '',
+        analyst: ''
     };
 
     let action = { //used for logging actions on page
@@ -129,7 +130,7 @@ function FindingDetailedView(props) {
         e.preventDefault();
 
         if(props.finding.id == undefined){ //Checking if the finding exists
-             
+            state.analyst = localStorage.getItem('analyst'); 
             fetch('/addfinding', { //if finding does not exist, add new one
                 method: 'POST',
                 headers: {
