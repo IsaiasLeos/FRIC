@@ -9,8 +9,14 @@ import './eventView.css';
 import DatePicker from "react-datepicker";   // Need to udate npm install: npm install react-datepicker --save
 import "react-datepicker/dist/react-datepicker.css"; // For calendar function
 import { useState} from "react";//For calendar use
+//TO:DO
+/*
+Add analyst to event
+Empty analyst row, seperate lists for lead and not lead 
+Synching
+Archiving
+*/
 
-//Note: Check state vars maybe not all of them are needed // Use props only // 
 function getCurrentDate(separator = '') {
     let newDate = new Date()
     let day = newDate.getDate();

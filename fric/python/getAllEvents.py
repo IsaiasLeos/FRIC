@@ -5,18 +5,10 @@ from flask import Flask, jsonify, request, make_response
 
 
 app = Flask(__name__)
-#TO:DO Dont allow empty event variables
+#TO:DO 
+# Add analyst
+# Dont allow empty events
 
-# @app.route('/analystInEvent', methods=['POST'])
-# def analystList():
-#     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-#     mydb = myclient["FRIC"]
-#     analysts = []
-#     myAnalystCollection = mydb["event_analyst"]
-#     req = request.get_json()
-#     for a in myAnalystCollection.find({"event_id":req["event_id"]}):
-#         analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
-#     return jsonify(analysts)
 
 #Given Analyst return progress # tasks completed / # of tasks 
 def calculateProgress(analyst): 
@@ -59,6 +51,7 @@ def analysts():
         analysts.append({"isLead": a["isLead"],"initials":a["initials"]})
     return jsonify(analysts)
 
+#Return All events
 @app.route('/eventsOverview')
 def eventsOverview():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
