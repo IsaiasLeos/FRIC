@@ -3,10 +3,15 @@ import pymongo
 import random
 import docx
 import openpyxl
+import pptx
 from flask import Flask, jsonify, request, make_response
 from docx import Document
 from docx.shared import Inches, Pt
 from datetime import date
+from pptx import Presentation
+from datetime import date
+
+
 
 
 app = Flask(__name__)
@@ -919,6 +924,289 @@ def create_Risk_Matrix():
     for finding in finding_json:        #Appending all of the findings to the worksheet
         ws.append(finding)
     wb.save("riskMatrix.xlsx")  #Saving the file
+
+@app.route("/generateERB" , methods=["POST"])
+def generateERB():
+    
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    myEventCollection = mydb["event"]
+    mySystemCollection = mydb["system"]
+    myFindingCollection = mydb["finding"]
+    
+    events_json = []
+    system_json = []
+    finding_json = []
+
+    # Start of Finding
+    for e in myFindingCollection.find():
+        finding_json.append(
+            {
+                "id": e["id"],
+                "hostName": e["Host_Name"],
+                "ip_port": e["IP_Port"],
+                "description": e["Description"],
+                "longDescription": e["Long_Description"],
+                "findingStatus": e["Finding_Status"],
+                "findingType": e["Finding_Type"],
+                "findingClassification": e["Finding_Classification"],
+                "findingSystem": e["Finding_System"],
+                "findingTask": e["Finding_Task"],
+                "findingSubtask": e["Finding_Subtask"],
+                "relatedFindings": e["Related_Findings"],
+                "findingConfidentiality": e["Finding_Confidentiality"],
+                "findingIntegrity": e["Finding_Integrity"],
+                "findingAvailability": e["Finding_Availability"],
+                "findingAnalyst": e["Finding_Analyst"],
+                "findingCollaborators": e["Finding_Collaborators"],
+                "findingPosture": e["Finding_Posture"],
+                "mitigationDesc": e["Mitigation_Desc"],
+                "mitigationLongDesc": e["Mitigation_Long_Desc"],
+                "threatRelevence": e["Threat_Relevence"],
+                "countermeasure": e["Countermeasure"],
+                "impactDesc": e["Impact_Desc"],
+                "impactLevel": e["Impact_Level"],
+                "severityCategoryScore": e["Severity_Score"],
+                "vulnerabilityScore": e["Vulnerability_Score"],
+                "quantitativeScore": e["Quantitative_Score"],
+                "findingRisk": e["Finding_Risk"],
+                "findingLikelihood": e["Finding_Likelihood"],
+                "findingCFIS": e["Finding_CFIS"],
+                "findingIFIS": e["Finding_IFIS"],
+                "findingAFIS": e["Finding_AFIS"],
+                "impactScore": e["Impact_Score"],
+                "findingFiles": e["Finding_Files"],
+                "severityCategoryCode": e["Severity_Category_Code"],
+                "systemID": e["System_ID"],
+                "taskID": e["Task_ID"],
+                "subtaskID": e["Subtask_ID"],
+            }
+        )
+   
+    for e in myEventCollection.find():
+
+        events_json.append(
+            {
+            
+                "name": e["Event_name"],
+                
+            }
+        )
+
+    eventName = '' #Hold Event Name
+    for x in range(len(events_json)): #Get the name of the event 
+        event = events_json[x]
+        eventName = event["name"]
+
+    for e in mySystemCollection.find():
+        system_json.append(
+            {
+                "sysInfo": e["System_Info"],
+                
+            }
+        )
+
+    ppt = Presentation()
+    
+    img_path = "../src/assets/logo.png"
+    img_path2= "../src/assets/armyLogo.png"
+
+
+    blank_slide_layout = ppt.slide_layouts[6]  
+    
+    # Attaching slide to ppt 
+    slide = ppt.slides.add_slide(blank_slide_layout)  
+    
+    # For margins 
+    left = Inches(.5)
+    top = Inches(0)    
+    height = Inches(1)  
+    
+    #Add image
+    pic = slide.shapes.add_picture(img_path, left, top, height = height)
+
+    left = Inches(8)
+    top = Inches(0)    
+    height = Inches(1.4)  
+    
+    pic = slide.shapes.add_picture(img_path2, left, top, height = height)
+
+    # Client Information 
+    left= Inches(0)
+    top = Inches(1)
+    height = Inches(1) 
+    width = Inches(6)
+    txtBox = slide.shapes.add_textbox(left,top ,width,height)
+    tf = txtBox.text_frame
+    tf.text = ""
+    p = tf.add_paragraph()
+    p.text = "U.S. ARMY COMBAT CAPABILITIES DEVELOPMENT COMMAND - DATA & ANALYSIS CENTER"
+    
+    p.font.size = Pt(19)
+    p.font.bold = True
+
+
+     #Client Information
+    clientTxtBox = slide.shapes.add_textbox(Inches(3), Inches(2), width, height)
+    tf4 = clientTxtBox.text_frame
+    tf4.text = ""
+    p4 = tf4.add_paragraph()
+    p4.text = "Cyber Experimentation & Analysis Division"
+    p4.font.size = Pt(17)
+    p4.font.bold = True 
+
+    #Event Information
+    eventTxtBox = slide.shapes.add_textbox(Inches(4.5), Inches(3), width, height)
+    tf2 = eventTxtBox.text_frame
+    tf2.text = ""
+    p2 = tf2.add_paragraph()
+    p2.text = eventName #Event that took place
+    p2.font.size = Pt(30)
+    p2.font.bold = True    
+
+    #Presenter Information
+    presenterTxtBox = slide.shapes.add_textbox(Inches(0), Inches(6), width, height)
+    tf3 = presenterTxtBox.text_frame
+    tf3.text = "Name of Presenter: "
+    p3 = tf3.add_paragraph()
+    p3.text = "Rank/Title of Presenter: "
+    p3.font.size = Pt(15)
+    p3.font.bold = True 
+    p5 = tf3.add_paragraph()
+
+    today = "DD/MM/YYYY"
+    p5.text = today
+    p5.font.size = Pt(15)
+    p5.font.bold = True 
+
+    #Slide 1 Done
+    
+    #Slide 2
+    blank_slide_layout2 = ppt.slide_layouts[6]  #Layout
+    slide2 = ppt.slides.add_slide(blank_slide_layout2) #add to ppt
+
+    # For margins 
+    left = Inches(.5)
+    top = Inches(0)    
+    height = Inches(1)  
+    
+    #Add image
+    pic = slide2.shapes.add_picture(img_path, left, top, height = height)
+
+    left = Inches(8)
+    top = Inches(0)    
+    height = Inches(1.4)  
+    
+    pic = slide2.shapes.add_picture(img_path2, left, top, height = height)
+
+
+    left= Inches(0)
+    top = Inches(1)
+    height = Inches(1) 
+    width = Inches(6)
+    txtBox = slide2.shapes.add_textbox(left,top ,width,height)
+    tf = txtBox.text_frame
+    tf.text = ""
+    p = tf.add_paragraph()
+    p.text = "Scope:"
+    
+    p.font.size = Pt(40)
+    p.font.bold = True
+
+    left= Inches(0)
+    top = Inches(2)
+    height = Inches(1) 
+    width = Inches(6)
+    sysTextBox = slide2.shapes.add_textbox(left,top ,width,height)
+    tfA = sysTextBox.text_frame #Text Frame A
+    tfA.level = 0
+    tfA.text = "Systems assessed during the CVPA are as follows:"
+    
+    for x in range(len(system_json)): #List all systems in the given event
+        pA = tfA.add_paragraph() #Paragraph A
+        
+        system = system_json[x]
+        pA.level = 1
+        pA.text = system["sysInfo"]
+        pA.font.size = Pt(30)
+        
+    #----- END SLIDE 2 -----#
+    
+    #----- Start Slide 3 -----#
+
+    slideTable = ppt.slides.add_slide(ppt.slide_layouts[5])
+    x, y, cx, cy = Inches(0), Inches(2), Inches(10), Inches(4)
+    shape = slideTable.shapes.add_table(len(finding_json)+1,5,x,y,cx,cy)
+    table = shape.table
+
+    cellID = table.cell(0,0)
+    cellID.text = "ID"
+
+    cellSystem = table.cell(0,1)
+    cellSystem.text = "System"
+
+    cellFinding = table.cell(0,2)
+    cellFinding.text = "Finding"
+
+    cellImpact = table.cell(0,3)
+    cellImpact.text = "Impact"
+
+    cellRisk = table.cell(0,4)
+    cellRisk.text = "Risk"
+
+    for x in range(1,len(finding_json) + 1):
+        finding = finding_json[x-1] #Cant start at index zero because that is where labels are, however we still need the first finding to be put on the table
+
+        finID = table.cell(x,0)
+        finID.text = finding["id"]
+
+        finSys = table.cell(x,1)
+        finSys.text = finding["systemID"]
+
+        finHostName = table.cell(x,2)
+        finHostName.text = finding["hostName"]
+
+        finImpact = table.cell(x,3)
+        finImpact.text = finding["impactLevel"]
+
+        finRisk = table.cell(x,4)
+        finRisk.text = finding["findingRisk"]
+
+        
+        
+
+
+
+    left = Inches(.5)
+    top = Inches(0)    
+    height = Inches(1)  
+    
+    #Add image
+    pic = slideTable.shapes.add_picture(img_path, left, top, height = height)
+
+    left = Inches(8)
+    top = Inches(0)    
+    height = Inches(1.4)  
+    
+    pic = slideTable.shapes.add_picture(img_path2, left, top, height = height)
+
+
+    left= Inches(0)
+    top = Inches(1)
+    height = Inches(1) 
+    width = Inches(6)
+    findingTxtBox = slideTable.shapes.add_textbox(left,top ,width,height)
+    findingTf = findingTxtBox.text_frame
+    findingTf.text = ""
+    findingParagraph = findingTf.add_paragraph()
+    findingParagraph.text = "Findings:"
+    findingParagraph.font.size= Pt(30)
+
+    #Table 
+
+
+    ppt.save("../src/reports/test.pptx")
+    return "OK"
 
 
 
