@@ -179,7 +179,7 @@ function SystemDetailedView(props) {
                         </div>
                         <div className="button-input-group">
                             <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
-                            <Button variant="outline-dark" type="submit" className="btn">Submit </Button>
+                            <Button variant="outline-dark" type="submit" className="btn">Save </Button>
                         </div>
                     </form>
                 </div>

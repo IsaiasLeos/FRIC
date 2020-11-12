@@ -55,6 +55,36 @@ export default function FindingContentView(props) {
       });
   }
 
+  function generateFinalReport() {
+    fetch('/generatefinalreport', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(3),
+    })
+  }
+
+  function generateRiskMatrix() {
+    fetch('/createRiskMatrix', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(3),
+    })
+  }
+
+  function generateERB() {
+    fetch('/generateERB', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(3),
+    })
+  }
+
   useEffect(() => {
     props.updateData();
   });
@@ -98,36 +128,36 @@ export default function FindingContentView(props) {
                   <th>Classification</th>
                   <th>Type</th>
                   <th>Risk</th>
-                  
+
                 </tr>
               </thead>
               <tbody>
                 {props.data.map((state) => (
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td>{state.id}</td>
-                        <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
-                        <td>{state.findingSystem}</td>
-                        <td>{state.findingTask}k</td>
-                        <td>{state.findingSubtask}</td>
-                        <td>{state.findingAnalyst}</td>
-                        <td>{state.findingStatus}</td>
-                        <td>{state.findingClassification}</td>
-                        <td>{state.findingType}</td>
-                        <td>{state.findingRisk}</td>
-                        
-                        
-                    </tr>
-                    ))}
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>{state.id}</td>
+                    <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
+                    <td>{state.findingSystem}</td>
+                    <td>{state.findingTask}k</td>
+                    <td>{state.findingSubtask}</td>
+                    <td>{state.findingAnalyst}</td>
+                    <td>{state.findingStatus}</td>
+                    <td>{state.findingClassification}</td>
+                    <td>{state.findingType}</td>
+                    <td>{state.findingRisk}</td>
+
+
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </div>
           <ButtonGroup>
-            <Button variant="dark">Generate ERB</Button>
+            <Button variant="dark" onClick={() => generateERB() }>Generate ERB</Button>
              &nbsp;
-            <Button variant="dark">Generate Risk Matrix</Button>
+            <Button variant="dark" onClick={() => generateRiskMatrix()}>Generate Risk Matrix</Button>
             &nbsp;
-            <Button variant="dark">Generate Final Report</Button>
+            <Button variant="dark" onClick={() => generateFinalReport()}>Generate Final Report</Button>
           </ButtonGroup>
         </div>
       </div>
