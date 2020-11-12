@@ -35,7 +35,7 @@ class SystemMaster extends React.Component {
 
     //Fetch data from the System Collection
     async updateData() {
-        await this.sleep(3000);
+        await this.sleep(1000);
         fetch('/getsystem').then(
             response => response.json()).then(data => this.setState({
                 data: data
