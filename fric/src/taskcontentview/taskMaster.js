@@ -8,32 +8,30 @@ class TaskMaster extends React.Component {
         //Used to hold information about taskContentVIew
         this.state = {
             data: [],
-            id: '',
-            taskTitle: '', 
-            taskDescription: '', 
-            system: '', 
-            taskPriority: '', 
-            taskProgress: '', 
-            taskDueDate: '', 
-            taskAnalysts: '', 
-            taskCollaborators: '', 
-            relatedTasks: '', 
-            attachments: '',
-            findID:'',
-            subtaskID:''
+            id: "",
+            taskTitle: "", 
+            taskDescription: "", 
+            system: "", 
+            taskPriority: "", 
+            taskProgress: "", 
+            taskDueDate: "", 
+            taskAnalysts: "", 
+            taskCollaborators: "", 
+            relatedTasks: "", 
+            attachments: "",
+            subtaskID:"",
+            systemID: '',
         };
-
         this.updateData = this.updateData.bind(this);
     }
 
-    
     sleep(milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
     
     //Fetches information about current task content
     async updateData() {
-        await this.sleep(1000);
+        await this.sleep(3000);
         fetch('/tasks').then(
             response => response.json()).then(data => this.setState({
                 data: data

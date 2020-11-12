@@ -19,6 +19,7 @@ class SubtaskMaster extends React.Component {
             numFindings: "",
             analyst: "",
             task: "",
+            taskID: ""
         };
         this.updateData = this.updateData.bind(this);
     }
@@ -28,7 +29,7 @@ class SubtaskMaster extends React.Component {
     }
 
     async updateData() { 
-        await this.sleep(3000);
+        await this.sleep(1000);
         fetch('/subtasks').then(
             response => response.json()).then(data => this.setState({
                 data: data

@@ -1,10 +1,9 @@
 import * as React from 'react'
-import HelpImage from '../assets/help.png'
+//import HelpImage from '../assets/help.png'
 import Button from 'react-bootstrap/Button';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {useState, } from "react";
-//import SortableTable from 'react-sortable-table';
+import {useState, useEffect} from "react";
 
     function getCurrentDate(separator = '') {
         let newDate = new Date()
@@ -15,32 +14,56 @@ import {useState, } from "react";
         return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
     }
     function TaskDetailedView(props){
-
-        const [taskTitle, setTitle] = useState('');
-        const [taskDescription, setDescription] = useState('');
-        const [system, setsystem] = useState('');
-        const [taskPriority, setPriority] = useState('');
-        const [taskProgress, setProgress] = useState('');
-        const [taskDueDate, setDueDate] = useState('');
-        const [taskAnalysts, setAnalysts] = useState('');
-        const [taskCollaborators, setCollaborators] = useState('');
-        const [relatedTasks, setrelatedTasks] = useState('');
-        const [attachments, setattachments] = useState('');
-        
         const [id, setID] = useState(props.task.id);
+        const [taskTitle, setTitle] = useState(props.task.taskTitle);
+        const [taskDescription, setDescription] = useState(props.task.taskDescription);
+        //const [systemInfo, setsystem] = useState(props.task.systemInfo);
+        const [taskPriority, setPriority] = useState(props.task.taskPriority);
+        const [taskProgress, setProgress] = useState(props.task.taskProgress);
+        const [taskDueDate, setDueDate] = useState(props.task.taskDueDate);
+        const [taskAnalysts, setAnalysts] = useState(props.task.taskAnalysts);
+        const [taskCollaborators, setCollaborators] = useState(props.task.taskCollaborators);
+        const [relatedTasks, setrelatedTasks] = useState(props.task.relatedTasks);
+        const [attachments, setattachments] = useState(props.task.attachments);
+        const [subtaskID, setSubtaskID] = useState(props.task.subtaskID);
+        const [systemID, setSystemID] = useState(props.task.systemID);
+        //const [taskID, setTaskID] = useState(props.task.taskID);
+        //const [analystID, setAnalystID] = useState(props.task.analystID);
 
+        const [subtasks, setSubtasks] = useState([{ subtaskTitle: ''}]);
+        //const [tasks, setTasks] = useState([{ taskTitle: ''}]);
+        const[systems, setSystems ] = useState([{ sysInfo : ''}])
+
+    
+
+        //Fetch info from subtask
+        useEffect(() => {
+            fetch('/subtasks').then(
+                response => response.json()).then(data => setSubtasks(data))
+        }, []);
+
+        // Fetch info from system
+        useEffect(() => {
+            fetch('/getsystem').then(
+                response => response.json()).then(data => setSystems(data))
+        }, []);
+        
         let state = { 
-            id: props.task.id ? props.task.id : '',
+            id: id ? id : '',
             taskTitle: taskTitle ? taskTitle : '', 
             taskDescription: taskDescription ? taskDescription : '', 
-            system: system ? system : '', 
+            //systemInfo: systemInfo ? systemInfo : '', 
             taskPriority: taskPriority ? taskPriority : '', 
             taskProgress: taskProgress ? taskProgress : '', 
             taskDueDate: taskDueDate ? taskDueDate : '', 
             taskAnalysts: taskAnalysts ? taskAnalysts : '', 
             taskCollaborators: taskCollaborators ? taskCollaborators : '', 
             relatedTasks: relatedTasks ? relatedTasks : '', 
-            attachments: attachments ? attachments : ''
+            attachments: attachments ? attachments : '',
+            subtaskID: subtaskID ? subtaskID : '',
+            systemID: systemID ? systemID: '',
+            numFindings: '',
+            analyst:'',
         };
         let action = {
             date: "",
@@ -91,7 +114,7 @@ import {useState, } from "react";
         function closeOnCancel() {
             props.closeDetailAction()
         }
-
+        //send logging information
         function SendLog(e) {
             e.preventDefault();
             action.action = "submit task";
@@ -141,13 +164,15 @@ import {useState, } from "react";
 
                             <label htmlFor="taskSystem">
                                 System:<br/>
-                                <select name="system" id="system-dropdown" onChange={e => setsystem(e.target.value)} defaultValue={props.task.system}  class="browser-default custom-select mr-3">
+                                {/* <select name="system" id="system-dropdown" onChange={e => setsystem(e.target.value)} defaultValue={props.task.system}  class="browser-default custom-select mr-3"> */}
+                                <select name= "systemID" onChange={e => setSystemID(e.target.value)}  defaultValue={props.task.systemID} class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
-                                    <option value="System1">System 1</option>
-                                    <option value="System2">System 2</option>
-                                    <option value="System3">System 3</option>
-                                    <option value="System4">System 4</option>
-                                    {/* {props.data.map((state) => (  <option value="sys"> {state.system} </option>))} */}
+                                    {/* <option value="System1">System1</option>
+                                    <option value="System2">System2</option>
+                                    <option value="System3">System3</option> */}
+                                    {systems.map((system) => (
+                                    <option value={system.id}>{system.sysInfo}</option>
+                                ))}
                                 </select>
                             </label><br/>
 
@@ -168,17 +193,16 @@ import {useState, } from "react";
 
                             <label htmlFor="taskDueDate">
                                 Due Date:<br/>
-                               <Picker  id="due-date" name="taskDueDate" onChange={e => setDueDate(e.target.value)} input value={props.task.taskDueDate}   class="browser-default custom-select mr-3"/>
+                               <Picker  id="due-date" name="taskDueDate" onChange={e => setDueDate(e.target.value)} input value={props.task.taskDueDate} class="browser-default custom-select mr-3"/>
                             </label><br/>
 
                             <label htmlFor="taskAnalyst">
                                 Analyst:<br/>
-                                <select name="taskAnalyst" id="task-analyst" onChange={e => setAnalysts(e.target.value)} defaultValue={props.task.taskAnalysts}  class="browser-default custom-select mr-3">
+                                <select name="taskAnalyst" id="task-analyst" onChange={e => setAnalysts(e.target.value)} defaultValue={props.task.taskAnalysts} class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
-                                    <option value="Analyst1">Analyst1</option>
-                                    <option value="Analyst2">Analyst2</option>
-                                    <option value="Analyst3">Analyst3</option>
-                                    <option value="Analyst4">Analyst4</option>
+                                    <option value="Alex Vasquez">Alex Vasquez</option>
+                                    <option value="Andrew Clanan">Andrew Clanan</option>
+                                    <option value="Luis Soto">Luis Soto</option>
                                 </select>
                             </label><br/>        
 
@@ -186,21 +210,19 @@ import {useState, } from "react";
                                 Collaborators:<br/>
                                 <select name="taskCollaborators" id="task-collaboration" onChange={e => setCollaborators(e.target.value)} defaultValue={props.task.taskCollaborators}  class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
-                                    <option value="Collaborator1">Collaborator1</option>
-                                    <option value="Collaborator2">Collaborator2</option>
-                                    <option value="Collaborator3">Collaborator3</option>
-                                    <option value="Collaborator4">Collaborator4</option>
+                                    <option value="Isaiasleos">Isaias Leos</option>
+                                    <option value="Andrewclanan">Andrew Clanan</option>
+                                    <option value="Jacobpadilla">Jacob Padilla</option>
                                 </select>
                             </label><br/> 
 
                             <label htmlFor="relatedTask">
                                 Related Task:<br/>
-                                <select name="relatedTasks" id="related-task" onChange={e => setrelatedTasks(e.target.value)} defaultValue={props.task.relatedTasks}  class="browser-default custom-select mr-3">
+                                <select name="relatedTasks" id="related-task"  onChange={e => setrelatedTasks(e.target.value)} defaultValue={props.task.relatedTasks}  class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
-                                    <option value="Task1">Task1</option>
-                                    <option value="Task2">Task2</option>
-                                    <option value="Task3">Task3</option>
-                                    <option value="Task4">Task4</option>
+                                    <option value="task2">task2</option>
+                                    <option value="task4">task4</option>
+                                    <option value="task6">task6</option>
                                 </select>
                             </label><br/>  
 
@@ -213,6 +235,16 @@ import {useState, } from "react";
                                     <option value="Attachment3">Attachment3</option>
                                 </select>
                             </label><br/>  
+
+                            <label htmlFor="attachments">
+                                Set SubTask:<br/>
+                                <select className="browser-default custom-select mr-3" name="subtaskID" onChange={e => setSubtaskID(e.target.value)} >
+                                    <option defaultValue></option>
+                                    {subtasks.map((subtask) => (
+                                        <option value={subtask.id}>{subtask.subtaskTitle}</option>
+                                    ))}
+                                </select>
+                            </label><br/> 
 
                             <div className="button-input-group">
                                 <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>

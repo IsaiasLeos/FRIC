@@ -66,7 +66,7 @@ def eventsOverview():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     systems_json = []
@@ -122,7 +122,7 @@ def systems():
 
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     task_json = []
@@ -233,6 +233,91 @@ def editEvent():
     mycollection.update_one(query,event)
     return jsonify(event)
 
+#---------------START OF FINDING API ---------------#
+
+#Function to assign index (for future mapping) based on the value of impact (FOR FINDING)
+def routeImpact(impact):
+    impactIndices = { #Mapping of possible index
+        'VL' : 0,
+        'L' : 1,
+        'M' : 2,
+        'H' : 3,
+        'VH' : 4,   
+    }
+    impact_index = impactIndices.get(impact)
+    return impact_index
+
+#Function to assign index (for future mapping) based on the value of likelihood
+def routeLikelihood(likelihood):
+    likelihoodIndices = { #Mapping of possible index
+        'VH' : 0,
+        'H' : 1,
+        'M' : 2,
+        'L' : 3,
+        'VL' : 4,   
+    }
+    likelihood_index = likelihoodIndices.get(likelihood)
+    return likelihood_index
+
+#Function to assign index (for future mapping) based on the value of severity
+def routeVulnerabilitySeverity(severity):
+    vulnerabilityIndices = { #Mapping of possible index
+        'VL' : 0,
+        'L' : 1,
+        'M' : 2,
+        'H' : 3,
+        'VH' : 4,
+        'INFO' : 5,  
+    }
+    vulnerability_index = vulnerabilityIndices.get(severity)
+    return vulnerability_index
+    
+
+#Function to assign index (for future mapping) based on the value of threat
+def routeRelevenceOfThreat(threat):
+    threatIndices = { #Map index based on value
+        'Confirmed' : 0,
+        'Expected' : 1,
+        'Anticipated' : 2,
+        'Predicted' : 3,
+        'Possible' : 4,   
+    }
+    threat_index = threatIndices.get(threat)
+    return threat_index
+
+#Function to calculate the Finding Likelihood
+def calculateLikelihood(relevenceOfThreat, vulnerabilitySeverity):
+    likelihoodMap = [ #Pre defined map per SRS
+        ['VL' , 'L' , 'M' , 'H' , 'VH'],
+        ['VL' , 'L' , 'M' , 'H' , 'VH'],
+        ['VL' , 'L' , 'M' , 'M' , 'H'],
+        ['VL' , 'L' , 'L' , 'L' , 'M'],
+        ['VL' , 'VL' , 'L' , 'L' , 'L'],
+    ]
+
+    threat = routeRelevenceOfThreat(relevenceOfThreat) #Get index 
+    vulnerability = routeVulnerabilitySeverity(vulnerabilitySeverity) #Get index
+
+    likelihood = likelihoodMap[threat][vulnerability] #Select value based on indices
+    return likelihood
+
+#Function to calculate the Finding Risk
+def calculateRisk(likelihood, impactLevel): 
+    riskMap = [ #Pre defined map per SRS
+        ['VL' , 'L' , 'M' , 'H' , 'VH'],
+        ['VL' , 'L' , 'M' , 'H' , 'VH'],
+        ['VL' , 'L' , 'M' , 'M' , 'H'],
+        ['VL' , 'L' , 'L' , 'L' , 'M'],
+        ['VL' , 'VL' , 'L' , 'L' , 'L'],
+        ['INFO' , 'INFO' , 'INFO' , 'INFO' , 'INFO'],
+    ]
+
+    impact = routeImpact(impactLevel) #Get index for impact ('Y' value)
+    Likelihood = routeLikelihood(likelihood) #Get index for Likelihood ('X' value)
+
+    risk = riskMap[Likelihood][impact] #Select value based on indices
+    return risk
+
 
 @app.route('/findings')  # path used in JS to call this
 def findings():
@@ -241,17 +326,93 @@ def findings():
     mycollection = mydb['finding']  # Collection Name
     
     finding_json = []
-    active_tasks = [] 
 
-    for e in mycollection.distinct("Task_title"):
-        active_tasks.append(e)
+    #START OF DERIVED VALUES
 
-    testing = active_tasks
+    #Calculate Severity Category Score
+    severityCategoryScore = 0 #Derived from Severity Category Code
+    for e in mycollection.distinct("Severity_Category_Code"):
+        if e == "I":
+            severityCategoryScore = 10
+        elif e == "II":
+            severityCategoryScore = 7
+        else:
+            severityCategoryScore = 4
 
+    #Calculate Impact Score
+    findingSystemLevel = "" #Need combo of CFIS, IFIS, AFIS
+
+    for e in mycollection.distinct("Finding_CFIS"):
+        findingSystemLevel += e
+    for e in mycollection.distinct("Finding_IFIS"):
+        findingSystemLevel += e
+    for e in mycollection.distinct("Finding_AFIS"):
+        findingSystemLevel += e
+    
+    systemlevelQuantitative = { #Map combo to value given in SRS
+        'HHH' : 10,
+        'HHX' : 9,
+        'HXX' : 8,
+        'MMM' : 7,
+        'MMX' : 6,
+        'MXX' : 5,
+        'LLL' : 4,
+        'LLX' : 3,
+        'LXX' : 2,
+        'XXX' : 0,
+    }
+    impact_score = systemlevelQuantitative.get(findingSystemLevel) #derived value 
+
+    #Calculate Vulnerability Severity
+    
+    for e in mycollection.distinct("Countermeasure"):
+        countermeasureScore = int(e)
+
+    vulnerabilitySeverityScore = (countermeasureScore * impact_score * severityCategoryScore) / 10 #Algorithm used in SRS to derive Severity Score
+    
+    #Calculate Quantitative Vulnerability Severity 
+    if vulnerabilitySeverityScore >= 95 and vulnerabilitySeverityScore <= 100:
+        quantitativeVulnerabilitySeverityScore = 'VH'
+    elif vulnerabilitySeverityScore >= 80 and vulnerabilitySeverityScore < 95:
+        quantitativeVulnerabilitySeverityScore = 'H'
+    elif vulnerabilitySeverityScore >= 20 and vulnerabilitySeverityScore < 80:
+        quantitativeVulnerabilitySeverityScore = 'M'
+    elif vulnerabilitySeverityScore >= 5 and vulnerabilitySeverityScore < 20:
+        quantitativeVulnerabilitySeverityScore = 'L'
+    else:
+        quantitativeVulnerabilitySeverityScore = 'VL'
+        
+    #Calculate Likelihood
+    threat_relevence = ''
+    for e in mycollection.distinct("Threat_Relevence"): #Get threat relevence
+         threat_relevence = e
+
+    likelihood =''
+
+    if impact_score == 0: #Info if impact score is 0
+        likelihood = 'INFO'
+    else: #Map the values of threat relevence and severity score with function and return likelihood
+        likelihood = calculateLikelihood(threat_relevence ,quantitativeVulnerabilitySeverityScore)
+        
+
+    #Calculate Risk
+    impact_level = ''
+    for e in mycollection.distinct("Impact_Level"): #Get Impact Level
+         impact_level = e
+
+    risk = ''
+    if impact_score == 0: #Info if impact score is 0
+        risk = 'INFO'
+    else: #Map the values of likelihood and impact level with function and return the risk
+        risk = calculateRisk(likelihood, impact_level)
+
+    #End of Derived Values
+
+
+    # Start of Finding    
     for e in mycollection.find():
         finding_json.append({
-            "id": e['id'],
-            "findingID": e['Finding_ID'], 
+            "id": e['id'], 
             "hostName": e['Host_Name'],
             "ip_port" : e['IP_Port'],
             "description": e['Description'], 
@@ -274,17 +435,18 @@ def findings():
             "threatRelevence" : e['Threat_Relevence'],
             "countermeasure" : e['Countermeasure'],
             "impactDesc": e['Impact_Desc'], 
-            "findingImpact": e['Finding_Impact'],
-            "severityCategoryScore" : e['Severity_Score'],
-            "vulnerabilityScore" : e['Vulnerability_Score'],
-            "quantitativeScore": e['Quantitative_Score'], 
-            "findingRisk": e['Finding_Risk'],
-            "findingLikelihood" : e['Finding_Likelihood'],
+            "impactLevel": e['Impact_Level'],
+            "severityCategoryScore" :  severityCategoryScore,
+            "vulnerabilityScore" : vulnerabilitySeverityScore,
+            "quantitativeScore": quantitativeVulnerabilitySeverityScore, 
+            "findingRisk": risk,
+            "findingLikelihood" : likelihood,
             "findingCFIS" : e['Finding_CFIS'],
             "findingIFIS": e['Finding_IFIS'], 
             "findingAFIS": e['Finding_AFIS'],
-            "impactScore" : e['Impact_Score'],
-            "findingFiles": e['Finding_Files']
+            "impactScore" : impact_score,
+            "findingFiles": e['Finding_Files'],
+            "severityCategoryCode" : e['Severity_Category_Code'],
             })
     return jsonify(finding_json)  # return what was found in the collection
 
@@ -296,11 +458,9 @@ def addFindings():
     mycollection = mydb["finding"] 
 
     req = request.get_json()
-    print("Add finding", req) 
 
     finding = {
         "id":str(random.randint(1,30)),
-        "Finding_ID": req['findingID'],
         "Host_Name": req['hostName'],
         "IP_Port": req['ip_port'],
         "Description": req['description'],
@@ -323,7 +483,7 @@ def addFindings():
         "Threat_Relevence": req['threatRelevence'],
         "Countermeasure": req['countermeasure'],
         "Impact_Desc": req['impactDesc'],
-        "Finding_Impact": req['findingImpact'],
+        "Impact_Level": req['impactLevel'],
         "Severity_Score": req['severityCategoryScore'],
         "Vulnerability_Score": req['vulnerabilityScore'],
         "Quantitative_Score": req['quantitativeScore'],
@@ -333,7 +493,8 @@ def addFindings():
         "Finding_IFIS": req['findingIFIS'],
         "Finding_AFIS": req['findingAFIS'],
         "Impact_Score": req['impactScore'],
-        "Finding_Files": req['findingFiles']
+        "Finding_Files": req['findingFiles'],
+        "Severity_Category_Code": req['severityCategoryCode'],
     }
     mycollection.insert_one(finding)  # Send information to collection
     return "OK"
@@ -352,7 +513,6 @@ def editFinding():
     query = {"id":req["id"]}
 
     finding = {"$set" : {
-        "Finding_ID": req['findingID'],
         "Host_Name": req['hostName'],
         "IP_Port": req['ip_port'],
         "Description": req['description'],
@@ -375,7 +535,7 @@ def editFinding():
         "Threat_Relevence": req['threatRelevence'],
         "Countermeasure": req['countermeasure'],
         "Impact_Desc": req['impactDesc'],
-        "Finding_Impact": req['findingImpact'],
+        "Impact_Level": req['impactLevel'],
         "Severity_Score": req['severityCategoryScore'],
         "Vulnerability_Score": req['vulnerabilityScore'],
         "Quantitative_Score": req['quantitativeScore'],
@@ -386,6 +546,7 @@ def editFinding():
         "Finding_AFIS": req['findingAFIS'],
         "Impact_Score": req['impactScore'],
         "Finding_Files": req['findingFiles'],
+        "Severity_Category_Code": req['severityCategoryCode'],
         }
     }
 
@@ -394,7 +555,10 @@ def editFinding():
     
     return jsonify(finding)
 
+#--------------- END OF FINDING API ---------------#
 
+
+#---------------START OF SUBTASK API ---------------#
 @app.route('/subtasks')
 def subtasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -407,11 +571,12 @@ def subtasks():
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     for e in mycollection.find():
         subtask_json.append({
+            "id": e["id"],
             "subtaskTitle": e['Subtask_Title'],
             "subtaskDescription": e['Subtask_Description'],
             "subtaskProgress": e['Subtask_Progress'],
@@ -423,7 +588,8 @@ def subtasks():
             "attachments": e['Attachments'],
             "numFindings": num_finds,
             "analyst": e['Analyst'],
-            "task": e['Task']
+            "task": e['Task'],
+            "taskID": e['Task_ID']
         })
     return jsonify(subtask_json)
 
@@ -435,6 +601,7 @@ def addSubtasks():
     mycollection = mydb["subtask"]
     req = request.get_json()
     subtask = {
+        "id": str(random.randint(1, 30)),
         "Subtask_Title": req['subtaskTitle'],
         "Subtask_Description": req['subtaskDescription'],
         "Subtask_Progress": req['subtaskProgress'],
@@ -446,25 +613,58 @@ def addSubtasks():
         "Attachments": req['attachments'],
         "Num_Findings": 0,
         "Analyst": "Analyst 0",
-        "Task": "Task 0"
+        "Task": "Task 0",
+        "Task_ID": req['taskID']
     }
     mycollection.insert_one(subtask)
 
+@app.route('/editsubtask', methods=['POST'])
+def editSubtask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["subtask"]
+    req = request.get_json()
+    query = {"id": req["id"]}
+    subtask = {
+        "$set": {
+            "Subtask_Title": req['subtaskTitle'],
+            "Subtask_Description": req['subtaskDescription'],
+            "Subtask_Progress": req['subtaskProgress'],
+            "Subtask_Due_Date": req['subtaskDueDate'],
+            "Analysts": req['analysts'],
+            "Collaborators": req['collaborators'],
+            "Related_Task": req['relatedTask'],
+            "Subtasks": req['subtasks'],
+            "Attachments": req['attachments'],
+            "Num_Findings": 0,
+            "Analyst": "Analyst 0",
+            "Task": "Task 0",
+            "Task_ID": req['taskID']
+        }
+    }
+    mycollection.update_one(query, subtask)
+    return jsonify(subtask)
+
+#--------------- END OF SUBTASK API ---------------#
     
+
+
+
+#---------------START OF TASK API ---------------#
+# Function used to get overview of tasks
 @app.route('/tasks')
 def tasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
-    myFindingCollection = mydb["finding"]
-    mySubtaskCollection = mydb["subtask"]
-    task_json = []
-
+    mydb = myclient['FRIC']
+    mycollection = mydb['task']
+    myFindingCollection = mydb['finding']
+    mySubtaskCollection = mydb['subtask']
+    
     findings_json = []
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append(
-            {"findingID": f["Finding_ID"], "hostName": f["Host_Name"]})
+            {"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     subtask_json = []
@@ -474,25 +674,29 @@ def tasks():
             {"subtaskTitle": s["Subtask_Title"], "subtaskDescription": s["Subtask_Description"]})
     num_subtask = len(subtask_json)
 
+    task_json = []
+    # Start of task 
     for e in mycollection.find():
         task_json.append({
-            "id": e['id'],
-            "taskTitle": e['Task_title'],
-            "taskDescription": e['Task_Description'],
-            "system": e['System'],
-            "taskPriority": e['Task_Priority'],
-            "taskProgress": e['Task_Progress'],
-            "taskDueDate": e['Task_Due_Date'],
-            "taskAnalysts": e['Task_Analysts'],
-            "taskCollaborators": e['Task_Collaborators'],
-            "relatedTasks": e['Related_Tasks'],
-            "attachments": e['Attachments'],
-            "num_subtask": num_subtask,
-            "num_finding": num_finds
-        })
+                "id": e['id'],
+                "taskTitle": e['Task_title'],
+                "taskDescription": e['Task_Description'],
+                "system": e['System'],
+                "taskPriority": e['Task_Priority'],
+                "taskProgress": e['Task_Progress'],
+                "taskDueDate": e['Task_Due_Date'],
+                "taskAnalysts": e['Task_Analysts'],
+                "taskCollaborators": e['Task_Collaborators'],
+                "relatedTasks": e['Related_Tasks'],
+                "attachments": e['Attachments'],
+                "num_subtask": num_subtask,
+                "num_finding": num_finds,
+                "subtaskID": e['Subtask_ID'],
+                "systemID" : e['System_ID'],
+            })
     return jsonify(task_json)
 
-
+# Function used to add task 
 @app.route('/addtask', methods=['POST'])
 def addTasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -512,17 +716,19 @@ def addTasks():
         "Related_Tasks": req['relatedTasks'],
         "Attachments": req['attachments'],
         "Num_subtask": 0, "Num_finding": 13,
-        "Progress": "0%",
-        "Event": "Event 1"
+        "Subtask_ID": req['subtaskID'],
+        "System_ID" : req['systemID'],
     }
     mycollection.insert_one(task) #send info to collection
     return "OK"
 
+# Function used to edit task 
 @app.route('/edittask',methods=['POST'])
 def editTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["task"]
+
     req = request.get_json()
     query = {"id":req["id"]}
 
@@ -538,11 +744,18 @@ def editTask():
         "Related_Tasks": req['relatedTasks'],
         "Attachments": req['attachments'],
         "Num_subtask": 0, "Num_finding": 13,
-        "Progress": "0%",
-        "Event": ""
+        "Subtask_ID": req['subtaskID'],
+        "System_ID" : req['systemID'],
+
     }}
     mycollection.update_one(query, task)
     return jsonify(task)
+
+#--------------- END OF TASK API ---------------#
+
+
+
+
 
 @app.route('/addlog', methods=['POST'])
 def addLog():

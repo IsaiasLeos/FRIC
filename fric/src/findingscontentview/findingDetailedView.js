@@ -13,111 +13,98 @@ function getCurrentDate(separator = '') {
 
 function FindingDetailedView(props) {
 
-    const [findingID, setID] = useState('');
-    const [host_Name, setHostName] = useState('');
-    const [ip_Port, setIpPort] = useState('');
-
-    const [description, setDescription] = useState('');
-    const [longDescription, setLongDescription] = useState('');
-    const [findingStatus, setStatus] = useState('');
-
-    const [findingType, setFindingType] = useState('');
-    const [findingClassification, setFindingClassification] = useState('');
-    const [findingSystem, setFindingSystem] = useState('');
-
-    const [findingTask, setFindingTask] = useState('');
-    const [findingSubtask, setFindingSubtask] = useState('');
-    const [relatedFindings, setRelatedFindings] = useState('');
-
-    const [findingConfidentiality, setfindingConfidentiality] = useState('');
-    const [findingIntegrity, setFindingIntegrity] = useState('');
-    const [findingAvailability, setFindingAvailability] = useState('');
-
-    const [findingAnalyst, setfindingAnalyst] = useState('');
-    const [findingCollaborators, setFindingCollaborators] = useState('');
-    const [findingPosture, setFindingPosture] = useState('');
-
-    const [mitigationDesc, setMitigationDesc] = useState('');
-    const [mitigationLongDesc, setMitigationLongDesc] = useState('');
-    const [threatRelevence, setThreatRelevence] = useState('');
-
-    const [countermeasure, setCountermeasure] = useState('');
-    const [impactDesc, setImpactDesc] = useState('');
-    const [findingImpact, setFindingImpact] = useState('');
-
-    const [severityCategoryScore, setSeverityCategoryScore] = useState('');
-    const [vulnerabilityScore, setVulnerabilityScore] = useState('');
-    const [quantitativeScore, setQuantitativeScore] = useState('');
-
-    const [findingRisk, setFindingRisk] = useState('');
-    const [findingLikelihood, setFindingLikelihood] = useState('');
-    const [findingCFIS, setFindingCFIS] = useState('');
-
-    const [findingAFIS, setFindingAFIS] = useState('');
-    const [findingIFIS, setFindingIFIS] = useState('');
-
-    const [impactScore, setImpactScore] = useState('');
-    const [findingFiles, setFindingFiles] = useState('');
+    //ALL attributes of a Finding
     
-    const [id, setUniqueID] = useState(props.finding.id);
+    const [host_Name, setHostName] = useState(props.finding.hostName);
+    const [ip_Port, setIpPort] = useState(props.finding.ip_port);
+    const [description, setDescription] = useState(props.finding.description);
+    const [longDescription, setLongDescription] = useState(props.finding.longDescription);
+    const [findingStatus, setStatus] = useState(props.finding.findingStatus);
+    const [findingType, setFindingType] = useState(props.finding.findingType);
+    const [findingClassification, setFindingClassification] = useState(props.finding.findingClassification);
+    const [findingSystem, setFindingSystem] = useState(props.finding.findingSystem);
+    const [findingTask, setFindingTask] = useState(props.finding.findingTask);
+    const [findingSubtask, setFindingSubtask] = useState(props.finding.findingSubtask);
+    const [relatedFindings, setRelatedFindings] = useState(props.finding.relatedFindings);
+    const [findingConfidentiality, setfindingConfidentiality] = useState(props.finding.findingConfidentiality);
+    const [findingIntegrity, setFindingIntegrity] = useState(props.finding.findingIntegrity);
+    const [findingAvailability, setFindingAvailability] = useState(props.finding.findingAvailability);
+    const [findingAnalyst, setfindingAnalyst] = useState(props.finding.findingAnalyst);
+    const [findingCollaborators, setFindingCollaborators] = useState(props.finding.findingCollaborators);
+    const [findingPosture, setFindingPosture] = useState(props.finding.findingPosture);
+    const [mitigationDesc, setMitigationDesc] = useState(props.finding.mitigationDesc);
+    const [mitigationLongDesc, setMitigationLongDesc] = useState(props.finding.mitigationLongDesc);
+    const [threatRelevence, setThreatRelevence] = useState(props.finding.threatRelevence);
+    const [countermeasure, setCountermeasure] = useState(props.finding.countermeasure);
+    const [impactDesc, setImpactDesc] = useState(props.finding.impactDesc);
+    const [impactLevel, setImpactLevel] = useState(props.finding.impactLevel);
+    const [severityCategoryScore, setSeverityCategoryScore] = useState(props.finding.severityCategoryScore);
+    const [vulnerabilityScore, setVulnerabilityScore] = useState(props.finding.vulnerabilityScore);
+    const [quantitativeScore, setQuantitativeScore] = useState(props.finding.quantitativeScore);
+    const [findingRisk, setFindingRisk] = useState(props.finding.findingRisk);
+    const [findingLikelihood, setFindingLikelihood] = useState(props.finding.findingLikelihood);
+    const [findingCFIS, setFindingCFIS] = useState(props.finding.findingCFIS);
+    const [findingAFIS, setFindingAFIS] = useState(props.finding.findingAFIS);
+    const [findingIFIS, setFindingIFIS] = useState(props.finding.findingIFIS);
+    const [impactScore, setImpactScore] = useState(props.finding.impactScore);
+    const [findingFiles, setFindingFiles] = useState(''); //Files that can be attached to a finding. Still need to rework
+    
+    const [severityCategoryCode, setSeverityCategoryCode] = useState(props.finding.severityCategoryScore);
+    const [id, setUniqueID] = useState(props.finding.id); //Each finding will have a unique ID
 
-    let state = {
-        id: id,
-        findingID: findingID,
-        hostName: host_Name,
-        ip_port: ip_Port,
-        description: description,
-        longDescription: longDescription,
-        findingStatus: findingStatus,
-        findingType: findingType,
-        findingClassification: findingClassification,
-        findingSystem: findingSystem,
-        findingTask: findingTask,
-        findingSubtask: findingSubtask,
-        relatedFindings: relatedFindings,
-        findingConfidentiality: findingConfidentiality,
-        findingIntegrity: findingIntegrity,
-        findingAvailability: findingAvailability,
-        findingAnalyst: findingAnalyst,
-        findingCollaborators: findingCollaborators,
-        findingPosture: findingPosture,
-        mitigationDesc: mitigationDesc,
-        mitigationLongDesc: mitigationLongDesc,
-        threatRelevence: threatRelevence,
-        countermeasure: countermeasure,
-        impactDesc: impactDesc,
-        findingImpact: findingImpact,
-        severityCategoryScore: severityCategoryScore,
-        vulnerabilityScore: vulnerabilityScore,
-        quantitativeScore: quantitativeScore,
-        findingRisk: findingRisk,
-        findingLikelihood: findingLikelihood,
-        findingCFIS: findingCFIS,
-        findingAFIS: findingAFIS,
-        findingIFIS: findingIFIS,
-        impactScore: impactScore,
-        findingFiles: findingFiles,
-        
-        
+    let state = { //If 
+        id: props.finding.id ? props.finding.id : '', //if attribute does not have value, set to '' 
+
+        hostName: host_Name ? host_Name: '',
+        ip_port: ip_Port ? ip_Port: '',
+        description: description ? description: '',
+        longDescription: longDescription ? longDescription: '',
+        findingStatus: findingStatus ? findingStatus :'',
+        findingType: findingType ? findingType: '',
+        findingClassification: findingClassification ? findingClassification: '',
+        findingSystem: findingSystem ? findingSystem: '',
+        findingTask: findingTask ? findingTask: ' ',
+        findingSubtask: findingSubtask ? findingSubtask :'',
+        relatedFindings: relatedFindings ? relatedFindings: '',
+        findingConfidentiality: findingConfidentiality ? findingConfidentiality: '',
+        findingIntegrity: findingIntegrity ? findingIntegrity: '',
+        findingAvailability: findingAvailability? findingAvailability: '',
+        findingAnalyst: findingAnalyst ? findingAnalyst : '',
+        findingCollaborators: findingCollaborators ? findingCollaborators: '',
+        findingPosture: findingPosture ? findingPosture: '',
+        mitigationDesc: mitigationDesc ? mitigationDesc: '',
+        mitigationLongDesc: mitigationLongDesc ? mitigationLongDesc: '',
+        threatRelevence: threatRelevence ? threatRelevence: '',
+        countermeasure: countermeasure ? countermeasure: '',
+        impactDesc: impactDesc ? impactDesc: '',
+        impactLevel: impactLevel ? impactLevel: '',
+        severityCategoryScore: severityCategoryScore ? severityCategoryScore: '',
+        vulnerabilityScore: vulnerabilityScore ? vulnerabilityScore: '',
+        quantitativeScore: quantitativeScore ? quantitativeScore: '',
+        findingRisk: findingRisk ? findingRisk: '',
+        findingLikelihood: findingLikelihood ? findingLikelihood: '',
+        findingCFIS: findingCFIS ? findingCFIS: '',
+        findingAFIS: findingAFIS ? findingAFIS: '',
+        findingIFIS: findingIFIS ? findingIFIS: '',
+        impactScore: impactScore ? impactScore: '',
+        findingFiles: findingFiles ? findingFiles: '',
+        severityCategoryCode :  severityCategoryCode ? severityCategoryCode: '',
     };
-    let action = {
+
+    let action = { //used for logging actions on page
         date: "",
         action: "",
         analyst: ""
     }
 
     function SendData(e) {
-        // console.log(props.finding, "original finding") //debugging
-        setUniqueID(props.finding.id);
-        console.log("State",state);   
+        
+        setUniqueID(props.finding.id); 
         e.preventDefault();
 
-        if(props.finding.id == ''){ //works
-            
-            console.log("ADDING NEW HERE") //debugging
-            console.log(state) //debugging
-            
-            fetch('/addfinding', {
+        if(props.finding.id == undefined){ //Checking if the finding exists
+             
+            fetch('/addfinding', { //if finding does not exist, add new one
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -130,12 +117,9 @@ function FindingDetailedView(props) {
                 .catch(error => {
                     console.error('Error', error)
                 });
-
-            //console.log(state.uniqueID, "<-- FindingID")
-            // SendLog(e);
-            // props.closeDetailAction();
-        }else{ //it exists  debugging : if(state.uniqueID != '')
-            console.log("TRYING TO EDIT HERE"); // debugging 
+                props.closeDetailAction(); //Close pop up modal
+        }else{ //Finding exists, user trying to edit
+            console.log("TRYING TO EDIT HERE"); 
             console.log(state)
             // Edit Event 
             fetch('/editfinding', {
@@ -143,7 +127,7 @@ function FindingDetailedView(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(state), // if i change this to props.finding the edited information is not saved. If at 'state' the edited information is saved however not the rest of the finding info
+                body: JSON.stringify(state),
             }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
@@ -152,16 +136,16 @@ function FindingDetailedView(props) {
                 console.error('Error', error)
             });
             
-            // props.closeDetailAction();
+            props.closeDetailAction(); //Close pop up modal
         }
         
     }
 
-    function closeOnCancel() {
-        // props.closeDetailAction()
+    function closeOnCancel() { //Close modal when cancel button is clicked
+         props.closeDetailAction()
     }
 
-    function SendLog(e) {
+    function SendLog(e) { //creating and sending a log for user action 
         e.preventDefault();
         action.action = "submit system";
         action.date = getCurrentDate("/");
@@ -188,13 +172,12 @@ function FindingDetailedView(props) {
 
                 <h3>Finding Information</h3>
                 <div className="input-group">
-    <h3>{console.log("Selected",props.finding.id)}</h3>
                     <form className="input-form" onSubmit={SendData} >
 
                         <h4>Finding Information</h4>
                         <label for="ID">
                             ID:
-                            <br></br><input type="text" onChange={e => setID(e.target.value)} name="findingID" defaultValue={props.finding.findingID} className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                            <br></br><input type="text" name="id" defaultValue={props.finding.id} className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
                         </label><br></br>
 
                         <label htmlFor="hostName">
@@ -216,7 +199,7 @@ function FindingDetailedView(props) {
                         <label for="LongDescription">
                             Long Description:
                             <br></br>
-                            <textarea name="longDescription" onChange={e => setLongDescription(e.target.value)} defaultValue={props.finding.longDescription} cols="45" rows="5" class="browser-default  mr-3"></textarea>
+                            <textarea name="longDescription" onChange={e => setLongDescription(e.target.value)} defaultValue={props.finding.longDescription} cols="30" rows="5" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2"></textarea>
                         </label><br />
 
                         <label for="Status">
@@ -265,7 +248,7 @@ function FindingDetailedView(props) {
                         </label><br />
 
                         <label for="fileName">
-                            File:
+                            Evidence:
                             <br></br>
                             <input type="file" name="findingFiles"  id="findingFiles" class="browser-default mr-3" />
                             
@@ -309,7 +292,7 @@ function FindingDetailedView(props) {
                         &nbsp;
                         <br></br>
                         <label for="relatedFindings">
-                            Related Finding(s):
+                            Associated Finding(s):
                             <br></br>
                             <select name="relatedFindings"  onChange={e => setRelatedFindings(e.target.value)} defaultValue={props.finding.relatedFindings} id="relatedFindings" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
@@ -361,7 +344,7 @@ function FindingDetailedView(props) {
                         <h4>Analyst Information</h4>
 
                         <label for="AnalystInformation">
-                            Analyst:
+                            Analyst: (Analyst who created the finding)
                             <br></br>
                             <select name="findingAnalyst"  onChange={e => setfindingAnalyst(e.target.value)} defaultValue={props.finding.findingAnalyst} id="findingAnalyst" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
@@ -403,12 +386,12 @@ function FindingDetailedView(props) {
                         <label for="MitigationDescription">
                             Brief Description:
                             <br></br>
-                            <input type="text" name="mitigationDesc"  onChange={e => setMitigationDesc(e.target.value)} defaultValue={props.finding.id} id="mitigationDesc" class="browser-default  mr-3" />
+                            <input type="text" name="mitigationDesc"  onChange={e => setMitigationDesc(e.target.value)} defaultValue={props.finding.mitigationDesc} id="mitigationDesc" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" />
                         </label><br />
                         <label for="LongDescription">
                             Long Description:
                             <br></br>
-                            <textarea name="mitigationLongDesc"  onChange={e => setMitigationLongDesc(e.target.value)} defaultValue={props.finding.mitigationLongDesc} id="mitigationLongDesc" cols="45" rows="5" class="browser-default  mr-3"></textarea>
+                            <textarea name="mitigationLongDesc"  onChange={e => setMitigationLongDesc(e.target.value)} defaultValue={props.finding.mitigationLongDesc} id="mitigationLongDesc" cols="30" rows="5" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2"></textarea>
                         </label><br />
 
                         <h4>Threat Relevence</h4>
@@ -427,15 +410,21 @@ function FindingDetailedView(props) {
 
                         <h4>Countermeasure</h4>
                         <label for="Countermeasure">
-                            Countermeasure:
+                            Effectiveness Rating:
                             <br></br>
-                            <select name="countermeasure"  onChange={e => setCountermeasure(e.target.value)} defaultValue={props.finding.countermeasure} id="countermeasure" class="browser-default custom-select mr-3">
+                            <select type = "number" min= '0' max = '10' name="countermeasure"  onChange={e => setCountermeasure(e.target.value)} defaultValue={props.finding.countermeasure} id="countermeasure" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
-                                <option value="Very High (10)">Very High (10)</option>
-                                <option value="High">High (7-9)</option>
-                                <option value="Moderate">Moderate (4-6)</option>
-                                <option value="Low">Low (1-3)</option>
-                                <option value="Very Low">Very Low (0)</option>
+                                <option value= "10" >Very High (10)</option>
+                                <option value="9">High (9)</option>
+                                <option value="8">High (8)</option>
+                                <option value="7">High (7)</option>
+                                <option value="6">Moderate (6)</option>
+                                <option value="5">Moderate (5)</option>
+                                <option value="4">Moderate (4)</option>
+                                <option value="3">Low (3)</option>
+                                <option value="2">Low (2)</option>
+                                <option value="1">Low (1)</option>
+                                <option value="0">Very Low (0)</option>
                             </select>
                         </label>
 
@@ -443,14 +432,15 @@ function FindingDetailedView(props) {
                         <label for="ImpactDescription">
                             Impact Description:
                             <br></br>
-                            <input type="text" name="impactDesc"  onChange={e => setImpactDesc(e.target.value)} defaultValue={props.finding.impactDesc} id="impactDesc" class="browser-default  mr-3" />
+                            <input type="text" name="impactDesc"  onChange={e => setImpactDesc(e.target.value)} defaultValue={props.finding.impactDesc} id="impactDesc" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" />
                         </label>
                         &nbsp;
                         &nbsp;
-                        <label for="Impact">
-                            Impact:
+                        <br></br>
+                        <label for="ImpactLevel">
+                            Impact Level:
                             <br></br>
-                            <select name="findingImpact"  onChange={e => setFindingImpact(e.target.value)} defaultValue={props.finding.findingImpact} id="findingImpact" class="browser-default custom-select mr-3">
+                            <select name="impactLevel"  onChange={e => setImpactLevel(e.target.value)} defaultValue={props.finding.impactLevel} id="impactLevel" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
                                 <option value="VH">VH</option>
                                 <option value="H">H</option>
@@ -462,36 +452,52 @@ function FindingDetailedView(props) {
 
                         <h4>Severity</h4>
 
-                        <label for="SeverityCategoryScore">
-                            Severity Category Score:
+                        <label for="SeverityCategoryCode">
+                            Severity Category Code:
                             <br></br>
-                            <input type="text" name="severityCategoryScore"  onChange={e => setSeverityCategoryScore(e.target.value)} defaultValue={props.finding.severityCategoryScore} id="severityCategoryScore" class="browser-default  mr-3" />
+                            <select name="severityCategoryCode" onChange={e => setSeverityCategoryCode(e.target.value)} defaultValue={props.finding.severityCategoryCode} id="severityCategoryCode" class="browser-default custom-select mr-3">
+                                <option value="default" selected="selected"></option>
+                                <option value="I">I</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                            </select>
+                        </label>
+                        <br></br>
+                        
+                        <label for="SeverityCategoryScore">
+                            Severity Category Score (DERIVED #):
+                            <br></br>
+                            <input type="text" name="severityCategoryScore" defaultValue={props.finding.severityCategoryScore} id="severityCategoryScore" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
+                            
                         </label><br></br>
 
                         <label for="VulnerabilitySeverityDescription">
-                            Vulnerability Severity:
+                            Vulnerability Severity (DERIVED #):
                             <br></br>
-                            <input type="text" name="vulnerabilityScore"  onChange={e => setVulnerabilityScore(e.target.value)} defaultValue={props.finding.vulnerabilityScore}  id="vulnerabilityScore" class="browser-default  mr-3" />
+                            <input type="text" name="vulnerabilityScore" defaultValue={props.finding.vulnerabilityScore}  id="vulnerabilityScore" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
+                            
                         </label><br></br>
 
                         <label for="QuantitativeVulnerabilityDescription">
-                            Quantitative Vulnerability Severity:
+                            Quantitative Vulnerability Severity (DERIVED STRING):
                             <br></br>
-                            <input type="text" name="quantitativeScore" onChange={e => setQuantitativeScore(e.target.value)} defaultValue={props.finding.quantitativeScore} id="quantitativeScore" class="browser-default mr-3" />
+                            <input type="text" name="quantitativeScore" defaultValue={props.finding.quantitativeScore} id="quantitativeScore" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
                         </label><br></br>
 
                         <h4>Risk</h4>
 
                         <label for="RiskDescription">
-                            Risk:
+                            Risk: (DERIVED STRING)
                             <br></br>
-                            <input type="text" name="findingRisk" onChange={e => setFindingRisk(e.target.value)} defaultValue={props.finding.findingRisk} id="findingRisk" class="browser-default  mr-3" />
+                            <input type="text" name="findingRisk" defaultValue={props.finding.findingRisk} id="findingRisk" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
+                        
                         </label><br></br>
 
                         <label for="LikelihoodDescription">
-                            Likelihood:
+                            Likelihood: (DERIVED STRING)
                             <br></br>
-                            <input type="text" name="findingLikelihood" onChange={e => setFindingLikelihood(e.target.value)} defaultValue={props.finding.findingLikelihood} id="findingLikelihood" class="browser-default  mr-3" />
+                            <input type="text" name="findingLikelihood" defaultValue={props.finding.findingLikelihood} id="findingLikelihood" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled/>
+                            
                         </label><br></br>
 
                         <h4>Finding System Level Impact</h4>
@@ -499,27 +505,46 @@ function FindingDetailedView(props) {
                         <label for="CFISDescription">
                             Confidentiality Finding Impact on System:
                             <br></br>
-                            <input type="text" name="findingCFIS" onChange={e => setFindingCFIS(e.target.value)} defaultValue={props.finding.findingCFIS} id="findingCFIS" class="browser-default  mr-3" />
+                            <select name="findingCFIS" onChange={e => setFindingCFIS(e.target.value)} defaultValue={props.finding.findingCFIS} id="findingCFIS" class="browser-default custom-select mr-3">
+                                <option value="default" selected="selected"></option>
+                                <option value="L">Low</option>
+                                <option value="M">Medium</option>
+                                <option value="H">High</option>
+                                <option value="X">X</option>
+                            </select>
                         </label><br></br>
 
                         <label for="IFISDescription">
                             Integrity Finding Impact on System:
                             <br></br>
-                            <input type="text" name="findingIFIS" onChange={e => setFindingIFIS(e.target.value)} defaultValue={props.finding.findingIFIS} id="findingIFIS" class="browser-default  mr-3" />
+                            <select name="findingIFIS" onChange={e => setFindingIFIS(e.target.value)} defaultValue={props.finding.findingIFIS} id="findingIFIS" class="browser-default custom-select mr-3">
+                                <option value="default" selected="selected"></option>
+                                <option value="L">Low</option>
+                                <option value="M">Medium</option>
+                                <option value="H">High</option>
+                                <option value="X">X</option>
+                            </select>
                         </label><br></br>
 
                         <label for="AFISDescription">
                             Availability Finding Impact on System:
                             <br></br>
-                            <input type="text" name="findingAFIS" onChange={e => setFindingAFIS(e.target.value)} defaultValue={props.finding.findingAFIS} id="findingAFIS" class="browser-default  mr-3" />
+                            <select name="findingAFIS" onChange={e => setFindingAFIS(e.target.value)} defaultValue={props.finding.findingAFIS} id="findingAFIS" class="browser-default custom-select mr-3">
+                                <option value="default" selected="selected"></option>
+                                <option value="L">Low</option>
+                                <option value="M">Medium</option>
+                                <option value="H">High</option>
+                                <option value="X">X</option>
+                            </select>
                         </label><br></br>
 
                         
 
-                        <label for="ImpactScoreDescription">
-                            Impact Score:
+                        <label for="ImpactScore">
+                            Impact Score (Derived):
                             <br></br>
-                            <input type="text" name="impactScoreDesc" onChange={e => setImpactScore(e.target.value)} defaultValue={props.finding.impactDesc} id="impactScoreDesc" class="browser-default  mr-3" />
+                            <input type="text" name="impactScore" defaultValue={props.finding.impactScore} id="impactScore" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled />
+                            
                         </label><br></br>
     
                             
@@ -529,7 +554,7 @@ function FindingDetailedView(props) {
                             &nbsp;
                             <Button variant="outline-dark" className="btn cancel" onClick={closeOnCancel}>Cancel </Button>
                             &nbsp;
-                            <Button variant="outline-dark" type = "submit" onClick = {SendData}className="btn">Submit</Button>
+                            <Button variant="outline-dark" type = "submit" className="btn">Submit</Button>
                         </div>
                     </form>
                 </div>
