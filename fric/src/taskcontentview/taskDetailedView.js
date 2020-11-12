@@ -14,10 +14,14 @@ import {useState, useEffect} from "react";
         return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
     }
     function TaskDetailedView(props){
+
+        const [subtasks, setSubtasks] = useState([{ subtaskTitle: ''}]);
+        const [selected_sub, selectsub] = useState();
+
         const [id, setID] = useState(props.task.id);
         const [taskTitle, setTitle] = useState(props.task.taskTitle);
         const [taskDescription, setDescription] = useState(props.task.taskDescription);
-        //const [systemInfo, setsystem] = useState(props.task.systemInfo);
+        const [system, setsystem] = useState(props.task.system);
         const [taskPriority, setPriority] = useState(props.task.taskPriority);
         const [taskProgress, setProgress] = useState(props.task.taskProgress);
         const [taskDueDate, setDueDate] = useState(props.task.taskDueDate);
@@ -26,13 +30,11 @@ import {useState, useEffect} from "react";
         const [relatedTasks, setrelatedTasks] = useState(props.task.relatedTasks);
         const [attachments, setattachments] = useState(props.task.attachments);
         const [subtaskID, setSubtaskID] = useState(props.task.subtaskID);
-        const [systemID, setSystemID] = useState(props.task.systemID);
+        //const [systemID, setSystemID] = useState(props.task.systemID);
         //const [taskID, setTaskID] = useState(props.task.taskID);
         //const [analystID, setAnalystID] = useState(props.task.analystID);
-
-        const [subtasks, setSubtasks] = useState([{ subtaskTitle: ''}]);
         //const [tasks, setTasks] = useState([{ taskTitle: ''}]);
-        const[systems, setSystems ] = useState([{ sysInfo : ''}])
+        //const[systems, setSystems ] = useState([{ sysInfo : ''}])
 
     
 
@@ -42,17 +44,17 @@ import {useState, useEffect} from "react";
                 response => response.json()).then(data => setSubtasks(data))
         }, []);
 
-        // Fetch info from system
-        useEffect(() => {
-            fetch('/getsystem').then(
-                response => response.json()).then(data => setSystems(data))
-        }, []);
+        // // Fetch info from system
+        // useEffect(() => {
+        //     fetch('/getsystem').then(
+        //         response => response.json()).then(data => setSystems(data))
+        // }, []);
         
         let state = { 
             id: id ? id : '',
             taskTitle: taskTitle ? taskTitle : '', 
             taskDescription: taskDescription ? taskDescription : '', 
-            //systemInfo: systemInfo ? systemInfo : '', 
+            system: system ? system : '', 
             taskPriority: taskPriority ? taskPriority : '', 
             taskProgress: taskProgress ? taskProgress : '', 
             taskDueDate: taskDueDate ? taskDueDate : '', 
@@ -61,7 +63,7 @@ import {useState, useEffect} from "react";
             relatedTasks: relatedTasks ? relatedTasks : '', 
             attachments: attachments ? attachments : '',
             subtaskID: subtaskID ? subtaskID : '',
-            systemID: systemID ? systemID: '',
+            //systemID: systemID ? systemID: '',
             numFindings: '',
             analyst:'',
         };
@@ -70,14 +72,15 @@ import {useState, useEffect} from "react";
             action: "",
             analyst: ""
         }
+        
         function SendData(e) {
             e.preventDefault();
             setID(props.task.id);
             console.log(props.task.id);
-            
-            //Check to edit or add a task
+            console.log(subtaskID);
+            //Check if there was a already given system to differentiate editing or adding a system.
             if (props.task.id === undefined) {
-                console.log("Task: Add");
+                console.log("System: Add");
                 fetch('/addtask', {
                     method: 'POST',
                     headers: {
@@ -91,7 +94,9 @@ import {useState, useEffect} from "react";
                     .catch(error => {
                         console.error('Error', error)
                     });
+                SendLog("Adding Task");
             } else {
+                //Re-send the information to the selected system.
                 console.log("Task: Edit");
                 fetch('/edittask', {
                     method: 'POST',
@@ -106,9 +111,10 @@ import {useState, useEffect} from "react";
                     .catch(error => {
                         console.error('Error', error)
                     });
+                SendLog("Editing Task: " + props.task.id);
             }
             props.closeDetailAction();
-            SendLog(e);
+    
         }
 
         function closeOnCancel() {
@@ -116,24 +122,20 @@ import {useState, useEffect} from "react";
         }
         //send logging information
         function SendLog(e) {
-            e.preventDefault();
-            action.action = "submit task";
-            action.date = getCurrentDate("/");
-            action.analyst = "";
+            var action = {
+                date: getCurrentDate("/"),
+                action: e,
+                analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA" // Get current Analyst
+            }
             fetch('/addlog', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(action),
-            }).then(response => response.json())
-                .then(data => {
-                    console.log("Success", data);
-                })
-                .catch(error => {
-                    console.error('Error', error)
-                });
+            }).then(response => response.json());
         }
+    
         
         //Calendar View // 
         function Picker(){
@@ -150,7 +152,8 @@ import {useState, useEffect} from "react";
 
                     <div className="input-group">
                         <form className="input-form" onSubmit={SendData} >
-                            <h3 > Task Information </h3>
+                            <h1>Test{console.log(localStorage.getItem('analyst'))}</h1>
+                            <h3> Task Information </h3>
 
                             <label htmlFor="taskTitke">
                                 Task Title:<br/>
@@ -164,15 +167,11 @@ import {useState, useEffect} from "react";
 
                             <label htmlFor="taskSystem">
                                 System:<br/>
-                                {/* <select name="system" id="system-dropdown" onChange={e => setsystem(e.target.value)} defaultValue={props.task.system}  class="browser-default custom-select mr-3"> */}
-                                <select name= "systemID" onChange={e => setSystemID(e.target.value)}  defaultValue={props.task.systemID} class="browser-default custom-select mr-3">
+                                <select name="system" id="system-dropdown" onChange={e => setsystem(e.target.value)} defaultValue={props.task.system}  class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
-                                    {/* <option value="System1">System1</option>
+                                    <option value="System1">System1</option>
                                     <option value="System2">System2</option>
-                                    <option value="System3">System3</option> */}
-                                    {systems.map((system) => (
-                                    <option value={system.id}>{system.sysInfo}</option>
-                                ))}
+                                    <option value="System3">System3</option>
                                 </select>
                             </label><br/>
 

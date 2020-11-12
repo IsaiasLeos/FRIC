@@ -823,10 +823,9 @@ def tasks():
                 "attachments": e["Attachments"],
                 "num_subtask": num_subtask,
                 "num_finding": num_finds,
-                "subtaskID": e["Subtask_ID"],
-                "systemID": e["System_ID"],
-            }
-        )
+                "subtaskID": e['Subtask_ID'],
+                #"systemID" : e['System_ID'],
+            })
     return jsonify(task_json)
 
 
@@ -838,21 +837,20 @@ def addTasks():
     mycollection = mydb["task"]
     req = request.get_json()
     task = {
-        "id": str(random.randint(1, 30)),
-        "Task_title": req["taskTitle"],
-        "Task_Description": req["taskDescription"],
-        "System": req["system"],
-        "Task_Priority": req["taskPriority"],
-        "Task_Progress": req["taskProgress"],
-        "Task_Due_Date": req["taskDueDate"],
-        "Task_Analysts": req["taskAnalysts"],
-        "Task_Collaborators": req["taskCollaborators"],
-        "Related_Tasks": req["relatedTasks"],
-        "Attachments": req["attachments"],
-        "Num_subtask": 0,
-        "Num_finding": 13,
-        "Subtask_ID": req["subtaskID"],
-        "System_ID": req["systemID"],
+        "id":str(random.randint(1,30)),
+        "Task_title": req['taskTitle'],
+        "Task_Description": req['taskDescription'],
+        "System": req['system'],
+        "Task_Priority": req['taskPriority'],
+        "Task_Progress": req['taskProgress'],
+        "Task_Due_Date": req['taskDueDate'],
+        "Task_Analysts": req['taskAnalysts'],
+        "Task_Collaborators": req['taskCollaborators'],
+        "Related_Tasks": req['relatedTasks'],
+        "Attachments": req['attachments'],
+        "Num_subtask": 0, "Num_finding": 13,
+        "Subtask_ID": req['subtaskID'],
+        #"System_ID" : req['systemID'],
     }
     mycollection.insert_one(task)  # send info to collection
     return "OK"
@@ -866,26 +864,24 @@ def editTask():
     mycollection = mydb["task"]
 
     req = request.get_json()
-    query = {"id": req["id"]}
+    query = {"id":req["id"]}
 
-    task = {
-        "$set": {
-            "Task_title": req["taskTitle"],
-            "Task_Description": req["taskDescription"],
-            "System": req["system"],
-            "Task_Priority": req["taskPriority"],
-            "Task_Progress": req["taskProgress"],
-            "Task_Due_Date": req["taskDueDate"],
-            "Task_Analysts": req["taskAnalysts"],
-            "Task_Collaborators": req["taskCollaborators"],
-            "Related_Tasks": req["relatedTasks"],
-            "Attachments": req["attachments"],
-            "Num_subtask": 0,
-            "Num_finding": 13,
-            "Subtask_ID": req["subtaskID"],
-            "System_ID": req["systemID"],
-        }
-    }
+    task = {"$set" : {
+        "Task_title": req['taskTitle'],
+        "Task_Description": req['taskDescription'],
+        "System": req['system'],
+        "Task_Priority": req['taskPriority'],
+        "Task_Progress": req['taskProgress'],
+        "Task_Due_Date": req['taskDueDate'],
+        "Task_Analysts": req['taskAnalysts'],
+        "Task_Collaborators": req['taskCollaborators'],
+        "Related_Tasks": req['relatedTasks'],
+        "Attachments": req['attachments'],
+        "Num_subtask": 0, "Num_finding": 13,
+        "Subtask_ID": req['subtaskID'],
+        #"System_ID" : req['systemID'],
+
+    }}
     mycollection.update_one(query, task)
     return jsonify(task)
 
