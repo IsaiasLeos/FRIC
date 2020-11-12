@@ -3,27 +3,37 @@ import pymongo
 import random
 import docx
 import openpyxl
+import pptx
 from flask import Flask, jsonify, request, make_response
 from docx import Document
 from docx.shared import Inches, Pt
 from datetime import date
+from pptx import Presentation
+
+from pptx.chart.data import CategoryChartData  
+from pptx.enum.chart import XL_CHART_TYPE 
+
+
+
+
 
 
 app = Flask(__name__)
-
-# @app.route('/analystInEvent', methods=['POST'])
-# def analystList():
-#     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-#     mydb = myclient["FRIC"]
-#     analysts = []
-#     myAnalystCollection = mydb["event_analyst"]
-#     req = request.get_json()
-#     for a in myAnalystCollection.find({"event_id":req["event_id"]}):
-#         analysts.append({"analyst": a["analyst"],"event":a["event_id"]})
-#     return jsonify(analysts)
-# TO:DO 
+#TO:DO 
 # Add analyst
 # Dont allow empty events
+@app.route('/addAnalystToEvent',methods=['POST'])
+def addAnalyst():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    myAnalystCollection = mydb["event_analyst"]
+    req = request.get_json()
+
+    analyst = {"event_id":req["id"], "analyst": req["analyst"], "is_lead": req["is_lead"]}
+    myAnalystCollection.insert_one(analyst) 
+
+    return "OK"
+
 
 
 # Given Analyst return progress # tasks completed / # of tasks
@@ -41,8 +51,8 @@ def calculateProgress(analyst):
     return progress / len(tasks)
 
 
-# Given event, return analsysts from that event #
-@app.route("/analystsInEvent", methods=["POST"])
+# Given event, return analysts from that event # 
+@app.route('/analystsInEvent',methods=['POST'])
 def analystList():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -50,15 +60,23 @@ def analystList():
     myAnalystCollection = mydb["event_analyst"]
     req = request.get_json()
     for a in myAnalystCollection.find({"event_id": req}):
-        analysts.append(
-            {
-                "analyst": a["analyst"],
-                "event": a["event_id"],
-                "is_lead": a["is_lead"],
-                "progress": calculateProgress(a["analyst"]),
-            }
-        )
+        if a["is_lead"] == "0":
+            analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
+    
+    return jsonify(analysts)
 
+# Given event, return lead analysts from that event # 
+@app.route('/leadAnalystsInEvent',methods=['POST'])
+def leadAnalystList():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    analysts = []
+    myAnalystCollection = mydb["event_analyst"]
+    req = request.get_json()
+    for a in myAnalystCollection.find({"event_id": req}):
+        if a["is_lead"] == "1":
+            analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
+    
     return jsonify(analysts)
 
 
@@ -808,6 +826,7 @@ def tasks():
     task_json = []
     # Start of task
     for e in mycollection.find():
+
         task_json.append(
             {
                 "id": e["id"],
@@ -823,9 +842,9 @@ def tasks():
                 "attachments": e["Attachments"],
                 "num_subtask": num_subtask,
                 "num_finding": num_finds,
-                "subtaskID": e['Subtask_ID'],
-                #"systemID" : e['System_ID'],
-            })
+                "subtaskID": e["SubTask_ID"],
+            }
+        )
     return jsonify(task_json)
 
 
@@ -837,20 +856,21 @@ def addTasks():
     mycollection = mydb["task"]
     req = request.get_json()
     task = {
-        "id":str(random.randint(1,30)),
-        "Task_title": req['taskTitle'],
-        "Task_Description": req['taskDescription'],
-        "System": req['system'],
-        "Task_Priority": req['taskPriority'],
-        "Task_Progress": req['taskProgress'],
-        "Task_Due_Date": req['taskDueDate'],
-        "Task_Analysts": req['taskAnalysts'],
-        "Task_Collaborators": req['taskCollaborators'],
-        "Related_Tasks": req['relatedTasks'],
-        "Attachments": req['attachments'],
-        "Num_subtask": 0, "Num_finding": 13,
-        "Subtask_ID": req['subtaskID'],
-        #"System_ID" : req['systemID'],
+        "id": str(random.randint(1, 30)),
+        "Task_title": req["taskTitle"],
+        "Task_Description": req["taskDescription"],
+        "System": req["system"],
+        "Task_Priority": req["taskPriority"],
+        "Task_Progress": req["taskProgress"],
+        "Task_Due_Date": req["taskDueDate"],
+        "Task_Analysts": req["taskAnalysts"],
+        "Task_Collaborators": req["taskCollaborators"],
+        "Related_Tasks": req["relatedTasks"],
+        "Attachments": req["attachments"],
+        "Num_subtask": 0,
+        "Num_finding": 13,
+        "Progress": "0%",
+        "SubTask_ID": req["subtaskID"],
     }
     mycollection.insert_one(task)  # send info to collection
     return "OK"
@@ -864,24 +884,26 @@ def editTask():
     mycollection = mydb["task"]
 
     req = request.get_json()
-    query = {"id":req["id"]}
+    query = {"id": req["id"]}
 
-    task = {"$set" : {
-        "Task_title": req['taskTitle'],
-        "Task_Description": req['taskDescription'],
-        "System": req['system'],
-        "Task_Priority": req['taskPriority'],
-        "Task_Progress": req['taskProgress'],
-        "Task_Due_Date": req['taskDueDate'],
-        "Task_Analysts": req['taskAnalysts'],
-        "Task_Collaborators": req['taskCollaborators'],
-        "Related_Tasks": req['relatedTasks'],
-        "Attachments": req['attachments'],
-        "Num_subtask": 0, "Num_finding": 13,
-        "Subtask_ID": req['subtaskID'],
-        #"System_ID" : req['systemID'],
-
-    }}
+    task = {
+        "$set": {
+            "Task_title": req["taskTitle"],
+            "Task_Description": req["taskDescription"],
+            "System": req["system"],
+            "Task_Priority": req["taskPriority"],
+            "Task_Progress": req["taskProgress"],
+            "Task_Due_Date": req["taskDueDate"],
+            "Task_Analysts": req["taskAnalysts"],
+            "Task_Collaborators": req["taskCollaborators"],
+            "Related_Tasks": req["relatedTasks"],
+            "Attachments": req["attachments"],
+            "Num_subtask": 0,
+            "Num_finding": 13,
+            "Progress": "0%",
+            "SubTask_ID": req["subtaskID"],
+        }
+    }
     mycollection.update_one(query, task)
     return jsonify(task)
 
@@ -963,7 +985,344 @@ def create_Risk_Matrix():
         ws.append(finding)
     wb.save("../src/reports/riskMatrix.xlsx")  #Saving the file
 
+@app.route("/generateERB" , methods=["POST"])
+def generateERB():
+    
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    myEventCollection = mydb["event"]
+    mySystemCollection = mydb["system"]
+    myFindingCollection = mydb["finding"]
+    
+    events_json = []
+    system_json = []
+    finding_json = []
 
+    # Start of Finding
+    for e in myFindingCollection.find():
+        finding_json.append(
+            {
+                "id": e["id"],
+                "hostName": e["Host_Name"],
+                "ip_port": e["IP_Port"],
+                "description": e["Description"],
+                "longDescription": e["Long_Description"],
+                "findingStatus": e["Finding_Status"],
+                "findingType": e["Finding_Type"],
+                "findingClassification": e["Finding_Classification"],
+                "findingSystem": e["Finding_System"],
+                "findingTask": e["Finding_Task"],
+                "findingSubtask": e["Finding_Subtask"],
+                "relatedFindings": e["Related_Findings"],
+                "findingConfidentiality": e["Finding_Confidentiality"],
+                "findingIntegrity": e["Finding_Integrity"],
+                "findingAvailability": e["Finding_Availability"],
+                "findingAnalyst": e["Finding_Analyst"],
+                "findingCollaborators": e["Finding_Collaborators"],
+                "findingPosture": e["Finding_Posture"],
+                "mitigationDesc": e["Mitigation_Desc"],
+                "mitigationLongDesc": e["Mitigation_Long_Desc"],
+                "threatRelevence": e["Threat_Relevence"],
+                "countermeasure": e["Countermeasure"],
+                "impactDesc": e["Impact_Desc"],
+                "impactLevel": e["Impact_Level"],
+                "severityCategoryScore": e["Severity_Score"],
+                "vulnerabilityScore": e["Vulnerability_Score"],
+                "quantitativeScore": e["Quantitative_Score"],
+                "findingRisk": e["Finding_Risk"],
+                "findingLikelihood": e["Finding_Likelihood"],
+                "findingCFIS": e["Finding_CFIS"],
+                "findingIFIS": e["Finding_IFIS"],
+                "findingAFIS": e["Finding_AFIS"],
+                "impactScore": e["Impact_Score"],
+                "findingFiles": e["Finding_Files"],
+                "severityCategoryCode": e["Severity_Category_Code"],
+                "systemID": e["System_ID"],
+                "taskID": e["Task_ID"],
+                "subtaskID": e["Subtask_ID"],
+            }
+        )
+   
+    for e in myEventCollection.find():
+
+        events_json.append(
+            {
+            
+                "name": e["Event_name"],
+                
+            }
+        )
+
+    eventName = '' #Hold Event Name
+    for x in range(len(events_json)): #Get the name of the event 
+        event = events_json[x]
+        eventName = event["name"]
+
+    for e in mySystemCollection.find():
+        system_json.append(
+            {
+                "sysInfo": e["System_Info"],
+                
+            }
+        )
+
+    ppt = Presentation()
+    
+    img_path = "../src/assets/logo.png"
+    img_path2= "../src/assets/armyLogo.png"
+
+
+    blank_slide_layout = ppt.slide_layouts[6]  
+    
+    # Attaching slide to ppt 
+    slide = ppt.slides.add_slide(blank_slide_layout)  
+    
+    # For margins 
+    left = Inches(.5)
+    top = Inches(0)    
+    height = Inches(1)  
+    
+    #Add image
+    pic = slide.shapes.add_picture(img_path, left, top, height = height)
+
+    left = Inches(8)
+    top = Inches(0)    
+    height = Inches(1.4)  
+    
+    pic = slide.shapes.add_picture(img_path2, left, top, height = height)
+
+    # Client Information 
+    left= Inches(0)
+    top = Inches(1)
+    height = Inches(1) 
+    width = Inches(6)
+    txtBox = slide.shapes.add_textbox(left,top ,width,height)
+    tf = txtBox.text_frame
+    tf.text = ""
+    p = tf.add_paragraph()
+    p.text = "U.S. ARMY COMBAT CAPABILITIES DEVELOPMENT COMMAND - DATA & ANALYSIS CENTER"
+    
+    p.font.size = Pt(19)
+    p.font.bold = True
+
+
+     #Client Information
+    clientTxtBox = slide.shapes.add_textbox(Inches(3), Inches(2), width, height)
+    tf4 = clientTxtBox.text_frame
+    tf4.text = ""
+    p4 = tf4.add_paragraph()
+    p4.text = "Cyber Experimentation & Analysis Division"
+    p4.font.size = Pt(17)
+    p4.font.bold = True 
+
+    #Event Information
+    eventTxtBox = slide.shapes.add_textbox(Inches(4.5), Inches(3), width, height)
+    tf2 = eventTxtBox.text_frame
+    tf2.text = ""
+    p2 = tf2.add_paragraph()
+    p2.text = eventName #Event that took place
+    p2.font.size = Pt(30)
+    p2.font.bold = True    
+
+    #Presenter Information
+    presenterTxtBox = slide.shapes.add_textbox(Inches(0), Inches(6), width, height)
+    tf3 = presenterTxtBox.text_frame
+    tf3.text = "Name of Presenter: "
+    p3 = tf3.add_paragraph()
+    p3.text = "Rank/Title of Presenter: "
+    p3.font.size = Pt(15)
+    p3.font.bold = True 
+    p5 = tf3.add_paragraph()
+
+    today = "DD/MM/YYYY"
+    p5.text = today
+    p5.font.size = Pt(15)
+    p5.font.bold = True 
+
+    #Slide 1 Done
+    
+    #Slide 2
+    blank_slide_layout2 = ppt.slide_layouts[6]  #Layout
+    slide2 = ppt.slides.add_slide(blank_slide_layout2) #add to ppt
+
+    # For margins 
+    left = Inches(.5)
+    top = Inches(0)    
+    height = Inches(1)  
+    
+    #Add image
+    pic = slide2.shapes.add_picture(img_path, left, top, height = height)
+
+    left = Inches(8)
+    top = Inches(0)    
+    height = Inches(1.4)  
+    
+    pic = slide2.shapes.add_picture(img_path2, left, top, height = height)
+
+
+    left= Inches(0)
+    top = Inches(1)
+    height = Inches(1) 
+    width = Inches(6)
+    txtBox = slide2.shapes.add_textbox(left,top ,width,height)
+    tf = txtBox.text_frame
+    tf.text = ""
+    p = tf.add_paragraph()
+    p.text = "Scope:"
+    
+    p.font.size = Pt(40)
+    p.font.bold = True
+
+    left= Inches(0)
+    top = Inches(2)
+    height = Inches(1) 
+    width = Inches(6)
+    sysTextBox = slide2.shapes.add_textbox(left,top ,width,height)
+    tfA = sysTextBox.text_frame #Text Frame A
+    tfA.level = 0
+    tfA.text = "Systems assessed during the CVPA are as follows:"
+    
+    for x in range(len(system_json)): #List all systems in the given event
+        pA = tfA.add_paragraph() #Paragraph A
+        
+        system = system_json[x]
+        pA.level = 1
+        pA.text = system["sysInfo"]
+        pA.font.size = Pt(30)
+        
+    #----- END SLIDE 2 -----#
+    
+    #----- Start Slide 3 -----#
+
+    slideTable = ppt.slides.add_slide(ppt.slide_layouts[5])
+    x, y, cx, cy = Inches(0), Inches(2), Inches(10), Inches(4)
+    shape = slideTable.shapes.add_table(len(finding_json)+1,5,x,y,cx,cy)
+    table = shape.table
+
+    cellID = table.cell(0,0)
+    cellID.text = "ID"
+
+    cellSystem = table.cell(0,1)
+    cellSystem.text = "System"
+
+    cellFinding = table.cell(0,2)
+    cellFinding.text = "Finding"
+
+    cellImpact = table.cell(0,3)
+    cellImpact.text = "Impact"
+
+    cellRisk = table.cell(0,4)
+    cellRisk.text = "Risk"
+
+    for x in range(1,len(finding_json) + 1):
+        finding = finding_json[x-1] #Cant start at index zero because that is where labels are, however we still need the first finding to be put on the table
+
+        finID = table.cell(x,0)
+        finID.text = finding["id"]
+
+        finSys = table.cell(x,1)
+        finSys.text = finding["systemID"]
+
+        finHostName = table.cell(x,2)
+        finHostName.text = finding["hostName"]
+
+        finImpact = table.cell(x,3)
+        finImpact.text = finding["impactLevel"]
+
+        finRisk = table.cell(x,4)
+        finRisk.text = finding["findingRisk"]
+
+    #Table Done
+        
+    left = Inches(.5)
+    top = Inches(0)    
+    height = Inches(1)  
+    
+    #Add image
+    pic = slideTable.shapes.add_picture(img_path, left, top, height = height)
+
+    left = Inches(8)
+    top = Inches(0)    
+    height = Inches(1.4)  
+    
+    pic = slideTable.shapes.add_picture(img_path2, left, top, height = height)
+    left= Inches(0)
+    top = Inches(1)
+    height = Inches(1) 
+    width = Inches(6)
+    findingTxtBox = slideTable.shapes.add_textbox(left,top ,width,height)
+    findingTf = findingTxtBox.text_frame
+    findingTf.text = ""
+    findingParagraph = findingTf.add_paragraph()
+    findingParagraph.text = "Findings:"
+    findingParagraph.font.size= Pt(30)
+
+    #----- END SlIDE 3-----# 
+
+    #-----START HISTROGRAM SLIDE-----#
+
+
+    slideHisto = ppt.slides.add_slide(ppt.slide_layouts[5])
+
+         
+    left = Inches(.5)
+    top = Inches(0)    
+    height = Inches(1)  
+    
+    #Add image
+    pic = slideHisto.shapes.add_picture(img_path, left, top, height = height)
+
+    left = Inches(8)
+    top = Inches(0)    
+    height = Inches(1.4)  
+    
+    pic = slideHisto.shapes.add_picture(img_path2, left, top, height = height)
+    left= Inches(0)
+    top = Inches(1)
+    height = Inches(1) 
+    width = Inches(6)
+    findingTxtBox = slideHisto.shapes.add_textbox(left,top ,width,height)
+    findingTf = findingTxtBox.text_frame
+    findingTf.text = ""
+    findingParagraph = findingTf.add_paragraph()
+    findingParagraph.text = "Findings Histogram:"
+    findingParagraph.font.size= Pt(30)
+
+    info = 0
+    veryLow = 0
+    low = 0
+    medium = 0
+    high = 0
+    veryHigh= 0
+
+
+    for x in range(len(finding_json)):
+        finding = finding_json[x]
+        if finding["findingRisk"] == 'INFO':
+            info += 1
+        elif finding["findingRisk"] == 'VL':
+            veryLow += 1
+        elif finding["findingRisk"] == 'L':
+            low += 1
+        elif finding["findingRisk"] == 'M':
+            medium += 1
+        elif finding["findingRisk"] == 'H':
+            high += 1
+        else:
+            veryHigh += 1
+
+    
+    chart_data = CategoryChartData()
+    chart_data.categories = ['INFO', 'VERY LOW', 'LOW', 'MEDIUM', 'HIGH', 'VERY HIGH']
+    chart_data.add_series('Series 1', (info, veryLow, low, medium, high, veryHigh))
+
+    
+
+    x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(5)
+    slideHisto.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data)
+
+    ppt.save("../src/reports/ERB.pptx")
+    return "OK"
 
 
 @app.route("/generatefinalreport", methods=["POST"])
