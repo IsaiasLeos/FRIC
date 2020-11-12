@@ -9,7 +9,11 @@ from docx import Document
 from docx.shared import Inches, Pt
 from datetime import date
 from pptx import Presentation
-from datetime import date
+
+from pptx.chart.data import CategoryChartData  
+from pptx.enum.chart import XL_CHART_TYPE 
+
+
 
 
 
@@ -1172,11 +1176,8 @@ def generateERB():
         finRisk = table.cell(x,4)
         finRisk.text = finding["findingRisk"]
 
-#Slide with Findings Table Done#
+    #Table Done
         
-
-
-
     left = Inches(.5)
     top = Inches(0)    
     height = Inches(1)  
@@ -1189,8 +1190,6 @@ def generateERB():
     height = Inches(1.4)  
     
     pic = slideTable.shapes.add_picture(img_path2, left, top, height = height)
-
-
     left= Inches(0)
     top = Inches(1)
     height = Inches(1) 
@@ -1202,13 +1201,72 @@ def generateERB():
     findingParagraph.text = "Findings:"
     findingParagraph.font.size= Pt(30)
 
-    #Table 
+    #----- END SlIDE 3-----# 
+
+    #-----START HISTROGRAM SLIDE-----#
 
 
-    ppt.save("../src/reports/test.pptx")
+    slideHisto = ppt.slides.add_slide(ppt.slide_layouts[5])
+
+         
+    left = Inches(.5)
+    top = Inches(0)    
+    height = Inches(1)  
+    
+    #Add image
+    pic = slideHisto.shapes.add_picture(img_path, left, top, height = height)
+
+    left = Inches(8)
+    top = Inches(0)    
+    height = Inches(1.4)  
+    
+    pic = slideHisto.shapes.add_picture(img_path2, left, top, height = height)
+    left= Inches(0)
+    top = Inches(1)
+    height = Inches(1) 
+    width = Inches(6)
+    findingTxtBox = slideHisto.shapes.add_textbox(left,top ,width,height)
+    findingTf = findingTxtBox.text_frame
+    findingTf.text = ""
+    findingParagraph = findingTf.add_paragraph()
+    findingParagraph.text = "Findings Histogram:"
+    findingParagraph.font.size= Pt(30)
+
+    info = 0
+    veryLow = 0
+    low = 0
+    medium = 0
+    high = 0
+    veryHigh= 0
+
+
+    for x in range(len(finding_json)):
+        finding = finding_json[x]
+        if finding["findingRisk"] == 'INFO':
+            info += 1
+        elif finding["findingRisk"] == 'VL':
+            veryLow += 1
+        elif finding["findingRisk"] == 'L':
+            low += 1
+        elif finding["findingRisk"] == 'M':
+            medium += 1
+        elif finding["findingRisk"] == 'H':
+            high += 1
+        else:
+            veryHigh += 1
+
+    
+    chart_data = CategoryChartData()
+    chart_data.categories = ['INFO', 'VERY LOW', 'LOW', 'MEDIUM', 'HIGH', 'VERY HIGH']
+    chart_data.add_series('Series 1', (info, veryLow, low, medium, high, veryHigh))
+
+    
+
+    x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(5)
+    slideHisto.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data)
+
+    ppt.save("../src/reports/ERB.pptx")
     return "OK"
-
-
 
 
 @app.route("/generatefinalreport", methods=["POST"])
