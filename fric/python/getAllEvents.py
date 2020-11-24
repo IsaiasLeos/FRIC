@@ -167,6 +167,34 @@ def addEvent():
     mycollection.insert_one(event)
     return
 
+# -------------- delete an event --------------- #
+@app.route("/delete_event", methods=["DELETE"])
+def deleteEvent():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["event"]
+
+    req = request.get_json()
+    event = {
+        "id": str(random.randint(1, 30)),
+        "Event_name": req["name"],
+        "Description": req["desc"],
+        "Type": req["type"],
+        "Version": req["vers"],
+        "Assessment_date": req["assess_date"],
+        "Org_name": req["org_name"],
+        "Event_class": req["event_class"],
+        "Declass_date": req["declass_date"],
+        "Customer_name": req["customer_name"],
+        "Created_By": req["created_by"],
+        "Num_systems": 13,
+        "Num_findings": 10,
+        "Progress": "33%",
+    }
+
+    mycollection.delete_one(event)
+    return
+
 
 @app.route("/getprogress")
 def getProgress():
@@ -178,6 +206,7 @@ def getProgress():
         task_progress.append({"taskProgress": e["Task_Progress"]})
     return jsonify(task_progress)
 
+# -------------- System overview --------------- #
 
 @app.route("/getsystem")
 def systems():
@@ -222,6 +251,7 @@ def systems():
         )
     return jsonify(system_json)
 
+# -------------- add system --------------- #
 
 @app.route("/addsystem", methods=["POST"])
 def addSystems():
@@ -250,8 +280,9 @@ def addSystems():
     mycollection.insert_one(system)
     return
 
+# -------------- edit system --------------- #
 
-@app.route("/editsystem", methods=["POST"])
+@app.route("/editsystem", methods=["PUT"])
 def editSystem():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -278,9 +309,39 @@ def editSystem():
     }
     mycollection.update_one(query, system)
     return jsonify(system)
+    
+# -------------- delete system --------------- #
+
+@app.route("/delete_system", methods=["DELETE"])
+def deleteSystems():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["system"]
+
+    req = request.get_json()
+    system = {
+        "id": str(random.randint(1, 30)),
+        "System_Info": req["sysInfo"],
+        "System_Description": req["sysDesc"],
+        "System_Location": req["sysLoc"],
+        "System_Router": req["sysRouter"],
+        "System_Switch": req["sysSwitch"],
+        "System_Room": req["sysRoom"],
+        "Test_Plan": req["sysTestPlan"],
+        "Confidentiality": req["Confidentiality"],
+        "Integrity": req["Integrity"],
+        "Availability": req["Availability"],
+        "Num_Task": 13,
+        "Num_Findings": 10,
+        "Progress": "0%",
+        "Event_ID": req["eventID"],
+    }
+    mycollection.delete_one(system)
+    return
 
 
-@app.route("/editevent", methods=["POST"])
+# ------------------------ edit an event --------------------- #
+@app.route("/editevent", methods=["PUT"])
 def editEvent():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -639,7 +700,7 @@ def addFindings():
     return "OK"
 
 
-@app.route("/editfinding", methods=["POST"])
+@app.route("/editfinding", methods=["PUT"])
 def editFinding():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -695,6 +756,116 @@ def editFinding():
     mycollection.update_one(query, finding)
 
     return jsonify(finding)
+
+#---------------- Delete a finding -------------------#
+@app.route("/delete_finding", methods=["DELETE"])
+def deleteFindings():
+    myclient = pymongo.MongoClient(
+        "mongodb://localhost:27017/"
+    )  # Connect to the DB Client
+    mydb = myclient["FRIC"]
+    mycollection = mydb["finding"]
+
+    req = request.get_json()
+
+    # severityCategoryScore = 0 #Derived from Severity Category Code
+
+    finding = {
+        "id": str(random.randint(1, 30)),
+        "Host_Name": req["hostName"],
+        "IP_Port": req["ip_port"],
+        "Description": req["description"],
+        "Long_Description": req["longDescription"],
+        "Finding_Status": req["findingStatus"],
+        "Finding_Type": req["findingType"],
+        "Finding_Classification": req["findingClassification"],
+        "Finding_System": req["findingSystem"],
+        "Finding_Task": req["findingTask"],
+        "Finding_Subtask": req["findingSubtask"],
+        "Related_Findings": req["relatedFindings"],
+        "Finding_Confidentiality": req["findingConfidentiality"],
+        "Finding_Integrity": req["findingIntegrity"],
+        "Finding_Availability": req["findingAvailability"],
+        "Finding_Analyst": req["findingAnalyst"],
+        "Finding_Collaborators": req["findingCollaborators"],
+        "Finding_Posture": req["findingPosture"],
+        "Mitigation_Desc": req["mitigationDesc"],
+        "Mitigation_Long_Desc": req["mitigationLongDesc"],
+        "Threat_Relevence": req["threatRelevence"],
+        "Countermeasure": req["countermeasure"],
+        "Impact_Desc": req["impactDesc"],
+        "Impact_Level": req["impactLevel"],
+        "Severity_Score": req["severityCategoryScore"],
+        "Vulnerability_Score": req["vulnerabilityScore"],
+        "Quantitative_Score": req["quantitativeScore"],
+        "Finding_Risk": req["findingRisk"],
+        "Finding_Likelihood": req["findingLikelihood"],
+        "Finding_CFIS": req["findingCFIS"],
+        "Finding_IFIS": req["findingIFIS"],
+        "Finding_AFIS": req["findingAFIS"],
+        "Impact_Score": req["impactScore"],
+        "Finding_Files": req["findingFiles"],
+        "Severity_Category_Code": req["severityCategoryCode"],
+        "System_ID": req["systemID"],
+        "Task_ID": req["taskID"],
+        "Subtask_ID": req["subtaskID"],
+    }
+
+    # ----START OF DERIVED ATTRIBUTES----#
+    # Calculate Severity Category Score
+    severityCategoryScore = 0
+    severityCategoryCode = finding.get("Severity_Category_Code")
+    severityCategoryScore = calculateSeverityScore(severityCategoryCode)
+    finding.update({"Severity_Score": severityCategoryScore})
+
+    # Calculate Impact Score
+    findingImpactScore = 0
+    findingCFIS = finding.get("Finding_CFIS")
+    findingIFIS = finding.get("Finding_IFIS")
+    findingAFIS = finding.get("Finding_AFIS")
+    findingImpactScore = calculateImpactScore(findingCFIS, findingIFIS, findingAFIS)
+    finding.update({"Impact_Score": findingImpactScore})
+
+    # Calculate Vulerability Severity=
+    vulnerabilitySeverityScore = 0
+    counterMeasure = finding.get("Countermeasure")
+    vulnerabilitySeverityScore = calculateVulnerabilitySeverity(
+        counterMeasure, findingImpactScore, severityCategoryScore
+    )
+    finding.update({"Vulnerability_Score": vulnerabilitySeverityScore})
+
+    # Calculate Quantitative Vulnerability Severity
+    QVS = ""
+    QVS = calcualteQuantitativeVulnerabilitySeverity(vulnerabilitySeverityScore)
+    finding.update({"Quantitative_Score": QVS})
+
+    # Calculate Likelihood
+    threat_relevence = ""
+    threat_relevence = finding.get("Threat_Relevence")
+    likelihood = ""
+
+    if findingImpactScore == 0:
+        likelihood = "INFO"
+    else:
+        likelihood = calculateLikelihood(threat_relevence, QVS)
+
+    finding.update({"Finding_Likelihood": likelihood})
+
+    # Calculate Risk
+    impact_level = ""
+    impact_level = finding.get("Impact_Level")
+    risk = ""
+
+    if findingImpactScore == 0:
+        risk = "INFO"
+    else:
+        risk = calculateRisk(likelihood, impact_level)
+
+    finding.update({"Finding_Risk": risk})
+    # ----END OF DERIVED ATTRIBUTES----#
+
+    mycollection.delete_one(finding)  # Send information to collection
+    return "OK"
 
 
 # --------------- END OF FINDING API ---------------#
@@ -762,7 +933,7 @@ def addSubtasks():
     mycollection.insert_one(subtask)
 
 
-@app.route("/editsubtask", methods=["POST"])
+@app.route("/editsubtask", methods=["PUT"])          # NEW
 def editSubtask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -788,6 +959,30 @@ def editSubtask():
     }
     mycollection.update_one(query, subtask)
     return jsonify(subtask)
+
+@app.route("/delete_subtask", methods=["DELETE"])
+def deleteSubtasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["subtask"]
+    req = request.get_json()
+    subtask = {
+        "id": str(random.randint(1, 30)),
+        "Subtask_Title": req["subtaskTitle"],
+        "Subtask_Description": req["subtaskDescription"],
+        "Subtask_Progress": req["subtaskProgress"],
+        "Subtask_Due_Date": req["subtaskDueDate"],
+        "Analysts": req["analysts"],
+        "Collaborators": req["collaborators"],
+        "Related_Task": req["relatedTask"],
+        "Subtasks": req["subtasks"],
+        "Attachments": req["attachments"],
+        "Num_Findings": 0,
+        "Analyst": "Analyst 0",
+        "Task": "Task 0",
+        "Task_ID": req["taskID"],
+    }
+    mycollection.delete_one(subtask)
 
 
 # --------------- END OF SUBTASK API ---------------#
@@ -874,7 +1069,7 @@ def addTasks():
 
 
 # Function used to edit task
-@app.route("/edittask", methods=["POST"])
+@app.route("/edittask", methods=["PUT"])    # CHANGES MADE
 def editTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -905,7 +1100,34 @@ def editTask():
     return jsonify(task)
 
 
-# --------------- END OF TASK API ---------------#
+    @app.route("/delete_task", methods=["DELETE"])
+    def deleteTasks():
+        myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+        mydb = myclient["FRIC"]
+        mycollection = mydb["task"]
+        req = request.get_json()
+        task = {
+            "id": str(random.randint(1, 30)),
+            "Task_title": req["taskTitle"],
+            "Task_Description": req["taskDescription"],
+            "System": req["system"],
+            "Task_Priority": req["taskPriority"],
+            "Task_Progress": req["taskProgress"],
+            "Task_Due_Date": req["taskDueDate"],
+            "Task_Analysts": req["taskAnalysts"],
+            "Task_Collaborators": req["taskCollaborators"],
+            "Related_Tasks": req["relatedTasks"],
+            "Attachments": req["attachments"],
+            "Num_subtask": 0,
+            "Num_finding": 13,
+            "Progress": "0%",
+            "SubTask_ID": req["subtaskID"],
+        }
+        mycollection.delete_one(task)  # delete info to collection
+        return "OK"
+
+
+# --------------------------------------------------- END OF TASK API -------------------------------------#
 
 
 @app.route("/addlog", methods=["POST"])
@@ -1605,3 +1827,105 @@ def generatefinalreport():
 
     document.save("../src/reports/finalreport.docx")
     return "OK"
+
+
+
+# ----------------------------------------- ARCHIVE INFORMATION --------------------------------------- #
+#To view populated table
+@app.route('/archTask')
+def archTask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient['FRIC']
+    mycollection = mydb['archivetask']
+    myFindingCollection = mydb['finding']
+    mySubtaskCollection = mydb['subtask']
+    
+    findings_json = []
+    # Get number of Findings
+    for f in myFindingCollection.find():
+        findings_json.append(
+            {"id": f["id"], "hostName": f["Host_Name"]})
+    num_finds = len(findings_json)
+
+    subtask_json = []
+    # Get number of systems
+    for s in mySubtaskCollection.find():
+        subtask_json.append(
+            {"subtaskTitle": s["Subtask_Title"], "subtaskDescription": s["Subtask_Description"]})
+    num_subtask = len(subtask_json)
+
+    task_json = []
+    # Start of task 
+    for e in mycollection.find():
+        task_json.append({
+                "id": e['id'],
+                "taskTitle": e['Task_title'],
+                "taskDescription": e['Task_Description'],
+                "system": e['System'],
+                "taskPriority": e['Task_Priority'],
+                "taskProgress": e['Task_Progress'],
+                "taskDueDate": e['Task_Due_Date'],
+                "taskAnalysts": e['Task_Analysts'],
+                "taskCollaborators": e['Task_Collaborators'],
+                "relatedTasks": e['Related_Tasks'],
+                "attachments": e['Attachments'],
+                "num_subtask": num_subtask,
+                "num_finding": num_finds,
+                "subtaskID": e['Subtask_ID'],
+            })
+    return jsonify(task_json)
+
+# Function used to add task to archive
+@app.route('/addArchiveTask', methods=['POST'])
+def addArchiveTask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivetask'"]
+    req = request.get_json()
+    task = {
+        "id":str(random.randint(1,30)),
+        "Task_title": req['taskTitle'],
+        "Task_Description": req['taskDescription'],
+        "System": req['system'],
+        "Task_Priority": req['taskPriority'],
+        "Task_Progress": req['taskProgress'],
+        "Task_Due_Date": req['taskDueDate'],
+        "Task_Analysts": req['taskAnalysts'],
+        "Task_Collaborators": req['taskCollaborators'],
+        "Related_Tasks": req['relatedTasks'],
+        "Attachments": req['attachments'],
+        "Num_subtask": 0, "Num_finding": 13,
+        "Subtask_ID": req['subtaskID'],
+        #"System_ID" : req['systemID'],
+    }
+    mycollection.insert_one(task) #send info to collection
+    return "OK"
+
+    @app.route("/deleteArchiveTask", methods=["POST"])
+    def deleteArchiveTask():
+        myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+        mydb = myclient["FRIC"]
+        mycollection = mydb["archivetask'"]
+        req = request.get_json()
+        task = {
+            "id": str(random.randint(1, 30)),
+            "Task_title": req["taskTitle"],
+            "Task_Description": req["taskDescription"],
+            "System": req["system"],
+            "Task_Priority": req["taskPriority"],
+            "Task_Progress": req["taskProgress"],
+            "Task_Due_Date": req["taskDueDate"],
+            "Task_Analysts": req["taskAnalysts"],
+            "Task_Collaborators": req["taskCollaborators"],
+            "Related_Tasks": req["relatedTasks"],
+            "Attachments": req["attachments"],
+            "Num_subtask": 0,
+            "Num_finding": 13,
+            "Progress": "0%",
+            "SubTask_ID": req["subtaskID"],
+        }
+        mycollection.delete_one(task)  # delete info to collection
+        return "OK"
+
+
+        # ------------------------------------- END OF TASK ARCHIVE ------------------------------------------ #

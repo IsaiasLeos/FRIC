@@ -77,7 +77,7 @@ function SubtaskDetailedView(props){
             //Re-send the information to the selected system.
             console.log("Subtask: Edit");
             fetch('/editsubtask', {
-                method: 'POST',
+                method: 'PUT',     //NEW CHANGED post to put
                 headers: {
                     'Content-Type': 'application/json',
                 },
