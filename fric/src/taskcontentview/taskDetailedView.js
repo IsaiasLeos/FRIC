@@ -80,7 +80,7 @@ import {useState, useEffect} from "react";
             console.log(subtaskID);
             //Check if there was a already given system to differentiate editing or adding a system.
             if (props.task.id === undefined) {
-                console.log("System: Add");
+                console.log("Task: Add");
                 fetch('/addtask', {
                     method: 'POST',
                     headers: {
@@ -96,10 +96,10 @@ import {useState, useEffect} from "react";
                     });
                 SendLog("Adding Task");
             } else {
-                //Re-send the information to the selected system.
+                //Re-send the information to the selected task.
                 console.log("Task: Edit");
                 fetch('/edittask', {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -113,6 +113,7 @@ import {useState, useEffect} from "react";
                     });
                 SendLog("Editing Task: " + props.task.id);
             }
+    
             props.closeDetailAction();
     
         }
