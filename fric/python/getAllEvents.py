@@ -175,23 +175,24 @@ def deleteEvent():
     mycollection = mydb["event"]
 
     req = request.get_json()
-    event = {
-        "id": str(random.randint(1, 30)),
-        "Event_name": req["name"],
-        "Description": req["desc"],
-        "Type": req["type"],
-        "Version": req["vers"],
-        "Assessment_date": req["assess_date"],
-        "Org_name": req["org_name"],
-        "Event_class": req["event_class"],
-        "Declass_date": req["declass_date"],
-        "Customer_name": req["customer_name"],
-        "Created_By": req["created_by"],
-        "Num_systems": 13,
-        "Num_findings": 10,
-        "Progress": "33%",
-    }
+    query = {"id": req["id"]}
 
+    for t in mycollection.find(query): 
+        event = {
+            "Event_name": req["name"],
+            "Description": req["desc"],
+            "Type": req["type"],
+            "Version": req["vers"],
+            "Assessment_date": req["assess_date"],
+            "Org_name": req["org_name"],
+            "Event_class": req["event_class"],
+            "Declass_date": req["declass_date"],
+            "Customer_name": req["customer_name"],
+            "Created_By": req["created_by"],
+            "Num_systems": 13,
+            "Num_findings": 10,
+            "Progress": "33%",
+        }
     mycollection.delete_one(event)
     return
 
@@ -319,23 +320,24 @@ def deleteSystems():
     mycollection = mydb["system"]
 
     req = request.get_json()
-    system = {
-        "id": str(random.randint(1, 30)),
-        "System_Info": req["sysInfo"],
-        "System_Description": req["sysDesc"],
-        "System_Location": req["sysLoc"],
-        "System_Router": req["sysRouter"],
-        "System_Switch": req["sysSwitch"],
-        "System_Room": req["sysRoom"],
-        "Test_Plan": req["sysTestPlan"],
-        "Confidentiality": req["Confidentiality"],
-        "Integrity": req["Integrity"],
-        "Availability": req["Availability"],
-        "Num_Task": 13,
-        "Num_Findings": 10,
-        "Progress": "0%",
-        "Event_ID": req["eventID"],
-    }
+    query = {"id": req["id"]}
+    for t in mycollection.find(query):  
+        system = {
+            "System_Info": req["sysInfo"],
+            "System_Description": req["sysDesc"],
+            "System_Location": req["sysLoc"],
+            "System_Router": req["sysRouter"],
+            "System_Switch": req["sysSwitch"],
+            "System_Room": req["sysRoom"],
+            "Test_Plan": req["sysTestPlan"],
+            "Confidentiality": req["Confidentiality"],
+            "Integrity": req["Integrity"],
+            "Availability": req["Availability"],
+            "Num_Task": 13,
+            "Num_Findings": 10,
+            "Progress": "0%",
+            "Event_ID": req["eventID"],
+        }
     mycollection.delete_one(system)
     return
 
@@ -767,49 +769,49 @@ def deleteFindings():
     mycollection = mydb["finding"]
 
     req = request.get_json()
+    query = {"id": req["id"]}
 
-    # severityCategoryScore = 0 #Derived from Severity Category Code
-
-    finding = {
-        "id": str(random.randint(1, 30)),
-        "Host_Name": req["hostName"],
-        "IP_Port": req["ip_port"],
-        "Description": req["description"],
-        "Long_Description": req["longDescription"],
-        "Finding_Status": req["findingStatus"],
-        "Finding_Type": req["findingType"],
-        "Finding_Classification": req["findingClassification"],
-        "Finding_System": req["findingSystem"],
-        "Finding_Task": req["findingTask"],
-        "Finding_Subtask": req["findingSubtask"],
-        "Related_Findings": req["relatedFindings"],
-        "Finding_Confidentiality": req["findingConfidentiality"],
-        "Finding_Integrity": req["findingIntegrity"],
-        "Finding_Availability": req["findingAvailability"],
-        "Finding_Analyst": req["findingAnalyst"],
-        "Finding_Collaborators": req["findingCollaborators"],
-        "Finding_Posture": req["findingPosture"],
-        "Mitigation_Desc": req["mitigationDesc"],
-        "Mitigation_Long_Desc": req["mitigationLongDesc"],
-        "Threat_Relevence": req["threatRelevence"],
-        "Countermeasure": req["countermeasure"],
-        "Impact_Desc": req["impactDesc"],
-        "Impact_Level": req["impactLevel"],
-        "Severity_Score": req["severityCategoryScore"],
-        "Vulnerability_Score": req["vulnerabilityScore"],
-        "Quantitative_Score": req["quantitativeScore"],
-        "Finding_Risk": req["findingRisk"],
-        "Finding_Likelihood": req["findingLikelihood"],
-        "Finding_CFIS": req["findingCFIS"],
-        "Finding_IFIS": req["findingIFIS"],
-        "Finding_AFIS": req["findingAFIS"],
-        "Impact_Score": req["impactScore"],
-        "Finding_Files": req["findingFiles"],
-        "Severity_Category_Code": req["severityCategoryCode"],
-        "System_ID": req["systemID"],
-        "Task_ID": req["taskID"],
-        "Subtask_ID": req["subtaskID"],
-    }
+    for t in mycollection.find(query):
+        # severityCategoryScore = 0 #Derived from Severity Category Code
+        finding = {
+            "Host_Name": req["hostName"],
+            "IP_Port": req["ip_port"],
+            "Description": req["description"],
+            "Long_Description": req["longDescription"],
+            "Finding_Status": req["findingStatus"],
+            "Finding_Type": req["findingType"],
+            "Finding_Classification": req["findingClassification"],
+            "Finding_System": req["findingSystem"],
+            "Finding_Task": req["findingTask"],
+            "Finding_Subtask": req["findingSubtask"],
+            "Related_Findings": req["relatedFindings"],
+            "Finding_Confidentiality": req["findingConfidentiality"],
+            "Finding_Integrity": req["findingIntegrity"],
+            "Finding_Availability": req["findingAvailability"],
+            "Finding_Analyst": req["findingAnalyst"],
+            "Finding_Collaborators": req["findingCollaborators"],
+            "Finding_Posture": req["findingPosture"],
+            "Mitigation_Desc": req["mitigationDesc"],
+            "Mitigation_Long_Desc": req["mitigationLongDesc"],
+            "Threat_Relevence": req["threatRelevence"],
+            "Countermeasure": req["countermeasure"],
+            "Impact_Desc": req["impactDesc"],
+            "Impact_Level": req["impactLevel"],
+            "Severity_Score": req["severityCategoryScore"],
+            "Vulnerability_Score": req["vulnerabilityScore"],
+            "Quantitative_Score": req["quantitativeScore"],
+            "Finding_Risk": req["findingRisk"],
+            "Finding_Likelihood": req["findingLikelihood"],
+            "Finding_CFIS": req["findingCFIS"],
+            "Finding_IFIS": req["findingIFIS"],
+            "Finding_AFIS": req["findingAFIS"],
+            "Impact_Score": req["impactScore"],
+            "Finding_Files": req["findingFiles"],
+            "Severity_Category_Code": req["severityCategoryCode"],
+            "System_ID": req["systemID"],
+            "Task_ID": req["taskID"],
+            "Subtask_ID": req["subtaskID"],
+        }
 
     # ----START OF DERIVED ATTRIBUTES----#
     # Calculate Severity Category Score
@@ -966,22 +968,24 @@ def deleteSubtasks():
     mydb = myclient["FRIC"]
     mycollection = mydb["subtask"]
     req = request.get_json()
-    subtask = {
-        "id": str(random.randint(1, 30)),
-        "Subtask_Title": req["subtaskTitle"],
-        "Subtask_Description": req["subtaskDescription"],
-        "Subtask_Progress": req["subtaskProgress"],
-        "Subtask_Due_Date": req["subtaskDueDate"],
-        "Analysts": req["analysts"],
-        "Collaborators": req["collaborators"],
-        "Related_Task": req["relatedTask"],
-        "Subtasks": req["subtasks"],
-        "Attachments": req["attachments"],
-        "Num_Findings": 0,
-        "Analyst": "Analyst 0",
-        "Task": "Task 0",
-        "Task_ID": req["taskID"],
-    }
+    query = {"id": req["id"]}
+
+    for t in mycollection.find(query):
+        subtask = {
+            "Subtask_Title": req["subtaskTitle"],
+            "Subtask_Description": req["subtaskDescription"],
+            "Subtask_Progress": req["subtaskProgress"],
+            "Subtask_Due_Date": req["subtaskDueDate"],
+            "Analysts": req["analysts"],
+            "Collaborators": req["collaborators"],
+            "Related_Task": req["relatedTask"],
+            "Subtasks": req["subtasks"],
+            "Attachments": req["attachments"],
+            "Num_Findings": 0,
+            "Analyst": "Analyst 0",
+            "Task": "Task 0",
+            "Task_ID": req["taskID"],
+        }
     mycollection.delete_one(subtask)
 
 
@@ -1100,14 +1104,17 @@ def editTask():
     return jsonify(task)
 
 
-    @app.route("/delete_task", methods=["DELETE"])
-    def deleteTasks():
-        myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-        mydb = myclient["FRIC"]
-        mycollection = mydb["task"]
-        req = request.get_json()
+@app.route("/delete_task", methods=["DELETE"])
+def deleteTasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
+    
+    req = request.get_json()
+    query = {"id": req["id"]}
+
+    for t in mycollection.find(query):  
         task = {
-            "id": str(random.randint(1, 30)),
             "Task_title": req["taskTitle"],
             "Task_Description": req["taskDescription"],
             "System": req["system"],
@@ -1123,9 +1130,8 @@ def editTask():
             "Progress": "0%",
             "SubTask_ID": req["subtaskID"],
         }
-        mycollection.delete_one(task)  # delete info to collection
-        return "OK"
-
+    mycollection.delete_one(task)  
+    return "OK"
 
 # --------------------------------------------------- END OF TASK API -------------------------------------#
 
@@ -1837,7 +1843,7 @@ def generatefinalreport():
 def archTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient['FRIC']
-    mycollection = mydb['archivetask']
+    mycollection = mydb["archivetask"]
     myFindingCollection = mydb['finding']
     mySubtaskCollection = mydb['subtask']
     
@@ -1881,9 +1887,9 @@ def archTask():
 def addArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask'"]
+    mycollection = mydb["archivetask"]
     req = request.get_json()
-    task = {
+    archtask = {
         "id":str(random.randint(1,30)),
         "Task_title": req['taskTitle'],
         "Task_Description": req['taskDescription'],
@@ -1899,17 +1905,20 @@ def addArchiveTask():
         "Subtask_ID": req['subtaskID'],
         #"System_ID" : req['systemID'],
     }
-    mycollection.insert_one(task) #send info to collection
+    mycollection.insert_one(archtask) #send info to collection
     return "OK"
 
-    @app.route("/deleteArchiveTask", methods=["DELETE"])
-    def deleteArchiveTask():
-        myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-        mydb = myclient["FRIC"]
-        mycollection = mydb["archivetask'"]
-        req = request.get_json()
-        task = {
-            "id": str(random.randint(1, 30)),
+@app.route("/delete_archive_task", methods=["DELETE"])
+def deleteArchiveTask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivetask"]
+    
+    req = request.get_json()
+    query = {"id": req["id"]}
+
+    for t in mycollection.find(query):  
+        archtask = {
             "Task_title": req["taskTitle"],
             "Task_Description": req["taskDescription"],
             "System": req["system"],
@@ -1925,8 +1934,9 @@ def addArchiveTask():
             "Progress": "0%",
             "SubTask_ID": req["subtaskID"],
         }
-        mycollection.delete_one(task)  # delete info to collection
-        return "OK"
+    mycollection.delete_one(archtask)  
+    return "OK"
+        
 
 
 # -------------- archive system --------------- #
@@ -2003,30 +2013,8 @@ def addArchiveSystem():
 
 @app.route("/delete_archive_system", methods=["DELETE"])
 def deleteArchiveSystem():
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["archivesystem"]
+    return "okay"
 
-    req = request.get_json()
-    system = {
-        "id": str(random.randint(1, 30)),
-        "System_Info": req["sysInfo"],
-        "System_Description": req["sysDesc"],
-        "System_Location": req["sysLoc"],
-        "System_Router": req["sysRouter"],
-        "System_Switch": req["sysSwitch"],
-        "System_Room": req["sysRoom"],
-        "Test_Plan": req["sysTestPlan"],
-        "Confidentiality": req["Confidentiality"],
-        "Integrity": req["Integrity"],
-        "Availability": req["Availability"],
-        "Num_Task": 13,
-        "Num_Findings": 10,
-        "Progress": "0%",
-        "Event_ID": req["eventID"],
-    }
-    mycollection.delete_one(system)
-    return
 
 # ---------    Archive subtask --------------#
 @app.route("/arch_subtask")

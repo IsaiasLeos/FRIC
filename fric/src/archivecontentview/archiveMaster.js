@@ -15,6 +15,8 @@ class ArchiveMaster extends React.Component {
         this.updateData = this.updateData.bind(this);
     }
 
+    
+
     sleep(milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
@@ -26,7 +28,8 @@ class ArchiveMaster extends React.Component {
         fetch('/arch_task').then(
             response => response.json()).then(taskdata => this.setState({
                 taskdata: taskdata
-            })).catch(error => console.error(error));
+         })).catch(error => console.error(error));
+           
 
         // display arch_subtask
         // fetch('/arch_subtask').then(

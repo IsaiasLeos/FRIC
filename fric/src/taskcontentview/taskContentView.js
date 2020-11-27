@@ -32,67 +32,77 @@ export default function TaskContentView(props) {
 
 
     //Function to demote a task
-    function handleDemote(){
+    function handleDemote(state){
+        selectedTask(state)
+        console.log(state)
+        console.log("demote task");
+            fetch('/addsubtask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(state),
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+            SendLog("Adding subtask");
+
+            //Deleting current task state
+            // fetch("/delete_task", {
+            //     method: 'DELETE',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(state),
+            // }).then(response => response.json())
+            //     .then(data => {
+            //         console.log("Success", data);
+            //     })
+            //     .catch(error => {
+            //         console.error('Error', error)
+            //     });
+            // SendLog("Removing Task");
     }
 
     function handleArch(state) {
         selectedTask(state)
         console.log(state)
         console.log("archived task");
-                fetch('/add_archive_task', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(state),
-                }).then(response => response.json())
-                    .then(data => {
-                        console.log("Success", data);
-                    })
-                    .catch(error => {
-                        console.error('Error', error)
-                    });
-                SendLog("Adding Task");
+            fetch("/add_archive_task", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(state),
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+            SendLog("Adding Task");
+
+            //Deleting current task state
+            fetch("/delete_task", {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(state),
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success", data);
+                })
+                .catch(error => {
+                    console.error('Error', error)
+                });
+            SendLog("Removing Task");
     }
-
-
-    // const Checkbox = ({type="checkbox", name, checked = false, onChange}) => {
-    //     console.log("checkbox: ", name, checked);
-    //     return (<input type={type} name={name} checked={checked} onChange={onChange}/>);
-    // };
-
-    
-    // const [checkedItems, setCheckedItems] = useState({});
-
-    // const handleChange = event => {
-    //     setCheckedItems({
-    //         ...checkedItems,
-    //         [event.target.name]: event.target.checked
-    //     });
-    // };
-
-    // //Handle Archive button   will set the checked tasks into the archive task 
-    // function handleArchive(){
-    //     if (props.task.id === checkedItems) {
-    //         console.log("Task: archive");
-    //         fetch('/add_archive_task', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             //body: JSON.stringify(state),
-    //             body: JSON.stringify(checkedItems)
-    //         }).then(response => response.json())
-    //             .then(data => {
-    //                 console.log("Success", data);
-    //             })
-    //             .catch(error => {
-    //                 console.error('Error', error)
-    //             });
-    //         SendLog("Adding Task to archive ");
-    //     } 
-    // }
-
 
     // Handles logging information
     function SendLog(e) {
@@ -157,8 +167,6 @@ export default function TaskContentView(props) {
                     <tbody>
                         {props.data.map((state) => (
                             <tr key={state.id}>
-                                {/* <td> <Checkbox name={state.id} checked={checkedItems[state.id]} onChange={handleChange}/> </td> */}
-                                {/* <td onChange={toggleCheckbox(state.id)}><input type="checkbox" /></td> */}
                                 <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.taskTitle}</Button></td>
                                 <td>{state.system}</td>
                                 <td>{state.taskAnalysts}</td>
@@ -168,7 +176,7 @@ export default function TaskContentView(props) {
                                 <td>{state.num_finding}</td>
                                 <td>{state.taskDueDate}</td>
                                 <td><Button variant="dark" onClick={() => handleArch(state)} > Archive </Button></td>
-                                <td><Button variant="dark"> Demote </Button></td>
+                                <td><Button variant="dark" onClick={() => handleDemote(state)}> Demote </Button></td>
                             </tr>
                         ))}
                     </tbody>
