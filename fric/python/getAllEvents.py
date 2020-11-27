@@ -1894,8 +1894,9 @@ def generatefinalreport():
 
 
 # ----------------------------------------- ARCHIVE INFORMATION --------------------------------------- #
-#To view populated table
-@app.route('/archTask')
+
+#archive task
+@app.route("/arch_task")
 def archTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient['FRIC']
@@ -1939,7 +1940,7 @@ def archTask():
     return jsonify(task_json)
 
 # Function used to add task to archive
-@app.route('/addArchiveTask', methods=['POST'])
+@app.route("/add_archive_task", methods=['POST'])
 def addArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -1964,7 +1965,7 @@ def addArchiveTask():
     mycollection.insert_one(task) #send info to collection
     return "OK"
 
-    @app.route("/deleteArchiveTask", methods=["POST"])
+    @app.route("/deleteArchiveTask", methods=["DELETE"])
     def deleteArchiveTask():
         myclient = pymongo.MongoClient("mongodb://localhost:27017/")
         mydb = myclient["FRIC"]
@@ -1991,4 +1992,460 @@ def addArchiveTask():
         return "OK"
 
 
-        # ------------------------------------- END OF TASK ARCHIVE ------------------------------------------ #
+# -------------- archive system --------------- #
+@app.route("/arch_system")
+def archSystem():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mySystemCollection = mydb["archivesystem"]
+    myFindingCollection = mydb["finding"]
+    myTaskCollection = mydb["task"]
+    system_json = []
+    findings_json = []
+
+    for f in myFindingCollection.find():
+        findings_json.append({"id": f["id"], "hostName": f["Host_Name"]})
+    num_finds = len(findings_json)
+
+    task_json = []
+    for f in myTaskCollection.find():
+        task_json.append(
+            {"taskTitle": f["Task_title"], "taskDescription": f["Task_Description"]}
+        )
+    num_tasks = len(task_json)
+
+    for e in mySystemCollection.find():
+        system_json.append(
+            {
+                "id": e["id"],
+                "sysInfo": e["System_Info"],
+                "sysDesc": e["System_Description"],
+                "sysLoc": e["System_Location"],
+                "sysRouter": e["System_Router"],
+                "sysSwitch": e["System_Switch"],
+                "sysRoom": e["System_Room"],
+                "sysTestPlan": e["Test_Plan"],
+                "Confidentiality": e["Confidentiality"],
+                "Integrity": e["Integrity"],
+                "Availability": e["Availability"],
+                "num_task": num_tasks,
+                "num_findings": num_finds,
+                "prog": e["Progress"],
+                "eventID": e["Event_ID"],
+            }
+        )
+    return jsonify(system_json)
+
+
+@app.route("/add_archive_system", methods=["POST"])
+def addArchiveSystem():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivesystem"]
+
+    req = request.get_json()
+    system = {
+        "id": str(random.randint(1, 30)),
+        "System_Info": req["sysInfo"],
+        "System_Description": req["sysDesc"],
+        "System_Location": req["sysLoc"],
+        "System_Router": req["sysRouter"],
+        "System_Switch": req["sysSwitch"],
+        "System_Room": req["sysRoom"],
+        "Test_Plan": req["sysTestPlan"],
+        "Confidentiality": req["Confidentiality"],
+        "Integrity": req["Integrity"],
+        "Availability": req["Availability"],
+        "Num_Task": 13,
+        "Num_Findings": 10,
+        "Progress": "0%",
+        "Event_ID": req["eventID"],
+    }
+    mycollection.insert_one(system)
+    return
+
+@app.route("/delete_archive_system", methods=["DELETE"])
+def deleteArchiveSystem():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivesystem"]
+
+    req = request.get_json()
+    system = {
+        "id": str(random.randint(1, 30)),
+        "System_Info": req["sysInfo"],
+        "System_Description": req["sysDesc"],
+        "System_Location": req["sysLoc"],
+        "System_Router": req["sysRouter"],
+        "System_Switch": req["sysSwitch"],
+        "System_Room": req["sysRoom"],
+        "Test_Plan": req["sysTestPlan"],
+        "Confidentiality": req["Confidentiality"],
+        "Integrity": req["Integrity"],
+        "Availability": req["Availability"],
+        "Num_Task": 13,
+        "Num_Findings": 10,
+        "Progress": "0%",
+        "Event_ID": req["eventID"],
+    }
+    mycollection.delete_one(system)
+    return
+
+# ---------    Archive subtask --------------#
+@app.route("/arch_subtask")
+def archSubTask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivesubtask"]
+    myFindingCollection = mydb["finding"]
+    subtask_json = []
+
+    findings_json = []
+    # Get number of Findings
+    for f in myFindingCollection.find():
+        findings_json.append({"id": f["id"], "hostName": f["Host_Name"]})
+    num_finds = len(findings_json)
+
+    for e in mycollection.find():
+        subtask_json.append(
+            {
+                "id": e["id"],
+                "subtaskTitle": e["Subtask_Title"],
+                "subtaskDescription": e["Subtask_Description"],
+                "subtaskProgress": e["Subtask_Progress"],
+                "subtaskDueDate": e["Subtask_Due_Date"],
+                "analysts": e["Analysts"],
+                "collaborators": e["Collaborators"],
+                "relatedTask": e["Related_Task"],
+                "subtasks": e["Subtasks"],
+                "attachments": e["Attachments"],
+                "numFindings": num_finds,
+                "analyst": e["Analyst"],
+                "task": e["Task"],
+                "taskID": e["Task_ID"],
+            }
+        )
+    return jsonify(subtask_json)
+
+
+@app.route("/add_archive_subtask", methods=["POST"])
+def addArchiveSubTask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivesubtask"]
+    req = request.get_json()
+    subtask = {
+        "id": str(random.randint(1, 30)),
+        "Subtask_Title": req["subtaskTitle"],
+        "Subtask_Description": req["subtaskDescription"],
+        "Subtask_Progress": req["subtaskProgress"],
+        "Subtask_Due_Date": req["subtaskDueDate"],
+        "Analysts": req["analysts"],
+        "Collaborators": req["collaborators"],
+        "Related_Task": req["relatedTask"],
+        "Subtasks": req["subtasks"],
+        "Attachments": req["attachments"],
+        "Num_Findings": 0,
+        "Analyst": "Analyst 0",
+        "Task": "Task 0",
+        "Task_ID": req["taskID"],
+    }
+    mycollection.insert_one(subtask) 
+
+@app.route("/delete_archive_subtask", methods=["DELETE"])
+def deleteArchiveSubTask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivesubtask"]
+    req = request.get_json()
+    subtask = {
+        "id": str(random.randint(1, 30)),
+        "Subtask_Title": req["subtaskTitle"],
+        "Subtask_Description": req["subtaskDescription"],
+        "Subtask_Progress": req["subtaskProgress"],
+        "Subtask_Due_Date": req["subtaskDueDate"],
+        "Analysts": req["analysts"],
+        "Collaborators": req["collaborators"],
+        "Related_Task": req["relatedTask"],
+        "Subtasks": req["subtasks"],
+        "Attachments": req["attachments"],
+        "Num_Findings": 0,
+        "Analyst": "Analyst 0",
+        "Task": "Task 0",
+        "Task_ID": req["taskID"],
+    }
+    mycollection.delete_one(subtask) 
+
+# archive finding
+
+@app.route("/arch_finding")  # path used in JS to call this
+def archFinding():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]  # Database name
+    mycollection = mydb["archivefinding"]  # Collection Name
+
+    finding_json = []
+
+    # Start of Finding
+    for e in mycollection.find():
+        finding_json.append(
+            {
+                "id": e["id"],
+                "hostName": e["Host_Name"],
+                "ip_port": e["IP_Port"],
+                "description": e["Description"],
+                "longDescription": e["Long_Description"],
+                "findingStatus": e["Finding_Status"],
+                "findingType": e["Finding_Type"],
+                "findingClassification": e["Finding_Classification"],
+                "findingSystem": e["Finding_System"],
+                "findingTask": e["Finding_Task"],
+                "findingSubtask": e["Finding_Subtask"],
+                "relatedFindings": e["Related_Findings"],
+                "findingConfidentiality": e["Finding_Confidentiality"],
+                "findingIntegrity": e["Finding_Integrity"],
+                "findingAvailability": e["Finding_Availability"],
+                "findingAnalyst": e["Finding_Analyst"],
+                "findingCollaborators": e["Finding_Collaborators"],
+                "findingPosture": e["Finding_Posture"],
+                "mitigationDesc": e["Mitigation_Desc"],
+                "mitigationLongDesc": e["Mitigation_Long_Desc"],
+                "threatRelevence": e["Threat_Relevence"],
+                "countermeasure": e["Countermeasure"],
+                "impactDesc": e["Impact_Desc"],
+                "impactLevel": e["Impact_Level"],
+                "severityCategoryScore": e["Severity_Score"],
+                "vulnerabilityScore": e["Vulnerability_Score"],
+                "quantitativeScore": e["Quantitative_Score"],
+                "findingRisk": e["Finding_Risk"],
+                "findingLikelihood": e["Finding_Likelihood"],
+                "findingCFIS": e["Finding_CFIS"],
+                "findingIFIS": e["Finding_IFIS"],
+                "findingAFIS": e["Finding_AFIS"],
+                "impactScore": e["Impact_Score"],
+                "findingFiles": e["Finding_Files"],
+                "severityCategoryCode": e["Severity_Category_Code"],
+                "systemID": e["System_ID"],
+                "taskID": e["Task_ID"],
+                "subtaskID": e["Subtask_ID"],
+            }
+        )
+    return jsonify(finding_json)  # return what was found in the collection
+
+@app.route("/add_archive_finding", methods=["POST"])
+def addArchiveFinding():
+    myclient = pymongo.MongoClient(
+        "mongodb://localhost:27017/"
+    )  # Connect to the DB Client
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivefinding"]
+
+    req = request.get_json()
+
+    # severityCategoryScore = 0 #Derived from Severity Category Code
+
+    finding = {
+        "id": str(random.randint(1, 30)),
+        "Host_Name": req["hostName"],
+        "IP_Port": req["ip_port"],
+        "Description": req["description"],
+        "Long_Description": req["longDescription"],
+        "Finding_Status": req["findingStatus"],
+        "Finding_Type": req["findingType"],
+        "Finding_Classification": req["findingClassification"],
+        "Finding_System": req["findingSystem"],
+        "Finding_Task": req["findingTask"],
+        "Finding_Subtask": req["findingSubtask"],
+        "Related_Findings": req["relatedFindings"],
+        "Finding_Confidentiality": req["findingConfidentiality"],
+        "Finding_Integrity": req["findingIntegrity"],
+        "Finding_Availability": req["findingAvailability"],
+        "Finding_Analyst": req["findingAnalyst"],
+        "Finding_Collaborators": req["findingCollaborators"],
+        "Finding_Posture": req["findingPosture"],
+        "Mitigation_Desc": req["mitigationDesc"],
+        "Mitigation_Long_Desc": req["mitigationLongDesc"],
+        "Threat_Relevence": req["threatRelevence"],
+        "Countermeasure": req["countermeasure"],
+        "Impact_Desc": req["impactDesc"],
+        "Impact_Level": req["impactLevel"],
+        "Severity_Score": req["severityCategoryScore"],
+        "Vulnerability_Score": req["vulnerabilityScore"],
+        "Quantitative_Score": req["quantitativeScore"],
+        "Finding_Risk": req["findingRisk"],
+        "Finding_Likelihood": req["findingLikelihood"],
+        "Finding_CFIS": req["findingCFIS"],
+        "Finding_IFIS": req["findingIFIS"],
+        "Finding_AFIS": req["findingAFIS"],
+        "Impact_Score": req["impactScore"],
+        "Finding_Files": req["findingFiles"],
+        "Severity_Category_Code": req["severityCategoryCode"],
+        "System_ID": req["systemID"],
+        "Task_ID": req["taskID"],
+        "Subtask_ID": req["subtaskID"],
+    }
+
+    # ----START OF DERIVED ATTRIBUTES----#
+    # Calculate Severity Category Score
+    severityCategoryScore = 0
+    severityCategoryCode = finding.get("Severity_Category_Code")
+    severityCategoryScore = calculateSeverityScore(severityCategoryCode)
+    finding.update({"Severity_Score": severityCategoryScore})
+
+    # Calculate Impact Score
+    findingImpactScore = 0
+    findingCFIS = finding.get("Finding_CFIS")
+    findingIFIS = finding.get("Finding_IFIS")
+    findingAFIS = finding.get("Finding_AFIS")
+    findingImpactScore = calculateImpactScore(findingCFIS, findingIFIS, findingAFIS)
+    finding.update({"Impact_Score": findingImpactScore})
+
+    # Calculate Vulerability Severity=
+    vulnerabilitySeverityScore = 0
+    counterMeasure = finding.get("Countermeasure")
+    vulnerabilitySeverityScore = calculateVulnerabilitySeverity(
+        counterMeasure, findingImpactScore, severityCategoryScore
+    )
+    finding.update({"Vulnerability_Score": vulnerabilitySeverityScore})
+
+    # Calculate Quantitative Vulnerability Severity
+    QVS = ""
+    QVS = calcualteQuantitativeVulnerabilitySeverity(vulnerabilitySeverityScore)
+    finding.update({"Quantitative_Score": QVS})
+
+    # Calculate Likelihood
+    threat_relevence = ""
+    threat_relevence = finding.get("Threat_Relevence")
+    likelihood = ""
+
+    if findingImpactScore == 0:
+        likelihood = "INFO"
+    else:
+        likelihood = calculateLikelihood(threat_relevence, QVS)
+
+    finding.update({"Finding_Likelihood": likelihood})
+
+    # Calculate Risk
+    impact_level = ""
+    impact_level = finding.get("Impact_Level")
+    risk = ""
+
+    if findingImpactScore == 0:
+        risk = "INFO"
+    else:
+        risk = calculateRisk(likelihood, impact_level)
+
+    finding.update({"Finding_Risk": risk})
+    # ----END OF DERIVED ATTRIBUTES----#
+
+    mycollection.insert_one(finding)  # Send information to collection
+    return "OK"
+
+@app.route("/delete_archive_finding", methods=["DELETE"])
+def deleteArchiveFinding():
+    myclient = pymongo.MongoClient(
+        "mongodb://localhost:27017/"
+    )  # Connect to the DB Client
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivefinding"]
+
+    req = request.get_json()
+
+    # severityCategoryScore = 0 #Derived from Severity Category Code
+
+    finding = {
+        "id": str(random.randint(1, 30)),
+        "Host_Name": req["hostName"],
+        "IP_Port": req["ip_port"],
+        "Description": req["description"],
+        "Long_Description": req["longDescription"],
+        "Finding_Status": req["findingStatus"],
+        "Finding_Type": req["findingType"],
+        "Finding_Classification": req["findingClassification"],
+        "Finding_System": req["findingSystem"],
+        "Finding_Task": req["findingTask"],
+        "Finding_Subtask": req["findingSubtask"],
+        "Related_Findings": req["relatedFindings"],
+        "Finding_Confidentiality": req["findingConfidentiality"],
+        "Finding_Integrity": req["findingIntegrity"],
+        "Finding_Availability": req["findingAvailability"],
+        "Finding_Analyst": req["findingAnalyst"],
+        "Finding_Collaborators": req["findingCollaborators"],
+        "Finding_Posture": req["findingPosture"],
+        "Mitigation_Desc": req["mitigationDesc"],
+        "Mitigation_Long_Desc": req["mitigationLongDesc"],
+        "Threat_Relevence": req["threatRelevence"],
+        "Countermeasure": req["countermeasure"],
+        "Impact_Desc": req["impactDesc"],
+        "Impact_Level": req["impactLevel"],
+        "Severity_Score": req["severityCategoryScore"],
+        "Vulnerability_Score": req["vulnerabilityScore"],
+        "Quantitative_Score": req["quantitativeScore"],
+        "Finding_Risk": req["findingRisk"],
+        "Finding_Likelihood": req["findingLikelihood"],
+        "Finding_CFIS": req["findingCFIS"],
+        "Finding_IFIS": req["findingIFIS"],
+        "Finding_AFIS": req["findingAFIS"],
+        "Impact_Score": req["impactScore"],
+        "Finding_Files": req["findingFiles"],
+        "Severity_Category_Code": req["severityCategoryCode"],
+        "System_ID": req["systemID"],
+        "Task_ID": req["taskID"],
+        "Subtask_ID": req["subtaskID"],
+    }
+
+    # ----START OF DERIVED ATTRIBUTES----#
+    # Calculate Severity Category Score
+    severityCategoryScore = 0
+    severityCategoryCode = finding.get("Severity_Category_Code")
+    severityCategoryScore = calculateSeverityScore(severityCategoryCode)
+    finding.update({"Severity_Score": severityCategoryScore})
+
+    # Calculate Impact Score
+    findingImpactScore = 0
+    findingCFIS = finding.get("Finding_CFIS")
+    findingIFIS = finding.get("Finding_IFIS")
+    findingAFIS = finding.get("Finding_AFIS")
+    findingImpactScore = calculateImpactScore(findingCFIS, findingIFIS, findingAFIS)
+    finding.update({"Impact_Score": findingImpactScore})
+
+    # Calculate Vulerability Severity=
+    vulnerabilitySeverityScore = 0
+    counterMeasure = finding.get("Countermeasure")
+    vulnerabilitySeverityScore = calculateVulnerabilitySeverity(
+        counterMeasure, findingImpactScore, severityCategoryScore
+    )
+    finding.update({"Vulnerability_Score": vulnerabilitySeverityScore})
+
+    # Calculate Quantitative Vulnerability Severity
+    QVS = ""
+    QVS = calcualteQuantitativeVulnerabilitySeverity(vulnerabilitySeverityScore)
+    finding.update({"Quantitative_Score": QVS})
+
+    # Calculate Likelihood
+    threat_relevence = ""
+    threat_relevence = finding.get("Threat_Relevence")
+    likelihood = ""
+
+    if findingImpactScore == 0:
+        likelihood = "INFO"
+    else:
+        likelihood = calculateLikelihood(threat_relevence, QVS)
+
+    finding.update({"Finding_Likelihood": likelihood})
+
+    # Calculate Risk
+    impact_level = ""
+    impact_level = finding.get("Impact_Level")
+    risk = ""
+
+    if findingImpactScore == 0:
+        risk = "INFO"
+    else:
+        risk = calculateRisk(likelihood, impact_level)
+
+    finding.update({"Finding_Risk": risk})
+    # ----END OF DERIVED ATTRIBUTES----#
+
+    mycollection.delete_one(finding)  # Send information to collection
+    return "OK"
