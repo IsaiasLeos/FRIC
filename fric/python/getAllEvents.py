@@ -2025,7 +2025,7 @@ def addArchiveTask():
     mycollection = mydb["archivetask"]
     req = request.get_json()
     archtask = {
-        "id": str(random.randint(1, 30)),
+        "id": req["id"],
         "Task_title": req["taskTitle"],
         "Task_Description": req["taskDescription"],
         "System": req["system"],
@@ -2044,6 +2044,61 @@ def addArchiveTask():
     mycollection.insert_one(archtask)  # send info to collection
     return "OK"
 
+    # Function used to add task
+@app.route("/add_back_to_task", methods=["POST"])
+def addArchiveTasks():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
+    req = request.get_json()
+    task = {
+        "id": req["id"],
+        "Task_title": req["taskTitle"],
+        "Task_Description": req["taskDescription"],
+        "System": req["system"],
+        "Task_Priority": req["taskPriority"],
+        "Task_Progress": req["taskProgress"],
+        "Task_Due_Date": req["taskDueDate"],
+        "Task_Analysts": req["taskAnalysts"],
+        "Task_Collaborators": req["taskCollaborators"],
+        "Related_Tasks": req["relatedTasks"],
+        "Attachments": req["attachments"],
+        "Num_subtask": 0,
+        "Num_finding": 13,
+        "Progress": "0%",
+        "SubTask_ID": req["subtaskID"],
+    }
+    mycollection.insert_one(task)  # send info to collection
+    return "OK"
+
+@app.route("/delete_task", methods=["DELETE"])
+def deleteTask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
+
+    req = request.get_json()
+    query = {"id": req["id"]}
+
+    for t in mycollection.find(query):
+        archtask = {
+            "Task_title": req["taskTitle"],
+            "Task_Description": req["taskDescription"],
+            "System": req["system"],
+            "Task_Priority": req["taskPriority"],
+            "Task_Progress": req["taskProgress"],
+            "Task_Due_Date": req["taskDueDate"],
+            "Task_Analysts": req["taskAnalysts"],
+            "Task_Collaborators": req["taskCollaborators"],
+            "Related_Tasks": req["relatedTasks"],
+            "Attachments": req["attachments"],
+            "Num_subtask": 0,
+            "Num_finding": 13,
+            "Progress": "0%",
+            "SubTask_ID": req["subtaskID"],
+        }
+    mycollection.delete_one(archtask)
+    return "OK"
 
 @app.route("/delete_archive_task", methods=["DELETE"])
 def deleteArchiveTask():
@@ -2121,14 +2176,14 @@ def archSystem():
 
 
 @app.route("/add_archive_system", methods=["POST"])
-def addArchiveSystem():
+def addArchiveBackSystem():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["archivesystem"]
 
     req = request.get_json()
     system = {
-        "id": str(random.randint(1, 30)),
+        "id": req["id"],
         "System_Info": req["sysInfo"],
         "System_Description": req["sysDesc"],
         "System_Location": req["sysLoc"],
@@ -2145,12 +2200,93 @@ def addArchiveSystem():
         "Event_ID": req["eventID"],
     }
     mycollection.insert_one(system)
-    return
+    return "OK"
 
+@app.route("/add_back_to_system", methods=["POST"])
+def addArchiveSystem():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["system"]
+
+    req = request.get_json()
+    system = {
+        "id": req["id"],
+        "System_Info": req["sysInfo"],
+        "System_Description": req["sysDesc"],
+        "System_Location": req["sysLoc"],
+        "System_Router": req["sysRouter"],
+        "System_Switch": req["sysSwitch"],
+        "System_Room": req["sysRoom"],
+        "Test_Plan": req["sysTestPlan"],
+        "Confidentiality": req["Confidentiality"],
+        "Integrity": req["Integrity"],
+        "Availability": req["Availability"],
+        "Num_Task": 13,
+        "Num_Findings": 10,
+        "Progress": "0%",
+        "Event_ID": req["eventID"],
+    }
+    mycollection.insert_one(system)
+    return "OK"
+
+
+@app.route("/delete_system", methods=["DELETE"])
+def deleteSystem():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["system"]
+
+    req = request.get_json()
+    query = {"id": req["id"]}
+
+    for t in mycollection.find(query):
+        archsystem = {
+            "System_Info": req["sysInfo"],
+            "System_Description": req["sysDesc"],
+            "System_Location": req["sysLoc"],
+            "System_Router": req["sysRouter"],
+            "System_Switch": req["sysSwitch"],
+            "System_Room": req["sysRoom"],
+            "Test_Plan": req["sysTestPlan"],
+            "Confidentiality": req["Confidentiality"],
+            "Integrity": req["Integrity"],
+            "Availability": req["Availability"],
+            "Num_Task": 13,
+            "Num_Findings": 10,
+            "Progress": "0%",
+            "Event_ID": req["eventID"],
+        }
+    mycollection.delete_one(archsystem)
+    return "OK"
 
 @app.route("/delete_archive_system", methods=["DELETE"])
 def deleteArchiveSystem():
-    return "okay"
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivesystem"]
+
+    req = request.get_json()
+    query = {"id": req["id"]}
+
+    for t in mycollection.find(query):
+        archsystem = {
+            "System_Info": req["sysInfo"],
+            "System_Description": req["sysDesc"],
+            "System_Location": req["sysLoc"],
+            "System_Router": req["sysRouter"],
+            "System_Switch": req["sysSwitch"],
+            "System_Room": req["sysRoom"],
+            "Test_Plan": req["sysTestPlan"],
+            "Confidentiality": req["Confidentiality"],
+            "Integrity": req["Integrity"],
+            "Availability": req["Availability"],
+            "Num_Task": 13,
+            "Num_Findings": 10,
+            "Progress": "0%",
+            "Event_ID": req["eventID"],
+        }
+    mycollection.delete_one(archsystem)
+    return "OK"
 
 
 # ---------    Archive subtask --------------#
