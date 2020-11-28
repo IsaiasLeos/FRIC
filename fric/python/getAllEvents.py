@@ -4,33 +4,39 @@ import random
 import docx
 import openpyxl
 import pptx
-from openpyxl.styles import PatternFill 
+from openpyxl.styles import PatternFill
 from flask import Flask, jsonify, request, make_response
+
 from docx import Document
-from docx.shared import Inches, Pt
+from docx.shared import Inches, Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+
 from datetime import date
 from pptx import Presentation
 
-from pptx.chart.data import CategoryChartData  
-from pptx.enum.chart import XL_CHART_TYPE 
+from pptx.chart.data import CategoryChartData
+from pptx.enum.chart import XL_CHART_TYPE
 
 
 app = Flask(__name__)
-#TO:DO 
+# TO:DO
 # Add analyst
 # Dont allow empty events
-@app.route('/addAnalystToEvent',methods=['POST'])
+@app.route("/addAnalystToEvent", methods=["POST"])
 def addAnalyst():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     myAnalystCollection = mydb["event_analyst"]
     req = request.get_json()
 
-    analyst = {"event_id":req["id"], "analyst": req["analyst"], "is_lead": req["is_lead"]}
-    myAnalystCollection.insert_one(analyst) 
+    analyst = {
+        "event_id": req["id"],
+        "analyst": req["analyst"],
+        "is_lead": req["is_lead"],
+    }
+    myAnalystCollection.insert_one(analyst)
 
     return "OK"
-
 
 
 # Given Analyst return progress # tasks completed / # of tasks
@@ -48,8 +54,8 @@ def calculateProgress(analyst):
     return progress / len(tasks)
 
 
-# Given event, return analysts from that event # 
-@app.route('/analystsInEvent',methods=['POST'])
+# Given event, return analysts from that event #
+@app.route("/analystsInEvent", methods=["POST"])
 def analystList():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -58,12 +64,20 @@ def analystList():
     req = request.get_json()
     for a in myAnalystCollection.find({"event_id": req}):
         if a["is_lead"] == "0":
-            analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
-    
+            analysts.append(
+                {
+                    "analyst": a["analyst"],
+                    "event": a["event_id"],
+                    "is_lead": a["is_lead"],
+                    "progress": calculateProgress(a["analyst"]),
+                }
+            )
+
     return jsonify(analysts)
 
-# Given event, return lead analysts from that event # 
-@app.route('/leadAnalystsInEvent',methods=['POST'])
+
+# Given event, return lead analysts from that event #
+@app.route("/leadAnalystsInEvent", methods=["POST"])
 def leadAnalystList():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -72,8 +86,15 @@ def leadAnalystList():
     req = request.get_json()
     for a in myAnalystCollection.find({"event_id": req}):
         if a["is_lead"] == "1":
-            analysts.append({"analyst": a["analyst"],"event":a["event_id"],"is_lead": a["is_lead"], "progress": calculateProgress(a["analyst"])})
-    
+            analysts.append(
+                {
+                    "analyst": a["analyst"],
+                    "event": a["event_id"],
+                    "is_lead": a["is_lead"],
+                    "progress": calculateProgress(a["analyst"]),
+                }
+            )
+
     return jsonify(analysts)
 
 
@@ -89,8 +110,9 @@ def analysts():
         analysts.append({"isLead": a["isLead"], "initials": a["initials"]})
     return jsonify(analysts)
 
-#Return All events
-@app.route('/eventsOverview')
+
+# Return All events
+@app.route("/eventsOverview")
 def eventsOverview():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -167,6 +189,7 @@ def addEvent():
     mycollection.insert_one(event)
     return
 
+
 # -------------- delete an event --------------- #
 @app.route("/delete_event", methods=["DELETE"])
 def deleteEvent():
@@ -177,7 +200,7 @@ def deleteEvent():
     req = request.get_json()
     query = {"id": req["id"]}
 
-    for t in mycollection.find(query): 
+    for t in mycollection.find(query):
         event = {
             "Event_name": req["name"],
             "Description": req["desc"],
@@ -207,7 +230,9 @@ def getProgress():
         task_progress.append({"taskProgress": e["Task_Progress"]})
     return jsonify(task_progress)
 
+
 # -------------- System overview --------------- #
+
 
 @app.route("/getsystem")
 def systems():
@@ -252,7 +277,9 @@ def systems():
         )
     return jsonify(system_json)
 
+
 # -------------- add system --------------- #
+
 
 @app.route("/addsystem", methods=["POST"])
 def addSystems():
@@ -281,7 +308,9 @@ def addSystems():
     mycollection.insert_one(system)
     return
 
+
 # -------------- edit system --------------- #
+
 
 @app.route("/editsystem", methods=["PUT"])
 def editSystem():
@@ -310,8 +339,10 @@ def editSystem():
     }
     mycollection.update_one(query, system)
     return jsonify(system)
-    
+
+
 # -------------- delete system --------------- #
+
 
 @app.route("/delete_system", methods=["DELETE"])
 def deleteSystems():
@@ -321,7 +352,7 @@ def deleteSystems():
 
     req = request.get_json()
     query = {"id": req["id"]}
-    for t in mycollection.find(query):  
+    for t in mycollection.find(query):
         system = {
             "System_Info": req["sysInfo"],
             "System_Description": req["sysDesc"],
@@ -374,19 +405,19 @@ def editEvent():
 
 # ---------------START OF FINDING API ---------------#
 
-#Get the current analysts findings# 
-@app.route("/analystFindings",methods=["POST"])  # path used in JS to call this
+# Get the current analysts findings#
+@app.route("/analystFindings", methods=["POST"])  # path used in JS to call this
 def analystFindings():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]  # Database name
     mycollection = mydb["finding"]  # Collection Name
     req = request.get_json()
-    
+
     finding_json = []
 
     # Start of Finding
     for e in mycollection.find({"analyst": req}):
-        
+
         finding_json.append(
             {
                 "id": e["id"],
@@ -429,7 +460,7 @@ def analystFindings():
                 "subtaskID": e["Subtask_ID"],
             }
         )
-        
+
     return jsonify(finding_json)  # return what was found in the collection
 
 
@@ -482,7 +513,7 @@ def findings():
                 "severityCategoryCode": e["Severity_Category_Code"],
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
-                "subtaskID": e["Subtask_ID"]
+                "subtaskID": e["Subtask_ID"],
             }
         )
     return jsonify(finding_json)  # return what was found in the collection
@@ -529,7 +560,7 @@ def calculateImpactScore(CFIS, IFIS, AFIS):
         impact_score == 0
     else:
         impact_score = systemlevelQuantitative.get(findingSystemLevel)
-        
+
     return impact_score
 
 
@@ -705,7 +736,7 @@ def addFindings():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
-        "analyst": req["analyst"]
+        "analyst": req["analyst"],
     }
 
     # ----START OF DERIVED ATTRIBUTES----#
@@ -822,7 +853,8 @@ def editFinding():
 
     return jsonify(finding)
 
-#---------------- Delete a finding -------------------#
+
+# ---------------- Delete a finding -------------------#
 @app.route("/delete_finding", methods=["DELETE"])
 def deleteFindings():
     myclient = pymongo.MongoClient(
@@ -998,7 +1030,7 @@ def addSubtasks():
     mycollection.insert_one(subtask)
 
 
-@app.route("/editsubtask", methods=["PUT"])          # NEW
+@app.route("/editsubtask", methods=["PUT"])  # NEW
 def editSubtask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -1024,6 +1056,7 @@ def editSubtask():
     }
     mycollection.update_one(query, subtask)
     return jsonify(subtask)
+
 
 @app.route("/delete_subtask", methods=["DELETE"])
 def deleteSubtasks():
@@ -1136,7 +1169,7 @@ def addTasks():
 
 
 # Function used to edit task
-@app.route("/edittask", methods=["PUT"])    # CHANGES MADE
+@app.route("/edittask", methods=["PUT"])  # CHANGES MADE
 def editTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
@@ -1172,11 +1205,11 @@ def deleteTasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["task"]
-    
+
     req = request.get_json()
     query = {"id": req["id"]}
 
-    for t in mycollection.find(query):  
+    for t in mycollection.find(query):
         task = {
             "Task_title": req["taskTitle"],
             "Task_Description": req["taskDescription"],
@@ -1193,8 +1226,9 @@ def deleteTasks():
             "Progress": "0%",
             "SubTask_ID": req["subtaskID"],
         }
-    mycollection.delete_one(task)  
+    mycollection.delete_one(task)
     return "OK"
+
 
 # --------------------------------------------------- END OF TASK API -------------------------------------#
 
@@ -1274,17 +1308,18 @@ def create_Risk_Matrix():
     for rows in ws.iter_rows(min_row=1, max_row=1, min_col=1):
         for cell in rows:
             cell.fill = PatternFill(bgColor="c6d9f0", patternType="gray0625")
-    wb.save("../src/reports/riskMatrix.xlsx")  #Saving the file
+    wb.save("../src/reports/riskMatrix.xlsx")  # Saving the file
 
-@app.route("/generateERB" , methods=["POST"])
+
+@app.route("/generateERB", methods=["POST"])
 def generateERB():
-    
+
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     myEventCollection = mydb["event"]
     mySystemCollection = mydb["system"]
     myFindingCollection = mydb["finding"]
-    
+
     events_json = []
     system_json = []
     finding_json = []
@@ -1333,19 +1368,17 @@ def generateERB():
                 "subtaskID": e["Subtask_ID"],
             }
         )
-   
+
     for e in myEventCollection.find():
 
         events_json.append(
             {
-            
                 "name": e["Event_name"],
-                
             }
         )
 
-    eventName = '' #Hold Event Name
-    for x in range(len(events_json)): #Get the name of the event 
+    eventName = ""  # Hold Event Name
+    for x in range(len(events_json)):  # Get the name of the event
         event = events_json[x]
         eventName = event["name"]
 
@@ -1353,419 +1386,415 @@ def generateERB():
         system_json.append(
             {
                 "sysInfo": e["System_Info"],
-                
             }
         )
 
     ppt = Presentation()
-    
+
     img_path = "../src/assets/logo.png"
-    img_path2= "../src/assets/armyLogo.png"
+    img_path2 = "../src/assets/armyLogo.png"
 
+    blank_slide_layout = ppt.slide_layouts[6]
 
-    blank_slide_layout = ppt.slide_layouts[6]  
-    
-    # Attaching slide to ppt 
-    slide = ppt.slides.add_slide(blank_slide_layout)  
-    
-    # For margins 
-    left = Inches(.5)
-    top = Inches(0)    
-    height = Inches(1)  
-    
-    #Add image
-    pic = slide.shapes.add_picture(img_path, left, top, height = height)
+    # Attaching slide to ppt
+    slide = ppt.slides.add_slide(blank_slide_layout)
+
+    # For margins
+    left = Inches(0.5)
+    top = Inches(0)
+    height = Inches(1)
+
+    # Add image
+    pic = slide.shapes.add_picture(img_path, left, top, height=height)
 
     left = Inches(8)
-    top = Inches(0)    
-    height = Inches(1.4)  
-    
-    pic = slide.shapes.add_picture(img_path2, left, top, height = height)
+    top = Inches(0)
+    height = Inches(1.4)
 
-    # Client Information 
-    left= Inches(0)
+    pic = slide.shapes.add_picture(img_path2, left, top, height=height)
+
+    # Client Information
+    left = Inches(0)
     top = Inches(1)
-    height = Inches(1) 
+    height = Inches(1)
     width = Inches(6)
-    txtBox = slide.shapes.add_textbox(left,top ,width,height)
+    txtBox = slide.shapes.add_textbox(left, top, width, height)
     tf = txtBox.text_frame
     tf.text = ""
     p = tf.add_paragraph()
-    p.text = "U.S. ARMY COMBAT CAPABILITIES DEVELOPMENT COMMAND - DATA & ANALYSIS CENTER"
-    
+    p.text = (
+        "U.S. ARMY COMBAT CAPABILITIES DEVELOPMENT COMMAND - DATA & ANALYSIS CENTER"
+    )
+
     p.font.size = Pt(19)
     p.font.bold = True
 
-
-     #Client Information
+    # Client Information
     clientTxtBox = slide.shapes.add_textbox(Inches(3), Inches(2), width, height)
     tf4 = clientTxtBox.text_frame
     tf4.text = ""
     p4 = tf4.add_paragraph()
     p4.text = "Cyber Experimentation & Analysis Division"
     p4.font.size = Pt(17)
-    p4.font.bold = True 
+    p4.font.bold = True
 
-    #Event Information
+    # Event Information
     eventTxtBox = slide.shapes.add_textbox(Inches(4.5), Inches(3), width, height)
     tf2 = eventTxtBox.text_frame
     tf2.text = ""
     p2 = tf2.add_paragraph()
-    p2.text = eventName #Event that took place
+    p2.text = eventName  # Event that took place
     p2.font.size = Pt(30)
-    p2.font.bold = True    
+    p2.font.bold = True
 
-    #Presenter Information
+    # Presenter Information
     presenterTxtBox = slide.shapes.add_textbox(Inches(0), Inches(6), width, height)
     tf3 = presenterTxtBox.text_frame
     tf3.text = "Name of Presenter: "
     p3 = tf3.add_paragraph()
     p3.text = "Rank/Title of Presenter: "
     p3.font.size = Pt(15)
-    p3.font.bold = True 
+    p3.font.bold = True
     p5 = tf3.add_paragraph()
 
     today = "DD/MM/YYYY"
     p5.text = today
     p5.font.size = Pt(15)
-    p5.font.bold = True 
+    p5.font.bold = True
 
-    #Slide 1 Done
-    
-    #Slide 2
-    blank_slide_layout2 = ppt.slide_layouts[6]  #Layout
-    slide2 = ppt.slides.add_slide(blank_slide_layout2) #add to ppt
+    # Slide 1 Done
 
-    # For margins 
-    left = Inches(.5)
-    top = Inches(0)    
-    height = Inches(1)  
-    
-    #Add image
-    pic = slide2.shapes.add_picture(img_path, left, top, height = height)
+    # Slide 2
+    blank_slide_layout2 = ppt.slide_layouts[6]  # Layout
+    slide2 = ppt.slides.add_slide(blank_slide_layout2)  # add to ppt
+
+    # For margins
+    left = Inches(0.5)
+    top = Inches(0)
+    height = Inches(1)
+
+    # Add image
+    pic = slide2.shapes.add_picture(img_path, left, top, height=height)
 
     left = Inches(8)
-    top = Inches(0)    
-    height = Inches(1.4)  
-    
-    pic = slide2.shapes.add_picture(img_path2, left, top, height = height)
+    top = Inches(0)
+    height = Inches(1.4)
 
+    pic = slide2.shapes.add_picture(img_path2, left, top, height=height)
 
-    left= Inches(0)
+    left = Inches(0)
     top = Inches(1)
-    height = Inches(1) 
+    height = Inches(1)
     width = Inches(6)
-    txtBox = slide2.shapes.add_textbox(left,top ,width,height)
+    txtBox = slide2.shapes.add_textbox(left, top, width, height)
     tf = txtBox.text_frame
     tf.text = ""
     p = tf.add_paragraph()
     p.text = "Scope:"
-    
+
     p.font.size = Pt(40)
     p.font.bold = True
 
-    left= Inches(0)
+    left = Inches(0)
     top = Inches(2)
-    height = Inches(1) 
+    height = Inches(1)
     width = Inches(6)
-    sysTextBox = slide2.shapes.add_textbox(left,top ,width,height)
-    tfA = sysTextBox.text_frame #Text Frame A
+    sysTextBox = slide2.shapes.add_textbox(left, top, width, height)
+    tfA = sysTextBox.text_frame  # Text Frame A
     tfA.level = 0
     tfA.text = "Systems assessed during the CVPA are as follows:"
-    
-    for x in range(len(system_json)): #List all systems in the given event
-        pA = tfA.add_paragraph() #Paragraph A
-        
+
+    for x in range(len(system_json)):  # List all systems in the given event
+        pA = tfA.add_paragraph()  # Paragraph A
+
         system = system_json[x]
         pA.level = 1
         pA.text = system["sysInfo"]
         pA.font.size = Pt(30)
-        
-    #----- END SLIDE 2 -----#
-    
-    #----- Start Slide 3 -----#
+
+    # ----- END SLIDE 2 -----#
+
+    # ----- Start Slide 3 -----#
 
     slideTable = ppt.slides.add_slide(ppt.slide_layouts[5])
     x, y, cx, cy = Inches(0), Inches(2), Inches(10), Inches(4)
-    shape = slideTable.shapes.add_table(len(finding_json)+1,5,x,y,cx,cy)
+    shape = slideTable.shapes.add_table(len(finding_json) + 1, 5, x, y, cx, cy)
     table = shape.table
 
-    cellID = table.cell(0,0)
+    cellID = table.cell(0, 0)
     cellID.text = "ID"
 
-    cellSystem = table.cell(0,1)
+    cellSystem = table.cell(0, 1)
     cellSystem.text = "System"
 
-    cellFinding = table.cell(0,2)
+    cellFinding = table.cell(0, 2)
     cellFinding.text = "Finding"
 
-    cellImpact = table.cell(0,3)
+    cellImpact = table.cell(0, 3)
     cellImpact.text = "Impact"
 
-    cellRisk = table.cell(0,4)
+    cellRisk = table.cell(0, 4)
     cellRisk.text = "Risk"
 
-    for x in range(1,len(finding_json) + 1):
-        finding = finding_json[x-1] #Cant start at index zero because that is where labels are, however we still need the first finding to be put on the table
+    for x in range(1, len(finding_json) + 1):
+        finding = finding_json[
+            x - 1
+        ]  # Cant start at index zero because that is where labels are, however we still need the first finding to be put on the table
 
-        finID = table.cell(x,0)
+        finID = table.cell(x, 0)
         finID.text = finding["id"]
 
-        finSys = table.cell(x,1)
+        finSys = table.cell(x, 1)
         finSys.text = finding["systemID"]
 
-        finHostName = table.cell(x,2)
+        finHostName = table.cell(x, 2)
         finHostName.text = finding["hostName"]
 
-        finImpact = table.cell(x,3)
+        finImpact = table.cell(x, 3)
         finImpact.text = finding["impactLevel"]
 
-        finRisk = table.cell(x,4)
+        finRisk = table.cell(x, 4)
         finRisk.text = finding["findingRisk"]
 
-    #Table Done
-        
-    left = Inches(.5)
-    top = Inches(0)    
-    height = Inches(1)  
-    
-    #Add image
-    pic = slideTable.shapes.add_picture(img_path, left, top, height = height)
+    # Table Done
+
+    left = Inches(0.5)
+    top = Inches(0)
+    height = Inches(1)
+
+    # Add image
+    pic = slideTable.shapes.add_picture(img_path, left, top, height=height)
 
     left = Inches(8)
-    top = Inches(0)    
-    height = Inches(1.4)  
-    
-    pic = slideTable.shapes.add_picture(img_path2, left, top, height = height)
-    left= Inches(0)
+    top = Inches(0)
+    height = Inches(1.4)
+
+    pic = slideTable.shapes.add_picture(img_path2, left, top, height=height)
+    left = Inches(0)
     top = Inches(1)
-    height = Inches(1) 
+    height = Inches(1)
     width = Inches(6)
-    findingTxtBox = slideTable.shapes.add_textbox(left,top ,width,height)
+    findingTxtBox = slideTable.shapes.add_textbox(left, top, width, height)
     findingTf = findingTxtBox.text_frame
     findingTf.text = ""
     findingParagraph = findingTf.add_paragraph()
     findingParagraph.text = "Findings:"
-    findingParagraph.font.size= Pt(30)
+    findingParagraph.font.size = Pt(30)
 
-    #----- END SlIDE 3-----# 
-    
-    #----- START FINDINGS TABLES -----#
+    # ----- END SlIDE 3-----#
+
+    # ----- START FINDINGS TABLES -----#
     for x in range(len(finding_json)):
         finding = finding_json[x]
-        slideFinding= ppt.slides.add_slide(ppt.slide_layouts[5])
+        slideFinding = ppt.slides.add_slide(ppt.slide_layouts[5])
 
         x, y, cx, cy = Inches(0), Inches(2), Inches(10), Inches(4)
 
-        shape = slideFinding.shapes.add_table(10,7,x,y,cx,cy)
+        shape = slideFinding.shapes.add_table(10, 7, x, y, cx, cy)
         table = shape.table
 
-        cellID = table.cell(0,0)
+        cellID = table.cell(0, 0)
         cellID.text = "ID"
-        cellA = table.cell(0,1)
+        cellA = table.cell(0, 1)
         cellA.text = str(finding["id"])
 
-        cellB = table.cell(0,2)
+        cellB = table.cell(0, 2)
         cellB.text = "Impact Score"
-        cellC = table.cell(0,3)
-        cellC.text = str(finding['impactScore'])
+        cellC = table.cell(0, 3)
+        cellC.text = str(finding["impactScore"])
 
-        cellD = table.cell(0,4)
+        cellD = table.cell(0, 4)
         cellD.text = "Status"
-        cellE = table.cell(0,5)
-        cellE.text = str(finding['findingStatus'])
+        cellE = table.cell(0, 5)
+        cellE.text = str(finding["findingStatus"])
 
-        cellF = table.cell(0,6)
-        cellF.text = 'Posture'
-        cellG = table.cell(1,6)
-        cellG.text = str(finding['findingPosture'])
-        #Row 2
+        cellF = table.cell(0, 6)
+        cellF.text = "Posture"
+        cellG = table.cell(1, 6)
+        cellG.text = str(finding["findingPosture"])
+        # Row 2
 
-        cellH = table.cell(1,0)
+        cellH = table.cell(1, 0)
         cellH.text = "Host Names"
-        cellI= table.cell(1,1)
+        cellI = table.cell(1, 1)
         cellI.text = str(finding["hostName"])
 
-        cellJ = table.cell(2,0)
+        cellJ = table.cell(2, 0)
         cellJ.text = "IP:PORT"
-        cellK = table.cell(2,1)
-        cellK.text = str(finding['ip_port'])
+        cellK = table.cell(2, 1)
+        cellK.text = str(finding["ip_port"])
 
-        cellL = table.cell(1,2)
+        cellL = table.cell(1, 2)
         cellL.text = "CAT"
 
-        cellM = table.cell(1,3)
-        cellM.text = str(finding['severityCategoryCode'])
+        cellM = table.cell(1, 3)
+        cellM.text = str(finding["severityCategoryCode"])
 
-        cellN= table.cell(1,4)
+        cellN = table.cell(1, 4)
         cellN.text = "Likelihood"
 
-        cellO = table.cell(1,5)
-        cellO.text = str(finding['findingLikelihood'])
+        cellO = table.cell(1, 5)
+        cellO.text = str(finding["findingLikelihood"])
 
-        cellP = table.cell(2,2)
+        cellP = table.cell(2, 2)
         cellP.text = "CAT Score"
 
-        cellq = table.cell(2,3)
-        cellq.text = str(finding['severityCategoryScore'])
+        cellq = table.cell(2, 3)
+        cellq.text = str(finding["severityCategoryScore"])
 
-        cellR = table.cell(2,4)
+        cellR = table.cell(2, 4)
         cellR.text = "Impact"
 
-        cellS = table.cell(2,5)
-        cellS.text = str(finding['impactLevel'])
+        cellS = table.cell(2, 5)
+        cellS.text = str(finding["impactLevel"])
 
-        cellT = table.cell(3,0)
-        cellT.text = 'Vs Score'
+        cellT = table.cell(3, 0)
+        cellT.text = "Vs Score"
 
-        cellU = table.cell(3,1)
-        cellU.text = str(finding['vulnerabilityScore'])
+        cellU = table.cell(3, 1)
+        cellU.text = str(finding["vulnerabilityScore"])
 
-        cellV = table.cell(3,2)
+        cellV = table.cell(3, 2)
         cellV.text = "Risk"
 
-        cellW = table.cell(3,3)
-        cellW.text = str(finding['findingRisk'])
+        cellW = table.cell(3, 3)
+        cellW.text = str(finding["findingRisk"])
 
-        cellX = table.cell(3,4)
+        cellX = table.cell(3, 4)
         cellX.text = "Vs"
 
-        cellY = table.cell(3,5)
-        cellY.text = str(finding['vulnerabilityScore'])
+        cellY = table.cell(3, 5)
+        cellY.text = str(finding["vulnerabilityScore"])
 
-        cellZ = table.cell(4,0)
-        cellZ.text = 'CM'
+        cellZ = table.cell(4, 0)
+        cellZ.text = "CM"
 
-        cellA1 = table.cell(4,1)
-        cellA1.text = str(finding['countermeasure'])
+        cellA1 = table.cell(4, 1)
+        cellA1.text = str(finding["countermeasure"])
 
-        cellA2 = table.cell(4,2)
-        cellA2.text = 'C:'
+        cellA2 = table.cell(4, 2)
+        cellA2.text = "C:"
 
-        cellA3 = table.cell(4,3)
-        cellA3.text = str(finding['findingCFIS'])
+        cellA3 = table.cell(4, 3)
+        cellA3.text = str(finding["findingCFIS"])
 
-        cellA4 = table.cell(4,4)
-        cellA4.text = 'I:'
+        cellA4 = table.cell(4, 4)
+        cellA4.text = "I:"
 
-        cellA5 = table.cell(4,5)
-        cellA5.text = str(finding['findingIFIS'])
+        cellA5 = table.cell(4, 5)
+        cellA5.text = str(finding["findingIFIS"])
 
-        cellA6 = table.cell(5,0)
-        cellA6.text = 'A:'
+        cellA6 = table.cell(5, 0)
+        cellA6.text = "A:"
 
-        cellA7 = table.cell(5,1)
-        cellA7.text = str(finding['findingAFIS'])
+        cellA7 = table.cell(5, 1)
+        cellA7.text = str(finding["findingAFIS"])
 
-        cellA8 = table.cell(5,2)
-        cellA8.text = 'Impact Rationale'
+        cellA8 = table.cell(5, 2)
+        cellA8.text = "Impact Rationale"
 
-        cellA9 = table.cell(5,3)
-        cellA9.text = str(finding['impactDesc'])
+        cellA9 = table.cell(5, 3)
+        cellA9.text = str(finding["impactDesc"])
 
-        cellA10= table.cell(5,4)
-        cellA10.text = 'Finding Type'
+        cellA10 = table.cell(5, 4)
+        cellA10.text = "Finding Type"
 
-        cellA11 = table.cell(5,5)
-        cellA11.text = str(finding['findingType'])
+        cellA11 = table.cell(5, 5)
+        cellA11.text = str(finding["findingType"])
 
-        cellA12 = table.cell(6,0)
-        cellA12.text = 'Description'
+        cellA12 = table.cell(6, 0)
+        cellA12.text = "Description"
 
-        cellA13 = table.cell(6,1)
-        cellA13.text = str(finding['longDescription'])
+        cellA13 = table.cell(6, 1)
+        cellA13.text = str(finding["longDescription"])
 
-        cellA14 = table.cell(7,0)
-        cellA14.text = 'Mitigation'
+        cellA14 = table.cell(7, 0)
+        cellA14.text = "Mitigation"
 
-        cellA15 = table.cell(7,1)
-        cellA15.text = str(finding['mitigationLongDesc'])
+        cellA15 = table.cell(7, 1)
+        cellA15.text = str(finding["mitigationLongDesc"])
 
-        #Add image
-        left = Inches(.5)
-        top = Inches(0)    
-        height = Inches(1)  
-        pic = slideFinding.shapes.add_picture(img_path, left, top, height = height)
+        # Add image
+        left = Inches(0.5)
+        top = Inches(0)
+        height = Inches(1)
+        pic = slideFinding.shapes.add_picture(img_path, left, top, height=height)
 
         left = Inches(8)
-        top = Inches(0)    
-        height = Inches(1.4)  
-        pic = slideFinding.shapes.add_picture(img_path2, left, top, height = height)
+        top = Inches(0)
+        height = Inches(1.4)
+        pic = slideFinding.shapes.add_picture(img_path2, left, top, height=height)
 
-        left= Inches(0)
+        left = Inches(0)
         top = Inches(1)
-        height = Inches(1) 
+        height = Inches(1)
         width = Inches(6)
-        findingTxtBox = slideFinding.shapes.add_textbox(left,top ,width,height)
+        findingTxtBox = slideFinding.shapes.add_textbox(left, top, width, height)
 
         findingTf = findingTxtBox.text_frame
         findingTf.text = ""
 
         findingParagraph = findingTf.add_paragraph()
-        findingParagraph.text = ("Finding-"+ finding['hostName'])
-        findingParagraph.font.size= Pt(30)
+        findingParagraph.text = "Finding-" + finding["hostName"]
+        findingParagraph.font.size = Pt(30)
 
-
-    #-----START HISTROGRAM SLIDE-----#
+    # -----START HISTROGRAM SLIDE-----#
 
     slideHisto = ppt.slides.add_slide(ppt.slide_layouts[5])
 
-         
-    left = Inches(.5)
-    top = Inches(0)    
-    height = Inches(1)  
-    
-    #Add image
-    pic = slideHisto.shapes.add_picture(img_path, left, top, height = height)
+    left = Inches(0.5)
+    top = Inches(0)
+    height = Inches(1)
+
+    # Add image
+    pic = slideHisto.shapes.add_picture(img_path, left, top, height=height)
 
     left = Inches(8)
-    top = Inches(0)    
-    height = Inches(1.4)  
-    
-    pic = slideHisto.shapes.add_picture(img_path2, left, top, height = height)
-    left= Inches(0)
+    top = Inches(0)
+    height = Inches(1.4)
+
+    pic = slideHisto.shapes.add_picture(img_path2, left, top, height=height)
+    left = Inches(0)
     top = Inches(1)
-    height = Inches(1) 
+    height = Inches(1)
     width = Inches(6)
-    findingTxtBox = slideHisto.shapes.add_textbox(left,top ,width,height)
+    findingTxtBox = slideHisto.shapes.add_textbox(left, top, width, height)
     findingTf = findingTxtBox.text_frame
     findingTf.text = ""
     findingParagraph = findingTf.add_paragraph()
     findingParagraph.text = "Findings Histogram:"
-    findingParagraph.font.size= Pt(30)
+    findingParagraph.font.size = Pt(30)
 
     info = 0
     veryLow = 0
     low = 0
     medium = 0
     high = 0
-    veryHigh= 0
-
+    veryHigh = 0
 
     for x in range(len(finding_json)):
         finding = finding_json[x]
-        if finding["findingRisk"] == 'INFO':
+        if finding["findingRisk"] == "INFO":
             info += 1
-        elif finding["findingRisk"] == 'VL':
+        elif finding["findingRisk"] == "VL":
             veryLow += 1
-        elif finding["findingRisk"] == 'L':
+        elif finding["findingRisk"] == "L":
             low += 1
-        elif finding["findingRisk"] == 'M':
+        elif finding["findingRisk"] == "M":
             medium += 1
-        elif finding["findingRisk"] == 'H':
+        elif finding["findingRisk"] == "H":
             high += 1
         else:
             veryHigh += 1
 
-    
     chart_data = CategoryChartData()
-    chart_data.categories = ['INFO', 'VERY LOW', 'LOW', 'MEDIUM', 'HIGH', 'VERY HIGH']
-    chart_data.add_series('Series 1', (info, veryLow, low, medium, high, veryHigh))
-
-    
+    chart_data.categories = ["INFO", "VERY LOW", "LOW", "MEDIUM", "HIGH", "VERY HIGH"]
+    chart_data.add_series("Series 1", (info, veryLow, low, medium, high, veryHigh))
 
     x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(5)
-    slideHisto.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data)
+    slideHisto.shapes.add_chart(
+        XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data
+    )
 
     ppt.save("../src/reports/ERB.pptx")
     return "OK"
@@ -1774,7 +1803,7 @@ def generateERB():
 @app.route("/generatefinalreport", methods=["POST"])
 def generatefinalreport():
 
-    document = Document()  # Report Object
+    document = Document()  # Final Report Object
     # Formatting
     TStyle = document.styles["Normal"]
     # Font
@@ -1786,18 +1815,44 @@ def generatefinalreport():
         "../src/assets/logo.png",
     )
 
-    sentence = document.add_paragraph()
-
-    sentence.add_run(
-        "Combat Capabilities Development Command (CCDC) Data & Analysis Center (DAC) Enter System Name Enter Event Type (e.g., CVPA, CVI, VoF, etc) Report"
-    ).bold = True
+    document.add_heading(
+        "Combat Capabilities Development Command (CCDC) Data & Analysis Center (DAC) Enter System Name Enter Event Type (e.g., CVPA, CVI, VoF, etc) Report",
+        0,
+    )
+    firstPage = document.add_paragraph()
+    # firstPage.add_run(
+    #     "Combat Capabilities Development Command (CCDC) Data & Analysis Center (DAC) Enter System Name Enter Event Type (e.g., CVPA, CVI, VoF, etc) Report"
+    # ).bold = True
 
     # Specify all the analyst in the event.
-    sentence.add_run("by ").bold = True
+    firstPage.add_run("\nby \n").bold = True
+
+    firstPage.add_run(
+        "To update document, double-click HERE  then delete this line\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    ).font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
     # End of the page description
-    sentence.add_run(
+    firstPage.add_run(
         "Classified by: Enter Lead Analyst Name\nDerived from: Enter Title of System's Security Classification Guide\nDeclassify on: Enter Declassification Date (e.g., 04/20/2040)"
     ).bold = True
+
+    secondPage = document.add_paragraph()
+    secondPage.add_run("DESTRUCTION NOTICE\n").bold = True
+    secondPage.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    secondPage.add_run(
+        "Destroy by any method that will prevent disclosure of contents or reconstruction of the document.\n\n"
+    )
+    secondPage.add_run("DISCLAIMER\n").bold = True
+    secondPage.add_run(
+        "The findings in this report are not to be construed as an official Department of the Army position unless so specified by other official documentation.\n\n"
+    )
+    secondPage.add_run("WARNING\n").bold = True
+    secondPage.add_run(
+        "Information and data contained in this document are based on the input available at the time of preparation.\n\n"
+    )
+    secondPage.add_run("TRADE NAME\n").bold = True
+    secondPage.add_run(
+        "The use of trade names in this report does not constitute an official endorsement or approval of the use of such commercial hardware or software.  The report may not be cited for purposes of advertisement.\n\n"
+    )
     document.add_page_break()
 
     # Connect to the finding collection
@@ -1867,6 +1922,7 @@ def generatefinalreport():
         )  # Specify Rows and Columns for the Table
         table.autofit = True
         hdr_cells = table.rows[0].cells
+
         hdr_cells[0].text = "ID"
         hdr_cells[1].text = finding["id"]
         hdr_cells[3].text = "Impact Score"
@@ -1883,104 +1939,122 @@ def generatefinalreport():
         row_cells[6].text = finding["findingLikelihood"]
         row_cells[7].text = finding["findingPosture"]
         row_cells = table.add_row().cells  # Add Row
+        row_cells[0].text = finding["hostName"]
+        row_cells[2].text = finding["ip_port"]
         row_cells[3].text = "CAT Score"
         row_cells[4].text = str(finding["severityCategoryScore"])
         row_cells[5].text = "Impact"
         row_cells[6].text = finding["impactLevel"]
+        row_cells[7].text = (
+            finding["findingCFIS"]
+            + " "
+            + finding["findingIFIS"]
+            + " "
+            + finding["findingAFIS"]
+        )
         row_cells = table.add_row().cells  # Add Row
         row_cells[3].text = "VS-Score"
         row_cells[4].text = str(finding["vulnerabilityScore"])
         row_cells[5].text = "Risk"
         row_cells[6].text = finding["findingRisk"]
         row_cells = table.add_row().cells  # Add Row
+        row_cells[3].text = "VS"
+        document.add_page_break()
 
     document.save("../src/reports/finalreport.docx")
     return "OK"
 
 
-
 # ----------------------------------------- ARCHIVE INFORMATION --------------------------------------- #
 
-#archive task
+# archive task
 @app.route("/arch_task")
 def archTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient['FRIC']
+    mydb = myclient["FRIC"]
     mycollection = mydb["archivetask"]
-    myFindingCollection = mydb['finding']
-    mySubtaskCollection = mydb['subtask']
-    
+    myFindingCollection = mydb["finding"]
+    mySubtaskCollection = mydb["subtask"]
+
     findings_json = []
     # Get number of Findings
     for f in myFindingCollection.find():
-        findings_json.append(
-            {"id": f["id"], "hostName": f["Host_Name"]})
+        findings_json.append({"id": f["id"], "hostName": f["Host_Name"]})
     num_finds = len(findings_json)
 
     subtask_json = []
     # Get number of systems
     for s in mySubtaskCollection.find():
         subtask_json.append(
-            {"subtaskTitle": s["Subtask_Title"], "subtaskDescription": s["Subtask_Description"]})
+            {
+                "subtaskTitle": s["Subtask_Title"],
+                "subtaskDescription": s["Subtask_Description"],
+            }
+        )
     num_subtask = len(subtask_json)
 
     task_json = []
-    # Start of task 
+    # Start of task
     for e in mycollection.find():
-        task_json.append({
-                "id": e['id'],
-                "taskTitle": e['Task_title'],
-                "taskDescription": e['Task_Description'],
-                "system": e['System'],
-                "taskPriority": e['Task_Priority'],
-                "taskProgress": e['Task_Progress'],
-                "taskDueDate": e['Task_Due_Date'],
-                "taskAnalysts": e['Task_Analysts'],
-                "taskCollaborators": e['Task_Collaborators'],
-                "relatedTasks": e['Related_Tasks'],
-                "attachments": e['Attachments'],
+        task_json.append(
+            {
+                "id": e["id"],
+                "taskTitle": e["Task_title"],
+                "taskDescription": e["Task_Description"],
+                "system": e["System"],
+                "taskPriority": e["Task_Priority"],
+                "taskProgress": e["Task_Progress"],
+                "taskDueDate": e["Task_Due_Date"],
+                "taskAnalysts": e["Task_Analysts"],
+                "taskCollaborators": e["Task_Collaborators"],
+                "relatedTasks": e["Related_Tasks"],
+                "attachments": e["Attachments"],
                 "num_subtask": num_subtask,
                 "num_finding": num_finds,
-                "subtaskID": e['Subtask_ID'],
-            })
+                "subtaskID": e["Subtask_ID"],
+            }
+        )
     return jsonify(task_json)
 
+
 # Function used to add task to archive
-@app.route("/add_archive_task", methods=['POST'])
+@app.route("/add_archive_task", methods=["POST"])
 def addArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["archivetask"]
     req = request.get_json()
     archtask = {
-        "id":str(random.randint(1,30)),
-        "Task_title": req['taskTitle'],
-        "Task_Description": req['taskDescription'],
-        "System": req['system'],
-        "Task_Priority": req['taskPriority'],
-        "Task_Progress": req['taskProgress'],
-        "Task_Due_Date": req['taskDueDate'],
-        "Task_Analysts": req['taskAnalysts'],
-        "Task_Collaborators": req['taskCollaborators'],
-        "Related_Tasks": req['relatedTasks'],
-        "Attachments": req['attachments'],
-        "Num_subtask": 0, "Num_finding": 13,
-        "Subtask_ID": req['subtaskID'],
-        #"System_ID" : req['systemID'],
+        "id": str(random.randint(1, 30)),
+        "Task_title": req["taskTitle"],
+        "Task_Description": req["taskDescription"],
+        "System": req["system"],
+        "Task_Priority": req["taskPriority"],
+        "Task_Progress": req["taskProgress"],
+        "Task_Due_Date": req["taskDueDate"],
+        "Task_Analysts": req["taskAnalysts"],
+        "Task_Collaborators": req["taskCollaborators"],
+        "Related_Tasks": req["relatedTasks"],
+        "Attachments": req["attachments"],
+        "Num_subtask": 0,
+        "Num_finding": 13,
+        "Subtask_ID": req["subtaskID"],
+        # "System_ID" : req['systemID'],
     }
-    mycollection.insert_one(archtask) #send info to collection
+    mycollection.insert_one(archtask)  # send info to collection
     return "OK"
+
 
 @app.route("/delete_archive_task", methods=["DELETE"])
 def deleteArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["archivetask"]
-    
+
     req = request.get_json()
     query = {"id": req["id"]}
 
-    for t in mycollection.find(query):  
+    for t in mycollection.find(query):
         archtask = {
             "Task_title": req["taskTitle"],
             "Task_Description": req["taskDescription"],
@@ -1997,9 +2071,8 @@ def deleteArchiveTask():
             "Progress": "0%",
             "SubTask_ID": req["subtaskID"],
         }
-    mycollection.delete_one(archtask)  
+    mycollection.delete_one(archtask)
     return "OK"
-        
 
 
 # -------------- archive system --------------- #
@@ -2074,6 +2147,7 @@ def addArchiveSystem():
     mycollection.insert_one(system)
     return
 
+
 @app.route("/delete_archive_system", methods=["DELETE"])
 def deleteArchiveSystem():
     return "okay"
@@ -2138,7 +2212,8 @@ def addArchiveSubTask():
         "Task": "Task 0",
         "Task_ID": req["taskID"],
     }
-    mycollection.insert_one(subtask) 
+    mycollection.insert_one(subtask)
+
 
 @app.route("/delete_archive_subtask", methods=["DELETE"])
 def deleteArchiveSubTask():
@@ -2162,9 +2237,11 @@ def deleteArchiveSubTask():
         "Task": "Task 0",
         "Task_ID": req["taskID"],
     }
-    mycollection.delete_one(subtask) 
+    mycollection.delete_one(subtask)
+
 
 # archive finding
+
 
 @app.route("/arch_finding")  # path used in JS to call this
 def archFinding():
@@ -2219,6 +2296,7 @@ def archFinding():
             }
         )
     return jsonify(finding_json)  # return what was found in the collection
+
 
 @app.route("/add_archive_finding", methods=["POST"])
 def addArchiveFinding():
@@ -2328,6 +2406,7 @@ def addArchiveFinding():
 
     mycollection.insert_one(finding)  # Send information to collection
     return "OK"
+
 
 @app.route("/delete_archive_finding", methods=["DELETE"])
 def deleteArchiveFinding():
