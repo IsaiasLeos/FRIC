@@ -1374,13 +1374,17 @@ def generateERB():
         events_json.append(
             {
                 "name": e["Event_name"],
+                "type": e["Type"]
             }
         )
 
     eventName = ""  # Hold Event Name
+    eventType = "" # Hold Event Type
     for x in range(len(events_json)):  # Get the name of the event
         event = events_json[x]
         eventName = event["name"]
+        eventType = event["type"]
+
 
     for e in mySystemCollection.find():
         system_json.append(
@@ -1447,12 +1451,22 @@ def generateERB():
     p2.font.size = Pt(30)
     p2.font.bold = True
 
+    # Event Type
+    eventTypeTxtBox = slide.shapes.add_textbox(Inches(3.5), Inches(4), width, height)
+    tf8 = eventTypeTxtBox.text_frame
+    tf8.text = ""
+    p8 = tf8.add_paragraph()
+    p8.text = eventType  # Event that took place
+    p8.font.size = Pt(17)
+    p8.font.bold = True
+    
+
     # Presenter Information
     presenterTxtBox = slide.shapes.add_textbox(Inches(0), Inches(6), width, height)
     tf3 = presenterTxtBox.text_frame
-    tf3.text = "Name of Presenter: "
+    tf3.text = "Name of Lead Analyst: "
     p3 = tf3.add_paragraph()
-    p3.text = "Rank/Title of Presenter: "
+    p3.text = "Rank/Title of Lead Analyst: "
     p3.font.size = Pt(15)
     p3.font.bold = True
     p5 = tf3.add_paragraph()
@@ -1522,13 +1536,13 @@ def generateERB():
     table = shape.table
 
     cellID = table.cell(0, 0)
-    cellID.text = "ID"
+    cellID.text = "Finding"
 
     cellSystem = table.cell(0, 1)
     cellSystem.text = "System"
 
     cellFinding = table.cell(0, 2)
-    cellFinding.text = "Finding"
+    cellFinding.text = "Finding Description"
 
     cellImpact = table.cell(0, 3)
     cellImpact.text = "Impact"
@@ -1542,13 +1556,13 @@ def generateERB():
         ]  # Cant start at index zero because that is where labels are, however we still need the first finding to be put on the table
 
         finID = table.cell(x, 0)
-        finID.text = finding["id"]
+        finID.text = finding["hostName"]
 
         finSys = table.cell(x, 1)
         finSys.text = finding["systemID"]
 
         finHostName = table.cell(x, 2)
-        finHostName.text = finding["hostName"]
+        finHostName.text = finding["description"]
 
         finImpact = table.cell(x, 3)
         finImpact.text = finding["impactLevel"]
@@ -1590,130 +1604,132 @@ def generateERB():
 
         x, y, cx, cy = Inches(0), Inches(2), Inches(10), Inches(4)
 
-        shape = slideFinding.shapes.add_table(10, 7, x, y, cx, cy)
+        shape = slideFinding.shapes.add_table(8, 6, x, y, cx, cy)
         table = shape.table
 
-        cellID = table.cell(0, 0)
-        cellID.text = "ID"
-        cellA = table.cell(0, 1)
-        cellA.text = str(finding["id"])
+        cell1 = table.cell(0, 0)
+        cell1.text = str(finding["hostName"])
+        cell2 = table.cell(0, 1)
+        cell1.merge(cell2)
 
-        cellB = table.cell(0, 2)
-        cellB.text = "Impact Score"
-        cellC = table.cell(0, 3)
-        cellC.text = str(finding["impactScore"])
+        cell3 = table.cell(0, 2)
+        cell4 = table.cell(0, 3)
+        cell3.merge(cell4)
 
-        cellD = table.cell(0, 4)
-        cellD.text = "Status"
-        cellE = table.cell(0, 5)
-        cellE.text = str(finding["findingStatus"])
+        cell5 = table.cell(0, 4)
+        cell6 = table.cell(0, 5)
+        cell5.merge(cell6)
 
-        cellF = table.cell(0, 6)
-        cellF.text = "Posture"
-        cellG = table.cell(1, 6)
-        cellG.text = str(finding["findingPosture"])
+        cellID = table.cell(1, 0)
+        cellID.text = "ID:    " + str(finding["id"])
+        cellA = table.cell(1, 1)
+        cellID.merge(cellA)
+
+        cellB = table.cell(1, 2)
+        cellB.text = "Impact Score:    " + str(finding["impactScore"])
+        cellC = table.cell(1, 3)
+        cellB.merge(cellC)
+
+        cellD = table.cell(1, 4)
+        cellD.text = "Status:    " + str(finding["findingStatus"])
+        cellE = table.cell(1, 5)
+        cellD.merge(cellE)
+
         # Row 2
 
-        cellH = table.cell(1, 0)
-        cellH.text = "Host Names"
-        cellI = table.cell(1, 1)
-        cellI.text = str(finding["hostName"])
+        cellH = table.cell(2, 0)
+        cellH.text = "Host Name:    " + str(finding["hostName"])
+        cellI = table.cell(2, 1)
+        cellH.merge(cellI)
 
-        cellJ = table.cell(2, 0)
-        cellJ.text = "IP:PORT"
-        cellK = table.cell(2, 1)
-        cellK.text = str(finding["ip_port"])
+        cellJ = table.cell(3, 0)
+        cellJ.text = "IP PORT:    " + str(finding["ip_port"])
+        cellK = table.cell(3, 1)
+        cellJ.merge(cellK)
 
-        cellL = table.cell(1, 2)
-        cellL.text = "CAT"
+        cellL = table.cell(2, 2)
+        cellL.text = "CAT:    " + str(finding["severityCategoryCode"]) 
+        cellM = table.cell(2, 3)
+        cellL.merge(cellM)
 
-        cellM = table.cell(1, 3)
-        cellM.text = str(finding["severityCategoryCode"])
+        cellN = table.cell(2, 4)
+        cellN.text = "Likelihood:    " + str(finding["findingLikelihood"])
+        cellO = table.cell(2, 5)
+        cellN.merge(cellO)
 
-        cellN = table.cell(1, 4)
-        cellN.text = "Likelihood"
+        cellP = table.cell(3, 2)
+        cellP.text = "CAT Score:    " + str(finding["severityCategoryScore"])
+        cellq = table.cell(3, 3)
+        cellP.merge(cellq)
 
-        cellO = table.cell(1, 5)
-        cellO.text = str(finding["findingLikelihood"])
+        cellR = table.cell(3, 4)
+        cellR.text = "Impact:    " + str(finding["impactLevel"])
+        cellS = table.cell(3, 5)
+        cellR.merge(cellS)
 
-        cellP = table.cell(2, 2)
-        cellP.text = "CAT Score"
+        cellT = table.cell(4, 0)
+        cellT.text = "Vs Score:    " + str(finding["vulnerabilityScore"]) 
+        cellU = table.cell(4, 1)
+        cellT.merge(cellU)
 
-        cellq = table.cell(2, 3)
-        cellq.text = str(finding["severityCategoryScore"])
+        cellV = table.cell(4, 2)
+        cellV.text = "Risk:    " + str(finding["findingRisk"])
+        cellW = table.cell(4, 3)
+        cellV.merge(cellW)
 
-        cellR = table.cell(2, 4)
-        cellR.text = "Impact"
+        cellX = table.cell(4, 4)
+        cellX.text = "Vs:    " + str(finding["vulnerabilityScore"])
+        cellY = table.cell(4, 5)
+        cellX.merge(cellY)
 
-        cellS = table.cell(2, 5)
-        cellS.text = str(finding["impactLevel"])
+        cellZ = table.cell(5, 0)
+        cellZ.text = "Countermeasure:  " + str(finding["countermeasure"])
+        cellA1 = table.cell(5, 1)
+        cellZ.merge(cellA1)
 
-        cellT = table.cell(3, 0)
-        cellT.text = "Vs Score"
+        cellA2 = table.cell(5, 2)
+        cellA2.text = "C: " + str(finding["findingCFIS"]) + "     " + "I: " + str(finding["findingIFIS"]) + "     " + "A: " + str(finding["findingAFIS"])
+        cellA3 = table.cell(5, 3)
+        cellA2.merge(cellA3)
 
-        cellU = table.cell(3, 1)
-        cellU.text = str(finding["vulnerabilityScore"])
+        cellA4 = table.cell(5, 4)
+        cellA4.text = "Impact Rational: " + str(finding["impactDesc"])
+        cellA5 = table.cell(5, 5)
+        cellA4.merge(cellA5)
+        
 
-        cellV = table.cell(3, 2)
-        cellV.text = "Risk"
+        cellA6 = table.cell(6, 0)
+        cellA6.text = "Posture:    " + str(finding["findingPosture"])
+        cellA7 = table.cell(6, 1)
+        cellA6.merge(cellA7)
+         
 
-        cellW = table.cell(3, 3)
-        cellW.text = str(finding["findingRisk"])
+        cellA8 = table.cell(6, 2)
+        cellA8.text = "Finding Type:    " + str(finding["findingType"])
+        cellA9 = table.cell(6, 3)
+        cellA8.merge(cellA9)
+        
+        cellA14 = table.cell(6, 4)
+        cellA14.text = "Mitigation:    " + str(finding["mitigationLongDesc"])
+        cellA15 = table.cell(6, 5)
+        cellA14.merge(cellA15)
 
-        cellX = table.cell(3, 4)
-        cellX.text = "Vs"
+        cellA12 = table.cell(7, 0)
+        cellA12.text = "Description: " + str(finding["longDescription"])
+        cellA13 = table.cell(7, 1)
+        cellA12.merge(cellA13)
 
-        cellY = table.cell(3, 5)
-        cellY.text = str(finding["vulnerabilityScore"])
+        cell10 = table.cell(7, 2)
+        cell11 = table.cell(7, 3)
+        cell10.merge(cell11)
 
-        cellZ = table.cell(4, 0)
-        cellZ.text = "CM"
+        cell12 = table.cell(7, 4)
+        cell13 = table.cell(7, 5)
+        cell12.merge(cell13)
 
-        cellA1 = table.cell(4, 1)
-        cellA1.text = str(finding["countermeasure"])
+        
 
-        cellA2 = table.cell(4, 2)
-        cellA2.text = "C:"
-
-        cellA3 = table.cell(4, 3)
-        cellA3.text = str(finding["findingCFIS"])
-
-        cellA4 = table.cell(4, 4)
-        cellA4.text = "I:"
-
-        cellA5 = table.cell(4, 5)
-        cellA5.text = str(finding["findingIFIS"])
-
-        cellA6 = table.cell(5, 0)
-        cellA6.text = "A:"
-
-        cellA7 = table.cell(5, 1)
-        cellA7.text = str(finding["findingAFIS"])
-
-        cellA8 = table.cell(5, 2)
-        cellA8.text = "Impact Rationale"
-
-        cellA9 = table.cell(5, 3)
-        cellA9.text = str(finding["impactDesc"])
-
-        cellA10 = table.cell(5, 4)
-        cellA10.text = "Finding Type"
-
-        cellA11 = table.cell(5, 5)
-        cellA11.text = str(finding["findingType"])
-
-        cellA12 = table.cell(6, 0)
-        cellA12.text = "Description"
-
-        cellA13 = table.cell(6, 1)
-        cellA13.text = str(finding["longDescription"])
-
-        cellA14 = table.cell(7, 0)
-        cellA14.text = "Mitigation"
-
-        cellA15 = table.cell(7, 1)
-        cellA15.text = str(finding["mitigationLongDesc"])
-
+        
         # Add image
         left = Inches(0.5)
         top = Inches(0)
