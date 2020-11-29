@@ -26,7 +26,7 @@ import subtaskMaster from './subtaskContentView/subtaskMaster';
 import archiveContentView from './archivecontentview/archiveContentView';
 import archiveMaster from './archivecontentview/archiveMaster';
 
-import configurationContentView from './configurationContentView/configurationContentView';
+import configurationContentView from './configurationcontentview/configurationContentView';
 
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
