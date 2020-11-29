@@ -16,6 +16,9 @@ function FindingDetailedView(props) {
     const[systems, setSystems ] = useState([{ sysInfo : ''}])
     const[tasks, setTasks] = useState([{ taskTitle : ''}])
     const[subtasks, setSubtasks] = useState([{ subtaskTitle : ''}])
+    const[findings, setFindings] = useState([{ hostName : ''}])
+    
+    
 
     useEffect(() => {
         fetch('/getsystem').then(
@@ -28,6 +31,10 @@ function FindingDetailedView(props) {
     useEffect(() => {
         fetch('/subtasks').then(
             response => response.json()).then(data => setSubtasks(data))
+    }, []);
+    useEffect(() => {
+        fetch('/findings').then(
+            response => response.json()).then(data => setFindings(data))
     }, []);
 
 
@@ -289,7 +296,7 @@ function FindingDetailedView(props) {
                             <select name= "systemID" onChange={e => setSystemID(e.target.value)}  defaultValue={props.finding.systemID} class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
                                 {systems.map((system) => (
-                                    <option value={system.id}>{system.sysInfo}</option>
+                                    <option value={system.sysInfo}>{system.sysInfo}</option>
                                 ))}
                             </select>
                         </label>
@@ -301,7 +308,7 @@ function FindingDetailedView(props) {
                             <select name="findingTask"  onChange={e => setTaskID(e.target.value)} defaultValue={props.finding.taskID} id="findingTask" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
                                 {tasks.map((task) => (
-                                    <option value={task.id}>{task.taskTitle}</option>
+                                    <option value={task.taskTitle}>{task.taskTitle}</option>
                                 ))}
                             </select>
                         </label>
@@ -313,7 +320,7 @@ function FindingDetailedView(props) {
                             <select name="findingSubtask"  onChange={e => setSubtaskID(e.target.value)} defaultValue={props.finding.subtaskID} id="findingSubtask" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
                                 {subtasks.map((subtask) => (
-                                    <option value={subtask.id}>{subtask.subtaskTitle}</option>
+                                    <option value={subtask.subtaskTitle}>{subtask.subtaskTitle}</option>
                                 ))}
                             </select>
                         </label>
@@ -325,9 +332,9 @@ function FindingDetailedView(props) {
                             <br></br>
                             <select name="relatedFindings"  onChange={e => setRelatedFindings(e.target.value)} defaultValue={props.finding.relatedFindings} id="relatedFindings" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
-                                <option value="Finding 1">Finding 1</option>
-                                <option value="Finding 2">Finding 2</option>
-                                <option value="Finding 3">Finding 3</option>
+                                {findings.map((finding) => (
+                                    <option value={finding.hostName}>{finding.hostName}</option>
+                                ))}
                             </select>
                         </label>
 

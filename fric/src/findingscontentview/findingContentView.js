@@ -137,10 +137,10 @@ export default function FindingContentView(props) {
                     <td><input type="checkbox" /></td>
                     <td>{state.id}</td>
                     <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
-                    <td>{state.findingSystem}</td>
-                    <td>{state.findingTask}k</td>
-                    <td>{state.findingSubtask}</td>
-                    <td>{state.findingAnalyst}</td>
+                    <td>{state.systemID}</td>
+                    <td>{state.taskID}</td>
+                    <td>{state.subtaskID}</td>
+                    <td>{state.analyst}</td>
                     <td>{state.findingStatus}</td>
                     <td>{state.findingClassification}</td>
                     <td>{state.findingType}</td>
