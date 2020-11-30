@@ -139,12 +139,12 @@ import {useState, useEffect} from "react";
     
         
         //Calendar View // 
-        function Picker(){
+        const Picker = () => {
             const [startDate, setStartDate] = useState(new Date());
             return (
               <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
             );
-          }
+          };
 
         return (
             <div>
@@ -191,9 +191,12 @@ import {useState, useEffect} from "react";
                                 <input type="text"  id="progress" onChange={e => setProgress(e.target.value)} name="taskProgress" defaultValue={props.task.taskProgress} className="form-control mr-3" placeholder="1-100" aria-label="1-100" aria-describedby="basic-addon2"></input>
                             </label><br/>
 
-                            <label htmlFor="taskDueDate">
+                            <label>
                                 Due Date:<br/>
-                               <Picker  id="due-date" name="taskDueDate" onChange={e => setDueDate(e.target.value)} input value={props.task.taskDueDate} class="browser-default custom-select mr-3"/>
+                               {/* <Picker  id="due-date" name="taskDueDate"/> */}
+                               <input type="text"  id="due-date" onChange={e => setDueDate(e.target.value)} name="taskDueDate" defaultValue={props.task.taskDueDate} className="form-control mr-3" placeholder="MM/DD/YYYY" aria-label="1-100" aria-describedby="basic-addon2"></input>
+
+
                             </label><br/>
 
                             <label htmlFor="taskAnalyst">
@@ -239,7 +242,7 @@ import {useState, useEffect} from "react";
                             <label htmlFor="attachments">
                                 Set SubTask:<br/>
                                 <select className="browser-default custom-select mr-3" name="subtaskID" onChange={e => setSubtaskID(e.target.value)} >
-                                    <option defaultValue></option>
+                                    <option defaultValue>Set subtask</option>
                                     {subtasks.map((subtask) => (
                                         <option value={subtask.id}>{subtask.subtaskTitle}</option>
                                     ))}

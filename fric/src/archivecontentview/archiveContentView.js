@@ -1,5 +1,4 @@
 import * as React from 'react'
-import GeneralView from '../generalView/generalView'
 import 'react-bootstrap'
 import SortImage from '../assets/updownarrow.png'
 import { Button, Table } from 'react-bootstrap';
@@ -34,14 +33,14 @@ export default function ArchiveContentView(props) {
             .catch(error => {
                 console.error('Error', error)
             });
-        SendLog("Restoring Task");
+        SendLog("remove arch task");
         //Deleting current archive task state
         fetch("/delete_archive_task", {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(state),
+            body: JSON.stringify(state.taskdata),
         }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
@@ -49,10 +48,10 @@ export default function ArchiveContentView(props) {
             .catch(error => {
                 console.error('Error', error)
             });
-        SendLog("Removing Task from Archive");
+        SendLog("Removing task from Archive");
     }
 
-    //Restore task data
+    //Restore system data
     function handle_system_restore(state) {
         console.log(state)
         console.log("restore task");
@@ -63,8 +62,8 @@ export default function ArchiveContentView(props) {
             },
             body: JSON.stringify(state),
         }).then(response => response.json())
-            .then(taskdata => {
-                console.log("Success", taskdata);
+            .then(data => {
+                console.log("Success", data);
             })
             .catch(error => {
                 console.error('Error', error)
@@ -105,9 +104,9 @@ export default function ArchiveContentView(props) {
     }
 
     // updates all tables data
-    useEffect(() => {
-        props.updateData();
-    });
+    // useEffect(() => {
+    //     props.updateData();
+    // });
 
     return (
         <div className="main">
@@ -138,6 +137,7 @@ export default function ArchiveContentView(props) {
                             <td>{state.num_finding}</td>
                             <td>{state.taskDueDate}</td>
                             <td><Button variant="dark" onClick={() => handle_task_restore(state)}> Restore Task </Button></td>
+                           
                         </tr>
                     ))}
                 </tbody>
