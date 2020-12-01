@@ -176,7 +176,7 @@ export default function FindingContentView(props) {
                     <td>{state.systemID}</td>
                     <td>{state.taskID}</td>
                     <td>{state.subtaskID}</td>
-                    <td>{state.analyst}</td>
+                    <td>{localStorage.getItem('analyst')}</td>
                     <td>{state.findingStatus}</td>
                     <td>{state.findingClassification}</td>
                     <td>{state.findingType}</td>
