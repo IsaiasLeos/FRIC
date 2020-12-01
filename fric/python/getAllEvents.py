@@ -1941,7 +1941,7 @@ def generatefinalreport():
 def archTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask"]
+    mycollection = mydb["taskArchive"]
     myFindingCollection = mydb["finding"]
     mySubtaskCollection = mydb["subtask"]
 
@@ -1991,7 +1991,7 @@ def archTask():
 def addArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask"]
+    mycollection = mydb["taskArchive"]
     req = request.get_json()
     archtask = {
         "id": req["id"],
@@ -2075,7 +2075,7 @@ def deleteTask():
 def deleteArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
+    mycollection = mydb["taskArchive"]
 
     req = request.get_json()
     query = {"id": req["id"]}

@@ -15,9 +15,6 @@ import {useState, useEffect} from "react";
     }
     function TaskDetailedView(props){
 
-        const [subtasks, setSubtasks] = useState([{ subtaskTitle: ''}]);
-        const [selected_sub, selectsub] = useState();
-
         const [id, setID] = useState(props.task.id);
         const [taskTitle, setTitle] = useState(props.task.taskTitle);
         const [taskDescription, setDescription] = useState(props.task.taskDescription);
@@ -30,26 +27,28 @@ import {useState, useEffect} from "react";
         const [relatedTasks, setrelatedTasks] = useState(props.task.relatedTasks);
         const [attachments, setattachments] = useState(props.task.attachments);
         const [subtaskID, setSubtaskID] = useState(props.task.subtaskID);
-        //const [systemID, setSystemID] = useState(props.task.systemID);
-        //const [taskID, setTaskID] = useState(props.task.taskID);
-        //const [analystID, setAnalystID] = useState(props.task.analystID);
-        //const [tasks, setTasks] = useState([{ taskTitle: ''}]);
-        //const[systems, setSystems ] = useState([{ sysInfo : ''}])
 
-    
+        //FETCH task
+        useEffect(() => {
+            fetch('/tasks').then(
+                response => response.json()).then(data => set_related(data))
+        }, []);
+        const [reltasks, set_related] = useState([{ taskTitle: ''}]);
 
         //Fetch info from subtask
         useEffect(() => {
             fetch('/subtasks').then(
                 response => response.json()).then(data => setSubtasks(data))
         }, []);
+        const [subtasks, setSubtasks] = useState([{ subtaskTitle: ''}]);
 
-        // // Fetch info from system
-        // useEffect(() => {
-        //     fetch('/getsystem').then(
-        //         response => response.json()).then(data => setSystems(data))
-        // }, []);
-        
+        // Fetch info from system
+        useEffect(() => {
+            fetch('/getsystem').then(
+                response => response.json()).then(data => setSys(data))
+        }, []);
+        const [sys_title, setSys] = useState([{ sysInfo: ''}]);
+
         let state = { 
             id: id ? id : '',
             taskTitle: taskTitle ? taskTitle : '', 
@@ -63,7 +62,6 @@ import {useState, useEffect} from "react";
             relatedTasks: relatedTasks ? relatedTasks : '', 
             attachments: attachments ? attachments : '',
             subtaskID: subtaskID ? subtaskID : '',
-            //systemID: systemID ? systemID: '',
             numFindings: '',
             analyst:'',
         };
@@ -169,10 +167,14 @@ import {useState, useEffect} from "react";
                             <label htmlFor="taskSystem">
                                 System:<br/>
                                 <select name="system" id="system-dropdown" onChange={e => setsystem(e.target.value)} defaultValue={props.task.system}  class="browser-default custom-select mr-3">
-                                    <option value="default" selected="selected"></option>
+                                    {/* <option value="default" selected="selected"></option>
                                     <option value="System1">System1</option>
                                     <option value="System2">System2</option>
-                                    <option value="System3">System3</option>
+                                    <option value="System3">System3</option> */}
+                                    <option value="default" selected="selected"></option>
+                                    {sys_title.map((state) => (
+                                        <option value={state.id}>{state.sysInfo}</option>
+                                    ))}
                                 </select>
                             </label><br/>
 
@@ -223,9 +225,9 @@ import {useState, useEffect} from "react";
                                 Related Task:<br/>
                                 <select name="relatedTasks" id="related-task"  onChange={e => setrelatedTasks(e.target.value)} defaultValue={props.task.relatedTasks}  class="browser-default custom-select mr-3">
                                     <option value="default" selected="selected"></option>
-                                    <option value="task2">task2</option>
-                                    <option value="task4">task4</option>
-                                    <option value="task6">task6</option>
+                                    {reltasks.map((state) => (
+                                        <option value={state.id}>{state.taskTitle}</option>
+                                    ))}
                                 </select>
                             </label><br/>  
 

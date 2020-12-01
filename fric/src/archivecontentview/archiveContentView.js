@@ -27,20 +27,21 @@ export default function ArchiveContentView(props) {
             },
             body: JSON.stringify(state),
         }).then(response => response.json())
-            .then(taskdata => {
-                console.log("Success", taskdata);
+            .then(data => {
+                console.log("Success", data);
             })
             .catch(error => {
                 console.error('Error', error)
             });
         SendLog("remove arch task");
+
         //Deleting current archive task state
         fetch("/delete_archive_task", {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(state.taskdata),
+            body: JSON.stringify(state),
         }).then(response => response.json())
             .then(data => {
                 console.log("Success", data);
@@ -110,6 +111,53 @@ export default function ArchiveContentView(props) {
 
     return (
         <div className="main">
+            <h2>Archived System</h2><br />
+            <Table striped bordered hover >
+                <thead class="thead-grey">
+                    <tr>
+                        <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">No. of Tasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th><Button variant="dark">Restore All System</Button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.systemdata.map((state) => (
+                        <tr key={state.id}>
+                            <td> {state.sysInfo}</td>
+                            <td>{state.num_task}</td>
+                            <td>{state.num_findings}</td>
+                            <td>{state.prog}</td>
+                            <td><Button variant="dark" onClick={() => handle_system_restore(state)}> Restore Task </Button></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+
+            <br /><br />
+            <h2>Archived Finding</h2><br />
+            <Table striped bordered hover >
+                <thead class="thead-grey">
+                    <tr>
+                        <th scope="col">ID<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Task<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Status<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th><Button variant="dark">Restore All Finding</Button> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </Table>
+            
+            <br/><br/>
             <h2>Archived Tasks</h2><br />
             <Table striped bordered hover >
                 <thead class="thead-grey">
@@ -142,7 +190,7 @@ export default function ArchiveContentView(props) {
                     ))}
                 </tbody>
             </Table>
-
+            
             <br /><br />
             <h2>Archived SubTasks</h2><br />
             <Table striped bordered hover >
@@ -160,56 +208,6 @@ export default function ArchiveContentView(props) {
                 <tbody>
                 </tbody>
             </Table>
-
-            <br /><br />
-
-            <h2>Archived System</h2><br />
-            <Table striped bordered hover >
-                <thead class="thead-grey">
-                    <tr>
-                        <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">No. of Tasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th><Button variant="dark">Restore All System</Button></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.systemdata.map((state) => (
-                        <tr key={state.id}>
-                            <td> {state.sysInfo}</td>
-                            <td>{state.num_task}</td>
-                            <td>{state.num_findings}</td>
-                            <td>{state.prog}</td>
-                            <td><Button variant="dark" onClick={() => handle_system_restore(state)}> Restore Task </Button></td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-
-            <br /><br />
-
-            <h2>Archived Finding</h2><br />
-            <Table striped bordered hover >
-                <thead class="thead-grey">
-                    <tr>
-                        <th scope="col">ID<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Task<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Status<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th><Button variant="dark">Restore All Finding</Button> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </Table>
-
         </div>
     );
 
