@@ -1259,37 +1259,6 @@ def editTask():
     mycollection.update_one(query, task)
     return jsonify(task)
 
-
-@app.route("/delete_task", methods=["DELETE"])
-def deleteTasks():
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
-
-    req = request.get_json()
-    query = {"id": req["id"]}
-
-    for t in mycollection.find(query):
-        task = {
-            "Task_title": req["taskTitle"],
-            "Task_Description": req["taskDescription"],
-            "System": req["system"],
-            "Task_Priority": req["taskPriority"],
-            "Task_Progress": req["taskProgress"],
-            "Task_Due_Date": req["taskDueDate"],
-            "Task_Analysts": req["taskAnalysts"],
-            "Task_Collaborators": req["taskCollaborators"],
-            "Related_Tasks": req["relatedTasks"],
-            "Attachments": req["attachments"],
-            "Num_subtask": 0,
-            "Num_finding": 13,
-            "Progress": "0%",
-            "SubTask_ID": req["subtaskID"],
-        }
-    mycollection.delete_one(task)
-    return "OK"
-
-
 # --------------------------------------------------- END OF TASK API -------------------------------------#
 
 
@@ -2043,12 +2012,12 @@ def generatefinalreport():
 
 # ----------------------------------------- ARCHIVE INFORMATION --------------------------------------- #
 
-# archive task
+# archive task overview
 @app.route("/arch_task")
 def archTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask"]
+    mycollection = mydb["taskArchive"]
     myFindingCollection = mydb["finding"]
     mySubtaskCollection = mydb["subtask"]
 
@@ -2098,7 +2067,7 @@ def archTask():
 def addArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask"]
+    mycollection = mydb["taskArchive"]
     req = request.get_json()
     archtask = {
         "id": req["id"],
@@ -2114,13 +2083,13 @@ def addArchiveTask():
         "Attachments": req["attachments"],
         "Num_subtask": 0,
         "Num_finding": 13,
-        "Subtask_ID": req["subtaskID"],
+        "Subtask_ID": req["subtaskID"]
         # "System_ID" : req['systemID'],
     }
     mycollection.insert_one(archtask)  # send info to collection
     return "OK"
 
-    # Function used to add task
+# Function used to add task
 @app.route("/add_back_to_task", methods=["POST"])
 def addArchiveTasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -2142,11 +2111,12 @@ def addArchiveTasks():
         "Num_subtask": 0,
         "Num_finding": 13,
         "Progress": "0%",
-        "SubTask_ID": req["subtaskID"],
+        "SubTask_ID": req["subtaskID"]
     }
     mycollection.insert_one(task)  # send info to collection
     return "OK"
 
+#Delete a given task
 @app.route("/delete_task", methods=["DELETE"])
 def deleteTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -2171,16 +2141,17 @@ def deleteTask():
             "Num_subtask": 0,
             "Num_finding": 13,
             "Progress": "0%",
-            "SubTask_ID": req["subtaskID"],
+            "SubTask_ID": req["subtaskID"]
         }
     mycollection.delete_one(archtask)
     return "OK"
 
+#delete a given archive
 @app.route("/delete_archive_task", methods=["DELETE"])
 def deleteArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask"]
+    mycollection = mydb["taskArchive"]
 
     req = request.get_json()
     query = {"id": req["id"]}
@@ -2200,11 +2171,10 @@ def deleteArchiveTask():
             "Num_subtask": 0,
             "Num_finding": 13,
             "Progress": "0%",
-            "SubTask_ID": req["subtaskID"],
+            "SubTask_ID": req["subtaskID"]
         }
     mycollection.delete_one(archtask)
     return "OK"
-
 
 # -------------- archive system --------------- #
 @app.route("/arch_system")
