@@ -404,6 +404,63 @@ def editEvent():
 
 
 # ---------------START OF FINDING API ---------------#
+@app.route("/syncWithAnalyst",methods=["POST"])  
+def syncWithAnalyst():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]  # Database name
+    mycollection = mydb["finding"]  # Collection Name
+    req = request.get_json() # req holds list of analyst initials
+    
+    
+    for analyst in req: 
+        for e in mycollection.find({"analyst": analyst}):
+            reversed_analysts = req[::-1]
+            for r_analyst in reversed_analysts:
+                if analyst != r_analyst:
+
+                    mycollection.insert({
+                        "id": e["id"],
+                        "Host_Name": e["Host_Name"],
+                        "IP_Port": e["IP_Port"],
+                        "Description": e["Description"],
+                        "Long_Description": e["Long_Description"],
+                        "Finding_Status": e["Finding_Status"],
+                        "Finding_Type": e["Finding_Type"],
+                        "Finding_Classification": e["Finding_Classification"],
+                        "Finding_System": e["Finding_System"],
+                        "Finding_Task": e["Finding_Task"],
+                        "Finding_Subtask": e["Finding_Subtask"],
+                        "Related_Findings": e["Related_Findings"],
+                        "Finding_Confidentiality": e["Finding_Confidentiality"],
+                        "Finding_Integrity": e["Finding_Integrity"],
+                        "Finding_Availability": e["Finding_Availability"],
+                        "Finding_Analyst": e["Finding_Analyst"],
+                        "Finding_Collaborators": e["Finding_Collaborators"],
+                        "Finding_Posture": e["Finding_Posture"],
+                        "Mitigation_Desc": e["Mitigation_Desc"],
+                        "Mitigation_Long_Desc": e["Mitigation_Long_Desc"],
+                        "Threat_Relevence": e["Threat_Relevence"],
+                        "Countermeasure": e["Countermeasure"],
+                        "Impact_Desc": e["Impact_Desc"],
+                        "Impact_Level": e["Impact_Level"],
+                        "Severity_Score": e["Severity_Score"],
+                        "Vulnerability_Score": e["Vulnerability_Score"],
+                        "Quantitative_Score": e["Quantitative_Score"],
+                        "Finding_Risk": e["Finding_Risk"],
+                        "Finding_Likelihood": e["Finding_Likelihood"],
+                        "Finding_CFIS": e["Finding_CFIS"],
+                        "Finding_IFIS": e["Finding_IFIS"],
+                        "Finding_AFIS": e["Finding_AFIS"],
+                        "Impact_Score": e["Impact_Score"],
+                        "Finding_Files": e["Finding_Files"],
+                        "Severity_Category_Code": e["Severity_Category_Code"],
+                        "System_ID": e["System_ID"],
+                        "Task_ID": e["Task_ID"],
+                        "Subtask_ID": e["Subtask_ID"],
+                        "analyst": r_analyst
+                    }) 
+           
+    return "0"  # return what was found in the collection
 
 # Get the current analysts findings#
 @app.route("/analystFindings", methods=["POST"])  # path used in JS to call this
@@ -458,6 +515,7 @@ def analystFindings():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
+                "analyst": e["analyst"]
             }
         )
 
