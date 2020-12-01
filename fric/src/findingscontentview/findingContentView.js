@@ -67,7 +67,7 @@ export default function FindingContentView(props) {
 
   function handleArch(state) {
     selectedFinding(state)
-    console.log("archived finding");
+    state.analyst = localStorage.getItem('analyst'); 
     console.log(state)
     fetch("/add_archive_finding", { // Need to add to the python here
       method: 'POST',

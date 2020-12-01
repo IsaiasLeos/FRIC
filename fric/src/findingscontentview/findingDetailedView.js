@@ -17,8 +17,6 @@ function FindingDetailedView(props) {
     const[tasks, setTasks] = useState([{ taskTitle : ''}])
     const[subtasks, setSubtasks] = useState([{ subtaskTitle : ''}])
     const[findings, setFindings] = useState([{ hostName : ''}])
-    
-    
 
     useEffect(() => {
         fetch('/getsystem').then(
@@ -72,18 +70,15 @@ function FindingDetailedView(props) {
     const [findingIFIS, setFindingIFIS] = useState(props.finding.findingIFIS);
     const [impactScore, setImpactScore] = useState(props.finding.impactScore);
     const [findingFiles, setFindingFiles] = useState(''); //Files that can be attached to a finding. Still need to rework
-
-    
     const [systemID, setSystemID] = useState(props.finding.systemID);
     const [taskID, setTaskID] = useState(props.finding.taskID);
     const [subtaskID, setSubtaskID] = useState(props.finding.subtaskID);
     const [analyst, setAnalyst] = useState(props.finding.analyst);
-    
-    
     const [severityCategoryCode, setSeverityCategoryCode] = useState(props.finding.severityCategoryScore);
     const [id, setUniqueID] = useState(props.finding.id); //Each finding will have a unique ID
 
-    let state = { //If 
+
+    let state = { 
         id: props.finding.id ? props.finding.id : '', //if attribute does not have value, set to '' 
         hostName: host_Name ? host_Name: '',
         ip_port: ip_Port ? ip_Port: '',
@@ -122,7 +117,7 @@ function FindingDetailedView(props) {
         systemID: systemID ? systemID: '',
         taskID: taskID ? taskID: '',
         subtaskID: subtaskID ? subtaskID: '',
-        analyst: analyst ? analyst: ''
+        analyst: analyst ? analyst: '',
     };
 
     let action = { //used for logging actions on page
@@ -583,7 +578,12 @@ function FindingDetailedView(props) {
                             
                         </label><br></br>
     
+                        <label for="analyst">
+                            Deriving Analyst:
+                            <br></br>
+                            <input type="text" name="analyst"  defaultValue= {localStorage.getItem('analyst')} id="analyst" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled />
                             
+                        </label><br></br>
                         
                         <div className="button-input-group">
                             
