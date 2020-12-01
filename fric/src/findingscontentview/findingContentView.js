@@ -135,7 +135,6 @@ export default function FindingContentView(props) {
               <h2>Findings Overview Table</h2>
 
               <ButtonGroup dialogclassname="title-system-buttons">
-                <Button variant="dark" >Archive</Button>
                 <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
               </ButtonGroup>
               <Modal show={dialogOpen} onHide={handleDialogClose} size='lg'>
@@ -164,7 +163,7 @@ export default function FindingContentView(props) {
                   <th>Classification</th>
                   <th>Type</th>
                   <th>Risk</th>
-                  <th><Button variant="dark"> Archive All </Button></th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
