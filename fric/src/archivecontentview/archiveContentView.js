@@ -87,6 +87,41 @@ export default function ArchiveContentView(props) {
         SendLog("Removing System from Archive");
     }
 
+    //Restore subtask data
+    function handle_subtask_restore(state) {
+        console.log(state)
+        console.log("restore subtask");
+        fetch("/add_back_to_subtask", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(subtaskdata => {
+                console.log("Success", subtaskdata);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Restoring Subtask");
+        //Deleting current archive task state
+        fetch("/delete_archive_subtask", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Removing Subtask from Archive");
+    }
+
     // Handles logging information
     function SendLog(e) {
         var action = {
@@ -158,6 +193,17 @@ export default function ArchiveContentView(props) {
                     </tr>
                 </thead>
                 <tbody>
+                    {props.subtaskdata.map((state) => (
+                        <tr>
+                            <td>{state.subtaskTitle}</td>
+                            <td>{state.relatedTask}</td>
+                            <td>{state.analyst}</td>
+                            <td>{state.subtaskProgress}</td>
+                            <td>{state.numFindings}</td>
+                            <td>{state.subtaskDueDate}</td>
+                            <td><Button variant="dark" onClick={() => handle_subtask_restore(state)}> Restore subtask </Button></td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
 

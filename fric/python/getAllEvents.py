@@ -1023,8 +1023,8 @@ def addSubtasks():
         "Subtasks": req["subtasks"],
         "Attachments": req["attachments"],
         "Num_Findings": 0,
-        "Analyst": "Analyst 0",
-        "Task": "Task 0",
+        "Analyst": req["analyst"],
+        "Task": req["task"],
         "Task_ID": req["taskID"],
     }
     mycollection.insert_one(subtask)
@@ -1049,7 +1049,7 @@ def editSubtask():
             "Subtasks": req["subtasks"],
             "Attachments": req["attachments"],
             "Num_Findings": 0,
-            "Analyst": "Analyst 0",
+            "Analyst": req["analyst"],
             "Task": "Task 0",
             "Task_ID": req["taskID"],
         }
@@ -1059,15 +1059,16 @@ def editSubtask():
 
 
 @app.route("/delete_subtask", methods=["DELETE"])
-def deleteSubtasks():
+def deleteSubtask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["subtask"]
+
     req = request.get_json()
     query = {"id": req["id"]}
 
     for t in mycollection.find(query):
-        subtask = {
+        archsubtask = {
             "Subtask_Title": req["subtaskTitle"],
             "Subtask_Description": req["subtaskDescription"],
             "Subtask_Progress": req["subtaskProgress"],
@@ -1078,11 +1079,12 @@ def deleteSubtasks():
             "Subtasks": req["subtasks"],
             "Attachments": req["attachments"],
             "Num_Findings": 0,
-            "Analyst": "Analyst 0",
+            "Analyst": req["analyst"],
             "Task": "Task 0",
             "Task_ID": req["taskID"],
         }
-    mycollection.delete_one(subtask)
+    mycollection.delete_one(archsubtask)
+    return "OK"
 
 
 # --------------- END OF SUBTASK API ---------------#
@@ -2297,8 +2299,8 @@ def archSubTask():
     mycollection = mydb["archivesubtask"]
     myFindingCollection = mydb["finding"]
     subtask_json = []
-
     findings_json = []
+
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append({"id": f["id"], "hostName": f["Host_Name"]})
@@ -2325,15 +2327,15 @@ def archSubTask():
         )
     return jsonify(subtask_json)
 
-
-@app.route("/add_archive_subtask", methods=["POST"])
-def addArchiveSubTask():
+@app.route("/add_back_to_subtask", methods=["POST"])
+def addBackArchiveSubTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivesubtask"]
+    mycollection = mydb["subtask"]
+
     req = request.get_json()
     subtask = {
-        "id": str(random.randint(1, 30)),
+        "id": req["id"],
         "Subtask_Title": req["subtaskTitle"],
         "Subtask_Description": req["subtaskDescription"],
         "Subtask_Progress": req["subtaskProgress"],
@@ -2344,11 +2346,38 @@ def addArchiveSubTask():
         "Subtasks": req["subtasks"],
         "Attachments": req["attachments"],
         "Num_Findings": 0,
-        "Analyst": "Analyst 0",
+        "Analyst": req["analyst"],
+        "Task": req["task"],
+        "Task_ID": req["taskID"],
+    }
+    mycollection.insert_one(subtask)
+    return "OK"
+
+@app.route("/add_archive_subtask", methods=["POST"])
+def addArchiveSubtask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["archivesubtask"]
+
+    req = request.get_json()
+    subtask = {
+        "id": req["id"],
+        "Subtask_Title": req["subtaskTitle"],
+        "Subtask_Description": req["subtaskDescription"],
+        "Subtask_Progress": req["subtaskProgress"],
+        "Subtask_Due_Date": req["subtaskDueDate"],
+        "Analysts": req["analysts"],
+        "Collaborators": req["collaborators"],
+        "Related_Task": req["relatedTask"],
+        "Subtasks": req["subtasks"],
+        "Attachments": req["attachments"],
+        "Num_Findings": 0,
+        "Analyst": req["analyst"],
         "Task": "Task 0",
         "Task_ID": req["taskID"],
     }
     mycollection.insert_one(subtask)
+    return "OK"
 
 
 @app.route("/delete_archive_subtask", methods=["DELETE"])
@@ -2356,24 +2385,28 @@ def deleteArchiveSubTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
     mycollection = mydb["archivesubtask"]
+
     req = request.get_json()
-    subtask = {
-        "id": str(random.randint(1, 30)),
-        "Subtask_Title": req["subtaskTitle"],
-        "Subtask_Description": req["subtaskDescription"],
-        "Subtask_Progress": req["subtaskProgress"],
-        "Subtask_Due_Date": req["subtaskDueDate"],
-        "Analysts": req["analysts"],
-        "Collaborators": req["collaborators"],
-        "Related_Task": req["relatedTask"],
-        "Subtasks": req["subtasks"],
-        "Attachments": req["attachments"],
-        "Num_Findings": 0,
-        "Analyst": "Analyst 0",
-        "Task": "Task 0",
-        "Task_ID": req["taskID"],
-    }
-    mycollection.delete_one(subtask)
+    query = {"id": req["id"]}
+    for t in mycollection.find(query):
+        archsubtask = {
+            "id": str(random.randint(1, 30)),
+            "Subtask_Title": req["subtaskTitle"],
+            "Subtask_Description": req["subtaskDescription"],
+            "Subtask_Progress": req["subtaskProgress"],
+            "Subtask_Due_Date": req["subtaskDueDate"],
+            "Analysts": req["analysts"],
+            "Collaborators": req["collaborators"],
+            "Related_Task": req["relatedTask"],
+            "Subtasks": req["subtasks"],
+            "Attachments": req["attachments"],
+            "Num_Findings": 0,
+            "Analyst": req["analyst"],
+            "Task": "Task 0",
+            "Task_ID": req["taskID"],
+        }
+    mycollection.delete_one(archsubtask)
+    return "OK"
 
 
 # archive finding

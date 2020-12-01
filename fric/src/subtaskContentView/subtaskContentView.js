@@ -23,18 +23,55 @@ export default function SubtaskContentView(props) {
 
 
     function handleDialogOpen(state) {
-        sendLog("subtask dialog open");//Log
+        SendLog("subtask dialog open");//Log
         handleDialog(true)//Open the modal
         selectedSubtask(state)//Remeber the system that you selected to view.
     }
     
       //Action to be done when closing the dialog.
     function handleDialogClose() {
-        sendLog("subtask dialog close")//Log
+        SendLog("subtask dialog close")//Log
         handleDialog(false)//Close the modal
     }
 
-    function sendLog(a) {
+    function handleArch(state) {
+        selectedSubtask(state)
+        console.log("archived subtask");
+        console.log(state)
+        fetch("/add_archive_subtask", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+            }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+            SendLog("Archiving Subtask");
+    
+            // Deleting Current System
+            fetch("/delete_subtask", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+            }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+            SendLog("Removing Subtask");
+    }
+    
+
+    function SendLog(a) {
     var action = {//Create the action that you'll send.
         date: getCurrentDate("/"),//get current date.
         action: a,
@@ -65,7 +102,6 @@ export default function SubtaskContentView(props) {
                 <div class="title-buttons">
                     <h2>Subtask Overview Table</h2>
                     <ButtonGroup>
-                        <Button variant="dark">Archive</Button>
                         <Button variant="dark">Promote</Button>
                         <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
                     </ButtonGroup>
@@ -83,25 +119,27 @@ export default function SubtaskContentView(props) {
                 <Table striped bordered hover>
                     <thead class="thead-grey">
                         <tr>
-                            <th><input type="checkbox" id="all-subtasks" name="all-subtasks" value="0"></input></th>
+                            {/* <th><input type="checkbox" id="all-subtasks" name="all-subtasks" value="0"></input></th> */}
                             <th>Title<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>Task<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
+                            <th><Button variant="dark"> Archive All </Button></th>
                         </tr>
                     </thead>
                     <tbody>
                         {props.data.map((state) => (
                             <tr>
-                                <td><input type="checkbox" id="cb1" value="subtask" /></td>
+                                {/* <td><input type="checkbox" id="cb1" value="subtask" /></td> */}
                                 <td><Button variant="outline-dark" onClick={() => handleDialogOpen(state)}>{state.subtaskTitle}</Button></td>
-                                <td>{state.task}</td>
+                                <td>{state.relatedTask}</td>
                                 <td>{state.analyst}</td>
                                 <td>{state.subtaskProgress}</td>
                                 <td>{state.numFindings}</td>
                                 <td>{state.subtaskDueDate}</td>
+                                <td><Button variant="dark" onClick={() => handleArch(state)} > Archive </Button></td>
                             </tr>
                         ))}
                     </tbody>
