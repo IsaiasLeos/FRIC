@@ -664,7 +664,11 @@ def calculateLikelihood(relevenceOfThreat, vulnerabilitySeverity):
     threat = routeRelevenceOfThreat(relevenceOfThreat)  # Get index
     vulnerability = routeVulnerabilitySeverity(vulnerabilitySeverity)  # Get index
 
-    likelihood = likelihoodMap[threat][vulnerability]  # Select value based on indices
+    if(threat <= 4 and vulnerability <=4 and threat != None and vulnerability != None): 
+        likelihood = likelihoodMap[threat][vulnerability]  # Select value based on indices
+    else:
+        likelihood = 'VL'
+
     return likelihood
 
 
@@ -2446,6 +2450,7 @@ def archFinding():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
+                "analyst": e["analyst"],
                 
             }
         )
@@ -2503,7 +2508,7 @@ def addToArchiveFinding():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
-        #"analyst" : req['analyst']
+        "analyst" : req['analyst']
     }
 
     mycollection.insert_one(finding)  # Send information to collection
@@ -2615,6 +2620,7 @@ def addArchiveFinding():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
+        "analyst" : req["analyst"],
         
     }
 
