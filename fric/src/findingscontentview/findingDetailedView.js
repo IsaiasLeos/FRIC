@@ -17,6 +17,7 @@ function FindingDetailedView(props) {
     const[tasks, setTasks] = useState([{ taskTitle : ''}])
     const[subtasks, setSubtasks] = useState([{ subtaskTitle : ''}])
     const[findings, setFindings] = useState([{ hostName : ''}])
+    const[eventAnalysts, setAnalysts] = useState([{initials: ''}])
 
     useEffect(() => {
         fetch('/getsystem').then(
@@ -34,7 +35,10 @@ function FindingDetailedView(props) {
         fetch('/findings').then(
             response => response.json()).then(data => setFindings(data))
     }, []);
-
+    useEffect(() => {
+        fetch('/analysts').then(
+            response => response.json()).then(data => setAnalysts(data))
+    }, []);
 
     //ALL attributes of a Finding
     const [host_Name, setHostName] = useState(props.finding.hostName);
@@ -374,17 +378,12 @@ function FindingDetailedView(props) {
 
                         <h4>Analyst Information</h4>
 
-                        <label for="AnalystInformation">
-                            Analyst: (Analyst who created the finding)
+                        <label for="analyst">
+                            Deriving Analyst:
                             <br></br>
-                            <select name="findingAnalyst"  onChange={e => setfindingAnalyst(e.target.value)} defaultValue={props.finding.findingAnalyst} id="findingAnalyst" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Alex Vasquez">Alex Vasquez</option>
-                                <option value="Jacob Padilla">Jacob Padilla</option>
-                                <option value="Luis Soto">Luis Soto</option>
-
-                            </select>
-                        </label>
+                            <input type="text" name="analyst"  defaultValue= {localStorage.getItem('analyst')} id="analyst" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled />
+                            
+                        </label><br></br>
                         &nbsp;
                         &nbsp;
                         <label for="CollaboratorInformation">
@@ -392,10 +391,9 @@ function FindingDetailedView(props) {
                             <br></br>
                             <select name="findingCollaborators"  onChange={e => setFindingCollaborators(e.target.value)} defaultValue={props.finding.findingCollaborators} id="findingCollaborators" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
-                                <option value="Alex Vasquez">Alex Vasquez</option>
-                                <option value="Jacob Padilla">Jacob Padilla</option>
-                                <option value="Luis Soto">Luis Soto</option>
-
+                                {eventAnalysts.map((analyst) => (
+                                    <option value={analyst.initials}>{analyst.initials}</option>
+                                ))}
                             </select>
                         </label><br></br>
                         <label for="Posture">
@@ -578,12 +576,6 @@ function FindingDetailedView(props) {
                             
                         </label><br></br>
     
-                        <label for="analyst">
-                            Deriving Analyst:
-                            <br></br>
-                            <input type="text" name="analyst"  defaultValue= {localStorage.getItem('analyst')} id="analyst" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled />
-                            
-                        </label><br></br>
                         
                         <div className="button-input-group">
                             

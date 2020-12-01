@@ -23,7 +23,7 @@ class ArchiveMaster extends React.Component {
 
     //Fetches information about current task content
     async updateData() {
-        await this.sleep(5000);
+        await this.sleep(1000);
         //display arch_task
         await fetch('/arch_task').then(
             response => response.json()).then(taskdata => this.setState({
