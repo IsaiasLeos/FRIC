@@ -38,16 +38,17 @@ class ArchiveMaster extends React.Component {
         // })).catch(error => console.error(error));
 
         //Display arch_finding
-        // fetch('/arch_finding').then(
-        //     response => response.json()).then(findingdata => this.setState({
-        //         findingdata: findingdata
-        //     })).catch(error => console.error(error));
+        fetch('/arch_finding').then(
+            response => response.json()).then(findingdata => this.setState({
+                findingdata: findingdata
+            })).catch(error => console.error(error));
 
         //Display arch_system
         await fetch('/arch_system').then(
             response => response.json()).then(systemdata => this.setState({
                 systemdata: systemdata
             })).catch(error => console.error(error));
+        
     }
 
     render() {

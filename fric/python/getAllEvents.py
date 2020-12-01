@@ -2451,7 +2451,7 @@ def archFinding():
 
 
 @app.route("/add_archive_finding", methods=["POST"])
-def addArchiveFinding():
+def addToArchiveFinding():
     myclient = pymongo.MongoClient(
         "mongodb://localhost:27017/"
     )  # Connect to the DB Client
@@ -2503,58 +2503,6 @@ def addArchiveFinding():
         "Subtask_ID": req["subtaskID"],
     }
 
-    # ----START OF DERIVED ATTRIBUTES----#
-    # Calculate Severity Category Score
-    severityCategoryScore = 0
-    severityCategoryCode = finding.get("Severity_Category_Code")
-    severityCategoryScore = calculateSeverityScore(severityCategoryCode)
-    finding.update({"Severity_Score": severityCategoryScore})
-
-    # Calculate Impact Score
-    findingImpactScore = 0
-    findingCFIS = finding.get("Finding_CFIS")
-    findingIFIS = finding.get("Finding_IFIS")
-    findingAFIS = finding.get("Finding_AFIS")
-    findingImpactScore = calculateImpactScore(findingCFIS, findingIFIS, findingAFIS)
-    finding.update({"Impact_Score": findingImpactScore})
-
-    # Calculate Vulerability Severity=
-    vulnerabilitySeverityScore = 0
-    counterMeasure = finding.get("Countermeasure")
-    vulnerabilitySeverityScore = calculateVulnerabilitySeverity(
-        counterMeasure, findingImpactScore, severityCategoryScore
-    )
-    finding.update({"Vulnerability_Score": vulnerabilitySeverityScore})
-
-    # Calculate Quantitative Vulnerability Severity
-    QVS = ""
-    QVS = calcualteQuantitativeVulnerabilitySeverity(vulnerabilitySeverityScore)
-    finding.update({"Quantitative_Score": QVS})
-
-    # Calculate Likelihood
-    threat_relevence = ""
-    threat_relevence = finding.get("Threat_Relevence")
-    likelihood = ""
-
-    if findingImpactScore == 0:
-        likelihood = "INFO"
-    else:
-        likelihood = calculateLikelihood(threat_relevence, QVS)
-
-    finding.update({"Finding_Likelihood": likelihood})
-
-    # Calculate Risk
-    impact_level = ""
-    impact_level = finding.get("Impact_Level")
-    risk = ""
-
-    if findingImpactScore == 0:
-        risk = "INFO"
-    else:
-        risk = calculateRisk(likelihood, impact_level)
-
-    finding.update({"Finding_Risk": risk})
-    # ----END OF DERIVED ATTRIBUTES----#
 
     mycollection.insert_one(finding)  # Send information to collection
     return "OK"
@@ -2613,58 +2561,56 @@ def deleteArchiveFinding():
         "Subtask_ID": req["subtaskID"],
     }
 
-    # ----START OF DERIVED ATTRIBUTES----#
-    # Calculate Severity Category Score
-    severityCategoryScore = 0
-    severityCategoryCode = finding.get("Severity_Category_Code")
-    severityCategoryScore = calculateSeverityScore(severityCategoryCode)
-    finding.update({"Severity_Score": severityCategoryScore})
-
-    # Calculate Impact Score
-    findingImpactScore = 0
-    findingCFIS = finding.get("Finding_CFIS")
-    findingIFIS = finding.get("Finding_IFIS")
-    findingAFIS = finding.get("Finding_AFIS")
-    findingImpactScore = calculateImpactScore(findingCFIS, findingIFIS, findingAFIS)
-    finding.update({"Impact_Score": findingImpactScore})
-
-    # Calculate Vulerability Severity=
-    vulnerabilitySeverityScore = 0
-    counterMeasure = finding.get("Countermeasure")
-    vulnerabilitySeverityScore = calculateVulnerabilitySeverity(
-        counterMeasure, findingImpactScore, severityCategoryScore
-    )
-    finding.update({"Vulnerability_Score": vulnerabilitySeverityScore})
-
-    # Calculate Quantitative Vulnerability Severity
-    QVS = ""
-    QVS = calcualteQuantitativeVulnerabilitySeverity(vulnerabilitySeverityScore)
-    finding.update({"Quantitative_Score": QVS})
-
-    # Calculate Likelihood
-    threat_relevence = ""
-    threat_relevence = finding.get("Threat_Relevence")
-    likelihood = ""
-
-    if findingImpactScore == 0:
-        likelihood = "INFO"
-    else:
-        likelihood = calculateLikelihood(threat_relevence, QVS)
-
-    finding.update({"Finding_Likelihood": likelihood})
-
-    # Calculate Risk
-    impact_level = ""
-    impact_level = finding.get("Impact_Level")
-    risk = ""
-
-    if findingImpactScore == 0:
-        risk = "INFO"
-    else:
-        risk = calculateRisk(likelihood, impact_level)
-
-    finding.update({"Finding_Risk": risk})
-    # ----END OF DERIVED ATTRIBUTES----#
-
     mycollection.delete_one(finding)  # Send information to collection
     return "OK"
+
+@app.route("/add_back_to_finding", methods=["POST"])
+def addArchiveFinding():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["finding"]
+
+    req = request.get_json()
+    finding = {
+        "id": str(random.randint(1, 30)),
+        "Host_Name": req["hostName"],
+        "IP_Port": req["ip_port"],
+        "Description": req["description"],
+        "Long_Description": req["longDescription"],
+        "Finding_Status": req["findingStatus"],
+        "Finding_Type": req["findingType"],
+        "Finding_Classification": req["findingClassification"],
+        "Finding_System": req["findingSystem"],
+        "Finding_Task": req["findingTask"],
+        "Finding_Subtask": req["findingSubtask"],
+        "Related_Findings": req["relatedFindings"],
+        "Finding_Confidentiality": req["findingConfidentiality"],
+        "Finding_Integrity": req["findingIntegrity"],
+        "Finding_Availability": req["findingAvailability"],
+        "Finding_Analyst": req["findingAnalyst"],
+        "Finding_Collaborators": req["findingCollaborators"],
+        "Finding_Posture": req["findingPosture"],
+        "Mitigation_Desc": req["mitigationDesc"],
+        "Mitigation_Long_Desc": req["mitigationLongDesc"],
+        "Threat_Relevence": req["threatRelevence"],
+        "Countermeasure": req["countermeasure"],
+        "Impact_Desc": req["impactDesc"],
+        "Impact_Level": req["impactLevel"],
+        "Severity_Score": req["severityCategoryScore"],
+        "Vulnerability_Score": req["vulnerabilityScore"],
+        "Quantitative_Score": req["quantitativeScore"],
+        "Finding_Risk": req["findingRisk"],
+        "Finding_Likelihood": req["findingLikelihood"],
+        "Finding_CFIS": req["findingCFIS"],
+        "Finding_IFIS": req["findingIFIS"],
+        "Finding_AFIS": req["findingAFIS"],
+        "Impact_Score": req["impactScore"],
+        "Finding_Files": req["findingFiles"],
+        "Severity_Category_Code": req["severityCategoryCode"],
+        "System_ID": req["systemID"],
+        "Task_ID": req["taskID"],
+        "Subtask_ID": req["subtaskID"],
+    }
+    mycollection.insert_one(finding)
+    return "OK"
+

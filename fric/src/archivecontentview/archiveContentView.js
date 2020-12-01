@@ -35,6 +35,7 @@ export default function ArchiveContentView(props) {
                 console.error('Error', error)
             });
         SendLog("Restoring Task");
+
         //Deleting current archive task state
         fetch("/delete_archive_task", {
             method: 'DELETE',
@@ -52,7 +53,7 @@ export default function ArchiveContentView(props) {
         SendLog("Removing Task from Archive");
     }
 
-    //Restore task data
+    //Restore system data
     function handle_system_restore(state) {
         console.log(state)
         console.log("restore task");
@@ -85,6 +86,43 @@ export default function ArchiveContentView(props) {
                 console.error('Error', error)
             });
         SendLog("Removing System from Archive");
+
+    }
+
+    // Restore Finding Data
+    function handle_finding_restore(state) {
+        console.log(state)
+        console.log("restore finding");
+        fetch("/add_back_to_finding", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(taskdata => {
+                console.log("Success", taskdata);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Restoring System");
+        //Deleting current archive task state
+        fetch("/delete_archive_finding", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Removing Finding from Archive");
+
     }
 
     // Handles logging information
@@ -203,10 +241,28 @@ export default function ArchiveContentView(props) {
                         <th scope="col">Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th><Button variant="dark">Restore All Finding</Button> </th>
+                        <th><Button variant="dark">Restore All Findings</Button> </th>
                     </tr>
                 </thead>
                 <tbody>
+                    {
+                    props.findingdata.map((state) => (
+                            <tr key={state.id}>
+                                <td>{state.id}</td>
+                                <td>{state.hostName}</td>
+                                <td>{state.systemID}</td>
+                                <td>{state.taskID}</td>
+                                <td>{state.subtaskID}</td>
+                                <td>{state.analyst}</td>
+                                <td>{state.findingStatus}</td>
+                                <td>{state.findingClassification}</td>
+                                <td>{state.findingType}</td>
+                                <td>{state.findingRisk}</td>
+                                <td><Button variant="dark" onClick={() => handle_finding_restore(state)}> Restore Finding</Button></td>
+                                
+                            </tr>
+                        ))
+                        }
                 </tbody>
             </Table>
 
