@@ -404,6 +404,63 @@ def editEvent():
 
 
 # ---------------START OF FINDING API ---------------#
+@app.route("/syncWithAnalyst",methods=["POST"])  
+def syncWithAnalyst():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]  # Database name
+    mycollection = mydb["finding"]  # Collection Name
+    req = request.get_json() # req holds list of analyst initials
+    
+    
+    for analyst in req: 
+        for e in mycollection.find({"analyst": analyst}):
+            reversed_analysts = req[::-1]
+            for r_analyst in reversed_analysts:
+                if analyst != r_analyst:
+
+                    mycollection.insert({
+                        "id": e["id"],
+                        "Host_Name": e["Host_Name"],
+                        "IP_Port": e["IP_Port"],
+                        "Description": e["Description"],
+                        "Long_Description": e["Long_Description"],
+                        "Finding_Status": e["Finding_Status"],
+                        "Finding_Type": e["Finding_Type"],
+                        "Finding_Classification": e["Finding_Classification"],
+                        "Finding_System": e["Finding_System"],
+                        "Finding_Task": e["Finding_Task"],
+                        "Finding_Subtask": e["Finding_Subtask"],
+                        "Related_Findings": e["Related_Findings"],
+                        "Finding_Confidentiality": e["Finding_Confidentiality"],
+                        "Finding_Integrity": e["Finding_Integrity"],
+                        "Finding_Availability": e["Finding_Availability"],
+                        "Finding_Analyst": e["Finding_Analyst"],
+                        "Finding_Collaborators": e["Finding_Collaborators"],
+                        "Finding_Posture": e["Finding_Posture"],
+                        "Mitigation_Desc": e["Mitigation_Desc"],
+                        "Mitigation_Long_Desc": e["Mitigation_Long_Desc"],
+                        "Threat_Relevence": e["Threat_Relevence"],
+                        "Countermeasure": e["Countermeasure"],
+                        "Impact_Desc": e["Impact_Desc"],
+                        "Impact_Level": e["Impact_Level"],
+                        "Severity_Score": e["Severity_Score"],
+                        "Vulnerability_Score": e["Vulnerability_Score"],
+                        "Quantitative_Score": e["Quantitative_Score"],
+                        "Finding_Risk": e["Finding_Risk"],
+                        "Finding_Likelihood": e["Finding_Likelihood"],
+                        "Finding_CFIS": e["Finding_CFIS"],
+                        "Finding_IFIS": e["Finding_IFIS"],
+                        "Finding_AFIS": e["Finding_AFIS"],
+                        "Impact_Score": e["Impact_Score"],
+                        "Finding_Files": e["Finding_Files"],
+                        "Severity_Category_Code": e["Severity_Category_Code"],
+                        "System_ID": e["System_ID"],
+                        "Task_ID": e["Task_ID"],
+                        "Subtask_ID": e["Subtask_ID"],
+                        "analyst": r_analyst
+                    }) 
+           
+    return "0"  # return what was found in the collection
 
 # Get the current analysts findings#
 @app.route("/analystFindings", methods=["POST"])  # path used in JS to call this
@@ -458,6 +515,7 @@ def analystFindings():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
+                "analyst": e["analyst"]
             }
         )
 
@@ -514,6 +572,7 @@ def findings():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
+                "analyst": e["analyst"],
             }
         )
     return jsonify(finding_json)  # return what was found in the collection
@@ -663,7 +722,11 @@ def calculateLikelihood(relevenceOfThreat, vulnerabilitySeverity):
     threat = routeRelevenceOfThreat(relevenceOfThreat)  # Get index
     vulnerability = routeVulnerabilitySeverity(vulnerabilitySeverity)  # Get index
 
-    likelihood = likelihoodMap[threat][vulnerability]  # Select value based on indices
+    if(threat <= 4 and vulnerability <=4 and threat != None and vulnerability != None): 
+        likelihood = likelihoodMap[threat][vulnerability]  # Select value based on indices
+    else:
+        likelihood = 'VL'
+
     return likelihood
 
 
@@ -906,6 +969,7 @@ def deleteFindings():
             "System_ID": req["systemID"],
             "Task_ID": req["taskID"],
             "Subtask_ID": req["subtaskID"],
+            
         }
 
     # ----START OF DERIVED ATTRIBUTES----#
@@ -1201,37 +1265,6 @@ def editTask():
     mycollection.update_one(query, task)
     return jsonify(task)
 
-
-@app.route("/delete_task", methods=["DELETE"])
-def deleteTasks():
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["FRIC"]
-    mycollection = mydb["task"]
-
-    req = request.get_json()
-    query = {"id": req["id"]}
-
-    for t in mycollection.find(query):
-        task = {
-            "Task_title": req["taskTitle"],
-            "Task_Description": req["taskDescription"],
-            "System": req["system"],
-            "Task_Priority": req["taskPriority"],
-            "Task_Progress": req["taskProgress"],
-            "Task_Due_Date": req["taskDueDate"],
-            "Task_Analysts": req["taskAnalysts"],
-            "Task_Collaborators": req["taskCollaborators"],
-            "Related_Tasks": req["relatedTasks"],
-            "Attachments": req["attachments"],
-            "Num_subtask": 0,
-            "Num_finding": 13,
-            "Progress": "0%",
-            "SubTask_ID": req["subtaskID"],
-        }
-    mycollection.delete_one(task)
-    return "OK"
-
-
 # --------------------------------------------------- END OF TASK API -------------------------------------#
 
 
@@ -1376,13 +1409,17 @@ def generateERB():
         events_json.append(
             {
                 "name": e["Event_name"],
+                "type": e["Type"]
             }
         )
 
     eventName = ""  # Hold Event Name
+    eventType = "" # Hold Event Type
     for x in range(len(events_json)):  # Get the name of the event
         event = events_json[x]
         eventName = event["name"]
+        eventType = event["type"]
+
 
     for e in mySystemCollection.find():
         system_json.append(
@@ -1449,12 +1486,22 @@ def generateERB():
     p2.font.size = Pt(30)
     p2.font.bold = True
 
+    # Event Type
+    eventTypeTxtBox = slide.shapes.add_textbox(Inches(3.5), Inches(4), width, height)
+    tf8 = eventTypeTxtBox.text_frame
+    tf8.text = ""
+    p8 = tf8.add_paragraph()
+    p8.text = eventType  # Event that took place
+    p8.font.size = Pt(17)
+    p8.font.bold = True
+    
+
     # Presenter Information
     presenterTxtBox = slide.shapes.add_textbox(Inches(0), Inches(6), width, height)
     tf3 = presenterTxtBox.text_frame
-    tf3.text = "Name of Presenter: "
+    tf3.text = "Name of Lead Analyst: "
     p3 = tf3.add_paragraph()
-    p3.text = "Rank/Title of Presenter: "
+    p3.text = "Rank/Title of Lead Analyst: "
     p3.font.size = Pt(15)
     p3.font.bold = True
     p5 = tf3.add_paragraph()
@@ -1524,13 +1571,13 @@ def generateERB():
     table = shape.table
 
     cellID = table.cell(0, 0)
-    cellID.text = "ID"
+    cellID.text = "Finding"
 
     cellSystem = table.cell(0, 1)
     cellSystem.text = "System"
 
     cellFinding = table.cell(0, 2)
-    cellFinding.text = "Finding"
+    cellFinding.text = "Finding Description"
 
     cellImpact = table.cell(0, 3)
     cellImpact.text = "Impact"
@@ -1544,13 +1591,13 @@ def generateERB():
         ]  # Cant start at index zero because that is where labels are, however we still need the first finding to be put on the table
 
         finID = table.cell(x, 0)
-        finID.text = finding["id"]
+        finID.text = finding["hostName"]
 
         finSys = table.cell(x, 1)
         finSys.text = finding["systemID"]
 
         finHostName = table.cell(x, 2)
-        finHostName.text = finding["hostName"]
+        finHostName.text = finding["description"]
 
         finImpact = table.cell(x, 3)
         finImpact.text = finding["impactLevel"]
@@ -1592,130 +1639,132 @@ def generateERB():
 
         x, y, cx, cy = Inches(0), Inches(2), Inches(10), Inches(4)
 
-        shape = slideFinding.shapes.add_table(10, 7, x, y, cx, cy)
+        shape = slideFinding.shapes.add_table(8, 6, x, y, cx, cy)
         table = shape.table
 
-        cellID = table.cell(0, 0)
-        cellID.text = "ID"
-        cellA = table.cell(0, 1)
-        cellA.text = str(finding["id"])
+        cell1 = table.cell(0, 0)
+        cell1.text = str(finding["hostName"])
+        cell2 = table.cell(0, 1)
+        cell1.merge(cell2)
 
-        cellB = table.cell(0, 2)
-        cellB.text = "Impact Score"
-        cellC = table.cell(0, 3)
-        cellC.text = str(finding["impactScore"])
+        cell3 = table.cell(0, 2)
+        cell4 = table.cell(0, 3)
+        cell3.merge(cell4)
 
-        cellD = table.cell(0, 4)
-        cellD.text = "Status"
-        cellE = table.cell(0, 5)
-        cellE.text = str(finding["findingStatus"])
+        cell5 = table.cell(0, 4)
+        cell6 = table.cell(0, 5)
+        cell5.merge(cell6)
 
-        cellF = table.cell(0, 6)
-        cellF.text = "Posture"
-        cellG = table.cell(1, 6)
-        cellG.text = str(finding["findingPosture"])
+        cellID = table.cell(1, 0)
+        cellID.text = "ID:    " + str(finding["id"])
+        cellA = table.cell(1, 1)
+        cellID.merge(cellA)
+
+        cellB = table.cell(1, 2)
+        cellB.text = "Impact Score:    " + str(finding["impactScore"])
+        cellC = table.cell(1, 3)
+        cellB.merge(cellC)
+
+        cellD = table.cell(1, 4)
+        cellD.text = "Status:    " + str(finding["findingStatus"])
+        cellE = table.cell(1, 5)
+        cellD.merge(cellE)
+
         # Row 2
 
-        cellH = table.cell(1, 0)
-        cellH.text = "Host Names"
-        cellI = table.cell(1, 1)
-        cellI.text = str(finding["hostName"])
+        cellH = table.cell(2, 0)
+        cellH.text = "Host Name:    " + str(finding["hostName"])
+        cellI = table.cell(2, 1)
+        cellH.merge(cellI)
 
-        cellJ = table.cell(2, 0)
-        cellJ.text = "IP:PORT"
-        cellK = table.cell(2, 1)
-        cellK.text = str(finding["ip_port"])
+        cellJ = table.cell(3, 0)
+        cellJ.text = "IP PORT:    " + str(finding["ip_port"])
+        cellK = table.cell(3, 1)
+        cellJ.merge(cellK)
 
-        cellL = table.cell(1, 2)
-        cellL.text = "CAT"
+        cellL = table.cell(2, 2)
+        cellL.text = "CAT:    " + str(finding["severityCategoryCode"]) 
+        cellM = table.cell(2, 3)
+        cellL.merge(cellM)
 
-        cellM = table.cell(1, 3)
-        cellM.text = str(finding["severityCategoryCode"])
+        cellN = table.cell(2, 4)
+        cellN.text = "Likelihood:    " + str(finding["findingLikelihood"])
+        cellO = table.cell(2, 5)
+        cellN.merge(cellO)
 
-        cellN = table.cell(1, 4)
-        cellN.text = "Likelihood"
+        cellP = table.cell(3, 2)
+        cellP.text = "CAT Score:    " + str(finding["severityCategoryScore"])
+        cellq = table.cell(3, 3)
+        cellP.merge(cellq)
 
-        cellO = table.cell(1, 5)
-        cellO.text = str(finding["findingLikelihood"])
+        cellR = table.cell(3, 4)
+        cellR.text = "Impact:    " + str(finding["impactLevel"])
+        cellS = table.cell(3, 5)
+        cellR.merge(cellS)
 
-        cellP = table.cell(2, 2)
-        cellP.text = "CAT Score"
+        cellT = table.cell(4, 0)
+        cellT.text = "Vs Score:    " + str(finding["vulnerabilityScore"]) 
+        cellU = table.cell(4, 1)
+        cellT.merge(cellU)
 
-        cellq = table.cell(2, 3)
-        cellq.text = str(finding["severityCategoryScore"])
+        cellV = table.cell(4, 2)
+        cellV.text = "Risk:    " + str(finding["findingRisk"])
+        cellW = table.cell(4, 3)
+        cellV.merge(cellW)
 
-        cellR = table.cell(2, 4)
-        cellR.text = "Impact"
+        cellX = table.cell(4, 4)
+        cellX.text = "Vs:    " + str(finding["vulnerabilityScore"])
+        cellY = table.cell(4, 5)
+        cellX.merge(cellY)
 
-        cellS = table.cell(2, 5)
-        cellS.text = str(finding["impactLevel"])
+        cellZ = table.cell(5, 0)
+        cellZ.text = "Countermeasure:  " + str(finding["countermeasure"])
+        cellA1 = table.cell(5, 1)
+        cellZ.merge(cellA1)
 
-        cellT = table.cell(3, 0)
-        cellT.text = "Vs Score"
+        cellA2 = table.cell(5, 2)
+        cellA2.text = "C: " + str(finding["findingCFIS"]) + "     " + "I: " + str(finding["findingIFIS"]) + "     " + "A: " + str(finding["findingAFIS"])
+        cellA3 = table.cell(5, 3)
+        cellA2.merge(cellA3)
 
-        cellU = table.cell(3, 1)
-        cellU.text = str(finding["vulnerabilityScore"])
+        cellA4 = table.cell(5, 4)
+        cellA4.text = "Impact Rational: " + str(finding["impactDesc"])
+        cellA5 = table.cell(5, 5)
+        cellA4.merge(cellA5)
+        
 
-        cellV = table.cell(3, 2)
-        cellV.text = "Risk"
+        cellA6 = table.cell(6, 0)
+        cellA6.text = "Posture:    " + str(finding["findingPosture"])
+        cellA7 = table.cell(6, 1)
+        cellA6.merge(cellA7)
+         
 
-        cellW = table.cell(3, 3)
-        cellW.text = str(finding["findingRisk"])
+        cellA8 = table.cell(6, 2)
+        cellA8.text = "Finding Type:    " + str(finding["findingType"])
+        cellA9 = table.cell(6, 3)
+        cellA8.merge(cellA9)
+        
+        cellA14 = table.cell(6, 4)
+        cellA14.text = "Mitigation:    " + str(finding["mitigationLongDesc"])
+        cellA15 = table.cell(6, 5)
+        cellA14.merge(cellA15)
 
-        cellX = table.cell(3, 4)
-        cellX.text = "Vs"
+        cellA12 = table.cell(7, 0)
+        cellA12.text = "Description: " + str(finding["longDescription"])
+        cellA13 = table.cell(7, 1)
+        cellA12.merge(cellA13)
 
-        cellY = table.cell(3, 5)
-        cellY.text = str(finding["vulnerabilityScore"])
+        cell10 = table.cell(7, 2)
+        cell11 = table.cell(7, 3)
+        cell10.merge(cell11)
 
-        cellZ = table.cell(4, 0)
-        cellZ.text = "CM"
+        cell12 = table.cell(7, 4)
+        cell13 = table.cell(7, 5)
+        cell12.merge(cell13)
 
-        cellA1 = table.cell(4, 1)
-        cellA1.text = str(finding["countermeasure"])
+        
 
-        cellA2 = table.cell(4, 2)
-        cellA2.text = "C:"
-
-        cellA3 = table.cell(4, 3)
-        cellA3.text = str(finding["findingCFIS"])
-
-        cellA4 = table.cell(4, 4)
-        cellA4.text = "I:"
-
-        cellA5 = table.cell(4, 5)
-        cellA5.text = str(finding["findingIFIS"])
-
-        cellA6 = table.cell(5, 0)
-        cellA6.text = "A:"
-
-        cellA7 = table.cell(5, 1)
-        cellA7.text = str(finding["findingAFIS"])
-
-        cellA8 = table.cell(5, 2)
-        cellA8.text = "Impact Rationale"
-
-        cellA9 = table.cell(5, 3)
-        cellA9.text = str(finding["impactDesc"])
-
-        cellA10 = table.cell(5, 4)
-        cellA10.text = "Finding Type"
-
-        cellA11 = table.cell(5, 5)
-        cellA11.text = str(finding["findingType"])
-
-        cellA12 = table.cell(6, 0)
-        cellA12.text = "Description"
-
-        cellA13 = table.cell(6, 1)
-        cellA13.text = str(finding["longDescription"])
-
-        cellA14 = table.cell(7, 0)
-        cellA14.text = "Mitigation"
-
-        cellA15 = table.cell(7, 1)
-        cellA15.text = str(finding["mitigationLongDesc"])
-
+        
         # Add image
         left = Inches(0.5)
         top = Inches(0)
@@ -1969,12 +2018,12 @@ def generatefinalreport():
 
 # ----------------------------------------- ARCHIVE INFORMATION --------------------------------------- #
 
-# archive task
+# archive task overview
 @app.route("/arch_task")
 def archTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask"]
+    mycollection = mydb["taskArchive"]
     myFindingCollection = mydb["finding"]
     mySubtaskCollection = mydb["subtask"]
 
@@ -2024,7 +2073,7 @@ def archTask():
 def addArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask"]
+    mycollection = mydb["taskArchive"]
     req = request.get_json()
     archtask = {
         "id": req["id"],
@@ -2040,13 +2089,13 @@ def addArchiveTask():
         "Attachments": req["attachments"],
         "Num_subtask": 0,
         "Num_finding": 13,
-        "Subtask_ID": req["subtaskID"],
+        "Subtask_ID": req["subtaskID"]
         # "System_ID" : req['systemID'],
     }
     mycollection.insert_one(archtask)  # send info to collection
     return "OK"
 
-    # Function used to add task
+# Function used to add task
 @app.route("/add_back_to_task", methods=["POST"])
 def addArchiveTasks():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -2068,11 +2117,12 @@ def addArchiveTasks():
         "Num_subtask": 0,
         "Num_finding": 13,
         "Progress": "0%",
-        "SubTask_ID": req["subtaskID"],
+        "SubTask_ID": req["subtaskID"]
     }
     mycollection.insert_one(task)  # send info to collection
     return "OK"
 
+#Delete a given task
 @app.route("/delete_task", methods=["DELETE"])
 def deleteTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -2097,16 +2147,17 @@ def deleteTask():
             "Num_subtask": 0,
             "Num_finding": 13,
             "Progress": "0%",
-            "SubTask_ID": req["subtaskID"],
+            "SubTask_ID": req["subtaskID"]
         }
     mycollection.delete_one(archtask)
     return "OK"
 
+#delete a given archive
 @app.route("/delete_archive_task", methods=["DELETE"])
 def deleteArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask"]
+    mycollection = mydb["taskArchive"]
 
     req = request.get_json()
     query = {"id": req["id"]}
@@ -2126,11 +2177,10 @@ def deleteArchiveTask():
             "Num_subtask": 0,
             "Num_finding": 13,
             "Progress": "0%",
-            "SubTask_ID": req["subtaskID"],
+            "SubTask_ID": req["subtaskID"]
         }
     mycollection.delete_one(archtask)
     return "OK"
-
 
 # -------------- archive system --------------- #
 @app.route("/arch_system")
@@ -2409,7 +2459,7 @@ def deleteArchiveSubTask():
     return "OK"
 
 
-# archive finding
+# ------------------- Archive Finding -------#
 
 
 @app.route("/arch_finding")  # path used in JS to call this
@@ -2420,7 +2470,6 @@ def archFinding():
 
     finding_json = []
 
-    # Start of Finding
     for e in mycollection.find():
         finding_json.append(
             {
@@ -2462,13 +2511,15 @@ def archFinding():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
+                "analyst": e["analyst"],
+                
             }
         )
     return jsonify(finding_json)  # return what was found in the collection
 
 
 @app.route("/add_archive_finding", methods=["POST"])
-def addArchiveFinding():
+def addToArchiveFinding():
     myclient = pymongo.MongoClient(
         "mongodb://localhost:27017/"
     )  # Connect to the DB Client
@@ -2477,10 +2528,10 @@ def addArchiveFinding():
 
     req = request.get_json()
 
-    # severityCategoryScore = 0 #Derived from Severity Category Code
+    print("This is req --->" , req)
 
     finding = {
-        "id": str(random.randint(1, 30)),
+        "id": req ["id"],
         "Host_Name": req["hostName"],
         "IP_Port": req["ip_port"],
         "Description": req["description"],
@@ -2518,60 +2569,8 @@ def addArchiveFinding():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
+        "analyst" : req['analyst']
     }
-
-    # ----START OF DERIVED ATTRIBUTES----#
-    # Calculate Severity Category Score
-    severityCategoryScore = 0
-    severityCategoryCode = finding.get("Severity_Category_Code")
-    severityCategoryScore = calculateSeverityScore(severityCategoryCode)
-    finding.update({"Severity_Score": severityCategoryScore})
-
-    # Calculate Impact Score
-    findingImpactScore = 0
-    findingCFIS = finding.get("Finding_CFIS")
-    findingIFIS = finding.get("Finding_IFIS")
-    findingAFIS = finding.get("Finding_AFIS")
-    findingImpactScore = calculateImpactScore(findingCFIS, findingIFIS, findingAFIS)
-    finding.update({"Impact_Score": findingImpactScore})
-
-    # Calculate Vulerability Severity=
-    vulnerabilitySeverityScore = 0
-    counterMeasure = finding.get("Countermeasure")
-    vulnerabilitySeverityScore = calculateVulnerabilitySeverity(
-        counterMeasure, findingImpactScore, severityCategoryScore
-    )
-    finding.update({"Vulnerability_Score": vulnerabilitySeverityScore})
-
-    # Calculate Quantitative Vulnerability Severity
-    QVS = ""
-    QVS = calcualteQuantitativeVulnerabilitySeverity(vulnerabilitySeverityScore)
-    finding.update({"Quantitative_Score": QVS})
-
-    # Calculate Likelihood
-    threat_relevence = ""
-    threat_relevence = finding.get("Threat_Relevence")
-    likelihood = ""
-
-    if findingImpactScore == 0:
-        likelihood = "INFO"
-    else:
-        likelihood = calculateLikelihood(threat_relevence, QVS)
-
-    finding.update({"Finding_Likelihood": likelihood})
-
-    # Calculate Risk
-    impact_level = ""
-    impact_level = finding.get("Impact_Level")
-    risk = ""
-
-    if findingImpactScore == 0:
-        risk = "INFO"
-    else:
-        risk = calculateRisk(likelihood, impact_level)
-
-    finding.update({"Finding_Risk": risk})
-    # ----END OF DERIVED ATTRIBUTES----#
 
     mycollection.insert_one(finding)  # Send information to collection
     return "OK"
@@ -2587,10 +2586,64 @@ def deleteArchiveFinding():
 
     req = request.get_json()
 
+    query = {"id": req["id"]}
+
     # severityCategoryScore = 0 #Derived from Severity Category Code
 
+    for t in mycollection.find(query):
+        archfinding = {
+            
+            "Host_Name": req["hostName"],
+            "IP_Port": req["ip_port"],
+            "Description": req["description"],
+            "Long_Description": req["longDescription"],
+            "Finding_Status": req["findingStatus"],
+            "Finding_Type": req["findingType"],
+            "Finding_Classification": req["findingClassification"],
+            "Finding_System": req["findingSystem"],
+            "Finding_Task": req["findingTask"],
+            "Finding_Subtask": req["findingSubtask"],
+            "Related_Findings": req["relatedFindings"],
+            "Finding_Confidentiality": req["findingConfidentiality"],
+            "Finding_Integrity": req["findingIntegrity"],
+            "Finding_Availability": req["findingAvailability"],
+            "Finding_Analyst": req["findingAnalyst"],
+            "Finding_Collaborators": req["findingCollaborators"],
+            "Finding_Posture": req["findingPosture"],
+            "Mitigation_Desc": req["mitigationDesc"],
+            "Mitigation_Long_Desc": req["mitigationLongDesc"],
+            "Threat_Relevence": req["threatRelevence"],
+            "Countermeasure": req["countermeasure"],
+            "Impact_Desc": req["impactDesc"],
+            "Impact_Level": req["impactLevel"],
+            "Severity_Score": req["severityCategoryScore"],
+            "Vulnerability_Score": req["vulnerabilityScore"],
+            "Quantitative_Score": req["quantitativeScore"],
+            "Finding_Risk": req["findingRisk"],
+            "Finding_Likelihood": req["findingLikelihood"],
+            "Finding_CFIS": req["findingCFIS"],
+            "Finding_IFIS": req["findingIFIS"],
+            "Finding_AFIS": req["findingAFIS"],
+            "Impact_Score": req["impactScore"],
+            "Finding_Files": req["findingFiles"],
+            "Severity_Category_Code": req["severityCategoryCode"],
+            "System_ID": req["systemID"],
+            "Task_ID": req["taskID"],
+            "Subtask_ID": req["subtaskID"],
+        }
+
+    mycollection.delete_one(archfinding)  # Send information to collection
+    return "OK"
+
+@app.route("/add_back_to_finding", methods=["POST"])
+def addArchiveFinding():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["finding"]
+
+    req = request.get_json()
     finding = {
-        "id": str(random.randint(1, 30)),
+        "id": req ["id"],
         "Host_Name": req["hostName"],
         "IP_Port": req["ip_port"],
         "Description": req["description"],
@@ -2628,60 +2681,10 @@ def deleteArchiveFinding():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
+        "analyst" : req["analyst"],
+        
     }
 
-    # ----START OF DERIVED ATTRIBUTES----#
-    # Calculate Severity Category Score
-    severityCategoryScore = 0
-    severityCategoryCode = finding.get("Severity_Category_Code")
-    severityCategoryScore = calculateSeverityScore(severityCategoryCode)
-    finding.update({"Severity_Score": severityCategoryScore})
-
-    # Calculate Impact Score
-    findingImpactScore = 0
-    findingCFIS = finding.get("Finding_CFIS")
-    findingIFIS = finding.get("Finding_IFIS")
-    findingAFIS = finding.get("Finding_AFIS")
-    findingImpactScore = calculateImpactScore(findingCFIS, findingIFIS, findingAFIS)
-    finding.update({"Impact_Score": findingImpactScore})
-
-    # Calculate Vulerability Severity=
-    vulnerabilitySeverityScore = 0
-    counterMeasure = finding.get("Countermeasure")
-    vulnerabilitySeverityScore = calculateVulnerabilitySeverity(
-        counterMeasure, findingImpactScore, severityCategoryScore
-    )
-    finding.update({"Vulnerability_Score": vulnerabilitySeverityScore})
-
-    # Calculate Quantitative Vulnerability Severity
-    QVS = ""
-    QVS = calcualteQuantitativeVulnerabilitySeverity(vulnerabilitySeverityScore)
-    finding.update({"Quantitative_Score": QVS})
-
-    # Calculate Likelihood
-    threat_relevence = ""
-    threat_relevence = finding.get("Threat_Relevence")
-    likelihood = ""
-
-    if findingImpactScore == 0:
-        likelihood = "INFO"
-    else:
-        likelihood = calculateLikelihood(threat_relevence, QVS)
-
-    finding.update({"Finding_Likelihood": likelihood})
-
-    # Calculate Risk
-    impact_level = ""
-    impact_level = finding.get("Impact_Level")
-    risk = ""
-
-    if findingImpactScore == 0:
-        risk = "INFO"
-    else:
-        risk = calculateRisk(likelihood, impact_level)
-
-    finding.update({"Finding_Risk": risk})
-    # ----END OF DERIVED ATTRIBUTES----#
-
-    mycollection.delete_one(finding)  # Send information to collection
+    mycollection.insert_one(finding)
     return "OK"
+

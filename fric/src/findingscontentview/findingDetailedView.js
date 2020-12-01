@@ -16,6 +16,8 @@ function FindingDetailedView(props) {
     const[systems, setSystems ] = useState([{ sysInfo : ''}])
     const[tasks, setTasks] = useState([{ taskTitle : ''}])
     const[subtasks, setSubtasks] = useState([{ subtaskTitle : ''}])
+    const[findings, setFindings] = useState([{ hostName : ''}])
+    const[eventAnalysts, setAnalysts] = useState([{initials: ''}])
 
     useEffect(() => {
         fetch('/getsystem').then(
@@ -29,7 +31,14 @@ function FindingDetailedView(props) {
         fetch('/subtasks').then(
             response => response.json()).then(data => setSubtasks(data))
     }, []);
-
+    useEffect(() => {
+        fetch('/findings').then(
+            response => response.json()).then(data => setFindings(data))
+    }, []);
+    useEffect(() => {
+        fetch('/analysts').then(
+            response => response.json()).then(data => setAnalysts(data))
+    }, []);
 
     //ALL attributes of a Finding
     const [host_Name, setHostName] = useState(props.finding.hostName);
@@ -65,18 +74,15 @@ function FindingDetailedView(props) {
     const [findingIFIS, setFindingIFIS] = useState(props.finding.findingIFIS);
     const [impactScore, setImpactScore] = useState(props.finding.impactScore);
     const [findingFiles, setFindingFiles] = useState(''); //Files that can be attached to a finding. Still need to rework
-
-    
     const [systemID, setSystemID] = useState(props.finding.systemID);
     const [taskID, setTaskID] = useState(props.finding.taskID);
     const [subtaskID, setSubtaskID] = useState(props.finding.subtaskID);
     const [analyst, setAnalyst] = useState(props.finding.analyst);
-    
-    
     const [severityCategoryCode, setSeverityCategoryCode] = useState(props.finding.severityCategoryScore);
     const [id, setUniqueID] = useState(props.finding.id); //Each finding will have a unique ID
 
-    let state = { //If 
+
+    let state = { 
         id: props.finding.id ? props.finding.id : '', //if attribute does not have value, set to '' 
         hostName: host_Name ? host_Name: '',
         ip_port: ip_Port ? ip_Port: '',
@@ -115,7 +121,7 @@ function FindingDetailedView(props) {
         systemID: systemID ? systemID: '',
         taskID: taskID ? taskID: '',
         subtaskID: subtaskID ? subtaskID: '',
-        analyst: ''
+        analyst: analyst ? analyst: '',
     };
 
     let action = { //used for logging actions on page
@@ -289,7 +295,7 @@ function FindingDetailedView(props) {
                             <select name= "systemID" onChange={e => setSystemID(e.target.value)}  defaultValue={props.finding.systemID} class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
                                 {systems.map((system) => (
-                                    <option value={system.id}>{system.sysInfo}</option>
+                                    <option value={system.sysInfo}>{system.sysInfo}</option>
                                 ))}
                             </select>
                         </label>
@@ -301,7 +307,7 @@ function FindingDetailedView(props) {
                             <select name="findingTask"  onChange={e => setTaskID(e.target.value)} defaultValue={props.finding.taskID} id="findingTask" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
                                 {tasks.map((task) => (
-                                    <option value={task.id}>{task.taskTitle}</option>
+                                    <option value={task.taskTitle}>{task.taskTitle}</option>
                                 ))}
                             </select>
                         </label>
@@ -313,7 +319,7 @@ function FindingDetailedView(props) {
                             <select name="findingSubtask"  onChange={e => setSubtaskID(e.target.value)} defaultValue={props.finding.subtaskID} id="findingSubtask" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
                                 {subtasks.map((subtask) => (
-                                    <option value={subtask.id}>{subtask.subtaskTitle}</option>
+                                    <option value={subtask.subtaskTitle}>{subtask.subtaskTitle}</option>
                                 ))}
                             </select>
                         </label>
@@ -325,9 +331,9 @@ function FindingDetailedView(props) {
                             <br></br>
                             <select name="relatedFindings"  onChange={e => setRelatedFindings(e.target.value)} defaultValue={props.finding.relatedFindings} id="relatedFindings" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
-                                <option value="Finding 1">Finding 1</option>
-                                <option value="Finding 2">Finding 2</option>
-                                <option value="Finding 3">Finding 3</option>
+                                {findings.map((finding) => (
+                                    <option value={finding.hostName}>{finding.hostName}</option>
+                                ))}
                             </select>
                         </label>
 
@@ -372,17 +378,12 @@ function FindingDetailedView(props) {
 
                         <h4>Analyst Information</h4>
 
-                        <label for="AnalystInformation">
-                            Analyst: (Analyst who created the finding)
+                        <label for="analyst">
+                            Deriving Analyst:
                             <br></br>
-                            <select name="findingAnalyst"  onChange={e => setfindingAnalyst(e.target.value)} defaultValue={props.finding.findingAnalyst} id="findingAnalyst" class="browser-default custom-select mr-3">
-                                <option value="default" selected="selected"></option>
-                                <option value="Alex Vasquez">Alex Vasquez</option>
-                                <option value="Jacob Padilla">Jacob Padilla</option>
-                                <option value="Luis Soto">Luis Soto</option>
-
-                            </select>
-                        </label>
+                            <input type="text" name="analyst"  defaultValue= {localStorage.getItem('analyst')} id="analyst" className="form-control browser-default mr-3" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled />
+                            
+                        </label><br></br>
                         &nbsp;
                         &nbsp;
                         <label for="CollaboratorInformation">
@@ -390,10 +391,9 @@ function FindingDetailedView(props) {
                             <br></br>
                             <select name="findingCollaborators"  onChange={e => setFindingCollaborators(e.target.value)} defaultValue={props.finding.findingCollaborators} id="findingCollaborators" class="browser-default custom-select mr-3">
                                 <option value="default" selected="selected"></option>
-                                <option value="Alex Vasquez">Alex Vasquez</option>
-                                <option value="Jacob Padilla">Jacob Padilla</option>
-                                <option value="Luis Soto">Luis Soto</option>
-
+                                {eventAnalysts.map((analyst) => (
+                                    <option value={analyst.initials}>{analyst.initials}</option>
+                                ))}
                             </select>
                         </label><br></br>
                         <label for="Posture">
@@ -576,7 +576,6 @@ function FindingDetailedView(props) {
                             
                         </label><br></br>
     
-                            
                         
                         <div className="button-input-group">
                             

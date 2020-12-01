@@ -62,42 +62,46 @@ class eventDetailedView extends React.Component {
     //Get that analysts findings and duplicate with the current analysts initials // 
     onSync = (e) => {
         var analysts = document.getElementsByClassName("syncwith");
-        var findings = {};
-        for (var i = 0; i < analysts.length; i++) {
-            // console.log(analysts[i].value) // debugging
-
-            fetch('/analystFindings', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(analysts[i].value), 
-            }).then(response => response.json())
-                .then(data => {
-                    findings = findings.push(data);
-                })
-                .catch(error => {
-                    console.error('Error', error)
-                });
-
-          }
-          
-          for (var key in findings){
-            findings["analyst"] = localStorage.getItem('analyst');
-            fetch('/addfinding', { //if finding does not exist, add new one
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({key: findings[key]}),  
-            }).then(response => response.json())
-                .then(data => {
-                    console.log("Success", data);
-                })
-                .catch(error => {
-                    console.error('Error', error)
-                });
-          }
+        var sync_with = [];
+        
+        
+        for(var i = 0; i < analysts.length;i++){
+            if(analysts[i].checked){ //Get desired analysts 
+                sync_with.push(analysts[i].value);
+            }
+        }
+        // Get the findings from each analyst // 
+        fetch('/syncWithAnalyst', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(sync_with), 
+        }).then(response => response.json())
+            .then(data => {
+                // console.log("Add Findings",data);
+                //setFindings(data); 
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+            //console.log("Hello",findings);
+        //   for (var key in findings){
+        //     findings["analyst"] = localStorage.getItem('analyst');
+        //     fetch('/addfinding', { //if finding does not exist, add new one
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({key: findings[key]}),  
+        //     }).then(response => response.json())
+        //         .then(data => {
+        //             console.log("Success", data);
+        //         })
+        //         .catch(error => {
+        //             console.error('Error', error)
+        //         });
+        //   }
 
 
         
@@ -389,14 +393,13 @@ class eventDetailedView extends React.Component {
                                 </label>
                             </div>
 
-
                             <Button type="submit" className="btn" variant="outline-dark">Submit</Button>
                         </form>
                     </div>
                 </div>
                 <div className="horizontal-line"></div>
                 <div >
-                    <form onSubmit = {this.onSync}>
+                    <form>
                         <h1>Sync</h1>
 
                         <label htmlFor="email"><b>From:</b></label>
@@ -432,8 +435,8 @@ class eventDetailedView extends React.Component {
                                 </tbody>
                             </Table>
 
-                        <Button variant="outline-dark" type="submit" class="btn">Sync</Button>
-                        <Button variant="outline-dark" class="btn cancel">Close</Button>
+                        <Button onClick ={this.onSync} variant="outline-dark"class="btn">Sync</Button>
+                        {/* <Button variant="outline-dark" class="btn cancel">Close</Button> */}
                     </form>
                 </div>
 
