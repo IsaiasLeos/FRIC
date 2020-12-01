@@ -121,7 +121,7 @@ export default function SubtaskContentView(props) {
                         <tr>
                             {/* <th><input type="checkbox" id="all-subtasks" name="all-subtasks" value="0"></input></th> */}
                             <th>Title<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
-                            <th>Task<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
+                            <th>Task id<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>Analyst<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
@@ -134,7 +134,7 @@ export default function SubtaskContentView(props) {
                             <tr>
                                 {/* <td><input type="checkbox" id="cb1" value="subtask" /></td> */}
                                 <td><Button variant="outline-dark" onClick={() => handleDialogOpen(state)}>{state.subtaskTitle}</Button></td>
-                                <td>{state.relatedTask}</td>
+                                <td>{state.taskID}</td>
                                 <td>{state.analyst}</td>
                                 <td>{state.subtaskProgress}</td>
                                 <td>{state.numFindings}</td>
