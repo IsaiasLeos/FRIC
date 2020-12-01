@@ -50,7 +50,7 @@ function SubtaskDetailedView(props){
         attachments: attachments ? attachments: '',
         taskID: taskID ? taskID : '',
         numFindings: "",
-        analyst: "",
+        analyst: analyst ? analyst : '',
         task: ""
     };
 
@@ -205,7 +205,7 @@ function SubtaskDetailedView(props){
                             <div className="right">
                                 <label htmlFor="subtaskAnalysts">
                                     Analyst(s):<br />
-                                    <select  name="analysts" onChange={e => setAnalysts(e.target.value)} defaultValue={props.subtask.analysts} className="subtask-data" className="subtask-data">
+                                    <select  name="analyst" onChange={e => setAnalyst(e.target.value)} defaultValue={props.subtask.analyst} className="subtask-data" >
                                         <option value="default" selected="selected"></option>
                                         <option value="Alex Vasquez">Alex Vasquez</option>
                                         <option value="Jacob Padilla">Jacob Padilla</option>

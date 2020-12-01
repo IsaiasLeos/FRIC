@@ -43,11 +43,18 @@ class ArchiveMaster extends React.Component {
         //         findingdata: findingdata
         //     })).catch(error => console.error(error));
 
+        //Display arch_subtask
+        await fetch('/arch_subtask').then(
+            response => response.json()).then(subtaskdata => this.setState({
+                subtaskdata: subtaskdata
+            })).catch(error => console.error(error));
+
         //Display arch_system
         await fetch('/arch_system').then(
             response => response.json()).then(systemdata => this.setState({
                 systemdata: systemdata
             })).catch(error => console.error(error));
+        
     }
 
     render() {
