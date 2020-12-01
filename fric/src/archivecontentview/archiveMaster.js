@@ -12,7 +12,7 @@ class ArchiveMaster extends React.Component {
             findingdata: [],
             systemdata: [],
         };
-        //this.updateData = this.updateData.bind(this);
+        this.updateData = this.updateData.bind(this);
     }
 
 
@@ -44,9 +44,9 @@ class ArchiveMaster extends React.Component {
                 subtaskdata: subtaskdata
             })).catch(error => console.error(error));      
     }
-    // async updateData(){
-    //     await this.sleep(1000);
-    // }
+    async updateData(){
+        this.componentDidMount();
+    }
     
 
     render() {
@@ -58,7 +58,7 @@ class ArchiveMaster extends React.Component {
                     subtaskdata={this.state.subtaskdata}
                     findingdata={this.state.findingdata}
                     systemdata={this.state.systemdata}
-                    //updateData={this.updateData}
+                    updateData={this.updateData}
                 />
                 <div className="right-tree">
                     <Tree />

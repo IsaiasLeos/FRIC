@@ -50,6 +50,7 @@ export default function ArchiveContentView(props) {
                 console.error('Error', error)
             });
         SendLog("Removing task from Archive");
+        props.updateData();
     }
 
     //Restore system data
@@ -85,7 +86,7 @@ export default function ArchiveContentView(props) {
                 console.error('Error', error)
             });
         SendLog("Removing System from Archive");
-
+        props.updateData();
     }
 
     // Restore Finding Data
@@ -122,7 +123,7 @@ export default function ArchiveContentView(props) {
                 console.error('Error', error)
             });
         SendLog("Removing Finding from Archive");
-
+        props.updateData();
     }
 
     //Restore subtask data
@@ -158,6 +159,7 @@ export default function ArchiveContentView(props) {
                 console.error('Error', error)
             });
         SendLog("Removing Subtask from Archive");
+        props.updateData();
     }
 
     // Handles logging information
@@ -208,29 +210,8 @@ export default function ArchiveContentView(props) {
                 </tbody>
             </Table>
 
+
             <br /><br />
-            <h2>Archived Finding</h2><br />
-            <Table striped bordered hover >
-                <thead class="thead-grey">
-                    <tr>
-                        <th scope="col">ID<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Task<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Status<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th><Button variant="dark">Restore All Finding</Button> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </Table>
-            
-            <br/><br/>
             <h2>Archived Tasks</h2><br />
             <Table striped bordered hover >
                 <thead class="thead-grey">
@@ -258,12 +239,12 @@ export default function ArchiveContentView(props) {
                             <td>{state.num_finding}</td>
                             <td>{state.taskDueDate}</td>
                             <td><Button variant="dark" onClick={() => handle_task_restore(state)}> Restore Task </Button></td>
-                           
+
                         </tr>
                     ))}
                 </tbody>
             </Table>
-            
+
             <br /><br />
             <h2>Archived SubTasks</h2><br />
             <Table striped bordered hover >
@@ -314,7 +295,7 @@ export default function ArchiveContentView(props) {
                 </thead>
                 <tbody>
                     {
-                    props.findingdata.map((state) => (
+                        props.findingdata.map((state) => (
                             <tr key={state.id}>
                                 <td>{state.id}</td>
                                 <td>{state.hostName}</td>
@@ -327,10 +308,10 @@ export default function ArchiveContentView(props) {
                                 <td>{state.findingType}</td>
                                 <td>{state.findingRisk}</td>
                                 <td><Button variant="dark" onClick={() => handle_finding_restore(state)}> Restore Finding</Button></td>
-                                
+
                             </tr>
                         ))
-                        }
+                    }
                 </tbody>
             </Table>
 

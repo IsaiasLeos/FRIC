@@ -32,9 +32,20 @@ function EventTree(){
         fetch('/tasks').then(
             response => response.json()).then(data => setTasks(data))
     }, []);
+    const [systems, setSystems] = useState([{sysInfo: '', eventID: ''}])
+    useEffect(() => {
+        fetch('/getsystem').then(
+            response => response.json()).then(data => setSystems(data))
+    }, []);
+
+    const [findings, setFindings] = useState([{hostName: '', systemID: ''}])
+    useEffect(() => {
+        fetch('/findings').then(
+            response => response.json()).then(data => setFindings(data))
+    }, []);
 
 
-    const [events, setEvents] = useState([{ name: '', num_sys: '', num_findings: '', prog: '' }])
+    const [events, setEvents] = useState([{ id: '', name: '', num_sys: '', num_findings: '', prog: '' }])
     
     useEffect(() => {
         fetch('/eventsOverview').then(
@@ -45,8 +56,13 @@ function EventTree(){
         <TreeView>
             {events.map((event) => (
                 <TreeItem nodeId={treeId++} label={event.name}>
-                {tasks.map((task) => (
-                    <TreeItem nodeId={treeId++} label={task.taskTitle}></TreeItem>
+                {systems.map((system) => (
+                    (event.id === system.eventID ? <TreeItem nodeId={treeId++} label={system.sysInfo}> 
+                        {findings.map((finding) => (
+                            (system.id === finding.systemID ? <TreeItem nodeId={treeId++} label={system.id}></TreeItem> : console.log("Nothing"))
+                            ))
+                        }  
+                    </TreeItem> : console.log("Nothing"))
                     ))
                 }  
                 </TreeItem>
