@@ -9,27 +9,27 @@ class ArchiveMaster extends React.Component {
         this.state = {
             taskdata: [],
             subtaskdata: [],
-            findingdata:[],
-            systemdata:[],
+            findingdata: [],
+            systemdata: [],
         };
         this.updateData = this.updateData.bind(this);
     }
 
-    
+
 
     sleep(milliseconds) {
         return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
-    
+
     //Fetches information about current task content
     async updateData() {
         await this.sleep(1000);
         //display arch_task
-        fetch('/arch_task').then(
+        await fetch('/arch_task').then(
             response => response.json()).then(taskdata => this.setState({
                 taskdata: taskdata
-         })).catch(error => console.error(error));
-           
+            })).catch(error => console.error(error));
+
 
         // display arch_subtask
         // fetch('/arch_subtask').then(
@@ -44,16 +44,16 @@ class ArchiveMaster extends React.Component {
         //     })).catch(error => console.error(error));
 
         //Display arch_system
-        // fetch('/arch_system').then(
-        //     response => response.json()).then(systemdata => this.setState({
-        //         systemdata: systemdata
-        //     })).catch(error => console.error(error));
+        await fetch('/arch_system').then(
+            response => response.json()).then(systemdata => this.setState({
+                systemdata: systemdata
+            })).catch(error => console.error(error));
     }
 
     render() {
         return (
             <div>
-                <GeneralView/>
+                <GeneralView />
                 <ArchiveContentView
                     taskdata={this.state.taskdata}
                     subtaskdata={this.state.subtaskdata}

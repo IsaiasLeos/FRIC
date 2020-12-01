@@ -2,13 +2,12 @@ import * as React from 'react'
 import GeneralView from '../generalView/generalView'
 import 'react-bootstrap'
 import SortImage from '../assets/updownarrow.png'
-import {Button, Table} from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import '../assets/css/bootstrap.css'
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-export default function ArchiveContentView(props){
+export default function ArchiveContentView(props) {
 
-    const [selected_task, selectedTask] = useState(); //select a task to send to modal
     function getCurrentDate(separator = '') {
         let newDate = new Date()
         let day = newDate.getDate();
@@ -17,69 +16,103 @@ export default function ArchiveContentView(props){
         let time = newDate.toTimeString()
         return `${month < 10 ? `0${month}` : `${month}`}${separator}${day}${separator}${year} - ${time}`
     }
-   
+
     //Restore task data
     function handle_task_restore(state) {
-        selectedTask(state)
         console.log(state)
         console.log("restore task");
-            fetch("/addtask", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(state),
-            }).then(response => response.json())
-                .then(taskdata => {
-                    console.log("Success", taskdata);
-                })
-                .catch(error => {
-                    console.error('Error', error)
-                });
-            SendLog("restoring Task");
-            //Deleting current archive task state
-            fetch("/delete_archive_task", {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(state),
-            }).then(response => response.json())
-                .then(data => {
-                    console.log("Success", data);
-                })
-                .catch(error => {
-                    console.error('Error', error)
-                });
-            SendLog("Removing Task from archive");   
+        fetch("/add_back_to_task", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(taskdata => {
+                console.log("Success", taskdata);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Restoring Task");
+        //Deleting current archive task state
+        fetch("/delete_archive_task", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Removing Task from Archive");
+    }
+
+    //Restore task data
+    function handle_system_restore(state) {
+        console.log(state)
+        console.log("restore task");
+        fetch("/add_back_to_system", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(taskdata => {
+                console.log("Success", taskdata);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Restoring System");
+        //Deleting current archive task state
+        fetch("/delete_archive_system", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Removing System from Archive");
     }
 
     // Handles logging information
     function SendLog(e) {
         var action = {
-          date: getCurrentDate("/"),
-          action: e,
-          analyst: ""
+            date: getCurrentDate("/"),
+            action: e,
+            analyst: ""
         }
         action.analyst = "";
         fetch('/addlog', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(action),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(action),
         }).then(response => response.json());
-      }
+    }
 
     // updates all tables data
     useEffect(() => {
-        props.updateData();   
+        props.updateData();
     });
 
-    return( 
+    return (
         <div className="main">
-            <h2>Archived Tasks</h2><br/>
-            <Table striped bordered hover >   
+            <h2>Archived Tasks</h2><br />
+            <Table striped bordered hover >
                 <thead class="thead-grey">
                     <tr>
                         <th>Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
@@ -90,28 +123,28 @@ export default function ArchiveContentView(props){
                         <th>No. of Subtasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /> </th>
                         <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th><Button variant="dark">Restore All Task</Button><br/></th>
+                        <th><Button variant="dark">Restore All Task</Button><br /></th>
                     </tr>
                 </thead>
-                <tbody> 
-                {props.taskdata.map((state) => (
-                            <tr key={state.id}>
-                                <td> {state.taskTitle}</td>
-                                <td>{state.system}</td>
-                                <td>{state.taskAnalysts}</td>
-                                <td>{state.taskPriority}</td>
-                                <td>{state.taskProgress}</td>
-                                <td>{state.num_subtask}</td>
-                                <td>{state.num_finding}</td>
-                                <td>{state.taskDueDate}</td>
-                                <td><Button variant="dark" onClick={() => handle_task_restore(state)}> Restore Task </Button></td>
-                            </tr>
-                        ))}                
+                <tbody>
+                    {props.taskdata.map((state) => (
+                        <tr key={state.id}>
+                            <td> {state.taskTitle}</td>
+                            <td>{state.system}</td>
+                            <td>{state.taskAnalysts}</td>
+                            <td>{state.taskPriority}</td>
+                            <td>{state.taskProgress}</td>
+                            <td>{state.num_subtask}</td>
+                            <td>{state.num_finding}</td>
+                            <td>{state.taskDueDate}</td>
+                            <td><Button variant="dark" onClick={() => handle_task_restore(state)}> Restore Task </Button></td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
 
-            <br/><br/>
-            <h2>Archived SubTasks</h2><br/>
+            <br /><br />
+            <h2>Archived SubTasks</h2><br />
             <Table striped bordered hover >
                 <thead class="thead-grey">
                     <tr>
@@ -128,10 +161,10 @@ export default function ArchiveContentView(props){
                 </tbody>
             </Table>
 
-            <br/><br/>
+            <br /><br />
 
-            <h2>Archived System</h2><br/>
-            <Table striped bordered hover >   
+            <h2>Archived System</h2><br />
+            <Table striped bordered hover >
                 <thead class="thead-grey">
                     <tr>
                         <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
@@ -142,12 +175,21 @@ export default function ArchiveContentView(props){
                     </tr>
                 </thead>
                 <tbody>
+                    {props.systemdata.map((state) => (
+                        <tr key={state.id}>
+                            <td> {state.sysInfo}</td>
+                            <td>{state.num_task}</td>
+                            <td>{state.num_findings}</td>
+                            <td>{state.prog}</td>
+                            <td><Button variant="dark" onClick={() => handle_system_restore(state)}> Restore Task </Button></td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
 
-            <br/><br/>
+            <br /><br />
 
-            <h2>Archived Finding</h2><br/>
+            <h2>Archived Finding</h2><br />
             <Table striped bordered hover >
                 <thead class="thead-grey">
                     <tr>
@@ -168,7 +210,7 @@ export default function ArchiveContentView(props){
                 </tbody>
             </Table>
 
-        </div>   
+        </div>
     );
 
 }
