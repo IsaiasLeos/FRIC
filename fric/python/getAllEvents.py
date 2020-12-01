@@ -514,6 +514,7 @@ def findings():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
+                "analyst": e["analyst"],
             }
         )
     return jsonify(finding_json)  # return what was found in the collection
@@ -906,6 +907,7 @@ def deleteFindings():
             "System_ID": req["systemID"],
             "Task_ID": req["taskID"],
             "Subtask_ID": req["subtaskID"],
+            
         }
 
     # ----START OF DERIVED ATTRIBUTES----#
@@ -2392,7 +2394,7 @@ def deleteArchiveSubTask():
     mycollection.delete_one(subtask)
 
 
-# archive finding
+# ------------------- Archive Finding -------#
 
 
 @app.route("/arch_finding")  # path used in JS to call this
@@ -2403,7 +2405,6 @@ def archFinding():
 
     finding_json = []
 
-    # Start of Finding
     for e in mycollection.find():
         finding_json.append(
             {
@@ -2445,6 +2446,7 @@ def archFinding():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
+                
             }
         )
     return jsonify(finding_json)  # return what was found in the collection
@@ -2460,10 +2462,10 @@ def addToArchiveFinding():
 
     req = request.get_json()
 
-    # severityCategoryScore = 0 #Derived from Severity Category Code
+    print("This is req --->" , req)
 
     finding = {
-        "id": str(random.randint(1, 30)),
+        "id": req ["id"],
         "Host_Name": req["hostName"],
         "IP_Port": req["ip_port"],
         "Description": req["description"],
@@ -2501,8 +2503,8 @@ def addToArchiveFinding():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
+        #"analyst" : req['analyst']
     }
-
 
     mycollection.insert_one(finding)  # Send information to collection
     return "OK"
@@ -2518,50 +2520,53 @@ def deleteArchiveFinding():
 
     req = request.get_json()
 
+    query = {"id": req["id"]}
+
     # severityCategoryScore = 0 #Derived from Severity Category Code
 
-    finding = {
-        "id": str(random.randint(1, 30)),
-        "Host_Name": req["hostName"],
-        "IP_Port": req["ip_port"],
-        "Description": req["description"],
-        "Long_Description": req["longDescription"],
-        "Finding_Status": req["findingStatus"],
-        "Finding_Type": req["findingType"],
-        "Finding_Classification": req["findingClassification"],
-        "Finding_System": req["findingSystem"],
-        "Finding_Task": req["findingTask"],
-        "Finding_Subtask": req["findingSubtask"],
-        "Related_Findings": req["relatedFindings"],
-        "Finding_Confidentiality": req["findingConfidentiality"],
-        "Finding_Integrity": req["findingIntegrity"],
-        "Finding_Availability": req["findingAvailability"],
-        "Finding_Analyst": req["findingAnalyst"],
-        "Finding_Collaborators": req["findingCollaborators"],
-        "Finding_Posture": req["findingPosture"],
-        "Mitigation_Desc": req["mitigationDesc"],
-        "Mitigation_Long_Desc": req["mitigationLongDesc"],
-        "Threat_Relevence": req["threatRelevence"],
-        "Countermeasure": req["countermeasure"],
-        "Impact_Desc": req["impactDesc"],
-        "Impact_Level": req["impactLevel"],
-        "Severity_Score": req["severityCategoryScore"],
-        "Vulnerability_Score": req["vulnerabilityScore"],
-        "Quantitative_Score": req["quantitativeScore"],
-        "Finding_Risk": req["findingRisk"],
-        "Finding_Likelihood": req["findingLikelihood"],
-        "Finding_CFIS": req["findingCFIS"],
-        "Finding_IFIS": req["findingIFIS"],
-        "Finding_AFIS": req["findingAFIS"],
-        "Impact_Score": req["impactScore"],
-        "Finding_Files": req["findingFiles"],
-        "Severity_Category_Code": req["severityCategoryCode"],
-        "System_ID": req["systemID"],
-        "Task_ID": req["taskID"],
-        "Subtask_ID": req["subtaskID"],
-    }
+    for t in mycollection.find(query):
+        archfinding = {
+            
+            "Host_Name": req["hostName"],
+            "IP_Port": req["ip_port"],
+            "Description": req["description"],
+            "Long_Description": req["longDescription"],
+            "Finding_Status": req["findingStatus"],
+            "Finding_Type": req["findingType"],
+            "Finding_Classification": req["findingClassification"],
+            "Finding_System": req["findingSystem"],
+            "Finding_Task": req["findingTask"],
+            "Finding_Subtask": req["findingSubtask"],
+            "Related_Findings": req["relatedFindings"],
+            "Finding_Confidentiality": req["findingConfidentiality"],
+            "Finding_Integrity": req["findingIntegrity"],
+            "Finding_Availability": req["findingAvailability"],
+            "Finding_Analyst": req["findingAnalyst"],
+            "Finding_Collaborators": req["findingCollaborators"],
+            "Finding_Posture": req["findingPosture"],
+            "Mitigation_Desc": req["mitigationDesc"],
+            "Mitigation_Long_Desc": req["mitigationLongDesc"],
+            "Threat_Relevence": req["threatRelevence"],
+            "Countermeasure": req["countermeasure"],
+            "Impact_Desc": req["impactDesc"],
+            "Impact_Level": req["impactLevel"],
+            "Severity_Score": req["severityCategoryScore"],
+            "Vulnerability_Score": req["vulnerabilityScore"],
+            "Quantitative_Score": req["quantitativeScore"],
+            "Finding_Risk": req["findingRisk"],
+            "Finding_Likelihood": req["findingLikelihood"],
+            "Finding_CFIS": req["findingCFIS"],
+            "Finding_IFIS": req["findingIFIS"],
+            "Finding_AFIS": req["findingAFIS"],
+            "Impact_Score": req["impactScore"],
+            "Finding_Files": req["findingFiles"],
+            "Severity_Category_Code": req["severityCategoryCode"],
+            "System_ID": req["systemID"],
+            "Task_ID": req["taskID"],
+            "Subtask_ID": req["subtaskID"],
+        }
 
-    mycollection.delete_one(finding)  # Send information to collection
+    mycollection.delete_one(archfinding)  # Send information to collection
     return "OK"
 
 @app.route("/add_back_to_finding", methods=["POST"])
@@ -2572,7 +2577,7 @@ def addArchiveFinding():
 
     req = request.get_json()
     finding = {
-        "id": str(random.randint(1, 30)),
+        "id": req ["id"],
         "Host_Name": req["hostName"],
         "IP_Port": req["ip_port"],
         "Description": req["description"],
@@ -2610,7 +2615,9 @@ def addArchiveFinding():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
+        
     }
+
     mycollection.insert_one(finding)
     return "OK"
 

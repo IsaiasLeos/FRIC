@@ -122,7 +122,7 @@ function FindingDetailedView(props) {
         systemID: systemID ? systemID: '',
         taskID: taskID ? taskID: '',
         subtaskID: subtaskID ? subtaskID: '',
-        analyst: ''
+        analyst: analyst ? analyst: ''
     };
 
     let action = { //used for logging actions on page

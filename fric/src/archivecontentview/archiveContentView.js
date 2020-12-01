@@ -100,14 +100,15 @@ export default function ArchiveContentView(props) {
             },
             body: JSON.stringify(state),
         }).then(response => response.json())
-            .then(taskdata => {
-                console.log("Success", taskdata);
+            .then(findingdata => {
+                console.log("Success", findingdata);
             })
             .catch(error => {
                 console.error('Error', error)
             });
-        SendLog("Restoring System");
-        //Deleting current archive task state
+        SendLog("Restoring Finding");
+
+        //Deleting current archive Finding state
         fetch("/delete_archive_finding", {
             method: 'DELETE',
             headers: {
