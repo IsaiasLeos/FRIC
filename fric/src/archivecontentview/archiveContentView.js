@@ -33,7 +33,7 @@ export default function ArchiveContentView(props) {
             .catch(error => {
                 console.error('Error', error)
             });
-        SendLog("remove arch task");
+        SendLog("Restoring Task");
 
         //Deleting current archive task state
         fetch("/delete_archive_task", {
@@ -85,6 +85,44 @@ export default function ArchiveContentView(props) {
                 console.error('Error', error)
             });
         SendLog("Removing System from Archive");
+
+    }
+
+    // Restore Finding Data
+    function handle_finding_restore(state) {
+        console.log(state)
+        console.log("restore finding");
+        fetch("/add_back_to_finding", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(findingdata => {
+                console.log("Success", findingdata);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Restoring Finding");
+
+        //Deleting current archive Finding state
+        fetch("/delete_archive_finding", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+        }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+        SendLog("Removing Finding from Archive");
+
     }
 
     //Restore subtask data
@@ -254,6 +292,48 @@ export default function ArchiveContentView(props) {
                     ))}
                 </tbody>
             </Table>
+
+            <br /><br />
+
+            <h2>Archived Finding</h2><br />
+            <Table striped bordered hover >
+                <thead class="thead-grey">
+                    <tr>
+                        <th scope="col">ID<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Title<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Task<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Subtask<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Analyst<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Status<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th><Button variant="dark">Restore All Findings</Button> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                    props.findingdata.map((state) => (
+                            <tr key={state.id}>
+                                <td>{state.id}</td>
+                                <td>{state.hostName}</td>
+                                <td>{state.systemID}</td>
+                                <td>{state.taskID}</td>
+                                <td>{state.subtaskID}</td>
+                                <td>{state.analyst}</td>
+                                <td>{state.findingStatus}</td>
+                                <td>{state.findingClassification}</td>
+                                <td>{state.findingType}</td>
+                                <td>{state.findingRisk}</td>
+                                <td><Button variant="dark" onClick={() => handle_finding_restore(state)}> Restore Finding</Button></td>
+                                
+                            </tr>
+                        ))
+                        }
+                </tbody>
+            </Table>
+
         </div>
     );
 
