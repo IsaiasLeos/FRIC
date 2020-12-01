@@ -81,7 +81,7 @@ function GeneralView() {
                             <a className="nav-link " href="/SubtaskMaster">Subtask</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link " href="/Archive">Archive</a>
+                            <a className="nav-link " href="/ArchiveMaster">Archive</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/Configuration">Configuration</a>

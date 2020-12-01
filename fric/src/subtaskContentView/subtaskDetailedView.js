@@ -77,7 +77,7 @@ function SubtaskDetailedView(props){
             //Re-send the information to the selected system.
             console.log("Subtask: Edit");
             fetch('/editsubtask', {
-                method: 'POST',
+                method: 'PUT',     //NEW CHANGED post to put
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -205,15 +205,28 @@ function SubtaskDetailedView(props){
                             <div className="right">
                                 <label htmlFor="subtaskAnalysts">
                                     Analyst(s):<br />
-                                    <ReactMultiSelectCheckboxes onChange={e => setAnalysts(e.target.value)} defaultValue={props.subtask.analysts} options={analystsList} width="100%"  name="analysts" />
+                                    <select  name="analysts" onChange={e => setAnalysts(e.target.value)} defaultValue={props.subtask.analysts} className="subtask-data" className="subtask-data">
+                                        <option value="default" selected="selected"></option>
+                                        <option value="Alex Vasquez">Alex Vasquez</option>
+                                        <option value="Jacob Padilla">Jacob Padilla</option>
+                                        <option value="Luis Soto">Luis Soto</option>
+                                    </select>
+                                    {/* <ReactMultiSelectCheckboxes onChange={e => setAnalysts(e.target.value)} defaultValue={props.subtask.analysts} options={analystsList} width="100%"  name="analysts" /> */}
                                 </label>
                                 <label htmlFor="subtaskCollaborators">
                                     Collaborator(s):<br />
-                                    <ReactMultiSelectCheckboxes onChange={e => setCollaborators(e.target.value)} defaultValue={props.subtask.collaborators} options={collaboratorsList} width="100%"  name="collaborators" />
+                                    <select  name="collaborators" onChange={e => setCollaborators(e.target.value)} defaultValue={props.subtask.collaborators} className="subtask-data">
+                                        <option value="default" selected="selected"></option>
+                                        <option value="Alex Vasquez">Alex Vasquez</option>
+                                        <option value="Jacob Padilla">Jacob Padilla</option>
+                                        <option value="Luis Soto">Luis Soto</option>
+                                    </select>
+
+                                    {/* <ReactMultiSelectCheckboxes onChange={e => setCollaborators(e.target.value)} defaultValue={props.subtask.collaborators} options={collaboratorsList} width="100%"  name="collaborators" /> */}
                                 </label><br />
                                 <label htmlFor="tasks">
                                     Related task:<br />
-                                    <select  name="taskID" onChange={e => setTaskID(e.target.value)} >
+                                    <select  name="taskID" onChange={e => setTaskID(e.target.value)} className="subtask-data">
                                         <option defaultValue> Select...</option>
                                             {tasks.map((task) => (
                                                 <option value={task.id}>{task.taskTitle}</option>
@@ -223,12 +236,15 @@ function SubtaskDetailedView(props){
                                 </label><br />
                                 <label htmlFor="subtasks">
                                     Subtask(s):<br />
-                                    <ReactMultiSelectCheckboxes  onSubmit={e => setSubtasks(e.target.value)} defaultValue={props.subtask.subtasks} options={subtasksList} width="100%"  name="subtasks" searchable={false} />
+                                    <select  name="subtasks" onChange={e => setSubtasks(e.target.value)} defaultValue={props.subtask.subtasks} className="subtask-data">
+                                        <option value="default" selected="selected"></option>
+                                        <option value="Subtask 1">Subtask 1</option>
+                                        <option value="Subtask 2">Subtask 2</option>
+                                        <option value="Subtask 3">Subtask 3</option>
+                                    </select>
+                                    {/* <ReactMultiSelectCheckboxes  onSubmit={e => setSubtasks(e.target.value)} defaultValue={props.subtask.subtasks} options={subtasksList} width="100%"  name="subtasks" searchable={false} /> */}
                                 </label><br />
-                                <label htmlFor="attachments">
-                                    Attachments:<br />
-                                    <ReactMultiSelectCheckboxes onChange={e => setAttachments(e.target.value)} defaultValue={props.subtask.attachments} options={attachmentsList} width="100%"  name="attachments" />
-                                </label><br />
+
                             </div>
                         </div>
                         

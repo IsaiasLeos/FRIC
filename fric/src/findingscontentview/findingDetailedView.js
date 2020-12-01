@@ -150,7 +150,7 @@ function FindingDetailedView(props) {
             console.log(state)
             // Edit Event 
             fetch('/editfinding', {
-                method: 'POST',
+                method: 'PUT',      //NEW CHANGED post to put
                 headers: {
                     'Content-Type': 'application/json',
                 },

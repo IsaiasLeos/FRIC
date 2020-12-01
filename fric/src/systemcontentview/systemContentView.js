@@ -34,6 +34,42 @@ export default function SystemContentView(props) {
     handleDialog(false)//Close the modal
   }
 
+  function handleArch(state) {
+    selectedSystem(state)
+    console.log("archived system");
+    console.log(state)
+    fetch("/add_archive_system", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(state),
+    }).then(response => response.json())
+      .then(data => {
+        console.log("Success", data);
+      })
+      .catch(error => {
+        console.error('Error', error)
+      });
+    SendLog("Archiving System");
+
+    // Deleting Current System
+    fetch("/delete_system", {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(state),
+    }).then(response => response.json())
+      .then(data => {
+        console.log("Success", data);
+      })
+      .catch(error => {
+        console.error('Error', error)
+      });
+    SendLog("Removing System");
+  }
+
   //Function to send a log given the parameter (action).
   function SendLog(e) {
     var action = {
@@ -89,22 +125,22 @@ export default function SystemContentView(props) {
             <Table bordered hover striped>
               <thead className="thead-grey">
                 <tr>
-                  <th>Select</th>
                   <th>System</th>
                   <th>No. of Task</th>
                   <th>No. Findings</th>
                   <th>Progress</th>
+                  <th><Button variant="dark"> Archive All </Button></th>
                 </tr>
               </thead>
               <tbody>
                 {props.data.map((state) => (
                   //Map the given information of data.
                   <tr key={state.id}>
-                    <td><input type="checkbox" /></td>
                     <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.sysInfo}</Button></td>
                     <td>{state.num_task}</td>
                     <td>{state.num_findings}</td>
                     <td>{state.prog}</td>
+                    <td><Button variant="dark" onClick={() => handleArch(state)} > Archive </Button></td>
                   </tr>
                 ))}
               </tbody>

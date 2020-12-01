@@ -24,7 +24,10 @@ import subtaskMaster from './subtaskContentView/subtaskMaster';
 
 
 import archiveContentView from './archivecontentview/archiveContentView';
-import configurationContentView from './configurationcontentview/configurationContentView';
+import archiveMaster from './archivecontentview/archiveMaster';
+
+import configurationContentView from './configurationContentView/configurationContentView';
+
 import taskContentView from './taskcontentview/taskContentView.js';
 import taskDetailedView from './taskcontentview/taskDetailedView.js'
 import taskMaster from './taskcontentview/taskMaster'
@@ -62,7 +65,9 @@ ReactDOM.render(
     <Route exact path="/SubtaskDetails" component={subtaskDetailedView} />
     <Route exact path="/SubtaskMaster" component={subtaskMaster} />
 
+    <Route exact path="/ArchiveMaster" component={archiveMaster} />
     <Route exact path="/Archive" component={archiveContentView} />
+    
     <Route exact path="/Configuration" component={configurationContentView} />
     <Route exact path="/Setup" component={setupContentView} />
     <Route exact path="/Help" component={helpView} />

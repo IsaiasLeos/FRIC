@@ -83,7 +83,7 @@ function SystemDetailedView(props) {
             //Re-send the information to the selected system.
             console.log("System: Edit");
             fetch('/editsystem', {
-                method: 'POST',
+                method: 'PUT',             //NEW CHANGED post to put
                 headers: {
                     'Content-Type': 'application/json',
                 },

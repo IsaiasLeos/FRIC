@@ -31,7 +31,7 @@ class TaskMaster extends React.Component {
     
     //Fetches information about current task content
     async updateData() {
-        await this.sleep(3000);
+        await this.sleep(1000);
         fetch('/tasks').then(
             response => response.json()).then(data => this.setState({
                 data: data

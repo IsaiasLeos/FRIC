@@ -154,7 +154,7 @@ class eventDetailedView extends React.Component {
             // console.log("Edit event",this.state.id); // debugging 
             // Edit Event 
             fetch('/editevent', {
-                method: 'POST',
+                method: 'PUT',         //NEW CHANGED post to put
                 headers: {
                     'Content-Type': 'application/json',
                 },
