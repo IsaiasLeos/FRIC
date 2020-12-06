@@ -484,7 +484,7 @@ def analystFindings():
                 "ip_port": e["IP_Port"],
                 "description": e["Description"],
                 "longDescription": e["Long_Description"],
-                "findingStatus": e["Finding_Status"],
+                "findingStatus": e["Finding_Status"], 
                 "findingType": e["Finding_Type"],
                 "findingClassification": e["Finding_Classification"],
                 "findingSystem": e["Finding_System"],
@@ -1358,11 +1358,15 @@ def generateERB():
     myEventCollection = mydb["event"]
     mySystemCollection = mydb["system"]
     myFindingCollection = mydb["finding"]
+    req = request.get_json()
+
+    
 
     events_json = []
     system_json = []
     finding_json = []
 
+    
     # Start of Finding
     for e in myFindingCollection.find():
         finding_json.append(
@@ -1405,8 +1409,10 @@ def generateERB():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
+                "analyst": e["analyst"],
             }
         )
+    
 
     for e in myEventCollection.find():
 
