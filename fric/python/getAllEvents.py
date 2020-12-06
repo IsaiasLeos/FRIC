@@ -2436,6 +2436,32 @@ def addArchiveSubtask():
     mycollection.insert_one(subtask)
     return "OK"
 
+@app.route("/promote_subtask", methods=["POST"])
+def promoteSubtask():
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["FRIC"]
+    mycollection = mydb["task"]
+
+    req = request.get_json()
+    subtask = {
+        "id": req["id"],
+        "Subtask_Title": req["subtaskTitle"],
+        "Subtask_Description": req["subtaskDescription"],
+        "Subtask_Progress": req["subtaskProgress"],
+        "Subtask_Due_Date": req["subtaskDueDate"],
+        "Analysts": req["analysts"],
+        "Collaborators": req["collaborators"],
+        "Related_Task": req["relatedTask"],
+        "Subtasks": req["subtasks"],
+        "Attachments": req["attachments"],
+        "Num_Findings": 0,
+        "Analyst": req["analyst"],
+        "Task": "Task 0",
+        "Task_ID": req["taskID"],
+    }
+    mycollection.insert_one(subtask)
+    return "OK"
+
 
 @app.route("/delete_archive_subtask", methods=["DELETE"])
 def deleteArchiveSubTask():
