@@ -1,8 +1,5 @@
 import * as React from 'react'
-// import Table from 'react-bootstrap/Table'
 import '../assets/css/bootstrap.css'
-// import SortImage from '../assets/updownarrow.png'
-// import Tree from '../eventTree/eventTree'
 import SystemContentView from '../systemcontentview/systemContentView'
 import GeneralView from '../generalView/generalView'
 import TaskContentView from '../taskcontentview/taskContentView'
@@ -30,12 +27,103 @@ class analystSummaryView extends React.Component {
             num_findings: "",
             progress: "",
         };
+
+        this.state1 = {
+            data: [],
+            id: '',
+            hostName: '',
+            ip_port: '',
+            description: '',
+            longDescription: '',
+            findingStatus: '',
+            findingType: '',
+            findingClassification: '',
+            findingSystem: '',
+            findingTask: '',
+            findingSubtask: '',
+            relatedFindings: '',
+            findingConfidentiality: '',
+            findingIntegrity: '',
+            findingAvailability: '',
+            findingAnalyst: '',
+            findingCollaborators: '',
+            findingPosture: '',
+            mitigationDesc: '',
+            mitigationLongDesc: '',
+            threatRelevence: '',
+            countermeasure: '',
+            impactDesc: '',
+            impactLevel: '',
+            severityCategoryScore: '',
+            vulnerabilityScore: '',
+            quantitativeScore: '',
+            findingRisk: '',
+            findingLikelihood: '',
+            findingCFIS: '',
+            findingIFIS: '',
+            findingAFIS: '',
+            impactScore: '',
+            activeTasks: '',
+            findingFiles: '',
+            severityCategoryCode: '',
+            systemID: '',
+            taskID: '',
+            subtaskID: '',
+            analyst: '',
+        };
+
+
+        this.state2 = {
+            data: [],
+            subtaskTitle: "",
+            subtaskDescription: "",
+            subtaskProgress: "",
+            subtaskDueDate: "",
+            analysts: "",
+            collaborators: "",
+            relatedTask: "",
+            subtasks: "",
+            attachments: "",
+            numFindings: "",
+            analyst: "",
+            task: "",
+            taskID: ""
+        };
+
+        this.state3 = {
+            data: [],
+            id: "",
+            taskTitle: "",
+            taskDescription: "",
+            system: "",
+            taskPriority: "",
+            taskProgress: "",
+            taskDueDate: "",
+            taskAnalysts: "",
+            taskCollaborators: "",
+            relatedTasks: "",
+            attachments: "",
+            subtaskID: "",
+            systemID: '',
+        };
+        this.updateData = this.updateData.bind();
         this.progress = 0;
-        this.updateData = this.updateData.bind(this);
     }
 
     updateData() {
         fetch('/getsystem').then(
+            response => response.json()).then(data => this.setState({
+                data: data
+            })).catch(error => console.error(error));
+        fetch('/subtasks').then(
+            response => response.json()).then(data => this.setState({
+                data: data
+            })).catch(error => console.error(error));
+        fetch('/tasks').then(
+            response => response.json()).then(data => this.setState({
+                data: data
+            })).catch(error => console.error(error));
+        fetch('/analystFindings').then(
             response => response.json()).then(data => this.setState({
                 data: data
             })).catch(error => console.error(error));
@@ -49,30 +137,27 @@ class analystSummaryView extends React.Component {
                     <div id="tableSummary">
                         <h1>Analyst Progress Summary View</h1>
                         <div id="systemTable">
-                            <Progress percent={this.progress} status="success" />
                             <SystemContentView
                                 data={this.state.data}
-                                updateData={this.updateData}
-                            />
+                                updateData={this.updateData} />
                         </div>
 
                         <div id="taskTable">
-                            <Progress percent={this.progress} status="success" />
                             <TaskContentView
-                            />
+                                data={this.state3.data}
+                                updateData={this.updateData} />
                         </div>
                         <div id="subtaskTable">
-                            <Progress percent={this.progress} status="success" />
-                            <SubtaskContentView />
+                            <SubtaskContentView
+                                data={this.state2.data}
+                                updateData={this.updateData} />
                         </div>
 
                         <div id="findingTable">
-                            <Progress percent={this.progress} status="success" />
-                            <FindingContentView />
+                            <FindingContentView
+                                data={this.state1.data}
+                                updateData={this.updateData} />
                         </div>
-                    </div>
-                    <div className="right-tree">
-                        <Tree />
                     </div>
                 </div>
             </div>

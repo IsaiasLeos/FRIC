@@ -71,7 +71,7 @@ function EventContentView() {
 
     // After event is chosen make it the selected event and the show modal // 
     function viewEvent(event) {
-        sendLog('view event');
+        sendLog('View Event');
         getAnalysts(event.id)
         selectEvent(event);
         handleShow();
@@ -79,7 +79,7 @@ function EventContentView() {
 
     // Before showing modal clear event so there is no prepopulated data // 
     function addEvent() {
-        sendLog("add event")
+        sendLog("Add Event")
         selectEvent(0);
         handleShow();
     }
@@ -88,7 +88,7 @@ function EventContentView() {
         let action = {
             date: getCurrentDate("/"),
             action: a,
-            analyst: ""
+            analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA"
         }
         fetch('/addlog', {
             method: 'POST',
