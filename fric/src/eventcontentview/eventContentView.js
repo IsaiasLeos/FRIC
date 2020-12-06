@@ -136,7 +136,7 @@ function EventContentView() {
                                 <td><Button variant="outline-dark" key = {event.id} onClick={() => { viewEvent(event) }}>{event.name}</Button></td>
                                 <td>{event.num_sys}</td>
                                 <td>{event.num_findings}</td>
-                                <td>{event.prog}</td>
+                                <td>{event.prog * 100}</td>
                             </tr>
                         ))}
 
