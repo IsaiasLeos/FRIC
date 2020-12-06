@@ -116,14 +116,16 @@ def analysts():
 def eventsOverview():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    myTaskCollection = mydb[""]
+    myTaskCollection = mydb["task"]
     myEventCollection = mydb["event"]
     mySystemCollection = mydb["system"]
     myFindingCollection = mydb["finding"]
 
     events_json = []
-
     findings_json = []
+    tasks_json = [] 
+    task_progress = 0 
+
     # Get number of Findings
     for f in myFindingCollection.find():
         findings_json.append({"id": f["id"], "hostName": f["Host_Name"]})
@@ -136,6 +138,12 @@ def eventsOverview():
             {"sysInfo": s["System_Info"], "sysDesc": s["System_Description"]}
         )
     num_sys = len(systems_json)
+
+    for f in myTaskCollection.find(): 
+        tasks_json.append({"progress":f["Task_Progress"]})
+        task_progress = task_progress + int(f["Task_Progress"])
+    task_progress = task_progress / len(task_progress)
+    
 
     # Event Overview Information
     for e in myEventCollection.find():
@@ -154,7 +162,7 @@ def eventsOverview():
                 "customer": e["Customer_name"],
                 "num_sys": num_sys,
                 "num_findings": num_finds,
-                "prog": e["Progress"],
+                "prog": task_progress,
                 "created_by": e["Created_By"],
             }
         )
