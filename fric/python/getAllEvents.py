@@ -116,6 +116,7 @@ def analysts():
 def eventsOverview():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
+    myTaskCollection = mydb[""]
     myEventCollection = mydb["event"]
     mySystemCollection = mydb["system"]
     myFindingCollection = mydb["finding"]
@@ -2162,13 +2163,13 @@ def deleteTask():
 def deleteArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]
-    mycollection = mydb["archivetask"]
+    mycollection = mydb["taskArchive"]
 
     req = request.get_json()
     query = {"id": req["id"]}
 
     for t in mycollection.find(query):
-        archtask = {
+        archtask = { 
             "Task_title": req["taskTitle"],
             "Task_Description": req["taskDescription"],
             "System": req["system"],
