@@ -114,7 +114,6 @@ function EventContentView() {
                 <div class="title-buttons">
                     <h2>Event Overview Table</h2>
                     <ButtonGroup>
-                        <Button variant="dark">Archive</Button>
                         <Button variant="dark" onClick={addEvent}>Add</Button>
                     </ButtonGroup>
                 </div>

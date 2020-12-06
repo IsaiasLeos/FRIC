@@ -163,7 +163,7 @@ export default function SubtaskContentView(props) {
                             <th>Progress<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
                             <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="Sort button" /></th>
-                            <th><Button variant="dark"> Archive All </Button></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>

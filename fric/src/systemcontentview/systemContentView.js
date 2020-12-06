@@ -103,7 +103,6 @@ export default function SystemContentView(props) {
 
 
               <ButtonGroup dialogclassname="title-system-buttons">
-                <Button variant="dark" >Archive</Button>
                 <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
               </ButtonGroup>
               <Modal dialogClassName="event-modal" show={dialogOpen} onHide={handleDialogClose} >
@@ -129,7 +128,7 @@ export default function SystemContentView(props) {
                   <th>No. of Task</th>
                   <th>No. Findings</th>
                   <th>Progress</th>
-                  <th><Button variant="dark"> Archive All </Button></th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>

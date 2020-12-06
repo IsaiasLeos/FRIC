@@ -49,6 +49,7 @@ export default function ArchiveContentView(props) {
             .catch(error => {
                 console.error('Error', error)
             });
+        console.log("delete task")
         SendLog("Removing task from Archive");
         props.updateData();
     }
@@ -194,7 +195,8 @@ export default function ArchiveContentView(props) {
                         <th scope="col">No. of Tasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th><Button variant="dark">Restore All System</Button></th>
+                        <th>Action</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -204,7 +206,7 @@ export default function ArchiveContentView(props) {
                             <td>{state.num_task}</td>
                             <td>{state.num_findings}</td>
                             <td>{state.prog}</td>
-                            <td><Button variant="dark" onClick={() => handle_system_restore(state)}> Restore Task </Button></td>
+                            <td><Button variant="dark" onClick={() => handle_system_restore(state)}> Restore System </Button></td>
                         </tr>
                     ))}
                 </tbody>
@@ -224,7 +226,7 @@ export default function ArchiveContentView(props) {
                         <th>No. of Subtasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /> </th>
                         <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th><Button variant="dark">Restore All Task</Button><br /></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -256,7 +258,7 @@ export default function ArchiveContentView(props) {
                         <th scope="col"> Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">Due Date<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th><Button variant="dark">Restore All SubTask</Button></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -290,7 +292,7 @@ export default function ArchiveContentView(props) {
                         <th scope="col">Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th><Button variant="dark">Restore All Findings</Button> </th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -405,63 +405,65 @@ def editEvent():
 
 
 # ---------------START OF FINDING API ---------------#
-@app.route("/syncWithAnalyst",methods=["POST"])  
+@app.route("/syncWithAnalyst", methods=["POST"])
 def syncWithAnalyst():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["FRIC"]  # Database name
     mycollection = mydb["finding"]  # Collection Name
-    req = request.get_json() # req holds list of analyst initials
-    
-    
-    for analyst in req: 
+    req = request.get_json()  # req holds list of analyst initials
+
+    for analyst in req:
         for e in mycollection.find({"analyst": analyst}):
             reversed_analysts = req[::-1]
             for r_analyst in reversed_analysts:
                 if analyst != r_analyst:
 
-                    mycollection.insert({
-                        "id": e["id"],
-                        "Host_Name": e["Host_Name"],
-                        "IP_Port": e["IP_Port"],
-                        "Description": e["Description"],
-                        "Long_Description": e["Long_Description"],
-                        "Finding_Status": e["Finding_Status"],
-                        "Finding_Type": e["Finding_Type"],
-                        "Finding_Classification": e["Finding_Classification"],
-                        "Finding_System": e["Finding_System"],
-                        "Finding_Task": e["Finding_Task"],
-                        "Finding_Subtask": e["Finding_Subtask"],
-                        "Related_Findings": e["Related_Findings"],
-                        "Finding_Confidentiality": e["Finding_Confidentiality"],
-                        "Finding_Integrity": e["Finding_Integrity"],
-                        "Finding_Availability": e["Finding_Availability"],
-                        "Finding_Analyst": e["Finding_Analyst"],
-                        "Finding_Collaborators": e["Finding_Collaborators"],
-                        "Finding_Posture": e["Finding_Posture"],
-                        "Mitigation_Desc": e["Mitigation_Desc"],
-                        "Mitigation_Long_Desc": e["Mitigation_Long_Desc"],
-                        "Threat_Relevence": e["Threat_Relevence"],
-                        "Countermeasure": e["Countermeasure"],
-                        "Impact_Desc": e["Impact_Desc"],
-                        "Impact_Level": e["Impact_Level"],
-                        "Severity_Score": e["Severity_Score"],
-                        "Vulnerability_Score": e["Vulnerability_Score"],
-                        "Quantitative_Score": e["Quantitative_Score"],
-                        "Finding_Risk": e["Finding_Risk"],
-                        "Finding_Likelihood": e["Finding_Likelihood"],
-                        "Finding_CFIS": e["Finding_CFIS"],
-                        "Finding_IFIS": e["Finding_IFIS"],
-                        "Finding_AFIS": e["Finding_AFIS"],
-                        "Impact_Score": e["Impact_Score"],
-                        "Finding_Files": e["Finding_Files"],
-                        "Severity_Category_Code": e["Severity_Category_Code"],
-                        "System_ID": e["System_ID"],
-                        "Task_ID": e["Task_ID"],
-                        "Subtask_ID": e["Subtask_ID"],
-                        "analyst": r_analyst
-                    }) 
-           
+                    mycollection.insert(
+                        {
+                            "id": e["id"],
+                            "Host_Name": e["Host_Name"],
+                            "IP_Port": e["IP_Port"],
+                            "Description": e["Description"],
+                            "Long_Description": e["Long_Description"],
+                            "Finding_Status": e["Finding_Status"],
+                            "Finding_Type": e["Finding_Type"],
+                            "Finding_Classification": e["Finding_Classification"],
+                            "Finding_System": e["Finding_System"],
+                            "Finding_Task": e["Finding_Task"],
+                            "Finding_Subtask": e["Finding_Subtask"],
+                            "Related_Findings": e["Related_Findings"],
+                            "Finding_Confidentiality": e["Finding_Confidentiality"],
+                            "Finding_Integrity": e["Finding_Integrity"],
+                            "Finding_Availability": e["Finding_Availability"],
+                            "Finding_Analyst": e["Finding_Analyst"],
+                            "Finding_Collaborators": e["Finding_Collaborators"],
+                            "Finding_Posture": e["Finding_Posture"],
+                            "Mitigation_Desc": e["Mitigation_Desc"],
+                            "Mitigation_Long_Desc": e["Mitigation_Long_Desc"],
+                            "Threat_Relevence": e["Threat_Relevence"],
+                            "Countermeasure": e["Countermeasure"],
+                            "Impact_Desc": e["Impact_Desc"],
+                            "Impact_Level": e["Impact_Level"],
+                            "Severity_Score": e["Severity_Score"],
+                            "Vulnerability_Score": e["Vulnerability_Score"],
+                            "Quantitative_Score": e["Quantitative_Score"],
+                            "Finding_Risk": e["Finding_Risk"],
+                            "Finding_Likelihood": e["Finding_Likelihood"],
+                            "Finding_CFIS": e["Finding_CFIS"],
+                            "Finding_IFIS": e["Finding_IFIS"],
+                            "Finding_AFIS": e["Finding_AFIS"],
+                            "Impact_Score": e["Impact_Score"],
+                            "Finding_Files": e["Finding_Files"],
+                            "Severity_Category_Code": e["Severity_Category_Code"],
+                            "System_ID": e["System_ID"],
+                            "Task_ID": e["Task_ID"],
+                            "Subtask_ID": e["Subtask_ID"],
+                            "analyst": r_analyst,
+                        }
+                    )
+
     return "0"  # return what was found in the collection
+
 
 # Get the current analysts findings#
 @app.route("/analystFindings", methods=["POST"])  # path used in JS to call this
@@ -483,7 +485,7 @@ def analystFindings():
                 "ip_port": e["IP_Port"],
                 "description": e["Description"],
                 "longDescription": e["Long_Description"],
-                "findingStatus": e["Finding_Status"],
+                "findingStatus": e["Finding_Status"], 
                 "findingType": e["Finding_Type"],
                 "findingClassification": e["Finding_Classification"],
                 "findingSystem": e["Finding_System"],
@@ -516,7 +518,7 @@ def analystFindings():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
-                "analyst": e["analyst"]
+                "analyst": e["analyst"],
             }
         )
 
@@ -723,10 +725,12 @@ def calculateLikelihood(relevenceOfThreat, vulnerabilitySeverity):
     threat = routeRelevenceOfThreat(relevenceOfThreat)  # Get index
     vulnerability = routeVulnerabilitySeverity(vulnerabilitySeverity)  # Get index
 
-    if(threat <= 4 and vulnerability <=4 and threat != None and vulnerability != None): 
-        likelihood = likelihoodMap[threat][vulnerability]  # Select value based on indices
+    if threat <= 4 and vulnerability <= 4 and threat != None and vulnerability != None:
+        likelihood = likelihoodMap[threat][
+            vulnerability
+        ]  # Select value based on indices
     else:
-        likelihood = 'VL'
+        likelihood = "VL"
 
     return likelihood
 
@@ -970,7 +974,6 @@ def deleteFindings():
             "System_ID": req["systemID"],
             "Task_ID": req["taskID"],
             "Subtask_ID": req["subtaskID"],
-            
         }
 
     # ----START OF DERIVED ATTRIBUTES----#
@@ -1266,6 +1269,7 @@ def editTask():
     mycollection.update_one(query, task)
     return jsonify(task)
 
+
 # --------------------------------------------------- END OF TASK API -------------------------------------#
 
 
@@ -1355,11 +1359,15 @@ def generateERB():
     myEventCollection = mydb["event"]
     mySystemCollection = mydb["system"]
     myFindingCollection = mydb["finding"]
+    req = request.get_json()
+
+    
 
     events_json = []
     system_json = []
     finding_json = []
 
+    
     # Start of Finding
     for e in myFindingCollection.find():
         finding_json.append(
@@ -1402,25 +1410,21 @@ def generateERB():
                 "systemID": e["System_ID"],
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
+                "analyst": e["analyst"],
             }
         )
+    
 
     for e in myEventCollection.find():
 
-        events_json.append(
-            {
-                "name": e["Event_name"],
-                "type": e["Type"]
-            }
-        )
+        events_json.append({"name": e["Event_name"], "type": e["Type"]})
 
     eventName = ""  # Hold Event Name
-    eventType = "" # Hold Event Type
+    eventType = ""  # Hold Event Type
     for x in range(len(events_json)):  # Get the name of the event
         event = events_json[x]
         eventName = event["name"]
         eventType = event["type"]
-
 
     for e in mySystemCollection.find():
         system_json.append(
@@ -1495,7 +1499,6 @@ def generateERB():
     p8.text = eventType  # Event that took place
     p8.font.size = Pt(17)
     p8.font.bold = True
-    
 
     # Presenter Information
     presenterTxtBox = slide.shapes.add_textbox(Inches(0), Inches(6), width, height)
@@ -1684,7 +1687,7 @@ def generateERB():
         cellJ.merge(cellK)
 
         cellL = table.cell(2, 2)
-        cellL.text = "CAT:    " + str(finding["severityCategoryCode"]) 
+        cellL.text = "CAT:    " + str(finding["severityCategoryCode"])
         cellM = table.cell(2, 3)
         cellL.merge(cellM)
 
@@ -1704,7 +1707,7 @@ def generateERB():
         cellR.merge(cellS)
 
         cellT = table.cell(4, 0)
-        cellT.text = "Vs Score:    " + str(finding["vulnerabilityScore"]) 
+        cellT.text = "Vs Score:    " + str(finding["vulnerabilityScore"])
         cellU = table.cell(4, 1)
         cellT.merge(cellU)
 
@@ -1724,7 +1727,16 @@ def generateERB():
         cellZ.merge(cellA1)
 
         cellA2 = table.cell(5, 2)
-        cellA2.text = "C: " + str(finding["findingCFIS"]) + "     " + "I: " + str(finding["findingIFIS"]) + "     " + "A: " + str(finding["findingAFIS"])
+        cellA2.text = (
+            "C: "
+            + str(finding["findingCFIS"])
+            + "     "
+            + "I: "
+            + str(finding["findingIFIS"])
+            + "     "
+            + "A: "
+            + str(finding["findingAFIS"])
+        )
         cellA3 = table.cell(5, 3)
         cellA2.merge(cellA3)
 
@@ -1732,19 +1744,17 @@ def generateERB():
         cellA4.text = "Impact Rational: " + str(finding["impactDesc"])
         cellA5 = table.cell(5, 5)
         cellA4.merge(cellA5)
-        
 
         cellA6 = table.cell(6, 0)
         cellA6.text = "Posture:    " + str(finding["findingPosture"])
         cellA7 = table.cell(6, 1)
         cellA6.merge(cellA7)
-         
 
         cellA8 = table.cell(6, 2)
         cellA8.text = "Finding Type:    " + str(finding["findingType"])
         cellA9 = table.cell(6, 3)
         cellA8.merge(cellA9)
-        
+
         cellA14 = table.cell(6, 4)
         cellA14.text = "Mitigation:    " + str(finding["mitigationLongDesc"])
         cellA15 = table.cell(6, 5)
@@ -1763,9 +1773,6 @@ def generateERB():
         cell13 = table.cell(7, 5)
         cell12.merge(cell13)
 
-        
-
-        
         # Add image
         left = Inches(0.5)
         top = Inches(0)
@@ -2096,6 +2103,7 @@ def addArchiveTask():
     mycollection.insert_one(archtask)  # send info to collection
     return "OK"
 
+
 # Function used to add task
 @app.route("/add_back_to_task", methods=["POST"])
 def addArchiveTasks():
@@ -2118,12 +2126,13 @@ def addArchiveTasks():
         "Num_subtask": 0,
         "Num_finding": 13,
         "Progress": "0%",
-        "SubTask_ID": req["subtaskID"]
+        "SubTask_ID": req["subtaskID"],
     }
     mycollection.insert_one(task)  # send info to collection
     return "OK"
 
-#Delete a given task
+
+# Delete a given task
 @app.route("/delete_task", methods=["DELETE"])
 def deleteTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -2148,12 +2157,13 @@ def deleteTask():
             "Num_subtask": 0,
             "Num_finding": 13,
             "Progress": "0%",
-            "SubTask_ID": req["subtaskID"]
+            "SubTask_ID": req["subtaskID"],
         }
     mycollection.delete_one(archtask)
     return "OK"
 
-#delete a given archive
+
+# delete a given archive
 @app.route("/delete_archive_task", methods=["DELETE"])
 def deleteArchiveTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -2178,10 +2188,11 @@ def deleteArchiveTask():
             "Num_subtask": 0,
             "Num_finding": 13,
             "Progress": "0%",
-            "SubTask_ID": req["subtaskID"]
+            "SubTask_ID": req["subtaskID"],
         }
     mycollection.delete_one(archtask)
     return "OK"
+
 
 # -------------- archive system --------------- #
 @app.route("/arch_system")
@@ -2255,6 +2266,7 @@ def addArchiveBackSystem():
     mycollection.insert_one(system)
     return "OK"
 
+
 @app.route("/add_back_to_system", methods=["POST"])
 def addArchiveSystem():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -2292,25 +2304,25 @@ def deleteSystem():
     req = request.get_json()
     query = {"id": req["id"]}
 
-    for t in mycollection.find(query):
-        archsystem = {
-            "System_Info": req["sysInfo"],
-            "System_Description": req["sysDesc"],
-            "System_Location": req["sysLoc"],
-            "System_Router": req["sysRouter"],
-            "System_Switch": req["sysSwitch"],
-            "System_Room": req["sysRoom"],
-            "Test_Plan": req["sysTestPlan"],
-            "Confidentiality": req["Confidentiality"],
-            "Integrity": req["Integrity"],
-            "Availability": req["Availability"],
-            "Num_Task": 13,
-            "Num_Findings": 10,
-            "Progress": "0%",
-            "Event_ID": req["eventID"],
-        }
+    archsystem = {
+        "System_Info": req["sysInfo"],
+        "System_Description": req["sysDesc"],
+        "System_Location": req["sysLoc"],
+        "System_Router": req["sysRouter"],
+        "System_Switch": req["sysSwitch"],
+        "System_Room": req["sysRoom"],
+        "Test_Plan": req["sysTestPlan"],
+        "Confidentiality": req["Confidentiality"],
+        "Integrity": req["Integrity"],
+        "Availability": req["Availability"],
+        "Num_Task": 13,
+        "Num_Findings": 10,
+        "Progress": "0%",
+        "Event_ID": req["eventID"],
+    }
     mycollection.delete_one(archsystem)
     return "OK"
+
 
 @app.route("/delete_archive_system", methods=["DELETE"])
 def deleteArchiveSystem():
@@ -2321,23 +2333,22 @@ def deleteArchiveSystem():
     req = request.get_json()
     query = {"id": req["id"]}
 
-    for t in mycollection.find(query):
-        archsystem = {
-            "System_Info": req["sysInfo"],
-            "System_Description": req["sysDesc"],
-            "System_Location": req["sysLoc"],
-            "System_Router": req["sysRouter"],
-            "System_Switch": req["sysSwitch"],
-            "System_Room": req["sysRoom"],
-            "Test_Plan": req["sysTestPlan"],
-            "Confidentiality": req["Confidentiality"],
-            "Integrity": req["Integrity"],
-            "Availability": req["Availability"],
-            "Num_Task": 13,
-            "Num_Findings": 10,
-            "Progress": "0%",
-            "Event_ID": req["eventID"],
-        }
+    archsystem = {
+        "System_Info": req["sysInfo"],
+        "System_Description": req["sysDesc"],
+        "System_Location": req["sysLoc"],
+        "System_Router": req["sysRouter"],
+        "System_Switch": req["sysSwitch"],
+        "System_Room": req["sysRoom"],
+        "Test_Plan": req["sysTestPlan"],
+        "Confidentiality": req["Confidentiality"],
+        "Integrity": req["Integrity"],
+        "Availability": req["Availability"],
+        "Num_Task": 13,
+        "Num_Findings": 10,
+        "Progress": "0%",
+        "Event_ID": req["eventID"],
+    }
     mycollection.delete_one(archsystem)
     return "OK"
 
@@ -2378,6 +2389,7 @@ def archSubTask():
         )
     return jsonify(subtask_json)
 
+
 @app.route("/add_back_to_subtask", methods=["POST"])
 def addBackArchiveSubTask():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -2403,6 +2415,7 @@ def addBackArchiveSubTask():
     }
     mycollection.insert_one(subtask)
     return "OK"
+
 
 @app.route("/add_archive_subtask", methods=["POST"])
 def addArchiveSubtask():
@@ -2538,7 +2551,6 @@ def archFinding():
                 "taskID": e["Task_ID"],
                 "subtaskID": e["Subtask_ID"],
                 "analyst": e["analyst"],
-                
             }
         )
     return jsonify(finding_json)  # return what was found in the collection
@@ -2554,10 +2566,10 @@ def addToArchiveFinding():
 
     req = request.get_json()
 
-    print("This is req --->" , req)
+    print("This is req --->", req)
 
     finding = {
-        "id": req ["id"],
+        "id": req["id"],
         "Host_Name": req["hostName"],
         "IP_Port": req["ip_port"],
         "Description": req["description"],
@@ -2595,7 +2607,7 @@ def addToArchiveFinding():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
-        "analyst" : req['analyst']
+        "analyst": req["analyst"],
     }
 
     mycollection.insert_one(finding)  # Send information to collection
@@ -2618,7 +2630,6 @@ def deleteArchiveFinding():
 
     for t in mycollection.find(query):
         archfinding = {
-            
             "Host_Name": req["hostName"],
             "IP_Port": req["ip_port"],
             "Description": req["description"],
@@ -2661,6 +2672,7 @@ def deleteArchiveFinding():
     mycollection.delete_one(archfinding)  # Send information to collection
     return "OK"
 
+
 @app.route("/add_back_to_finding", methods=["POST"])
 def addArchiveFinding():
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -2669,7 +2681,7 @@ def addArchiveFinding():
 
     req = request.get_json()
     finding = {
-        "id": req ["id"],
+        "id": req["id"],
         "Host_Name": req["hostName"],
         "IP_Port": req["ip_port"],
         "Description": req["description"],
@@ -2707,10 +2719,8 @@ def addArchiveFinding():
         "System_ID": req["systemID"],
         "Task_ID": req["taskID"],
         "Subtask_ID": req["subtaskID"],
-        "analyst" : req["analyst"],
-        
+        "analyst": req["analyst"],
     }
 
     mycollection.insert_one(finding)
     return "OK"
-
