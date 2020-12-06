@@ -27,6 +27,7 @@ export default function SystemContentView(props) {
   function handleDialogOpen(state) {
     handleDialog(true)//Open the modal
     selectedSystem(state)//Remeber the system that you selected to view.
+    SendLog("Add System")
   }
 
   //Action to be done when closing the dialog.
@@ -36,7 +37,7 @@ export default function SystemContentView(props) {
 
   function handleArch(state) {
     selectedSystem(state)
-    console.log("archived system");
+    console.log("Archived System");
     console.log(state)
     fetch("/add_archive_system", {
       method: 'POST',
@@ -75,7 +76,7 @@ export default function SystemContentView(props) {
     var action = {
       date: getCurrentDate("/"),
       action: e,
-      analyst: ""
+      analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA"
     }
     action.analyst = "";
     fetch('/addlog', {
