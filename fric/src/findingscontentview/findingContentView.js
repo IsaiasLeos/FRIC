@@ -65,6 +65,42 @@ export default function FindingContentView(props) {
     })
   }
 
+  function handleArch(state) {
+    selectedFinding(state)
+    state.analyst = localStorage.getItem('analyst'); 
+    console.log(state)
+    fetch("/add_archive_finding", { // Need to add to the python here
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(state),
+    }).then(response => response.json())
+      .then(data => {
+        console.log("Success", data);
+      })
+      .catch(error => {
+        console.error('Error', error)
+      });
+    //SendLog("Archiving Finding");
+
+    // Deleting Current System
+    fetch("/delete_finding", {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(state),
+    }).then(response => response.json())
+      .then(data => {
+        console.log("Success", data);
+      })
+      .catch(error => {
+        console.error('Error', error)
+      });
+    //SendLog("Removing System");
+  }
+
   function generateRiskMatrix() {
     fetch('/createRiskMatrix', {
       method: 'POST',
@@ -128,7 +164,7 @@ export default function FindingContentView(props) {
                   <th>Classification</th>
                   <th>Type</th>
                   <th>Risk</th>
-
+                  <th><Button variant="dark"> Archive All </Button></th>
                 </tr>
               </thead>
               <tbody>
@@ -137,15 +173,15 @@ export default function FindingContentView(props) {
                     <td><input type="checkbox" /></td>
                     <td>{state.id}</td>
                     <td><Button onClick={() => handleDialogOpen(state)} variant="outline-dark">{state.hostName}</Button></td>
-                    <td>{state.findingSystem}</td>
-                    <td>{state.findingTask}k</td>
-                    <td>{state.findingSubtask}</td>
-                    <td>{state.findingAnalyst}</td>
+                    <td>{state.systemID}</td>
+                    <td>{state.taskID}</td>
+                    <td>{state.subtaskID}</td>
+                    <td>{localStorage.getItem('analyst')}</td>
                     <td>{state.findingStatus}</td>
                     <td>{state.findingClassification}</td>
                     <td>{state.findingType}</td>
                     <td>{state.findingRisk}</td>
-
+                    <td><Button variant="dark" onClick={() => handleArch(state)} > Archive </Button></td>
 
                   </tr>
                 ))}

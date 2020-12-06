@@ -48,6 +48,7 @@ class FindingMaster extends React.Component {
             systemID: '',
             taskID: '',
             subtaskID: '',
+            analyst: '',
         };
 
         this.updateData = this.updateData.bind(this);
