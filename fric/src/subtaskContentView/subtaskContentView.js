@@ -69,6 +69,43 @@ export default function SubtaskContentView(props) {
             });
             SendLog("Removing Subtask");
     }
+
+    
+    function handlePromote(state) {
+        selectedSubtask(state)
+        console.log("Promote subtask");
+        console.log(state)
+        fetch("/promote_subtask", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+            }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+            SendLog("Promoting Subtask");
+    
+            // Deleting Current System
+            fetch("/delete_subtask", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+            }).then(response => response.json())
+            .then(data => {
+                console.log("Success", data);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+            SendLog("Removing Subtask");
+    }
     
 
     function SendLog(a) {
@@ -139,7 +176,10 @@ export default function SubtaskContentView(props) {
                                 <td>{state.subtaskProgress}</td>
                                 <td>{state.numFindings}</td>
                                 <td>{state.subtaskDueDate}</td>
-                                <td><Button variant="dark" onClick={() => handleArch(state)} > Archive </Button></td>
+                                <td>
+                                    <Button variant="dark" onClick={() => handleArch(state)} > Archive </Button>
+                                    <Button variant="dark" onClick={() => handlePromote(state)} > Promote </Button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
