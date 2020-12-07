@@ -3,7 +3,7 @@ import '../generalView/style.css'
 import 'react-bootstrap'
 import '../assets/css/bootstrap.css'
 import Modal from 'react-bootstrap/Modal'
-import { useState, useEffect, useRef} from "react"
+import { useState, useEffect, useRef } from "react"
 import Button from 'react-bootstrap/Button'
 
 function GeneralView() {
@@ -22,7 +22,7 @@ function GeneralView() {
     //       return () => clearTimeout(timer);
     //     }, (1000 * 60) );
     //   }, []);
-   
+
     //Timer implementation  to get user input
     // const [delay, setDelay] = useState(1000);
 
@@ -33,16 +33,16 @@ function GeneralView() {
     // function handleDelayChange(e) {
     //     setDelay(Number(e.target.value));
     // }
-    
+
     // //Custom hook to set and clear delay
     // function useInterval(callback, delay) {
     //     const savedCallback = useRef();
-      
+
     //     // Remember the latest function.
     //     useEffect(() => {
     //       savedCallback.current = callback;
     //     }, [callback]);
-      
+
     //     // Set up the interval.
     //     useEffect(() => {
     //       if (delay !== null) {
@@ -52,8 +52,8 @@ function GeneralView() {
     //     }, [delay]);
     //   }
 
-    
-    
+
+
 
     return (
         <div>
@@ -90,6 +90,9 @@ function GeneralView() {
                             <a className="nav-link" href="/Setup">Setup</a>
                         </li>
                         <li className="nav-item">
+                            <a className="nav-link" href="/AnalystSummary">Summary</a>
+                        </li>
+                        <li className="nav-item">
                             <a className="nav-link" href="/Help">Help</a>
                         </li>
                         <li className="nav-item">
@@ -99,9 +102,6 @@ function GeneralView() {
                             <a className="nav-link" href="/Notify"> EX </a>
                         </li> */}
                     </ul>
-                    <form className="form-inline my-2 my-md-0">
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-                    </form>
                 </div>
             </nav>
 
@@ -133,9 +133,9 @@ function GeneralView() {
                         </label><br />
 
                         <label htmlFor="frequency">
-                                Frequency:<br/>
-                                {/* <input value={delay} onChange={handleDelayChange} placeholder="frequency in min" /> */}       
-                        </label><br/>
+                            Frequency:<br />
+                            {/* <input value={delay} onChange={handleDelayChange} placeholder="frequency in min" /> */}
+                        </label><br />
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
