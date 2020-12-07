@@ -5,128 +5,43 @@ import GeneralView from '../generalView/generalView'
 import TaskContentView from '../taskcontentview/taskContentView'
 import SubtaskContentView from '../subtaskContentView/subtaskContentView'
 import FindingContentView from '../findingscontentview/findingContentView'
-import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
-import Tree from '../eventTree/eventTree'
 class analystSummaryView extends React.Component {
     constructor() {
         super();
         this.state = {
-            data: [],
-            sysInfo: "",
-            sysDesc: "",
-            sysLoc: "",
-            sysRouter: "",
-            sysSwitch: "",
-            sysRoom: "",
-            sysTestPlan: "",
-            Confidentiality: "",
-            Integrity: "",
-            Availability: "",
-            num_task: "",
-            num_findings: "",
-            progress: "",
+            taskdata: [],
+            subtaskdata: [],
+            findingdata: [],
+            systemdata: [],
         };
-
-        this.state1 = {
-            data: [],
-            id: '',
-            hostName: '',
-            ip_port: '',
-            description: '',
-            longDescription: '',
-            findingStatus: '',
-            findingType: '',
-            findingClassification: '',
-            findingSystem: '',
-            findingTask: '',
-            findingSubtask: '',
-            relatedFindings: '',
-            findingConfidentiality: '',
-            findingIntegrity: '',
-            findingAvailability: '',
-            findingAnalyst: '',
-            findingCollaborators: '',
-            findingPosture: '',
-            mitigationDesc: '',
-            mitigationLongDesc: '',
-            threatRelevence: '',
-            countermeasure: '',
-            impactDesc: '',
-            impactLevel: '',
-            severityCategoryScore: '',
-            vulnerabilityScore: '',
-            quantitativeScore: '',
-            findingRisk: '',
-            findingLikelihood: '',
-            findingCFIS: '',
-            findingIFIS: '',
-            findingAFIS: '',
-            impactScore: '',
-            activeTasks: '',
-            findingFiles: '',
-            severityCategoryCode: '',
-            systemID: '',
-            taskID: '',
-            subtaskID: '',
-            analyst: '',
-        };
-
-
-        this.state2 = {
-            data: [],
-            subtaskTitle: "",
-            subtaskDescription: "",
-            subtaskProgress: "",
-            subtaskDueDate: "",
-            analysts: "",
-            collaborators: "",
-            relatedTask: "",
-            subtasks: "",
-            attachments: "",
-            numFindings: "",
-            analyst: "",
-            task: "",
-            taskID: ""
-        };
-
-        this.state3 = {
-            data: [],
-            id: "",
-            taskTitle: "",
-            taskDescription: "",
-            system: "",
-            taskPriority: "",
-            taskProgress: "",
-            taskDueDate: "",
-            taskAnalysts: "",
-            taskCollaborators: "",
-            relatedTasks: "",
-            attachments: "",
-            subtaskID: "",
-            systemID: '',
-        };
-        this.updateData = this.updateData.bind();
-        this.progress = 0;
+        this.updateData = this.updateData.bind(this);
     }
 
-    updateData() {
+    //Fetches information about current task content
+    componentDidMount() {
+        //Display arc system
         fetch('/getsystem').then(
-            response => response.json()).then(data => this.setState({
-                data: data
+            response => response.json()).then(systemdata => this.setState({
+                systemdata: systemdata
             })).catch(error => console.error(error));
         fetch('/subtasks').then(
-            response => response.json()).then(data => this.setState({
-                data: data
+            response => response.json()).then(findingdata => this.setState({
+                findingdata: findingdata
             })).catch(error => console.error(error));
         fetch('/tasks').then(
-            response => response.json()).then(data => this.setState({
-                data: data
+            response => response.json()).then(taskdata => this.setState({
+                taskdata: taskdata
             })).catch(error => console.error(error));
         fetch('/analystFindings').then(
-            response => response.json()).then(data => this.setState({
-                data: data
+            response => response.json()).then(subtaskdata => this.setState({
+                subtaskdata: subtaskdata
             })).catch(error => console.error(error));
+    }
+
+
+
+    updateData() {
     }
 
     render() {
@@ -138,24 +53,23 @@ class analystSummaryView extends React.Component {
                         <h1>Analyst Progress Summary View</h1>
                         <div id="systemTable">
                             <SystemContentView
-                                data={this.state.data}
+                                data={this.state.systemdata}
                                 updateData={this.updateData} />
                         </div>
-
                         <div id="taskTable">
                             <TaskContentView
-                                data={this.state3.data}
+                                data={this.state.taskdata}
                                 updateData={this.updateData} />
                         </div>
                         <div id="subtaskTable">
                             <SubtaskContentView
-                                data={this.state2.data}
+                                data={this.state.subtaskdata}
                                 updateData={this.updateData} />
                         </div>
 
                         <div id="findingTable">
                             <FindingContentView
-                                data={this.state1.data}
+                                data={this.state.findingdata}
                                 updateData={this.updateData} />
                         </div>
                     </div>

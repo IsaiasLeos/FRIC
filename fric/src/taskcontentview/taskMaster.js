@@ -7,7 +7,7 @@ class TaskMaster extends React.Component {
         super(props);
         //Used to hold information about taskContentVIew
         this.state = {
-            data: [],
+            data3: [],
             id: "",
             taskTitle: "", 
             taskDescription: "", 
@@ -34,7 +34,7 @@ class TaskMaster extends React.Component {
         await this.sleep(1000);
         fetch('/tasks').then(
             response => response.json()).then(data => this.setState({
-                data: data
+                data3: data
             })).catch(error => console.error(error));
     }
 
@@ -43,7 +43,7 @@ class TaskMaster extends React.Component {
             <div>
                 <GeneralView/>
                 <TaskContentView
-                    data={this.state.data}
+                    data={this.state.data3}
                     updateData={this.updateData}
                 />
                 <div className="right-tree">

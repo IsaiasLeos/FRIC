@@ -8,21 +8,6 @@ class SystemMaster extends React.Component {
         //This will be used to hold the information that will later be updated in content view.
         this.state = {
             data: [],
-            id: '',
-            sysInfo: '',
-            sysDesc: '',
-            sysLoc: '',
-            sysRouter: '',
-            sysSwitch: '',
-            sysRoom: '',
-            sysTestPlan: '',
-            Confidentiality: '',
-            Integrity: '',
-            Availability: '',
-            num_task: '',
-            num_findings: '',
-            progress: '',
-            eventID: ''
         };
 
         this.updateData = this.updateData.bind(this);
