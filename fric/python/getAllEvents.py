@@ -1377,7 +1377,7 @@ def generateERB():
 
     
     # Start of Finding
-    for e in myFindingCollection.find():
+    for e in myFindingCollection.find({"analyst": req}):
         finding_json.append(
             {
                 "id": e["id"],
