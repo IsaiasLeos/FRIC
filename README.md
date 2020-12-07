@@ -16,11 +16,13 @@ For nodejs: https://nodejs.org/en/ | install 14.15.1 LTS
 
 
 For Python: https://www.python.org/downloads/ | install 3.9
+
 Note: Make sure to select the option to add to path.
 
 
 For Database: https://www.mongodb.com/try/download/community | install 4.4.2
 Note make sure to add the bin for this to your PATH
+
 C:\Program Files\MongoDB\Server\4.4\bin
 
 
