@@ -13,8 +13,13 @@ facilitate the collection of evidence on existing vulnerabilities, and generatio
 
 ## Install
 For nodejs: https://nodejs.org/en/ | install 14.15.1 LTS
+
+
 For Python: https://www.python.org/downloads/ | install 3.9
+
+
 For Database: https://www.mongodb.com/try/download/community | install 4.4.2
+
 
 WINDOWS
 ```sh
