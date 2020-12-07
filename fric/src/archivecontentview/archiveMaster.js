@@ -22,17 +22,17 @@ class ArchiveMaster extends React.Component {
     }
 
     //Fetches information about current task content
-    componentDidMount () {
+    componentDidMount() {
         //Display arc system
         fetch('/arch_system').then(
-                response => response.json()).then(systemdata => this.setState({
+            response => response.json()).then(systemdata => this.setState({
                 systemdata: systemdata
             })).catch(error => console.error(error));
         //Display arch_finding
         fetch('/arch_finding').then(
             response => response.json()).then(findingdata => this.setState({
                 findingdata: findingdata
-            })).catch(error => console.error(error));  
+            })).catch(error => console.error(error));
         //display arch_task
         fetch('/arch_task').then(
             response => response.json()).then(taskdata => this.setState({
@@ -42,12 +42,12 @@ class ArchiveMaster extends React.Component {
         fetch('/arch_subtask').then(
             response => response.json()).then(subtaskdata => this.setState({
                 subtaskdata: subtaskdata
-            })).catch(error => console.error(error));      
+            })).catch(error => console.error(error));
     }
-    async updateData(){
-        this.componentDidMount();
+    async updateData() {
+        await this.componentDidMount();
     }
-    
+
 
     render() {
         return (

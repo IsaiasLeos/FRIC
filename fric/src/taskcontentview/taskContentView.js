@@ -109,7 +109,7 @@ export default function TaskContentView(props) {
         var action = {
           date: getCurrentDate("/"),
           action: e,
-          analyst: ""
+          analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA"
         }
         action.analyst = "";
         fetch('/addlog', {

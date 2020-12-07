@@ -112,7 +112,7 @@ export default function SubtaskContentView(props) {
     var action = {//Create the action that you'll send.
         date: getCurrentDate("/"),//get current date.
         action: a,
-        analyst: ""
+        analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA"
     }
     fetch('/addlog', {
         method: 'POST',

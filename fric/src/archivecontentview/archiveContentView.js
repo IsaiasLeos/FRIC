@@ -168,7 +168,7 @@ export default function ArchiveContentView(props) {
         var action = {
             date: getCurrentDate("/"),
             action: e,
-            analyst: ""
+            analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA"
         }
         action.analyst = "";
         fetch('/addlog', {

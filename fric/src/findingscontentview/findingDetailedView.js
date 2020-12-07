@@ -182,7 +182,7 @@ function FindingDetailedView(props) {
         e.preventDefault();
         action.action = "submit system";
         action.date = getCurrentDate("/");
-        action.analyst = "";
+        action.analyst = localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA";
         fetch('/addlog', {
             method: 'POST',
             headers: {

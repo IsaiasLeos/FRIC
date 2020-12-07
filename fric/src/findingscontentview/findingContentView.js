@@ -37,7 +37,7 @@ export default function FindingContentView(props) {
     let action = {
       date: getCurrentDate("/"),
       action: a,
-      analyst: ""
+      analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA"
     }
     // console.log(action)
     fetch('/addlog', {
