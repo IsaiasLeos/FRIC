@@ -6,6 +6,7 @@ import BootstrapVersion from '../assets/bootstrap-4.5-blue.svg'
 import NodejsVersion from '../assets/nodejs-12.18.4-blue.svg'
 import ReactVersion from '../assets/react-latest-blue.svg'
 import FRICVersion from '../assets/version-1.23.7-blue.svg'
+import MongoVersion from '../assets/mongov442.png'
 
 class helpView extends React.Component {
 
@@ -31,23 +32,16 @@ facilitate the collection of evidence on existing vulnerabilities, and generatio
                         <img alt="Nodejs" src={NodejsVersion} />
                         <img alt="React" src={ReactVersion} />
                         <img alt="fric" src={FRICVersion} />
+                        <img alt="fric" src={MongoVersion} />
                     </p></div>
 
                 <h3 id="-homepage-https-github-com-isaiasleos-fric-"><span role="img" aria-label="emoji">🏠</span><a href="https://github.com/IsaiasLeos/FRIC">Homepage</a></h3>
-                <h2 id="install">Install</h2>
-                <pre><code className="lang-sh">cd FRIC/fric <span className="hljs-keyword"></span>
-                </code></pre>
-                <pre><code className="lang-sh">npm <span className="hljs-keyword">install</span>
-                </code></pre>
-                <h2 id="usage">Usage</h2>
-                <pre><code className="lang-sh">npm <span className="hljs-keyword">run </span><span className="bash">start-flask-api</span>
-                </code></pre>
-
-                <pre><code className="lang-sh">npm <span className="hljs-keyword">run </span><span className="bash">start</span>
-                </code></pre>
-                <h2 id="run-tests">Run tests</h2>
-                <pre><code className="lang-sh">npm <span className="hljs-keyword">run</span><span className="bash"> <span className="hljs-built_in">test</span></span>
-                </code></pre>
+                <br/>
+                <br/>
+                <h1 id="install">For Instructions and Usages: Refer to the Project's README.md</h1>
+                <br/>
+                <br/>
+                <br/>
                 <h2 id="author">Author</h2>
                 <p>
                     <span role="img" aria-label="emoji">👤</span><strong>Isaias Leos</strong>
