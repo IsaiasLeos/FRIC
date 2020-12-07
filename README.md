@@ -24,7 +24,10 @@ cd FRIC/fric/python
 python -m venv venv
 cd venv/Scripts/
 ```
-While in command prompt run ```sh activate.bat```
+While in command prompt run 
+```sh 
+activate.bat
+```
 While in virtual environment
 ```sh
 While in the virtual environment Then run 
