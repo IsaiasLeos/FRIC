@@ -35,7 +35,6 @@ activate.bat
 ```
 While in virtual environment
 ```sh
-While in the virtual environment Then run 
 pip install flask
 pip install pymongo
 pip install python-docx
