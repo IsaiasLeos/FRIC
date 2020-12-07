@@ -388,7 +388,7 @@ class eventDetailedView extends React.Component {
 
 
                                 <label htmlFor="psw">
-                                    Title:<br />
+                                    IP:<br />
                                     <input type="text" placeholder="" name="title" onChange={this.onChange} required></input>
                                 </label>
                             </div>
@@ -413,7 +413,7 @@ class eventDetailedView extends React.Component {
                                 <thead>
                                 <tr>
                                     <th>Delete</th>
-                                    <th>analysts</th>
+                                    <th>Analysts</th>
                                     <th>IP Address</th>
                                 </tr>
                                 </thead>
