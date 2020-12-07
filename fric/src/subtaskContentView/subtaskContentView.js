@@ -139,7 +139,6 @@ export default function SubtaskContentView(props) {
                 <div class="title-buttons">
                     <h2>Subtask Overview Table</h2>
                     <ButtonGroup>
-                        <Button variant="dark">Promote</Button>
                         <Button variant="dark" onClick={handleDialogOpen}>Add</Button>
                     </ButtonGroup>
                 </div>
