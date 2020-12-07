@@ -31,11 +31,11 @@ Command Prompt 2
 ```sh
 cd FRIC/fric/python
 python -m venv venv
-cd venv/Scripts/
-activate.bat
 ```
 While in virtual environment
 ```sh
+cd FRIC/fric/python/venv/Scripts/
+activate.bat
 pip install flask
 pip install pymongo
 pip install python-docx
@@ -45,17 +45,30 @@ pip install python-dotenv
 set FLASK_APP=getAllEvents.py
 set FLASK_ENV=development
 ```
+
+## Usage
+Command Prompt 1
+```sh
+npm run start
+```
+
+Command Prompt 2
+```sh
+cd FRIC/fric/python/venv/Scripts/
+activate.bat
+flask run
+```
+
 Command Prompt 3
-Note: Make sure you add C:\Program Files\MongoDB\Server\4.4\bin to your PATH before opening up command prompt 3 then run
 ```sh
 mongo
 ```
 
-## Usage
+## BUGS
 
-```sh
-npm run start
-```
+There is one bug, when the website opens, Make sure to Click on the top left on the navigation bar.
+![BUG_IMAGE](https://i.imgur.com/yE0K9Wl.png)
+
 
 ## Run tests
 
