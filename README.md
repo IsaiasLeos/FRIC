@@ -20,17 +20,18 @@ For Python: https://www.python.org/downloads/ | install 3.9
 
 For Database: https://www.mongodb.com/try/download/community | install 4.4.2
 
-
 WINDOWS
+Command Prompt 1
 ```sh
 cd FRIC/fric
 npm install
+```
+
+Command Prompt 2
+```sh
 cd FRIC/fric/python
 python -m venv venv
 cd venv/Scripts/
-```
-While in command prompt run 
-```sh 
 activate.bat
 ```
 While in virtual environment
@@ -44,6 +45,12 @@ pip install python-dotenv
 set FLASK_APP=getAllEvents.py
 set FLASK_ENV=development
 ```
+Command Prompt 3
+Note: Make sure you add C:\Program Files\MongoDB\Server\4.4\bin to your PATH before opening up command prompt 3 then run
+```sh
+mongo
+```
+
 ## Usage
 
 ```sh
