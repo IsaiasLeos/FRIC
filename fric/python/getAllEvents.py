@@ -142,7 +142,10 @@ def eventsOverview():
     for f in myTaskCollection.find(): 
         tasks_json.append({"progress":f["Task_Progress"]})
         task_progress = task_progress + int(f["Task_Progress"])
-    task_progress = task_progress / len(tasks_json)
+    lengthoftask = len(tasks_json)
+    if lengthoftask == 0:
+        lengthoftask = 1
+    task_progress = task_progress / lengthoftask
     
 
     # Event Overview Information

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import GeneralView from '../generalView/generalView'
 import 'react-bootstrap'
 import SortImage from '../assets/updownarrow.png'
 import { Button, Table } from 'react-bootstrap';
@@ -27,8 +28,8 @@ export default function ArchiveContentView(props) {
             },
             body: JSON.stringify(state),
         }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
+            .then(taskdata => {
+                console.log("Success", taskdata);
             })
             .catch(error => {
                 console.error('Error', error)
@@ -49,9 +50,7 @@ export default function ArchiveContentView(props) {
             .catch(error => {
                 console.error('Error', error)
             });
-        console.log("delete task")
-        SendLog("Removing task from Archive");
-        props.updateData();
+        SendLog("Removing Task from Archive");
     }
 
     //Restore system data
@@ -65,8 +64,8 @@ export default function ArchiveContentView(props) {
             },
             body: JSON.stringify(state),
         }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
+            .then(taskdata => {
+                console.log("Success", taskdata);
             })
             .catch(error => {
                 console.error('Error', error)
@@ -87,7 +86,7 @@ export default function ArchiveContentView(props) {
                 console.error('Error', error)
             });
         SendLog("Removing System from Archive");
-        props.updateData();
+
     }
 
     // Restore Finding Data
@@ -124,43 +123,7 @@ export default function ArchiveContentView(props) {
                 console.error('Error', error)
             });
         SendLog("Removing Finding from Archive");
-        props.updateData();
-    }
 
-    //Restore subtask data
-    function handle_subtask_restore(state) {
-        console.log(state)
-        console.log("restore subtask");
-        fetch("/add_back_to_subtask", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(state),
-        }).then(response => response.json())
-            .then(subtaskdata => {
-                console.log("Success", subtaskdata);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-        SendLog("Restoring Subtask");
-        //Deleting current archive task state
-        fetch("/delete_archive_subtask", {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(state),
-        }).then(response => response.json())
-            .then(data => {
-                console.log("Success", data);
-            })
-            .catch(error => {
-                console.error('Error', error)
-            });
-        SendLog("Removing Subtask from Archive");
-        props.updateData();
     }
 
     // Handles logging information
@@ -168,7 +131,7 @@ export default function ArchiveContentView(props) {
         var action = {
             date: getCurrentDate("/"),
             action: e,
-            analyst: localStorage.getItem('analyst') ? localStorage.getItem('analyst') : "NA"
+            analyst: ""
         }
         action.analyst = "";
         fetch('/addlog', {
@@ -181,39 +144,12 @@ export default function ArchiveContentView(props) {
     }
 
     // updates all tables data
-    // useEffect(() => {
-    //     props.updateData();
-    // });
+    useEffect(() => {
+        props.updateData();
+    });
 
     return (
         <div className="main">
-            <h2>Archived System</h2><br />
-            <Table striped bordered hover >
-                <thead class="thead-grey">
-                    <tr>
-                        <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">No. of Tasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th scope="col">Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th>Action</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.systemdata.map((state) => (
-                        <tr key={state.id}>
-                            <td> {state.sysInfo}</td>
-                            <td>{state.num_task}</td>
-                            <td>{state.num_findings}</td>
-                            <td>{state.prog}</td>
-                            <td><Button variant="dark" onClick={() => handle_system_restore(state)}> Restore System </Button></td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-
-
-            <br /><br />
             <h2>Archived Tasks</h2><br />
             <Table striped bordered hover >
                 <thead class="thead-grey">
@@ -226,7 +162,7 @@ export default function ArchiveContentView(props) {
                         <th>No. of Subtasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th>No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /> </th>
                         <th>Due Date<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th>Action</th>
+                        <th><Button variant="dark">Restore All Task</Button><br /></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -241,7 +177,6 @@ export default function ArchiveContentView(props) {
                             <td>{state.num_finding}</td>
                             <td>{state.taskDueDate}</td>
                             <td><Button variant="dark" onClick={() => handle_task_restore(state)}> Restore Task </Button></td>
-
                         </tr>
                     ))}
                 </tbody>
@@ -258,19 +193,34 @@ export default function ArchiveContentView(props) {
                         <th scope="col"> Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">Due Date<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th>Action</th>
+                        <th><Button variant="dark">Restore All SubTask</Button></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {props.subtaskdata.map((state) => (
-                        <tr>
-                            <td>{state.subtaskTitle}</td>
-                            <td>{state.relatedTask}</td>
-                            <td>{state.analyst}</td>
-                            <td>{state.subtaskProgress}</td>
-                            <td>{state.numFindings}</td>
-                            <td>{state.subtaskDueDate}</td>
-                            <td><Button variant="dark" onClick={() => handle_subtask_restore(state)}> Restore subtask </Button></td>
+                </tbody>
+            </Table>
+
+            <br /><br />
+
+            <h2>Archived System</h2><br />
+            <Table striped bordered hover >
+                <thead class="thead-grey">
+                    <tr>
+                        <th scope="col">System<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">No. of Tasks<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">No. of Findings<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th scope="col">Progress<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
+                        <th><Button variant="dark">Restore All System</Button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.systemdata.map((state) => (
+                        <tr key={state.id}>
+                            <td> {state.sysInfo}</td>
+                            <td>{state.num_task}</td>
+                            <td>{state.num_findings}</td>
+                            <td>{state.prog}</td>
+                            <td><Button variant="dark" onClick={() => handle_system_restore(state)}> Restore Task </Button></td>
                         </tr>
                     ))}
                 </tbody>
@@ -292,12 +242,12 @@ export default function ArchiveContentView(props) {
                         <th scope="col">Classification<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">Type<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
                         <th scope="col">Risk<input type="image" src={SortImage} className="sort-button" alt="sort button" /></th>
-                        <th>Action</th>
+                        <th><Button variant="dark">Restore All Findings</Button> </th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        props.findingdata.map((state) => (
+                    props.findingdata.map((state) => (
                             <tr key={state.id}>
                                 <td>{state.id}</td>
                                 <td>{state.hostName}</td>
@@ -310,10 +260,10 @@ export default function ArchiveContentView(props) {
                                 <td>{state.findingType}</td>
                                 <td>{state.findingRisk}</td>
                                 <td><Button variant="dark" onClick={() => handle_finding_restore(state)}> Restore Finding</Button></td>
-
+                                
                             </tr>
                         ))
-                    }
+                        }
                 </tbody>
             </Table>
 

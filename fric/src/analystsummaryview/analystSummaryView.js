@@ -25,15 +25,27 @@ class analystSummaryView extends React.Component {
             response => response.json()).then(systemdata => this.setState({
                 systemdata: systemdata
             })).catch(error => console.error(error));
-        fetch('/subtasks').then(
-            response => response.json()).then(findingdata => this.setState({
-                findingdata: findingdata
-            })).catch(error => console.error(error));
+
+        fetch('/analystFindings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(localStorage.getItem('analyst')),
+        }).then(response => response.json())
+            .then(findingdata => {
+                this.setState({ findingdata: findingdata })
+                console.log("Success", findingdata);
+            })
+            .catch(error => {
+                console.error('Error', error)
+            });
+
         fetch('/tasks').then(
             response => response.json()).then(taskdata => this.setState({
                 taskdata: taskdata
             })).catch(error => console.error(error));
-        fetch('/analystFindings').then(
+        fetch('/subtasks').then(
             response => response.json()).then(subtaskdata => this.setState({
                 subtaskdata: subtaskdata
             })).catch(error => console.error(error));
