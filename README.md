@@ -12,11 +12,31 @@ facilitate the collection of evidence on existing vulnerabilities, and generatio
 ### 🏠 [Homepage](https://github.com/IsaiasLeos/FRIC)
 
 ## Install
+For nodejs: https://nodejs.org/en/ | install 14.15.1 LTS
+For Python: https://www.python.org/downloads/ | install 3.9
+For Database: https://www.mongodb.com/try/download/community | install 4.4.2
 
+WINDOWS
 ```sh
+cd FRIC/fric
 npm install
+cd FRIC/fric/python
+python -m venv venv
+cd venv/Scripts/
 ```
-
+While in command prompt run ```sh activate.bat```
+While in virtual environment
+```sh
+While in the virtual environment Then run 
+pip install flask
+pip install pymongo
+pip install python-docx
+pip install openpyxl
+pip install python-pptx
+pip install python-dotenv
+set FLASK_APP=getAllEvents.py
+set FLASK_ENV=development
+```
 ## Usage
 
 ```sh
