@@ -12,16 +12,69 @@ facilitate the collection of evidence on existing vulnerabilities, and generatio
 ### 🏠 [Homepage](https://github.com/IsaiasLeos/FRIC)
 
 ## Install
+For nodejs: https://nodejs.org/en/ | install 14.15.1 LTS
 
+
+For Python: https://www.python.org/downloads/ | install 3.9
+
+Note: Make sure to select the option to add to path.
+
+
+For Database: https://www.mongodb.com/try/download/community | install 4.4.2
+Note make sure to add the bin for this to your PATH
+
+C:\Program Files\MongoDB\Server\4.4\bin
+
+
+WINDOWS
+Command Prompt 1
 ```sh
+cd FRIC/fric
 npm install
 ```
 
-## Usage
+Command Prompt 2
+```sh
+cd FRIC/fric/python
+python -m venv venv
+```
+While in virtual environment
+```sh
+cd FRIC/fric/python/venv/Scripts/
+activate.bat
+pip install flask
+pip install pymongo
+pip install python-docx
+pip install openpyxl
+pip install python-pptx
+pip install python-dotenv
+set FLASK_APP=getAllEvents.py
+set FLASK_ENV=development
+```
 
+## Usage
+Command Prompt 1
 ```sh
 npm run start
 ```
+
+Command Prompt 2
+```sh
+cd FRIC/fric/python/venv/Scripts/
+activate.bat
+flask run
+```
+
+Command Prompt 3
+```sh
+mongo
+```
+
+## BUGS
+
+There is one bug, when the website opens, Make sure to Click on the top left on the navigation bar.
+![BUG_IMAGE](https://i.imgur.com/yE0K9Wl.png)
+
 
 ## Run tests
 
